@@ -1,0 +1,16 @@
+# Python pipeline
+data-pipeline/.venv/
+data-pipeline/raw/
+**/__pycache__/
+*.egg-info/
+.pytest_cache/
+
+# Frontend
+web/node_modules/
+web/dist/
+web/_shot.mjs
+web/*.tsbuildinfo
+web/tsconfig.tsbuildinfo
+
+# Generated data is committed (web/src/data/*) so the site builds without the
+# pipeline — do NOT ignore it.
