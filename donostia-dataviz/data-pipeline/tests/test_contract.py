@@ -62,3 +62,34 @@ def test_registry_entries_have_required_fields(registry):
     required = {"id", "label", "theme", "geoGrain", "timeGrain", "source", "status"}
     for entry in registry:
         assert required <= set(entry), f"missing fields in {entry.get('id')}"
+
+
+# --- city-grain time series (series_*.json) ---
+
+
+@pytest.fixture(scope="module")
+def series_registry():
+    path = DATA_DIR / "series.json"
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_series_registry_matches_files(series_registry):
+    listed = {e["id"] for e in series_registry}
+    files = {p.stem.removeprefix("series_") for p in DATA_DIR.glob("series_*.json")}
+    assert listed == files, f"series registry/files mismatch: {listed ^ files}"
+
+
+def test_series_axes_are_well_formed(series_registry):
+    valid_months = {str(m) for m in range(1, 13)}
+    for entry in series_registry:
+        series = json.loads(
+            (DATA_DIR / f"series_{entry['id']}.json").read_text(encoding="utf-8")
+        )
+        assert series["years"] == sorted(set(series["years"]))
+        year_set = set(series["years"])
+        for year, by_month in series["values"].items():
+            assert year in year_set, f"{entry['id']}: stray year {year}"
+            for month in by_month:
+                assert month in valid_months, f"{entry['id']}: bad month {month}"

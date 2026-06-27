@@ -111,18 +111,20 @@ class Series:
 
 
 def validate_series(series: Series) -> None:
-    """Raise ``ValueError`` if ``series`` breaks an invariant."""
+    """Raise ``ValueError`` if ``series`` breaks an invariant.
+
+    Note: values may be negative — a series can be a temperature or an anomaly,
+    not just a count. Only the year/month axes are constrained.
+    """
     if list(series.years) != sorted(set(series.years)):
         raise ValueError(f"{series.id}: years must be sorted and unique")
     year_set = set(series.years)
     for year, by_month in series.values.items():
         if year not in year_set:
             raise ValueError(f"{series.id}: year {year!r} not in years")
-        for month, value in by_month.items():
+        for month in by_month:
             if month not in {str(m) for m in range(1, 13)}:
                 raise ValueError(f"{series.id}: bad month {month!r}")
-            if value is not None and value < 0:
-                raise ValueError(f"{series.id}: negative value {year}/{month}")
 
 
 def validate(metric: Metric, valid_barrio_ids: set[str]) -> None:

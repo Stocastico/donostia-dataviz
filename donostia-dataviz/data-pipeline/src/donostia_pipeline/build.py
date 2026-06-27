@@ -9,13 +9,23 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
+import time
 from pathlib import Path
 
 import requests
 
 from . import config, geometry
-from .datasets import demografia, estudios, ine_eoh, renta, vut, vut_density
+from .datasets import (
+    aemet_climate,
+    demografia,
+    estudios,
+    ine_eoh,
+    renta,
+    vut,
+    vut_density,
+)
 from .model import BuildContext, Metric, Series, validate, validate_series
 
 # Raw files to ensure present before building. (filename -> URL)
@@ -52,7 +62,66 @@ RAW_DOWNLOADS: dict[str, str] = {
 DATASETS = [vut, demografia, renta, estudios, vut_density]
 
 # City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
-SERIES_DATASETS = [ine_eoh]
+SERIES_DATASETS = [ine_eoh, aemet_climate]
+
+# AEMET climate fetch: monthly endpoint caps each request at 36 months, so we
+# pull the history in 3-year windows and cache the concatenation in raw/.
+AEMET_RAW = "aemet_igeldo.json"
+AEMET_YEAR_RANGE = (1981, 2025)
+AEMET_DATOS_URL = (
+    "https://opendata.aemet.es/opendata/api/valores/climatologicos/"
+    "mensualesanuales/datos/anioini/{ini}/aniofin/{fin}/estacion/"
+    + config.AEMET_IGELDO_STATION
+)
+
+
+def ensure_aemet(offline: bool) -> bool:
+    """Fetch the Igeldo monthly climate history into raw/ (once).
+
+    Needs a free key in ``AEMET_API_KEY``. Returns False (and skips, leaving the
+    climate series unbuilt) when offline, keyless, or already cached-but-absent.
+    """
+    dest = config.RAW_DIR / AEMET_RAW
+    if dest.exists():
+        return True
+    key = os.environ.get(config.AEMET_API_KEY_ENV)
+    if offline or not key:
+        print("  · AEMET skipped (no AEMET_API_KEY / offline)")
+        return False
+
+    records: list[dict] = []
+    ini, fin = AEMET_YEAR_RANGE
+    for start in range(ini, fin + 1, 3):
+        end = min(start + 2, fin)
+        chunk = _fetch_aemet_window(start, end, key)
+        if chunk is None:
+            raise RuntimeError(f"AEMET fetch failed for {start}-{end}")
+        records.extend(chunk)
+        time.sleep(2)  # space out windows; the free API throttles bursts
+
+    dest.write_text(json.dumps(records, ensure_ascii=False), encoding="utf-8")
+    print(f"  ↓ AEMET Igeldo ({len(records)} monthly records)")
+    return True
+
+
+def _fetch_aemet_window(start: int, end: int, key: str) -> list[dict] | None:
+    """Fetch one 3-year window, retrying on the free API's rate limiting.
+
+    AEMET answers with a pointer JSON (``estado``/``datos``); ``estado`` 429
+    means throttled. Returns the records list, or None if it never succeeds.
+    """
+    url = AEMET_DATOS_URL.format(ini=start, fin=end)
+    for attempt in range(5):
+        ptr = requests.get(url, params={"api_key": key}, timeout=60).json()
+        datos = ptr.get("datos")
+        if datos:
+            resp = requests.get(datos, timeout=60)
+            if resp.status_code == 200:
+                resp.encoding = "latin-1"  # AEMET serves ISO-8859-15
+                return json.loads(resp.text)
+        # throttled or transient → exponential backoff (3, 6, 12, 24s)
+        time.sleep(3 * 2**attempt)
+    return None
 
 # Roadmap: metrics whose sources are known but not yet wired (manual/PDF/API).
 # They appear in the UI disabled ("in arrivo") so the catalogue shows intent.
@@ -66,18 +135,6 @@ PLANNED_METRICS = [
         "geoGrain": "barrio",
         "timeGrain": "month",
         "source": "Indomio (scraping, in arrivo)",
-        "status": "planned",
-        "periods": [],
-    },
-    {
-        "id": "temp_avg",
-        "label": "Temperatura media",
-        "unit": "°C",
-        "theme": "climate",
-        "kind": "sequential",
-        "geoGrain": "city",
-        "timeGrain": "month",
-        "source": "AEMET — stazione Igeldo 1024E (API key, in arrivo)",
         "status": "planned",
         "periods": [],
     },
@@ -143,6 +200,7 @@ def run(offline: bool = False) -> dict:
     print(f"  ✓ metrics.json ({len(registry)} metrics)")
 
     # 4. City-grain time series (seasonality heatmaps etc.).
+    ensure_aemet(offline)
     series_list: list[Series] = []
     for module in SERIES_DATASETS:
         series_list.extend(module.build_series(ctx))

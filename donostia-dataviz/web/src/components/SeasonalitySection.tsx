@@ -7,7 +7,10 @@ import type { SeriesData } from "../lib/types";
  * series have been built yet. */
 export function SeasonalitySection() {
   const available = seriesRegistry;
-  const [seriesId, setSeriesId] = useState(available[0]?.id ?? "");
+  // Default to temperature when present (shows the warming trend), else first.
+  const defaultId =
+    available.find((s) => s.id === "temp_avg")?.id ?? available[0]?.id ?? "";
+  const [seriesId, setSeriesId] = useState(defaultId);
   const [series, setSeries] = useState<SeriesData | null>(null);
 
   useEffect(() => {
@@ -24,7 +27,7 @@ export function SeasonalitySection() {
   return (
     <section className="seasonality">
       <div className="seasonality-head">
-        <h2>Stagionalità turistica</h2>
+        <h2>Serie temporali — mese × anno</h2>
         {available.length > 1 && (
           <select value={seriesId} onChange={(e) => setSeriesId(e.target.value)}>
             {available.map((s) => (
@@ -39,8 +42,9 @@ export function SeasonalitySection() {
         <>
           <p className="seasonality-sub">
             {series.label} — {series.years[0]}–{series.years[series.years.length - 1]}.
-            Le colonne sono gli anni, le righe i mesi: l'estate in alto a colori
-            caldi, la bassa stagione più chiara.
+            Le colonne sono gli anni, le righe i mesi: i colori più caldi
+            indicano i valori più alti. Rivela la stagionalità e la sua
+            evoluzione nel tempo.
           </p>
           <SeasonalityHeatmap series={series} />
           <p className="source-note">Fonte: {series.source}</p>

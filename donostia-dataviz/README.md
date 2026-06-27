@@ -33,17 +33,24 @@ metrics from Donostia Open Data, grouped by theme in the picker:
   **divario di reddito di genere** (%).
 - **Istruzione** — Popolazione con studi universitari (%), 2000–2025.
 
-Further metrics (rent €/m², AEMET climate, INE seasonality, MICE, Ibiltur
-spend) are registered as **planned** and appear disabled in the metric picker.
-See `docs/SOURCES.md` for each source's access status and
-`docs/PROJECT-BRIEF.md` for the full roadmap.
+It also has **3 city-grain monthly time series**, shown as a month × year
+heatmap in the "Serie temporali" section:
+
+- **Pernottamenti hotel** (INE EOH, 2005–2026) — seasonality and its evolution.
+- **Temperatura media** and **Precipitazioni** (AEMET Igeldo `1024E`, 1981–2025).
+
+Remaining metrics (rent €/m², MICE, Ibiltur spend) are registered as
+**planned** and appear disabled in the metric picker. See `docs/SOURCES.md` for
+each source's access status and `docs/PROJECT-BRIEF.md` for the full roadmap.
 
 ### Build phases
 
 - **Phase 1** — pipeline + generic MapLibre choropleth + slider/legend/tooltip;
   first metrics (VUT census, demographics).
 - **Phase 2** — renta (+ gender gap), education, and the derived VUT density;
-  theme-grouped metric picker. *(current)*
+  theme-grouped metric picker.
+- **Phase 3** — city-grain monthly time series + seasonality heatmap: INE EOH
+  overnight stays, AEMET Igeldo temperature & precipitation. *(current)*
 
 ## Run it
 

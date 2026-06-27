@@ -27,8 +27,8 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Demographics / origin | Donostia Open Data | recursos/demografia-origen/**demografianacionalidadbarrio.csv** (Urtea, AuzoKodea, Jatorria, PertsonenKop; annual 2000–2025) | **wired ✓** | code ✓ |
 | Education level | Donostia Open Data | recursos/demografia-nivelestudios/**demografianivelestudiosbarrio.csv** (year, AuzoKodea, level, Ehuneko_Totala 0–1; annual 2000–2025) | **wired ✓** | code ✓ |
 | Renta | Donostia Open Data (Eustat) | recursos/eustat_renta/**eustatrentabarrio.csv** (Anyo, CodBarrio, RentaPer_Total + by gender/age/origin; annual 2016–2023) | **wired ✓** | code ✓ |
-| Climate (temp / precip) | AEMET — Igeldo station | **station `1024E`**, OpenData REST API `opendata.aemet.es` (monthly values from 1981) | api (free key) | web ✓ |
-| Hotel occupancy / overnight stays | INE EOH | San Sebastián is an INE "punto turístico"; INEbase EOH + datos.gob.es API ids `2074`/`2078` | api / csv | web ✓ |
+| Climate (temp / precip) | AEMET — Igeldo station | **station `1024E`**, OpenData REST `valores/climatologicos/mensualesanuales` (monthly **1981–2025**; 36-month cap → fetched in 3-year windows) → `temp_avg`, `precip` series | **wired ✓** (free key) | code ✓ |
+| Hotel occupancy / overnight stays | INE EOH | wstempus table **2078**, series **EOT2721**+**EOT2722** (pernoctaciones España+extranjero) → `overnight_stays` series (2005–2026) | **wired ✓** | code ✓ |
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
 | Bus passengers / parking | Donostia Open Data | tema/transporte (annual from 2011; point snapshot) | direct | brief |
 | Crime | Donostia Open Data (Guardia Municipal) | tema/seguridad (barrio, annual) | direct | brief |
