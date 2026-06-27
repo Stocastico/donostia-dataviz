@@ -68,6 +68,63 @@ class Metric:
         }
 
 
+@dataclass
+class Series:
+    """A city-grain monthly time series (month × year), for heatmaps/line charts.
+
+    Unlike ``Metric`` this is not tied to barrios — it is a single time series for
+    the whole city. ``values[year][month]`` holds the value, with ``year`` a
+    ``"YYYY"`` string and ``month`` a ``"1"``..``"12"`` string.
+    """
+
+    id: str
+    label: str
+    unit: str
+    theme: str
+    source: str
+    kind: str = "month-year"
+    years: list[str] = field(default_factory=list)
+    values: dict[str, dict[str, float | None]] = field(default_factory=dict)
+
+    def to_series_file(self) -> dict:
+        return {
+            "id": self.id,
+            "label": self.label,
+            "unit": self.unit,
+            "theme": self.theme,
+            "source": self.source,
+            "kind": self.kind,
+            "years": self.years,
+            "values": self.values,
+        }
+
+    def to_registry_entry(self) -> dict:
+        return {
+            "id": self.id,
+            "label": self.label,
+            "unit": self.unit,
+            "theme": self.theme,
+            "source": self.source,
+            "kind": self.kind,
+            "years": self.years,
+        }
+
+
+def validate_series(series: Series) -> None:
+    """Raise ``ValueError`` if ``series`` breaks an invariant."""
+    if list(series.years) != sorted(set(series.years)):
+        raise ValueError(f"{series.id}: years must be sorted and unique")
+    year_set = set(series.years)
+    for year, by_month in series.values.items():
+        if year not in year_set:
+            raise ValueError(f"{series.id}: year {year!r} not in years")
+        for month, value in by_month.items():
+            if month not in {str(m) for m in range(1, 13)}:
+                raise ValueError(f"{series.id}: bad month {month!r}")
+            if value is not None and value < 0:
+                raise ValueError(f"{series.id}: negative value {year}/{month}")
+
+
 def validate(metric: Metric, valid_barrio_ids: set[str]) -> None:
     """Raise ``ValueError`` if ``metric`` breaks a data-contract invariant."""
     if metric.kind not in ("sequential", "diverging"):

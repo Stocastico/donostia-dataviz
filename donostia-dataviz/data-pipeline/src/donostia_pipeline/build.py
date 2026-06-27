@@ -15,8 +15,8 @@ from pathlib import Path
 import requests
 
 from . import config, geometry
-from .datasets import demografia, estudios, renta, vut, vut_density
-from .model import BuildContext, Metric, validate
+from .datasets import demografia, estudios, ine_eoh, renta, vut, vut_density
+from .model import BuildContext, Metric, Series, validate, validate_series
 
 # Raw files to ensure present before building. (filename -> URL)
 RAW_DOWNLOADS: dict[str, str] = {
@@ -37,12 +37,22 @@ RAW_DOWNLOADS: dict[str, str] = {
         "https://www.donostia.eus/datosabiertos/recursos/"
         "demografia-nivelestudios/demografianivelestudiosbarrio.csv"
     ),
+    # INE EOH monthly overnight stays, San Sebastián (full history via nult).
+    "ine_pernoct_esp.json": (
+        "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2721?nult=600"
+    ),
+    "ine_pernoct_ext.json": (
+        "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2722?nult=600"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, renta, estudios, vut_density]
+
+# City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
+SERIES_DATASETS = [ine_eoh]
 
 # Roadmap: metrics whose sources are known but not yet wired (manual/PDF/API).
 # They appear in the UI disabled ("in arrivo") so the catalogue shows intent.
@@ -132,7 +142,25 @@ def run(offline: bool = False) -> dict:
     _write_json(out_dir / "metrics.json", registry)
     print(f"  ✓ metrics.json ({len(registry)} metrics)")
 
-    return {"barrios": len(valid_ids), "metrics": len(registry)}
+    # 4. City-grain time series (seasonality heatmaps etc.).
+    series_list: list[Series] = []
+    for module in SERIES_DATASETS:
+        series_list.extend(module.build_series(ctx))
+    series_registry = []
+    for series in series_list:
+        validate_series(series)
+        _write_json(out_dir / f"series_{series.id}.json", series.to_series_file())
+        series_registry.append(series.to_registry_entry())
+        print(f"  ✓ series_{series.id}.json ({len(series.years)} years)")
+    series_registry.sort(key=lambda e: (e["theme"], e["label"]))
+    _write_json(out_dir / "series.json", series_registry)
+    print(f"  ✓ series.json ({len(series_registry)} series)")
+
+    return {
+        "barrios": len(valid_ids),
+        "metrics": len(registry),
+        "series": len(series_registry),
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -143,7 +171,10 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     print("Building Donostia Dataviz datasets…")
     summary = run(offline=args.offline)
-    print(f"Done: {summary['barrios']} barrios, {summary['metrics']} metrics.")
+    print(
+        f"Done: {summary['barrios']} barrios, {summary['metrics']} metrics, "
+        f"{summary['series']} series."
+    )
     return 0
 
 

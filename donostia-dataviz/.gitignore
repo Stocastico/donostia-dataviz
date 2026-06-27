@@ -12,5 +12,10 @@ web/_shot.mjs
 web/*.tsbuildinfo
 web/tsconfig.tsbuildinfo
 
+# The repo-root .gitignore has a Python `lib/` rule that wrongly matches the
+# web app's source folder web/src/lib — re-include it so the frontend is whole.
+!web/src/lib/
+!web/src/lib/**
+
 # Generated data is committed (web/src/data/*) so the site builds without the
 # pipeline — do NOT ignore it.

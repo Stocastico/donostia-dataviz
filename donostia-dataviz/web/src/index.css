@@ -111,8 +111,18 @@ body {
   margin-top: 3px;
   color: var(--muted);
 }
-.legend-nodata {
+.legend-meta {
   margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+}
+.legend-unit {
+  font-style: italic;
+}
+.legend-nodata {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -170,4 +180,79 @@ body {
 .compare-chart h3 {
   font-size: 1rem;
   margin: 0 0 0.5rem;
+}
+
+/* Seasonality heatmap */
+.seasonality {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.seasonality-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.seasonality-head h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.seasonality-head select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.seasonality-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0.4rem 0 1rem;
+  max-width: 60ch;
+}
+.heatmap-grid {
+  display: grid;
+  gap: 2px;
+  align-items: stretch;
+}
+.hm-corner {
+  grid-column: 1;
+}
+.hm-col-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-align: center;
+  align-self: end;
+}
+.hm-row-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+}
+.hm-cell {
+  height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: outline 0.05s;
+}
+.hm-cell:hover {
+  outline: 2px solid var(--fg);
+  outline-offset: -1px;
+}
+.heatmap-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+}
+.heatmap-footer .legend {
+  position: static;
+  width: 230px;
+}
+.hm-readout {
+  font-size: 0.85rem;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
 }

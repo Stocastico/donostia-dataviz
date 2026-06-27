@@ -4,6 +4,7 @@ import { Legend } from "../components/Legend";
 import { MetricPicker } from "../components/MetricPicker";
 import { TimeSlider } from "../components/TimeSlider";
 import { BarrioCompareChart } from "../components/BarrioCompareChart";
+import { SeasonalitySection } from "../components/SeasonalitySection";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
 import type { MetricData } from "../lib/types";
@@ -104,6 +105,8 @@ export function Dashboard() {
           <BarrioCompareChart geojson={barriosGeoJSON} metric={metric} barrioIds={compare} />
         </section>
       )}
+
+      <SeasonalitySection />
     </div>
   );
 }
