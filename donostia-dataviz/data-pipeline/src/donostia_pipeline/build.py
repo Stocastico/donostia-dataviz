@@ -15,7 +15,7 @@ from pathlib import Path
 import requests
 
 from . import config, geometry
-from .datasets import demografia, vut
+from .datasets import demografia, estudios, renta, vut, vut_density
 from .model import BuildContext, Metric, validate
 
 # Raw files to ensure present before building. (filename -> URL)
@@ -29,26 +29,24 @@ RAW_DOWNLOADS: dict[str, str] = {
         "https://www.donostia.eus/datosabiertos/recursos/"
         "demografia-origen/demografianacionalidadbarrio.csv"
     ),
+    "renta_barrio.csv": (
+        "https://www.donostia.eus/datosabiertos/recursos/"
+        "eustat_renta/eustatrentabarrio.csv"
+    ),
+    "estudios_barrio.csv": (
+        "https://www.donostia.eus/datosabiertos/recursos/"
+        "demografia-nivelestudios/demografianivelestudiosbarrio.csv"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
-DATASETS = [vut, demografia]
+# vut_density is derived and reads both the VUT census and demographics, so it
+# runs after the sources it depends on are present in raw/.
+DATASETS = [vut, demografia, renta, estudios, vut_density]
 
 # Roadmap: metrics whose sources are known but not yet wired (manual/PDF/API).
 # They appear in the UI disabled ("in arrivo") so the catalogue shows intent.
 PLANNED_METRICS = [
-    {
-        "id": "vut_density",
-        "label": "Densità VUT (per 1000 ab.)",
-        "unit": "per 1000 ab.",
-        "theme": "tourism",
-        "kind": "sequential",
-        "geoGrain": "barrio",
-        "timeGrain": "year",
-        "source": "Derivata: VUT / popolazione",
-        "status": "planned",
-        "periods": [],
-    },
     {
         "id": "rent_eur_m2",
         "label": "Affitto €/m²",

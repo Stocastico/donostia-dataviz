@@ -9,6 +9,8 @@ interface Props {
 const THEME_LABELS: Record<string, string> = {
   tourism: "Turismo",
   demography: "Demografia",
+  economy: "Economia",
+  education: "Istruzione",
   housing: "Abitazioni",
   climate: "Clima",
 };

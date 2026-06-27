@@ -19,21 +19,31 @@ donostia-dataviz/
 The pipeline writes cleaned JSON into `web/src/data/` (committed), so **the site
 builds with no Python and no live network calls** — it loads static JSON/GeoJSON.
 
-## Current status (first milestone)
+## Current status
 
-A working choropleth dashboard over the 19 official barrios, with these **live**
-metrics from Donostia Open Data:
+A working choropleth dashboard over the 19 official barrios, with **8 live**
+metrics from Donostia Open Data, grouped by theme in the picker:
 
-- **Viviendas turísticas (VUT/HUT)** and **posti letto** — touristic-housing
-  census (current snapshot).
-- **Popolazione residente** and **Popolazione straniera (%)** — annual series
-  **2000–2025** (this drives the time slider and the barrio-comparison line
-  chart, with a COVID-19 marker at 2020).
+- **Turismo** — Viviendas turísticas (VUT/HUT) and posti letto (census
+  snapshot); **Densità VUT per 1000 ab.** (derived: VUT / population).
+- **Demografia** — Popolazione residente and Popolazione straniera (%), annual
+  **2000–2025** (drives the time slider + the barrio-comparison line chart with
+  a COVID-19 marker at 2020).
+- **Economia** — Renta disponibile pro capite (€, 2016–2023) and the
+  **divario di reddito di genere** (%).
+- **Istruzione** — Popolazione con studi universitari (%), 2000–2025.
 
-Further metrics (rent €/m², VUT density, AEMET climate, INE seasonality, MICE,
-Ibiltur spend) are registered as **planned** and appear disabled in the metric
-picker. See `docs/SOURCES.md` for each source's access status and
+Further metrics (rent €/m², AEMET climate, INE seasonality, MICE, Ibiltur
+spend) are registered as **planned** and appear disabled in the metric picker.
+See `docs/SOURCES.md` for each source's access status and
 `docs/PROJECT-BRIEF.md` for the full roadmap.
+
+### Build phases
+
+- **Phase 1** — pipeline + generic MapLibre choropleth + slider/legend/tooltip;
+  first metrics (VUT census, demographics).
+- **Phase 2** — renta (+ gender gap), education, and the derived VUT density;
+  theme-grouped metric picker. *(current)*
 
 ## Run it
 

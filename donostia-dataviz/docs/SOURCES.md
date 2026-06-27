@@ -23,15 +23,23 @@ gracefully (shows "data coming soon") until their extraction lands.
 
 | Theme | Source | Handle / endpoint | Access | Verified |
 |---|---|---|---|---|
-| VUT (viviendas uso turístico) | Donostia Open Data | catalogo/censo-viviendas-turisticas (barrio + address, monthly) | direct | brief |
-| Demographics / origin | Donostia Open Data | catalogo/demografia-origen (barrio + unidad menor, annual from 2000) | direct | brief |
-| Education level | Donostia Open Data | recursos/demografia-nivelestudios/demografianivelestudiosciudad.csv | direct | brief |
-| Renta | Donostia Open Data (Eustat) | catalogo/eustat_renta (barrio, annual) | direct | brief |
+| VUT (viviendas uso turístico) | Donostia Open Data | recursos/censo-viviendas-turisticas/**urb_ckan_vtur_censo.csv** (Auzoa, helbidea, Mota, plazak — current *snapshot*, no time field) | **wired ✓** | code ✓ |
+| Demographics / origin | Donostia Open Data | recursos/demografia-origen/**demografianacionalidadbarrio.csv** (Urtea, AuzoKodea, Jatorria, PertsonenKop; annual 2000–2025) | **wired ✓** | code ✓ |
+| Education level | Donostia Open Data | recursos/demografia-nivelestudios/**demografianivelestudiosbarrio.csv** (year, AuzoKodea, level, Ehuneko_Totala 0–1; annual 2000–2025) | **wired ✓** | code ✓ |
+| Renta | Donostia Open Data (Eustat) | recursos/eustat_renta/**eustatrentabarrio.csv** (Anyo, CodBarrio, RentaPer_Total + by gender/age/origin; annual 2016–2023) | **wired ✓** | code ✓ |
 | Climate (temp / precip) | AEMET — Igeldo station | **station `1024E`**, OpenData REST API `opendata.aemet.es` (monthly values from 1981) | api (free key) | web ✓ |
 | Hotel occupancy / overnight stays | INE EOH | San Sebastián is an INE "punto turístico"; INEbase EOH + datos.gob.es API ids `2074`/`2078` | api / csv | web ✓ |
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
 | Bus passengers / parking | Donostia Open Data | tema/transporte (annual from 2011; point snapshot) | direct | brief |
 | Crime | Donostia Open Data (Guardia Municipal) | tema/seguridad (barrio, annual) | direct | brief |
+
+## Derived metrics (computed in the pipeline from the sources above)
+
+| Metric | Formula | Inputs | Status |
+|---|---|---|---|
+| `vut_density` — VUT per 1000 ab. | VUT units / population(latest year) × 1000 | VUT census + demographics | **wired ✓** |
+| `income_gender_gap` — divario di genere | (RentaPer_Hombres − RentaPer_Mujeres) / RentaPer_Hombres × 100 | renta barrio | **wired ✓** |
+| `vut_density` per anno, ageing index, Airbnb intensity | see brief | future sources | planned |
 
 ## Manual / planned (no structured open dataset — extraction needed)
 
