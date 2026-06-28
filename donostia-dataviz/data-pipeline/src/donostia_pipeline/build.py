@@ -22,6 +22,7 @@ from .datasets import (
     demografia,
     estudios,
     ine_eoh,
+    rent,
     renta,
     vut,
     vut_density,
@@ -54,12 +55,17 @@ RAW_DOWNLOADS: dict[str, str] = {
     "ine_pernoct_ext.json": (
         "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2722?nult=600"
     ),
+    # Gobierno Vasco EMA — rent by barrio (xlsx, sheet T8.3).
+    "emal_barrios.xlsx": (
+        "https://euskadi.eus/contenidos/estadistica/122417_emal_tablas_estad/"
+        "opendata/EMAL.-Barrios-Municipios.-2016-2025_es.xlsx"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
-DATASETS = [vut, demografia, renta, estudios, vut_density]
+DATASETS = [vut, demografia, renta, estudios, vut_density, rent]
 
 # City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
 SERIES_DATASETS = [ine_eoh, aemet_climate]
@@ -123,22 +129,10 @@ def _fetch_aemet_window(start: int, end: int, key: str) -> list[dict] | None:
         time.sleep(3 * 2**attempt)
     return None
 
-# Roadmap: metrics whose sources are known but not yet wired (manual/PDF/API).
-# They appear in the UI disabled ("in arrivo") so the catalogue shows intent.
-PLANNED_METRICS = [
-    {
-        "id": "rent_eur_m2",
-        "label": "Affitto €/m²",
-        "unit": "€/m²",
-        "theme": "housing",
-        "kind": "sequential",
-        "geoGrain": "barrio",
-        "timeGrain": "month",
-        "source": "Indomio (scraping, in arrivo)",
-        "status": "planned",
-        "periods": [],
-    },
-]
+# Roadmap: per-barrio metrics whose sources are known but not yet wired. They
+# render disabled ("in arrivo") in the picker. Currently empty — the remaining
+# roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
+PLANNED_METRICS: list[dict] = []
 
 
 def ensure_raw(offline: bool) -> None:

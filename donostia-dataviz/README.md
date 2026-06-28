@@ -32,6 +32,8 @@ metrics from Donostia Open Data, grouped by theme in the picker:
 - **Economia** — Renta disponibile pro capite (€, 2016–2023) and the
   **divario di reddito di genere** (%).
 - **Istruzione** — Popolazione con studi universitari (%), 2000–2025.
+- **Abitazioni** — Affitto medio €/m² (2016–2024), official Gobierno Vasco EMA
+  rental-market statistics by barrio (real registered contracts, not listings).
 
 It also has **3 city-grain monthly time series**, shown as a month × year
 heatmap in the "Serie temporali" section:
@@ -39,9 +41,9 @@ heatmap in the "Serie temporali" section:
 - **Pernottamenti hotel** (INE EOH, 2005–2026) — seasonality and its evolution.
 - **Temperatura media** and **Precipitazioni** (AEMET Igeldo `1024E`, 1981–2025).
 
-Remaining metrics (rent €/m², MICE, Ibiltur spend) are registered as
-**planned** and appear disabled in the metric picker. See `docs/SOURCES.md` for
-each source's access status and `docs/PROJECT-BRIEF.md` for the full roadmap.
+Remaining roadmap items (sale prices, MICE, Ibiltur spend) are city-grain or
+need manual extraction; see `docs/SOURCES.md` for each source's access status
+and `docs/PROJECT-BRIEF.md` for the full roadmap.
 
 ### Build phases
 
@@ -50,7 +52,9 @@ each source's access status and `docs/PROJECT-BRIEF.md` for the full roadmap.
 - **Phase 2** — renta (+ gender gap), education, and the derived VUT density;
   theme-grouped metric picker.
 - **Phase 3** — city-grain monthly time series + seasonality heatmap: INE EOH
-  overnight stays, AEMET Igeldo temperature & precipitation. *(current)*
+  overnight stays, AEMET Igeldo temperature & precipitation.
+- **Housing** — rent €/m² per barrio from the official Gobierno Vasco EMA
+  statistics (no scraping). *(current)*
 
 ## Run it
 

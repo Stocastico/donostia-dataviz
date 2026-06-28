@@ -27,6 +27,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Demographics / origin | Donostia Open Data | recursos/demografia-origen/**demografianacionalidadbarrio.csv** (Urtea, AuzoKodea, Jatorria, PertsonenKop; annual 2000–2025) | **wired ✓** | code ✓ |
 | Education level | Donostia Open Data | recursos/demografia-nivelestudios/**demografianivelestudiosbarrio.csv** (year, AuzoKodea, level, Ehuneko_Totala 0–1; annual 2000–2025) | **wired ✓** | code ✓ |
 | Renta | Donostia Open Data (Eustat) | recursos/eustat_renta/**eustatrentabarrio.csv** (Anyo, CodBarrio, RentaPer_Total + by gender/age/origin; annual 2016–2023) | **wired ✓** | code ✓ |
+| Rent €/m² per barrio | Gobierno Vasco — EMA/EMAL | **EMAL.-Barrios-Municipios.-2016-2025_es.xlsx**, sheet **T8.3** (renta media €/m² construido, annual 2016–2024). EMA barrio codes 001–017 = auzoak codes 1–17 → join by code | **wired ✓** | code ✓ |
 | Climate (temp / precip) | AEMET — Igeldo station | **station `1024E`**, OpenData REST `valores/climatologicos/mensualesanuales` (monthly **1981–2025**; 36-month cap → fetched in 3-year windows) → `temp_avg`, `precip` series | **wired ✓** (free key) | code ✓ |
 | Hotel occupancy / overnight stays | INE EOH | wstempus table **2078**, series **EOT2721**+**EOT2722** (pernoctaciones España+extranjero) → `overnight_stays` series (2005–2026) | **wired ✓** | code ✓ |
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
@@ -39,13 +40,13 @@ gracefully (shows "data coming soon") until their extraction lands.
 |---|---|---|---|
 | `vut_density` — VUT per 1000 ab. | VUT units / population(latest year) × 1000 | VUT census + demographics | **wired ✓** |
 | `income_gender_gap` — divario di genere | (RentaPer_Hombres − RentaPer_Mujeres) / RentaPer_Hombres × 100 | renta barrio | **wired ✓** |
-| `vut_density` per anno, ageing index, Airbnb intensity | see brief | future sources | planned |
+| ageing index, Airbnb intensity, pressure index | see brief | future sources | planned |
 
 ## Manual / planned (no structured open dataset — extraction needed)
 
 | Theme | Source | Access | Plan |
 |---|---|---|---|
-| Sale & rent €/m² per barrio | Indomio | scrape | monthly 2023→; register `planned`, scrape later |
+| Sale price €/m² per barrio | Indomio / Eustat | scrape / tables | sale prices still pending; rent is now covered by the official EMA below |
 | Visit motive / gasto / segment | Eustat Ibiltur | tables / manual | annual; pull from Eustat tables |
 | MICE events / attendees | DSS Convention Bureau / ICCA | PDF extraction | memorias on `press.sansebastianturismoa.eus`, ICCA reports |
 | Visitor satisfaction, excursionism | Observatorio Turístico Donostia | manual | annual headline figures |
