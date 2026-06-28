@@ -256,3 +256,51 @@ body {
   color: var(--fg);
   font-variant-numeric: tabular-nums;
 }
+
+/* Scatter / correlations */
+.scatter {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.scatter-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.scatter-head h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.scatter-axes {
+  display: flex;
+  gap: 1rem;
+}
+.scatter-axes select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+.scatter-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0.4rem 0 0.8rem;
+  max-width: 70ch;
+}
+.scatter-sub strong {
+  color: var(--accent);
+}
+.scatter-tip {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+}
+.scatter-tip strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}

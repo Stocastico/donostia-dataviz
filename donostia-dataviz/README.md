@@ -54,7 +54,11 @@ and `docs/PROJECT-BRIEF.md` for the full roadmap.
 - **Phase 3** — city-grain monthly time series + seasonality heatmap: INE EOH
   overnight stays, AEMET Igeldo temperature & precipitation.
 - **Housing** — rent €/m² per barrio from the official Gobierno Vasco EMA
-  statistics (no scraping). *(current)*
+  statistics (no scraping).
+- **Phase 4** — per-barrio scatter/correlation view: pick any two metrics
+  (latest period each), points sized by population, with the live Pearson
+  correlation. Headline pairs: VUT density ↔ rent (r≈0.64) and income ↔ %
+  foreign (r≈−0.58). *(current)*
 
 ## Run it
 
