@@ -110,6 +110,34 @@ class Series:
         }
 
 
+@dataclass
+class Indicator:
+    """An annual city-level indicator (single value per year), e.g. MICE events.
+
+    Not tied to barrios or months. Each year's point carries its own ``source``
+    string, since these are often hand-curated from different press releases.
+    ``values[year] = {"value": float, "source": str}``.
+    """
+
+    id: str
+    label: str
+    unit: str
+    theme: str
+    source: str
+    values: dict[str, dict] = field(default_factory=dict)
+
+    def to_file(self) -> dict:
+        return {
+            "id": self.id,
+            "label": self.label,
+            "unit": self.unit,
+            "theme": self.theme,
+            "source": self.source,
+            "years": sorted(self.values),
+            "values": self.values,
+        }
+
+
 def validate_series(series: Series) -> None:
     """Raise ``ValueError`` if ``series`` breaks an invariant.
 

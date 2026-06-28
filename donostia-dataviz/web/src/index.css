@@ -304,3 +304,53 @@ body {
   display: block;
   margin-bottom: 0.2rem;
 }
+
+/* MICE */
+.mice {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.mice h2 {
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+}
+.mice h3 {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+.mice-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+  max-width: 72ch;
+}
+.mice-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.stat-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem 1.1rem;
+  min-width: 200px;
+  background: #fafbfc;
+}
+.stat-value {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+.stat-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+  max-width: 30ch;
+}

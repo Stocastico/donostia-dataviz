@@ -3,6 +3,7 @@
 
 import type {
   BarriosGeoJSON,
+  IndicatorData,
   MetricData,
   MetricInfo,
   SeriesData,
@@ -10,11 +11,14 @@ import type {
 } from "./types";
 import rawRegistry from "../data/metrics.json";
 import rawSeriesRegistry from "../data/series.json";
+import rawIndicators from "../data/indicators.json";
 import rawGeo from "../data/barrios.geojson?raw";
 
 export const metricRegistry: MetricInfo[] = rawRegistry as MetricInfo[];
 
 export const seriesRegistry: SeriesInfo[] = rawSeriesRegistry as SeriesInfo[];
+
+export const indicators: IndicatorData[] = rawIndicators as unknown as IndicatorData[];
 
 export const barriosGeoJSON: BarriosGeoJSON = JSON.parse(
   rawGeo,

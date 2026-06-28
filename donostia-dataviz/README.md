@@ -18,6 +18,9 @@ donostia-dataviz/
 
 The pipeline writes cleaned JSON into `web/src/data/` (committed), so **the site
 builds with no Python and no live network calls** — it loads static JSON/GeoJSON.
+It also exports the same numbers as **tidy CSV tables** in `data/` (see
+`data/README.md`), so the data can be reused in any stack/language without the
+app.
 
 ## Current status
 
@@ -58,7 +61,10 @@ and `docs/PROJECT-BRIEF.md` for the full roadmap.
 - **Phase 4** — per-barrio scatter/correlation view: pick any two metrics
   (latest period each), points sized by population, with the live Pearson
   correlation. Headline pairs: VUT density ↔ rent (r≈0.64) and income ↔ %
-  foreign (r≈−0.58). *(current)*
+  foreign (r≈−0.58).
+- **MICE + tables** — curated MICE annual indicators (ICCA congresses + the
+  2024 Convention Bureau record), shown as a bar chart + stat cards; plus the
+  full tidy-CSV export under `data/`. *(current)*
 
 ## Run it
 

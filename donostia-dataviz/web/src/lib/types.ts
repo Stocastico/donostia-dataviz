@@ -53,6 +53,17 @@ export interface SeriesData {
   values: Record<string, Record<string, number | null>>;
 }
 
+/** Annual city indicator (e.g. MICE) from indicators.json. */
+export interface IndicatorData {
+  id: string;
+  label: string;
+  unit: string;
+  theme: string;
+  source: string;
+  years: string[];
+  values: Record<string, { value: number; source: string }>;
+}
+
 export interface BarrioProperties {
   barrio_id: string;
   name: string;

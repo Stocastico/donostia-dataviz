@@ -16,12 +16,13 @@ from pathlib import Path
 
 import requests
 
-from . import config, geometry
+from . import config, export_tables, geometry
 from .datasets import (
     aemet_climate,
     demografia,
     estudios,
     ine_eoh,
+    mice,
     rent,
     renta,
     vut,
@@ -207,6 +208,35 @@ def run(offline: bool = False) -> dict:
     series_registry.sort(key=lambda e: (e["theme"], e["label"]))
     _write_json(out_dir / "series.json", series_registry)
     print(f"  ✓ series.json ({len(series_registry)} series)")
+
+    # 5. Annual city indicators (MICE — curated, source-cited).
+    indicators = mice.build_indicators()
+    _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
+    print(f"  ✓ indicators.json ({len(indicators)} indicators)")
+
+    # 6. Tidy CSV export (language-agnostic tables under data/).
+    barrio_names = {f["properties"]["barrio_id"]: f["properties"]["name"]
+                    for f in geojson["features"]}
+    tables = config.TABLES_DIR
+    export_tables.write_csv(
+        tables / "barrios.csv", export_tables.BARRIO_FIELDS,
+        [{"barrio_id": f["properties"]["barrio_id"],
+          "name": f["properties"]["name"],
+          "kod_auzo": f["properties"]["kod_auzo"]} for f in geojson["features"]],
+    )
+    export_tables.write_csv(
+        tables / "metrics_long.csv", export_tables.METRIC_FIELDS,
+        export_tables.metric_long_rows(metrics, barrio_names),
+    )
+    export_tables.write_csv(
+        tables / "series_long.csv", export_tables.SERIES_FIELDS,
+        export_tables.series_long_rows(series_list),
+    )
+    export_tables.write_csv(
+        tables / "indicators_long.csv", export_tables.INDICATOR_FIELDS,
+        export_tables.indicator_long_rows(indicators),
+    )
+    print(f"  ✓ CSV tables → {tables.name}/ (barrios, metrics_long, series_long, indicators_long)")
 
     return {
         "barrios": len(valid_ids),
