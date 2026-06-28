@@ -22,6 +22,7 @@ from .datasets import (
     demografia,
     educacion_gis,
     estudios,
+    housing_tension,
     ine_eoh,
     mice,
     rent,
@@ -73,6 +74,10 @@ RAW_DOWNLOADS: dict[str, str] = {
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, renta, estudios, vut_density, rent, educacion_gis]
+
+# Derived metrics computed from other metrics (run after DATASETS). Each exposes
+# build_from_metrics(metrics_by_id) -> list[Metric].
+DERIVED_METRICS = [housing_tension]
 
 # City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
 SERIES_DATASETS = [ine_eoh, aemet_climate]
@@ -193,6 +198,10 @@ def run(offline: bool = False) -> dict:
     metrics: list[Metric] = []
     for module in DATASETS:
         metrics.extend(module.build(ctx))
+    # Derived metrics combine the base ones (no raw files).
+    metrics_by_id = {m.id: m for m in metrics}
+    for module in DERIVED_METRICS:
+        metrics.extend(module.build_from_metrics(metrics_by_id))
 
     registry = []
     for metric in metrics:

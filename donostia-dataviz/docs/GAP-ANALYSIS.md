@@ -86,8 +86,15 @@ Il doc dice "17 barrios"; noi ne abbiamo correttamente 19. Già risolto.
 3. Verificare copertura alias barrio per ogni nuova fonte barrio-grain (es. CSV criminalità) — si fa per-dataset quando lo si aggiunge.
 
 ### 🟠 P1 — Alto valore, accesso diretto, barrio-grain (quasi sbloccati)
-4. **Criminalità per barrio** → `gua_delitosbarrio_ckan.csv`, choropleth **tasa/1000 ab.** + evoluzione + tipi di delitto. *Miglior ROI nuovo.*
-5. **Indice tensione affitto/reddito** (idea #4): affitto annuo / reddito mediano, soglia housing-stress 30–40%. **Dati già in casa**, costo minimo.
+4. ⛔ **Criminalità per barrio** — **fonte non più disponibile**: il CSV del brief
+   dà 403/404 e il dataset non è più nel catalogo CKAN (138 dataset). Da
+   rivalutare con la serie municipio Ertzaintza/MIR (non barrio) o se il Comune
+   ripubblica il dato. *Era il "miglior ROI", ora bloccato dai dati.*
+5. ✅ **FATTO** — **Indice tensione affitto/reddito** (`housing_tension`, idea
+   #4): `affitto €/m² × 12 × 30 m²/persona / reddito pro capite × 100`.
+   Metrica derivata dai dati già in casa; rivela che lo sforzo è massimo nei
+   barrios operai (Altza, Egia, Intxaurrondo), invertendo la mappa degli affitti
+   assoluti.
 6. **% raccolta differenziata** (`residuos` CSV) → serie città annuale.
 7. **Modelos lingüísticos A/B/D** (hezkuntza.euskadi.eus) → serie città (storia identitaria).
 8. **Fiscalità** (impuestos/tasas/subvenciones CSV) → serie città.

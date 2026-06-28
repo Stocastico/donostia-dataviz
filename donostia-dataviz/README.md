@@ -38,7 +38,9 @@ metrics from Donostia Open Data, grouped by theme in the picker:
   educativi per 1000 ab.** (joined to barrios by point-in-polygon — the first
   GIS spatial-join metric).
 - **Abitazioni** — Affitto medio €/m² (2016–2024), official Gobierno Vasco EMA
-  rental-market statistics by barrio (real registered contracts, not listings).
+  rental-market statistics by barrio (real registered contracts, not listings);
+  **Sforzo per l'affitto (% del reddito)** — a derived rent-to-income housing
+  stress index, heaviest on the working-class barrios.
 
 It also has **3 city-grain monthly time series**, shown as a month × year
 heatmap in the "Serie temporali" section:

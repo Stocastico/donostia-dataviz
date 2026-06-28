@@ -33,7 +33,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
 | Educational facilities (GIS) | Donostia Open Data | recursos/servicios-educativos/**hezkuntzaekipamenduak.json** (GeoJSON, 157 punti; geometrie già in WGS84). Join spaziale punto→barrio (`spatial.py`) → `schools_per_1000` | **wired ✓** | code ✓ |
 | Bus passengers / parking | Donostia Open Data | tema/transporte (annual from 2011; point snapshot) | direct | brief |
-| Crime | Donostia Open Data (Guardia Municipal) | tema/seguridad (barrio, annual) | direct | brief |
+| Crime | Donostia Open Data (Guardia Municipal) | ⚠️ **non più nel catalogo**: `delitos-guardia`/`gua_delitosbarrio_ckan.csv` (brief) dà 403/404 e non è in `package_list` (138 dataset) — probabile rimozione/riorganizzazione (collaborazione Ertzaintza↔Guardia Municipal, 2026). Ripiego: serie municipio Ertzaintza/MIR. | non disponibile (barrio) | web ✓ |
 
 ## Derived metrics (computed in the pipeline from the sources above)
 
@@ -41,6 +41,8 @@ gracefully (shows "data coming soon") until their extraction lands.
 |---|---|---|---|
 | `vut_density` — VUT per 1000 ab. | VUT units / population(latest year) × 1000 | VUT census + demographics | **wired ✓** |
 | `income_gender_gap` — divario di genere | (RentaPer_Hombres − RentaPer_Mujeres) / RentaPer_Hombres × 100 | renta barrio | **wired ✓** |
+| `schools_per_1000` — centri educativi | #scuole(join spaziale) / popolazione × 1000 | educativos GeoJSON + demographics | **wired ✓** |
+| `housing_tension` — sforzo affitto/reddito (%) | affitto €/m² × 12 × 30 m²/persona / reddito pro capite × 100 | rent EMA + income | **wired ✓** (idea #4; assunzione 30 m²/persona) |
 | ageing index, Airbnb intensity, pressure index | see brief | future sources | planned |
 
 ## Manual / planned (no structured open dataset — extraction needed)
