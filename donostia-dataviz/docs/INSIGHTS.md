@@ -58,6 +58,12 @@ con `python -m donostia_pipeline.build`. Aggiornare quando si aggiungono metrich
 - **Precipitazioni**: nessun trend significativo (**+40,9 mm/decennio, R² = 0,06**)
   — molto variabili anno su anno; ~**1.900 mm** nel 2024 (città piovosa).
 
+## ♻️ Ambiente
+- **Raccolta differenziata** in netto miglioramento: dal **28,8% (2010)** al
+  **41,0% (2023)** dei rifiuti urbani (selettiva + autocompostaje sul totale).
+  Tendenza di sostenibilità chiara, anche se sotto gli obiettivi UE (55%).
+  *(Il 2024 è escluso perché incompleto: "Rechazo" non ancora caricato.)*
+
 ## 🎪 Turismo MICE
 - **Record 2024**: **188 eventi professionali**, **259.000 partecipanti**,
   **50% internazionali** (Convention Bureau).

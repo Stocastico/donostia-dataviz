@@ -48,6 +48,9 @@ heatmap in the "Serie temporali" section:
 - **Pernottamenti hotel** (INE EOH, 2005–2026) — seasonality and its evolution.
 - **Temperatura media** and **Precipitazioni** (AEMET Igeldo `1024E`, 1981–2025).
 
+Plus annual city indicators (MICE record + ICCA congresses; **recycling rate**
+2010–2023, shown as a generic indicator line chart).
+
 Remaining roadmap items (sale prices, MICE, Ibiltur spend) are city-grain or
 need manual extraction; see `docs/SOURCES.md` for each source's access status
 and `docs/PROJECT-BRIEF.md` for the full roadmap.

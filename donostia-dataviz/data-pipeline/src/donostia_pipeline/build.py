@@ -27,6 +27,7 @@ from .datasets import (
     mice,
     rent,
     renta,
+    residuos,
     vut,
     vut_density,
 )
@@ -67,6 +68,10 @@ RAW_DOWNLOADS: dict[str, str] = {
     "educativos.json": (
         "https://www.donostia.eus/datosabiertos/recursos/"
         "servicios-educativos/hezkuntzaekipamenduak.json"
+    ),
+    # Waste collection (annual, city) → recycling-rate indicator.
+    "residuos.csv": (
+        "https://www.donostia.eus/datosabiertos/recursos/residuos/datos-residuos.csv"
     ),
 }
 
@@ -232,8 +237,8 @@ def run(offline: bool = False) -> dict:
     _write_json(out_dir / "series.json", series_registry)
     print(f"  ✓ series.json ({len(series_registry)} series)")
 
-    # 5. Annual city indicators (MICE — curated, source-cited).
-    indicators = mice.build_indicators()
+    # 5. Annual city indicators (MICE — curated; recycling rate — from residuos).
+    indicators = mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

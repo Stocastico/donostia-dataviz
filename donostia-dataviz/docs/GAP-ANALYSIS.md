@@ -95,9 +95,14 @@ Il doc dice "17 barrios"; noi ne abbiamo correttamente 19. Già risolto.
    Metrica derivata dai dati già in casa; rivela che lo sforzo è massimo nei
    barrios operai (Altza, Egia, Intxaurrondo), invertendo la mappa degli affitti
    assoluti.
-6. **% raccolta differenziata** (`residuos` CSV) → serie città annuale.
-7. **Modelos lingüísticos A/B/D** (hezkuntza.euskadi.eus) → serie città (storia identitaria).
-8. **Fiscalità** (impuestos/tasas/subvenciones CSV) → serie città.
+6. ✅ **FATTO** — **% raccolta differenziata** (`recycling_rate`, indicatore
+   annuale città dal CSV `residuos`): 28,8% (2010) → 41,0% (2023). Aggiunta anche
+   una **viz generica per indicatori annuali** (`IndicatorsSection` /
+   `IndicatorTrendChart`), riutilizzabile per la fiscalità.
+7. **Modelos lingüísticos A/B/D** (hezkuntza.euskadi.eus / Eustat) → serie città
+   (storia identitaria). ⚠️ non nel portale Donostia: fonte Gobierno Vasco.
+8. **Fiscalità** (impuestos_tipo/tasas_tipo/subvenciones CSV) → indicatori città
+   (ora che la viz generica esiste, è quasi immediato). *Confermati nel catalogo.*
 
 ### 🟡 P2 — Dimensioni GIS (richiedono P0.2)
 9. **Equipamientos** (educativi, sanità, socio-assistenziali) come punti → conteggi/accessibilità per barrio.

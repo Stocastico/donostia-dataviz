@@ -32,6 +32,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Hotel occupancy / overnight stays | INE EOH | wstempus table **2078**, series **EOT2721**+**EOT2722** (pernoctaciones España+extranjero) → `overnight_stays` series (2005–2026) | **wired ✓** | code ✓ |
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
 | Educational facilities (GIS) | Donostia Open Data | recursos/servicios-educativos/**hezkuntzaekipamenduak.json** (GeoJSON, 157 punti; geometrie già in WGS84). Join spaziale punto→barrio (`spatial.py`) → `schools_per_1000` | **wired ✓** | code ✓ |
+| Waste / recycling | Donostia Open Data | recursos/residuos/**datos-residuos.csv** (Año, Tipo de recogida, Ambito, kg; annual 2010–2024) → indicatore `recycling_rate` (ámbito urbano; 2024 incompleto escluso) | **wired ✓** | code ✓ |
 | Bus passengers / parking | Donostia Open Data | tema/transporte (annual from 2011; point snapshot) | direct | brief |
 | Crime | Donostia Open Data (Guardia Municipal) | ⚠️ **non più nel catalogo**: `delitos-guardia`/`gua_delitosbarrio_ckan.csv` (brief) dà 403/404 e non è in `package_list` (138 dataset) — probabile rimozione/riorganizzazione (collaborazione Ertzaintza↔Guardia Municipal, 2026). Ripiego: serie municipio Ertzaintza/MIR. | non disponibile (barrio) | web ✓ |
 

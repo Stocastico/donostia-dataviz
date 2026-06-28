@@ -370,3 +370,33 @@ body {
   margin-top: 0.3rem;
   max-width: 30ch;
 }
+
+/* Generic city indicators */
+.indicators {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.indicators h2 {
+  font-size: 1.2rem;
+  margin: 0 0 1rem;
+}
+.indicators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.indicator-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.indicator-head h3 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+}
+.indicator-latest {
+  font-size: 0.85rem;
+  color: var(--muted);
+}

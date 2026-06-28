@@ -7,6 +7,7 @@ import { BarrioCompareChart } from "../components/BarrioCompareChart";
 import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
 import { MiceSection } from "../components/MiceSection";
+import { IndicatorsSection } from "../components/IndicatorsSection";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
 import type { MetricData } from "../lib/types";
@@ -111,6 +112,7 @@ export function Dashboard() {
       <SeasonalitySection />
       <ScatterSection />
       <MiceSection />
+      <IndicatorsSection />
     </div>
   );
 }
