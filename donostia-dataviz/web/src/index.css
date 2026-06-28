@@ -257,6 +257,22 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+.trend-chart {
+  margin-top: 1.5rem;
+}
+.trend-chart h3 {
+  font-size: 1rem;
+  margin: 0 0 0.2rem;
+}
+.trend-caption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+.trend-caption strong {
+  color: var(--fg);
+}
+
 /* Scatter / correlations */
 .scatter {
   margin-top: 2.5rem;

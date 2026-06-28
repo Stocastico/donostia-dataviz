@@ -28,3 +28,22 @@ export function annualTotals(series: SeriesData): Array<{ year: string; total: n
     return { year, total };
   });
 }
+
+/** Per-year aggregate (sum or mean of the months present), skipping years with
+ * no data at all. ``sum`` suits precipitation/overnight stays, ``mean`` suits
+ * temperature. */
+export function annualAggregate(
+  series: SeriesData,
+  mode: "sum" | "mean",
+): Array<{ year: string; value: number }> {
+  const out: Array<{ year: string; value: number }> = [];
+  for (const year of series.years) {
+    const nums = Object.values(series.values[year] ?? {}).filter(
+      (v): v is number => v != null && Number.isFinite(v),
+    );
+    if (nums.length === 0) continue;
+    const sum = nums.reduce((a, b) => a + b, 0);
+    out.push({ year, value: mode === "mean" ? sum / nums.length : sum });
+  }
+  return out;
+}

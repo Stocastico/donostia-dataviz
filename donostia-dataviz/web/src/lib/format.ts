@@ -13,7 +13,8 @@ export function formatCompact(value: number | null | undefined): string {
   if (value == null || !Number.isFinite(value)) return "n/d";
   const abs = Math.abs(value);
   if (abs >= 1_000_000) return `${NUM.format(value / 1_000_000)} M`;
-  if (abs >= 1_000) return `${NUM.format(Math.round(value / 1_000))}k`;
+  if (abs >= 10_000) return `${NUM.format(Math.round(value / 1_000))}k`;
+  if (abs >= 1_000) return `${NUM.format(value / 1_000)}k`; // keep one decimal (1,5k)
   return NUM.format(value);
 }
 

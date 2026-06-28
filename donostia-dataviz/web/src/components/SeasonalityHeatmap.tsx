@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { buildColorScale, NO_DATA_COLOR } from "../lib/colorScale";
+import { buildColorScale, NO_DATA_COLOR, PALETTES } from "../lib/colorScale";
 import { Legend } from "./Legend";
 import { flattenSeriesValues, MONTH_LABELS } from "../lib/series";
 import { formatValue } from "../lib/format";
@@ -7,6 +7,7 @@ import type { SeriesData } from "../lib/types";
 
 interface Props {
   series: SeriesData;
+  palette?: keyof typeof PALETTES;
 }
 
 interface HoverCell {
@@ -17,10 +18,10 @@ interface HoverCell {
 
 /** Month × year heatmap (rows = months, columns = years). Reveals seasonality
  * and how it changes over time in a single view, per the brief's Phase 3. */
-export function SeasonalityHeatmap({ series }: Props) {
+export function SeasonalityHeatmap({ series, palette = "warm" }: Props) {
   const scale = useMemo(
-    () => buildColorScale(flattenSeriesValues(series), "sequential"),
-    [series],
+    () => buildColorScale(flattenSeriesValues(series), "sequential", palette),
+    [series, palette],
   );
   const [hover, setHover] = useState<HoverCell | null>(null);
 

@@ -28,7 +28,8 @@ describe("formatDelta", () => {
 
 describe("formatCompact", () => {
   it("abbreviates thousands and millions", () => {
-    expect(formatCompact(245769)).toBe("246k");
+    expect(formatCompact(245769)).toBe("246k"); // ≥10k → integer k
+    expect(formatCompact(1500)).toBe("1,5k"); // 1k–10k keeps one decimal
     expect(formatCompact(2198640)).toBe("2,2 M");
     expect(formatCompact(500)).toBe("500");
   });

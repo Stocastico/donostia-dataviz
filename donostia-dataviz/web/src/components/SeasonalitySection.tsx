@@ -1,7 +1,21 @@
 import { useEffect, useState } from "react";
 import { loadSeries, seriesRegistry } from "../lib/data";
 import { SeasonalityHeatmap } from "./SeasonalityHeatmap";
+import { AnnualTrendChart } from "./AnnualTrendChart";
+import { PALETTES } from "../lib/colorScale";
 import type { SeriesData } from "../lib/types";
+
+// Per-series presentation: temperature is a mean in a warm ramp; precipitation
+// is a sum in a cool (blue) ramp; counts default to a sum in the warm ramp.
+function presentation(id: string, unit: string): {
+  palette: keyof typeof PALETTES;
+  mode: "mean" | "sum";
+  trendColor: string;
+} {
+  if (id === "precip") return { palette: "cool", mode: "sum", trendColor: "#1f77b4" };
+  if (unit === "°C") return { palette: "warm", mode: "mean", trendColor: "#d62728" };
+  return { palette: "warm", mode: "sum", trendColor: "#d62728" };
+}
 
 /** "Stagionalità" section: a city-grain month × year heatmap. Hidden if no
  * series have been built yet. */
@@ -42,11 +56,19 @@ export function SeasonalitySection() {
         <>
           <p className="seasonality-sub">
             {series.label} — {series.years[0]}–{series.years[series.years.length - 1]}.
-            Le colonne sono gli anni, le righe i mesi: i colori più caldi
+            Le colonne sono gli anni, le righe i mesi: i colori più intensi
             indicano i valori più alti. Rivela la stagionalità e la sua
             evoluzione nel tempo.
           </p>
-          <SeasonalityHeatmap series={series} />
+          {(() => {
+            const pres = presentation(series.id, series.unit);
+            return (
+              <>
+                <SeasonalityHeatmap series={series} palette={pres.palette} />
+                <AnnualTrendChart series={series} mode={pres.mode} color={pres.trendColor} />
+              </>
+            );
+          })()}
           <p className="source-note">Fonte: {series.source}</p>
         </>
       ) : (

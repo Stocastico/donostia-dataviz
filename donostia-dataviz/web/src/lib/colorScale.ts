@@ -4,10 +4,20 @@
 
 import { extent } from "d3-array";
 import { scaleSequential, scaleDiverging } from "d3-scale";
-import { interpolateYlOrRd, interpolateRdBu } from "d3-scale-chromatic";
+import {
+  interpolateYlOrRd,
+  interpolateRdBu,
+  interpolateBlues,
+} from "d3-scale-chromatic";
 import type { MetricKind } from "./types";
 
 export const NO_DATA_COLOR = "#e6e6e6";
+
+/** Named sequential palettes selectable per metric/series. */
+export const PALETTES: Record<string, (t: number) => string> = {
+  warm: interpolateYlOrRd,
+  cool: interpolateBlues,
+};
 
 export interface ColorScale {
   /** Map a value (or null) to a fill color. */
@@ -17,10 +27,12 @@ export interface ColorScale {
   kind: MetricKind;
 }
 
-/** Build a color scale for one set of values (typically one period). */
+/** Build a color scale for one set of values (typically one period).
+ * ``palette`` selects the sequential ramp ("warm" default, "cool" for e.g. rain). */
 export function buildColorScale(
   values: Array<number | null | undefined>,
   kind: MetricKind,
+  palette: keyof typeof PALETTES = "warm",
 ): ColorScale {
   const nums = values.filter((v): v is number => v != null && Number.isFinite(v));
   const [lo, hi] = extent(nums);
@@ -43,7 +55,7 @@ export function buildColorScale(
 
   const scale = scaleSequential<string>(
     [min, max === min ? min + 1 : max],
-    interpolateYlOrRd,
+    PALETTES[palette],
   );
   return {
     color: (v) => (v == null || !Number.isFinite(v) ? NO_DATA_COLOR : scale(v)),
