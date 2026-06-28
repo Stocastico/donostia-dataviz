@@ -11,7 +11,7 @@ This is one experiment in the `Experiments` repo; it lives entirely under
 
 ```
 donostia-dataviz/
-  docs/            # PROJECT-BRIEF.md, SOURCES.md, DATA-CONTRACT.md
+  docs/            # PROJECT-BRIEF*.md, SOURCES.md, DATA-CONTRACT.md, INSIGHTS.md, GAP-ANALYSIS.md
   data-pipeline/   # Python: raw public sources -> cleaned JSON
   web/             # React + Vite + TS app (MapLibre choropleth + Recharts)
 ```
