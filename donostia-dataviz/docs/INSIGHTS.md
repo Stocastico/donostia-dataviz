@@ -52,11 +52,22 @@ con `python -m donostia_pipeline.build`. Aggiornare quando si aggiungono metrich
   universitario) ma scende a **3ª** per-capita, mentre **Zubieta** (rurale, pochi
   abitanti) risulta prima per-capita.
 
-## 🌡️ Clima (AEMET Igeldo, 1981–2025)
+## 🌡️ Clima e cambiamento climatico (AEMET Igeldo, 1981–2025)
 - **Riscaldamento netto**: trend **+0,31 °C/decennio (R² = 0,39)**; media annua
   da **13,1 °C (1981–85)** a **14,7 °C (2021–25)**, ~**+1,4 °C** in 45 anni.
+- **Cicli mensili per anno**: nella viz a linee, gli anni recenti (rossi/caldi)
+  stanno visibilmente **sopra** l'inviluppo storico (grigio) in quasi tutti i
+  mesi — il riscaldamento è leggibile a colpo d'occhio.
+- **Giorni caldi (max ≥ 30 °C)**: in aumento, **+0,81 giorni/decennio**; dai
+  ~4–5/anno degli anni '80–'90 ai **12–15** del 2003, 2022 e 2023 (2022 = 15).
+- **Picchi estremi**: la massima assoluta sale fino a **39,7 °C (2022)** e
+  38,6 °C (2003) — valori notevoli per una località costiera mite.
 - **Precipitazioni**: nessun trend significativo (**+40,9 mm/decennio, R² = 0,06**)
   — molto variabili anno su anno; ~**1.900 mm** nel 2024 (città piovosa).
+
+> **Lettura d'insieme**: media in lento ma chiaro aumento, **estremi più
+> frequenti e più intensi** negli ultimi 20–30 anni — il segno tipico del
+> cambiamento climatico, non solo "più caldo in media" ma più ondate di calore.
 
 ## ♻️ Ambiente
 - **Raccolta differenziata** in netto miglioramento: dal **28,8% (2010)** al

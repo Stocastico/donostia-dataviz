@@ -44,6 +44,8 @@ def build_series(ctx: BuildContext) -> list[Series]:
     records = json.loads(path.read_text(encoding="utf-8"))
     temp: dict[str, dict[str, float | None]] = defaultdict(dict)
     precip: dict[str, dict[str, float | None]] = defaultdict(dict)
+    temp_max: dict[str, dict[str, float | None]] = defaultdict(dict)
+    hot_days: dict[str, dict[str, float | None]] = defaultdict(dict)
     years: set[str] = set()
 
     for rec in records:
@@ -54,10 +56,18 @@ def build_series(ctx: BuildContext) -> list[Series]:
         years.add(year)
         tm = _parse(rec.get("tm_mes"))
         pm = _parse(rec.get("p_mes"))
+        # ta_max is the month's absolute peak, formatted "38.3(18)" (day in
+        # parentheses) → keep the part before "(". nt_30 = days with tmax ≥ 30°C.
+        tx = _parse(str(rec.get("ta_max", "")).split("(")[0])
+        nh = _parse(rec.get("nt_30"))
         if tm is not None:
             temp[year][month] = tm
         if pm is not None:
             precip[year][month] = pm
+        if tx is not None:
+            temp_max[year][month] = tx
+        if nh is not None:
+            hot_days[year][month] = nh
 
     sorted_years = sorted(years)
 
@@ -76,5 +86,7 @@ def build_series(ctx: BuildContext) -> list[Series]:
 
     return [
         _series("temp_avg", "Temperatura media mensile", "°C", temp),
+        _series("temp_max", "Temperatura massima assoluta", "°C", temp_max),
         _series("precip", "Precipitazioni mensili", "mm", precip),
+        _series("hot_days_30", "Giorni caldi (max ≥ 30°C)", "giorni", hot_days),
     ]

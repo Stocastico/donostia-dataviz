@@ -46,7 +46,10 @@ It also has **3 city-grain monthly time series**, shown as a month × year
 heatmap in the "Serie temporali" section:
 
 - **Pernottamenti hotel** (INE EOH, 2005–2026) — seasonality and its evolution.
-- **Temperatura media** and **Precipitazioni** (AEMET Igeldo `1024E`, 1981–2025).
+- **Temperatura media**, **massima assoluta**, **Precipitazioni** and **giorni
+  caldi (≥30°C)** (AEMET Igeldo `1024E`, 1981–2025) — each shown as a month×year
+  heatmap, a monthly-cycles overlay (recent years highlighted) and an annual
+  trend; together they read the warming + more frequent heat extremes.
 
 Plus annual city indicators (MICE record + ICCA congresses; **recycling rate**
 2010–2023, shown as a generic indicator line chart).

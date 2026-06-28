@@ -10,10 +10,10 @@ from donostia_pipeline.datasets import aemet_climate
 # summary (must be excluded); values are strings, sometimes comma-decimal/empty.
 RAW = json.dumps(
     [
-        {"fecha": "2019-1", "tm_mes": "9.4", "p_mes": "100.0"},
-        {"fecha": "2019-7", "tm_mes": "20,5", "p_mes": "30.0"},
+        {"fecha": "2019-1", "tm_mes": "9.4", "p_mes": "100.0", "ta_max": "15.0", "nt_30": "0"},
+        {"fecha": "2019-7", "tm_mes": "20,5", "p_mes": "30.0", "ta_max": "38.3(18)", "nt_30": "3"},
         {"fecha": "2019-13", "tm_mes": "14.0", "p_mes": "1200.0"},  # annual → drop
-        {"fecha": "2020-1", "tm_mes": "", "p_mes": "80.0"},  # temp missing
+        {"fecha": "2020-1", "tm_mes": "", "p_mes": "80.0", "ta_max": "", "nt_30": ""},
     ]
 )
 
@@ -48,3 +48,18 @@ def test_both_series_share_year_axis(make_ctx):
     s = _build(make_ctx)
     assert s["temp_avg"].years == ["2019", "2020"]
     assert s["precip"].unit == "mm"
+
+
+def test_temp_max_strips_the_day_in_parentheses(make_ctx):
+    tmax = _build(make_ctx)["temp_max"]
+    assert tmax.unit == "°C"
+    assert tmax.theme == "climate"
+    assert tmax.values["2019"]["1"] == 15.0
+    assert tmax.values["2019"]["7"] == 38.3  # "38.3(18)" → 38.3
+
+
+def test_hot_days_counts_days_over_30(make_ctx):
+    hot = _build(make_ctx)["hot_days_30"]
+    assert hot.unit == "giorni"
+    assert hot.values["2019"]["1"] == 0.0
+    assert hot.values["2019"]["7"] == 3.0
