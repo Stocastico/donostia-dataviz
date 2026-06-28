@@ -31,6 +31,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Climate (temp / precip) | AEMET — Igeldo station | **station `1024E`**, OpenData REST `valores/climatologicos/mensualesanuales` (monthly **1981–2025**; 36-month cap → fetched in 3-year windows) → `temp_avg`, `precip` series | **wired ✓** (free key) | code ✓ |
 | Hotel occupancy / overnight stays | INE EOH | wstempus table **2078**, series **EOT2721**+**EOT2722** (pernoctaciones España+extranjero) → `overnight_stays` series (2005–2026) | **wired ✓** | code ✓ |
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
+| Educational facilities (GIS) | Donostia Open Data | recursos/servicios-educativos/**hezkuntzaekipamenduak.json** (GeoJSON, 157 punti; geometrie già in WGS84). Join spaziale punto→barrio (`spatial.py`) → `schools_per_1000` | **wired ✓** | code ✓ |
 | Bus passengers / parking | Donostia Open Data | tema/transporte (annual from 2011; point snapshot) | direct | brief |
 | Crime | Donostia Open Data (Guardia Municipal) | tema/seguridad (barrio, annual) | direct | brief |
 
@@ -50,6 +51,16 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Visit motive / gasto / segment | Eustat Ibiltur | tables / manual | annual; pull from Eustat tables |
 | MICE events / attendees | DSS Convention Bureau / ICCA | **curated ✓** | `data-pipeline/curated/mice_donostia.csv` — annual indicators (ICCA congresses 2018/19/23/25; 2024 record 188 events / 259k attendees), each value cited per-row. Extend by adding rows. |
 | Visitor satisfaction, excursionism | Observatorio Turístico Donostia | manual | annual headline figures |
+| Catastro (valore/dati immobili) | **Diputación Foral de Gipuzkoa** | bulk CSV | ⚠️ usare il catastro **foral** su `gipuzkoairekia.eus` (Bienes Inmuebles de Naturaleza Urbana, CC-BY), **NON** `sedecatastro.gob.es` (non copre i territori forali). Parcela-level → aggregare a barrio col join spaziale. |
+
+## Spatial join (GIS sources)
+
+GIS datasets without a barrio field (points/grids/polygons) are assigned to the
+reference geometry by `spatial.py` (point-in-polygon + area-weighted
+interpolation) at ingestion — the same "join once" principle as attribute data.
+Donostia's GeoJSON resources are already WGS84; **SHP-only** sources (e.g. the
+noise grids `ruido-total`/`ruido-noche`) must be converted/reprojected
+25830→4326 first (`ogr2ogr`/`mapshaper` or `pyproj`) before the join.
 
 ## AEMET access note
 
