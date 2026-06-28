@@ -5,6 +5,7 @@ import {
   annualTotals,
   annualAggregate,
   monthlyYearRows,
+  temperatureAnomalies,
 } from "../src/lib/series";
 import type { SeriesData } from "../src/lib/types";
 
@@ -48,6 +49,20 @@ describe("series helpers", () => {
     expect(rows[0]["2021"]).toBe(150);
     expect(rows[1]["2021"]).toBeNull(); // Feb 2021 was null
     expect(rows[2]["2020"]).toBeNull(); // Mar has no data
+  });
+
+  it("temperatureAnomalies gives each year's annual mean minus the baseline", () => {
+    const s = {
+      ...SERIES,
+      years: ["2020", "2021", "2022"],
+      values: { "2020": { "1": 10 }, "2021": { "1": 12 }, "2022": { "1": 14 } },
+    };
+    const a = temperatureAnomalies(s); // baseline mean = 12
+    expect(a).toEqual([
+      { year: "2020", value: 10, anomaly: -2 },
+      { year: "2021", value: 12, anomaly: 0 },
+      { year: "2022", value: 14, anomaly: 2 },
+    ]);
   });
 
   it("annualAggregate sums or means each year, skipping years with no data", () => {

@@ -33,6 +33,21 @@ export function monthlyYearRows(
   });
 }
 
+/** Annual mean of each year minus the overall baseline mean — the input for
+ * "warming stripes" (anomaly per year vs the series average). */
+export function temperatureAnomalies(
+  series: SeriesData,
+): Array<{ year: string; value: number; anomaly: number }> {
+  const means = annualAggregate(series, "mean");
+  if (means.length === 0) return [];
+  const baseline = means.reduce((a, d) => a + d.value, 0) / means.length;
+  return means.map((d) => ({
+    year: d.year,
+    value: d.value,
+    anomaly: Math.round((d.value - baseline) * 100) / 100,
+  }));
+}
+
 /** Per-year totals (sum of months, ignoring nulls) for an annual trend line. */
 export function annualTotals(series: SeriesData): Array<{ year: string; total: number }> {
   return series.years.map((year) => {

@@ -265,6 +265,31 @@ body {
   font-size: 1rem;
   margin: 0 0 0.2rem;
 }
+
+.stripes-chart {
+  margin-top: 1.5rem;
+}
+.stripes-chart h3 {
+  font-size: 1rem;
+  margin: 0 0 0.2rem;
+}
+.stripes {
+  display: flex;
+  height: 90px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.stripe {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.stripes-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 3px;
+}
 .trend-chart h3 {
   font-size: 1rem;
   margin: 0 0 0.2rem;
