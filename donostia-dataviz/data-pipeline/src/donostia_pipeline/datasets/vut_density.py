@@ -19,9 +19,9 @@ from collections import defaultdict
 
 from ..config import canonical_barrio_id
 from ..model import BuildContext, Metric
+from . import demografia
 
 VUT_CSV = "vtur_censo.csv"
-DEMO_CSV = "demo_barrio.csv"
 PERIOD = "actual"
 SOURCE = "Derivata — censo VUT / popolazione (Donostia Open Data)"
 
@@ -36,33 +36,9 @@ def _vut_units_by_barrio(ctx: BuildContext) -> dict[str, int]:
     return units
 
 
-def _latest_year_population(ctx: BuildContext) -> dict[str, int]:
-    # First pass: find the latest year present.
-    rows: list[tuple[str, str, int]] = []  # (year, barrio_id, people)
-    with (ctx.raw_dir / DEMO_CSV).open(encoding="utf-8-sig", newline="") as fh:
-        for row in csv.DictReader(fh):
-            barrio_id = ctx.code_to_id.get(row["AuzoKodea"].strip())
-            if not barrio_id:
-                continue
-            try:
-                people = int(row["PertsonenKop"])
-            except (TypeError, ValueError):
-                continue
-            rows.append((row["Urtea"].strip(), barrio_id, people))
-
-    if not rows:
-        return {}
-    latest = max(year for year, _, _ in rows)
-    population: dict[str, int] = defaultdict(int)
-    for year, barrio_id, people in rows:
-        if year == latest:
-            population[barrio_id] += people
-    return population
-
-
 def build(ctx: BuildContext) -> list[Metric]:
     units = _vut_units_by_barrio(ctx)
-    population = _latest_year_population(ctx)
+    population = demografia.population_latest_by_barrio(ctx.raw_dir, ctx.code_to_id)
 
     values: dict[str, dict[str, float | None]] = {}
     for barrio_id, pop in population.items():
