@@ -7,12 +7,17 @@ Serve da **backlog**: lo aggiorneremo man mano che le voci passano a "fatto".
 commit `ede6d1e`. 9 metriche coropletiche per barrio, 3 serie mensili città,
 3 indicatori annuali (MICE), export CSV "long", 41 test pipeline + 26 frontend.
 
-> **Avanzamento (aggiornato):** **P0.2 — modulo di join spaziale: FATTO** —
-> `spatial.py` (point-in-polygon + interpolazione areale `mean`/`sum` +
-> `rate_per_1000`) e `gis_io.py` (loader GeoJSON), validati end-to-end. Prima
-> metrica GIS live: **`schools_per_1000`** (centri educativi → join spaziale →
-> tasso per 1000 ab.), che chiude anche parte di **P2.9**. 55 test pipeline.
-> Resta aperto: riproiezione 25830→4326 per le fonti **solo-SHP** (es. rumore).
+> **Avanzamento (aggiornato):** **P0.2 — modulo di join spaziale: COMPLETO** ✅
+> - `spatial.py` — point-in-polygon (STRtree) + interpolazione areale
+>   `mean`/`sum` + `rate_per_1000` (normalizzazione per popolazione).
+> - `gis_io.py` — loader GeoJSON; **riproiezione 25830→4326** (pyproj, validata
+>   sul ground-truth reale ETRS89↔WGS84) e **lettura SHP** (pyshp), così anche
+>   le fonti **solo-SHP** (es. mappe del rumore) sono ingeribili.
+> - Denominatore per-capita condiviso (`population_latest_by_barrio`).
+>
+> Prima metrica GIS live: **`schools_per_1000`** (centri educativi → join
+> spaziale → tasso/1000 ab.), che chiude anche parte di **P2.9**. 58 test
+> pipeline. P0.2 non ha più caveat aperti.
 
 ---
 

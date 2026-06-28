@@ -34,7 +34,9 @@ metrics from Donostia Open Data, grouped by theme in the picker:
   a COVID-19 marker at 2020).
 - **Economia** — Renta disponibile pro capite (€, 2016–2023) and the
   **divario di reddito di genere** (%).
-- **Istruzione** — Popolazione con studi universitari (%), 2000–2025.
+- **Istruzione** — Popolazione con studi universitari (%), 2000–2025; **Centri
+  educativi per 1000 ab.** (joined to barrios by point-in-polygon — the first
+  GIS spatial-join metric).
 - **Abitazioni** — Affitto medio €/m² (2016–2024), official Gobierno Vasco EMA
   rental-market statistics by barrio (real registered contracts, not listings).
 

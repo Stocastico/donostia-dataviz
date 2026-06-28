@@ -58,9 +58,10 @@ gracefully (shows "data coming soon") until their extraction lands.
 GIS datasets without a barrio field (points/grids/polygons) are assigned to the
 reference geometry by `spatial.py` (point-in-polygon + area-weighted
 interpolation) at ingestion — the same "join once" principle as attribute data.
-Donostia's GeoJSON resources are already WGS84; **SHP-only** sources (e.g. the
-noise grids `ruido-total`/`ruido-noche`) must be converted/reprojected
-25830→4326 first (`ogr2ogr`/`mapshaper` or `pyproj`) before the join.
+Donostia's GeoJSON resources are already WGS84. **SHP-only** sources (e.g. the
+noise grids `ruido-total`/`ruido-noche`, served in EPSG:25830) are handled by
+`gis_io.load_shapefile` (pyshp) + `gis_io.reproject_geometry` (pyproj),
+which reproject 25830→4326 on load — no external `ogr2ogr` step needed.
 
 ## AEMET access note
 
