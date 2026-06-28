@@ -257,8 +257,13 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+.cycles-chart,
 .trend-chart {
   margin-top: 1.5rem;
+}
+.cycles-chart h3 {
+  font-size: 1rem;
+  margin: 0 0 0.2rem;
 }
 .trend-chart h3 {
   font-size: 1rem;

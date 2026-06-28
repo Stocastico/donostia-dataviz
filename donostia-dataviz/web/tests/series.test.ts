@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { MONTH_LABELS, flattenSeriesValues, annualTotals, annualAggregate } from "../src/lib/series";
+import {
+  MONTH_LABELS,
+  flattenSeriesValues,
+  annualTotals,
+  annualAggregate,
+  monthlyYearRows,
+} from "../src/lib/series";
 import type { SeriesData } from "../src/lib/types";
 
 const SERIES: SeriesData = {
@@ -32,6 +38,16 @@ describe("series helpers", () => {
       { year: "2020", total: 300 },
       { year: "2021", total: 150 },
     ]);
+  });
+
+  it("monthlyYearRows builds 12 month rows keyed by year for line overlay", () => {
+    const rows = monthlyYearRows(SERIES); // years 2020,2021; months 1,2
+    expect(rows).toHaveLength(12);
+    expect(rows[0].month).toBe("Gen");
+    expect(rows[0]["2020"]).toBe(100);
+    expect(rows[0]["2021"]).toBe(150);
+    expect(rows[1]["2021"]).toBeNull(); // Feb 2021 was null
+    expect(rows[2]["2020"]).toBeNull(); // Mar has no data
   });
 
   it("annualAggregate sums or means each year, skipping years with no data", () => {

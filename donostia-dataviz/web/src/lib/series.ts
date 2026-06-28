@@ -18,6 +18,21 @@ export function flattenSeriesValues(series: SeriesData): number[] {
   return out;
 }
 
+/** Reshape a month×year series into 12 month rows, each keyed by year — for a
+ * "monthly cycles" overlay (one line per year, x = month). Missing → null. */
+export function monthlyYearRows(
+  series: SeriesData,
+): Array<Record<string, string | number | null>> {
+  return MONTH_LABELS.map((label, m) => {
+    const row: Record<string, string | number | null> = { month: label };
+    for (const year of series.years) {
+      const v = series.values[year]?.[String(m + 1)];
+      row[year] = v == null || !Number.isFinite(v) ? null : v;
+    }
+    return row;
+  });
+}
+
 /** Per-year totals (sum of months, ignoring nulls) for an annual trend line. */
 export function annualTotals(series: SeriesData): Array<{ year: string; total: number }> {
   return series.years.map((year) => {

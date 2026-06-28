@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { loadSeries, seriesRegistry } from "../lib/data";
 import { SeasonalityHeatmap } from "./SeasonalityHeatmap";
 import { AnnualTrendChart } from "./AnnualTrendChart";
+import { MonthlyYearLines } from "./MonthlyYearLines";
 import { PALETTES } from "../lib/colorScale";
 import type { SeriesData } from "../lib/types";
 
@@ -65,6 +66,7 @@ export function SeasonalitySection() {
             return (
               <>
                 <SeasonalityHeatmap series={series} palette={pres.palette} />
+                <MonthlyYearLines series={series} />
                 <AnnualTrendChart series={series} mode={pres.mode} color={pres.trendColor} />
               </>
             );
