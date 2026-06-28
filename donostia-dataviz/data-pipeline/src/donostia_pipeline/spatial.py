@@ -58,3 +58,58 @@ class BarrioIndex:
             if bid is not None:
                 counts[bid] += 1
         return counts
+
+    def areal_interpolate(
+        self,
+        features: Iterable[tuple[dict, float | None]],
+        mode: str = "mean",
+    ) -> dict[str, float | None]:
+        """Aggregate valued source geometries to barrios, weighted by overlap area.
+
+        ``features`` is an iterable of ``(geojson_geometry, value)``.
+
+        * ``mode="mean"`` — area-weighted mean for *intensive* variables (e.g.
+          noise dB): ``Σ(area∩ · v) / Σ(area∩)``. Barrios with no overlap → None.
+        * ``mode="sum"`` — *extensive* variables split by overlap fraction of each
+          source: ``Σ(v · area∩ / area_source)``. Barrios with no overlap → 0.
+        """
+        if mode not in ("mean", "sum"):
+            raise ValueError(f"bad mode {mode!r}")
+        num = {bid: 0.0 for bid in self.barrio_ids}
+        weight = {bid: 0.0 for bid in self.barrio_ids}
+
+        for geom_dict, value in features:
+            if value is None:
+                continue
+            src = shape(geom_dict)
+            src_area = src.area
+            for i in (int(j) for j in self._tree.query(src)):
+                inter_area = self._geoms[i].intersection(src).area
+                if inter_area <= 0:
+                    continue
+                bid = self.barrio_ids[i]
+                if mode == "mean":
+                    num[bid] += inter_area * value
+                    weight[bid] += inter_area
+                elif src_area > 0:  # sum
+                    num[bid] += value * (inter_area / src_area)
+
+        if mode == "mean":
+            return {bid: (num[bid] / weight[bid] if weight[bid] > 0 else None)
+                    for bid in self.barrio_ids}
+        return {bid: num[bid] for bid in self.barrio_ids}
+
+
+def rate_per_1000(
+    counts: dict[str, float],
+    population: dict[str, float],
+) -> dict[str, float | None]:
+    """Normalize per-barrio counts to a rate per 1000 inhabitants.
+
+    None when population is zero/unknown (rate undefined) — never map raw counts.
+    """
+    out: dict[str, float | None] = {}
+    for bid, n in counts.items():
+        pop = population.get(bid)
+        out[bid] = round(n / pop * 1000.0, 2) if pop else None
+    return out

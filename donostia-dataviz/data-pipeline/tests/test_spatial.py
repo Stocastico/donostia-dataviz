@@ -41,3 +41,38 @@ def test_count_points_returns_all_barrios_with_zero_default():
 def test_barrio_ids_property():
     idx = spatial.BarrioIndex(GEO)
     assert set(idx.barrio_ids) == {"a", "b", "c"}
+
+
+def _poly(x0, x1):
+    return {"type": "Polygon", "coordinates": _square(x0, x1)}
+
+
+# S1 spans a/b halves (value 100); S2 covers a fully (value 200); c untouched.
+SOURCES = [(_poly(5, 15), 100.0), (_poly(0, 10), 200.0)]
+
+
+def test_areal_interpolate_mean_is_area_weighted():
+    idx = spatial.BarrioIndex(GEO)
+    out = idx.areal_interpolate(SOURCES, mode="mean")
+    # a: (50*100 + 100*200)/(50+100) = 166.67 ; b: (50*100)/50 = 100 ; c: no data
+    assert round(out["a"], 2) == 166.67
+    assert round(out["b"], 2) == 100.0
+    assert out["c"] is None
+
+
+def test_areal_interpolate_sum_distributes_by_overlap_fraction():
+    idx = spatial.BarrioIndex(GEO)
+    out = idx.areal_interpolate(SOURCES, mode="sum")
+    # a: 100*(50/100) + 200*(100/100) = 250 ; b: 100*(50/100) = 50 ; c: 0
+    assert round(out["a"], 2) == 250.0
+    assert round(out["b"], 2) == 50.0
+    assert out["c"] == 0.0
+
+
+def test_rate_per_1000():
+    counts = {"a": 10, "b": 1, "c": 0}
+    pop = {"a": 5000, "b": 2000, "c": 0}
+    rates = spatial.rate_per_1000(counts, pop)
+    assert rates["a"] == 2.0  # 10/5000*1000
+    assert rates["b"] == 0.5
+    assert rates["c"] is None  # zero/unknown population → undefined
