@@ -1748,6 +1748,25 @@ rent_eur_m2,Affitto medio (€/m²),housing,€/m²,mirakruz-bidebieta,Mirakruz-
 rent_eur_m2,Affitto medio (€/m²),housing,€/m²,mirakruz-bidebieta,Mirakruz-Bidebieta,2022,11.7695
 rent_eur_m2,Affitto medio (€/m²),housing,€/m²,mirakruz-bidebieta,Mirakruz-Bidebieta,2023,11.4706
 rent_eur_m2,Affitto medio (€/m²),housing,€/m²,mirakruz-bidebieta,Mirakruz-Bidebieta,2024,12.0949
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,aiete,Aiete,actual,0.83
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,altza,Altza,actual,0.63
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,amaraberri,Amara Berri,actual,0.53
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,anorga,Añorga,actual,0.74
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,antigua,Antigua,actual,1.08
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,ategorrieta-ulia,Ategorrieta-Ulia,actual,3.09
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,egia,Egia,actual,0.76
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,erdialdea,Erdialdea (Centro),actual,0.45
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,gros,Gros,actual,0.35
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,ibaeta,Ibaeta,actual,2.45
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,igeldo,Igeldo,actual,0.96
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,intxaurrondo,Intxaurrondo,actual,0.56
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,landerbaso,Landerbaso,actual,0.0
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,loiola,Loiola,actual,0.31
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,martutene,Martutene,actual,1.13
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,1.73
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,miramon-zorroaga,Miramón-Zorroaga,actual,1.71
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,oarain,Oarain,actual,
+schools_per_1000,Centri educativi (per 1000 ab.),education,per 1000 ab.,zubieta,Zubieta,actual,6.43
 vut_count,Viviendas turísticas (VUT/HUT),tourism,unità,aiete,Aiete,actual,33.0
 vut_count,Viviendas turísticas (VUT/HUT),tourism,unità,altza,Altza,actual,8.0
 vut_count,Viviendas turísticas (VUT/HUT),tourism,unità,amaraberri,Amara Berri,actual,118.0

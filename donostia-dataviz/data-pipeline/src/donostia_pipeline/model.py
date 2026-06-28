@@ -20,6 +20,11 @@ class BuildContext:
     barrio_ids: set[str]
     # KodAuzo code -> barrio_id, for datasets that carry the barrio code
     code_to_id: dict[str, str]
+    # Optional, for GIS / per-capita datasets (built once in build.run):
+    #   barrio_index: a spatial.BarrioIndex for point/areal joins
+    #   population_latest: barrio_id -> latest-year population (denominator)
+    barrio_index: object | None = None
+    population_latest: dict[str, int] | None = None
 
 
 @dataclass

@@ -16,10 +16,11 @@ from pathlib import Path
 
 import requests
 
-from . import config, export_tables, geometry
+from . import config, export_tables, geometry, spatial
 from .datasets import (
     aemet_climate,
     demografia,
+    educacion_gis,
     estudios,
     ine_eoh,
     mice,
@@ -61,12 +62,17 @@ RAW_DOWNLOADS: dict[str, str] = {
         "https://euskadi.eus/contenidos/estadistica/122417_emal_tablas_estad/"
         "opendata/EMAL.-Barrios-Municipios.-2016-2025_es.xlsx"
     ),
+    # Educational facilities (GeoJSON points, WGS84) — joined to barrios spatially.
+    "educativos.json": (
+        "https://www.donostia.eus/datosabiertos/recursos/"
+        "servicios-educativos/hezkuntzaekipamenduak.json"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
-DATASETS = [vut, demografia, renta, estudios, vut_density, rent]
+DATASETS = [vut, demografia, renta, estudios, vut_density, rent, educacion_gis]
 
 # City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
 SERIES_DATASETS = [ine_eoh, aemet_climate]
@@ -174,8 +180,16 @@ def run(offline: bool = False) -> dict:
     }
     print(f"  ✓ barrios.geojson ({len(valid_ids)} barrios)")
 
-    # 2. Datasets → metrics.
-    ctx = BuildContext(raw_dir=config.RAW_DIR, barrio_ids=valid_ids, code_to_id=code_to_id)
+    # 2. Datasets → metrics. The context also carries the spatial index (for
+    #    GIS point/areal joins) and the latest-year population (per-capita
+    #    normalization), both built once against the reference geometry.
+    ctx = BuildContext(
+        raw_dir=config.RAW_DIR,
+        barrio_ids=valid_ids,
+        code_to_id=code_to_id,
+        barrio_index=spatial.BarrioIndex(geojson),
+        population_latest=demografia.population_latest_by_barrio(config.RAW_DIR, code_to_id),
+    )
     metrics: list[Metric] = []
     for module in DATASETS:
         metrics.extend(module.build(ctx))
