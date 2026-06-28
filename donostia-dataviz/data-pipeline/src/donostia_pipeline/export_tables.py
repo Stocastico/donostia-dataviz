@@ -25,9 +25,9 @@ from .model import Indicator, Metric, Series
 
 METRIC_FIELDS = [
     "metric_id", "label", "theme", "unit",
-    "barrio_id", "barrio_name", "period", "value",
+    "barrio_id", "barrio_name", "period", "value", "source",
 ]
-SERIES_FIELDS = ["series_id", "label", "theme", "unit", "year", "month", "value"]
+SERIES_FIELDS = ["series_id", "label", "theme", "unit", "year", "month", "value", "source"]
 INDICATOR_FIELDS = ["id", "label", "theme", "unit", "year", "value", "source"]
 BARRIO_FIELDS = ["barrio_id", "name", "kod_auzo"]
 
@@ -46,6 +46,7 @@ def metric_long_rows(metrics: Iterable[Metric], barrio_names: dict[str, str]) ->
                     "barrio_name": barrio_names.get(barrio_id, ""),
                     "period": period,
                     "value": value,
+                    "source": metric.source,
                 })
     rows.sort(key=lambda r: (r["metric_id"], r["barrio_id"], r["period"]))
     return rows
@@ -64,6 +65,7 @@ def series_long_rows(series_list: Iterable[Series]) -> list[dict]:
                     "year": year,
                     "month": month,
                     "value": value,
+                    "source": series.source,
                 })
     rows.sort(key=lambda r: (r["series_id"], r["year"], int(r["month"])))
     return rows

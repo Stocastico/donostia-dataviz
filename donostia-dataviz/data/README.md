@@ -29,6 +29,7 @@ Per-barrio metrics (choropleths), one row per barrio × period.
 | `barrio_id`, `barrio_name` | the barrio (join to `barrios.csv`) |
 | `period` | year `YYYY`, or `actual` for snapshots |
 | `value` | numeric value (blank = no data) |
+| `source` | citation for the dataset |
 
 ### `series_long.csv`
 City-grain monthly time series (seasonality / climate), one row per year × month.
@@ -40,6 +41,7 @@ City-grain monthly time series (seasonality / climate), one row per year × mont
 | `year` | `YYYY` |
 | `month` | `1`–`12` |
 | `value` | numeric value (blank = no data) |
+| `source` | citation for the dataset |
 
 ### `indicators_long.csv`
 Annual city indicators (e.g. MICE), one row per indicator × year. Each row keeps

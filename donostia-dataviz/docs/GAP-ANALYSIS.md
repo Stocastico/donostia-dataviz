@@ -54,8 +54,8 @@ Siamo già ~85% allineati al pattern CoreData.nyc. Già rispettato:
 - ✅ Tabella lunga `barrio_id, period, metric, value, unit` già presente.
 
 Scostamenti leggeri da chiudere (non un rewrite):
-1. Manca la colonna **`source`** in `metrics_long.csv`/`series_long.csv` (presente solo in `indicators_long.csv`). Il doc vuole `barrio_id, anno, metrica, valore, unità, **fonte**`.
-2. La tabella lunga è un *export*, non la sorgente canonica che il frontend legge (frontend usa i `metric_<id>.json` per lazy-load). Per aderire al pattern si può promuovere la tabella lunga a artefatto canonico intermedio.
+1. ✅ **FATTO** — colonna **`source`** aggiunta a `metrics_long.csv`/`series_long.csv` (già presente in `indicators_long.csv`). Le tabelle long ora corrispondono allo schema raccomandato `barrio_id, periodo, metrica, valore, unità, fonte`.
+2. La tabella lunga è un *export*, non la sorgente canonica che il frontend legge (frontend usa i `metric_<id>.json` per lazy-load). Per aderire al pattern si può promuovere la tabella lunga a artefatto canonico intermedio. *(opzionale)*
 3. **Parquet**: suggerito dal doc; oggi solo CSV. Aggiunta banale con pandas.
 4. **Naming periodo**: usiamo `period` (anno / `actual` / `YYYY-MM`); lo store del doc parla di `anno`. Da normalizzare/documentare.
 5. Generalizzare il loader "CSV curato → metrica" (oggi solo per MICE) così si aggiungono metriche barrio×anno editando un CSV.
@@ -81,9 +81,9 @@ Il doc dice "17 barrios"; noi ne abbiamo correttamente 19. Già risolto.
 > - **Dati GIS** (punti/griglia/poligoni/parcelas): richiedono una capacità che **oggi non abbiamo** — il **join spaziale** (point-in-polygon, interpolazione areale) sulla geometria di riferimento. **Questo è il vero blocco** per le dimensioni GIS.
 
 ### 🔴 P0 — Fondamenta (sbloccano il resto)
-1. Allineare l'indicator store: aggiungere `source` alle tabelle long; (opz.) store canonico + export Parquet. *(leggero)*
-2. **Modulo di join spaziale**: assegna qualunque dataset GIS (punti/griglia/poligoni in SHP/GeoJSON, riproiettati a EPSG:4326) a `barrio_id` contro la geometria di riferimento, con normalizzazione per popolazione. (shapely già installato; `ogr2ogr`/`mapshaper` per SHP→GeoJSON.) **Sblocca tutte le dimensioni GIS.**
-3. Verificare copertura alias barrio per ogni nuova fonte barrio-grain (es. CSV criminalità).
+1. ✅ **FATTO** — Allineato l'indicator store: colonna `source` aggiunta alle tabelle long (schema completo `barrio_id, periodo, metrica, valore, unità, fonte`). Store canonico + Parquet restano opzionali.
+2. ✅ **FATTO** — **Modulo di join spaziale** (`spatial.py` + `gis_io.py`): punti/poligoni in GeoJSON/SHP, riproiezione 25830→4326, interpolazione areale, normalizzazione per popolazione. Sblocca tutte le dimensioni GIS.
+3. Verificare copertura alias barrio per ogni nuova fonte barrio-grain (es. CSV criminalità) — si fa per-dataset quando lo si aggiunge.
 
 ### 🟠 P1 — Alto valore, accesso diretto, barrio-grain (quasi sbloccati)
 4. **Criminalità per barrio** → `gua_delitosbarrio_ckan.csv`, choropleth **tasa/1000 ab.** + evoluzione + tipi di delitto. *Miglior ROI nuovo.*

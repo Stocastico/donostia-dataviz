@@ -27,6 +27,7 @@ def test_metric_long_rows_are_tidy_and_sorted():
     assert rows[0] == {
         "metric_id": "m", "label": "M", "theme": "t", "unit": "u",
         "barrio_id": "egia", "barrio_name": "Egia", "period": "2020", "value": 3.0,
+        "source": "src",
     }
 
 
@@ -41,5 +42,5 @@ def test_series_long_row_shape():
     rows = export_tables.series_long_rows([SERIES])
     assert rows[0] == {
         "series_id": "s", "label": "S", "theme": "t", "unit": "u",
-        "year": "2020", "month": "1", "value": 10.0,
+        "year": "2020", "month": "1", "value": 10.0, "source": "src",
     }
