@@ -1,0 +1,20 @@
+# Normalize all text files to LF in the repo (avoids CRLF/LF churn between
+# Windows working trees and the Linux pipeline/CI). Working-tree EOL is left to
+# each platform; only what gets stored in git is normalized.
+* text=auto
+
+# Known binaries — never touch line endings
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.xlsx binary
+*.xls  binary
+*.zip  binary
+*.woff binary
+*.woff2 binary
+*.shp  binary
+*.shx  binary
+*.dbf  binary

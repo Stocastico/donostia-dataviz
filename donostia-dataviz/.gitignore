@@ -19,3 +19,6 @@ web/tsconfig.tsbuildinfo
 
 # Generated data is committed (web/src/data/*) so the site builds without the
 # pipeline — do NOT ignore it.
+
+# Generated analysis outputs (reproducibles con analysis/*.py)
+analysis/output/
