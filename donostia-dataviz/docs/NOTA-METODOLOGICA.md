@@ -1,0 +1,75 @@
+# Nota metodológica (MET-1…MET-5)
+
+> **Qué es.** Las decisiones metodológicas que rigen el proyecto, acordadas con
+> las cuatro revisiones externas (`FEEDBACK-CONSOLIDADO.md`). Documenta *por qué*
+> medimos como medimos. Es la base de credibilidad: cualquier output debe ser
+> coherente con esto.
+
+## MET-1 — `housing_tension` se reformula como índice relativo
+
+El índice actual (`alquiler €/m² × 12 × 30 m²/persona ÷ renta per cápita × 100`)
+es útil pero descansa en un supuesto fijo (30 m²/persona) y mezcla un alquiler de
+contratos nuevos con la renta de toda la población residente. Por eso **no** se
+presenta como "porcentaje de renta que gasta una familia", sino como **presión
+teórica sobre el residente medio**, comparable entre barrios y en el tiempo.
+
+Cambios acordados (no requieren datos nuevos):
+
+- Hacer el parámetro **m²/persona seleccionable** (20 / 30 / 40) → muestra la
+  sensibilidad del índice en vez de esconder el supuesto.
+- Acompañarlo de una **familia de medidas** que apunten en la misma dirección:
+  `alquiler/renta`, `z(alquiler) − z(renta)`, `percentil(alquiler) −
+  percentil(renta)`. Cuando todas coinciden, el mensaje gana solidez.
+- Cuando llegue el catastro foral (REC-8), sustituir el 30 fijo por la
+  **superficie construida real por barrio**.
+
+## MET-2 — "Índice de Transformación Urbana", nunca "gentrificación"
+
+Con los datos disponibles **no se puede demostrar gentrificación**: faltan
+rotación de población y sustitución social (quién entra y quién sale). Lo que sí
+podemos medir es **transformación observable**. Por eso:
+
+- El índice se llama **Índice de Transformación Urbana** (ver
+  `INDICE-TRANSFORMACION.md`).
+- Definición **explícita y seleccionable**, con al menos dos modos
+  (socioeconómico estilo Freeman; presión turística) y los **componentes a la
+  vista** — nunca una caja negra de muchas variables.
+- `% extranjeros` **no** se usa como proxy de transformación (ver MET-5).
+
+## MET-3 — Correlaciones robustas como invariante
+
+Con N = 13–19 barrios, una sola r de Pearson es frágil. Toda correlación que se
+publique debe reportarse con:
+
+- **Pearson + Spearman** (rangos), para no depender de la forma de la relación.
+- **Leave-one-out** de los outliers del centro (Erdialdea, Gros): si el
+  coeficiente se desploma al quitarlos, el mensaje cambia y hay que decirlo.
+- Cuando proceda, **correlación parcial** controlando por población/densidad.
+
+Y siempre: **correlación ≠ causalidad**. Ejemplo aplicado en
+`ANALISIS-SPRINT-A.md` (la tesis VUT↔alquiler sobrevive al leave-one-out; otras
+relaciones no).
+
+## MET-4 — Fichas de confianza por indicador
+
+Cada métrica lleva (o llevará, en la UI) una **ficha de confianza** que distingue:
+
+- **Observado** (dato medido directamente: p.ej. alquiler EMA, padrón).
+- **Derivado** (calculado: housing_tension, densidades, índice).
+- **Proxy** (aproximación: reseñas Airbnb como ocupación, ruido por punto medio
+  de rango).
+
+…y enumera los **supuestos**. Es poco habitual en dashboards públicas y refuerza
+la honestidad del proyecto.
+
+## MET-5 — Invariantes ya fijadas
+
+- **Normalizar por población** (tasa/1000) antes de mapear cualquier conteo;
+  nunca valores absolutos en mapa.
+- **`% extranjeros` no es proxy de gentrificación**: en Donostia mezcla
+  inmigración económica y expatriados acomodados. Empíricamente, fuera del centro
+  turístico se asocia a **menor** renta (renta ↔ % extranjeros r = −0,58, que se
+  refuerza a −0,72 sin el centro), así que usarla acríticamente sería engañoso.
+- **Provenance explícita**: cada valor arrastra su fuente (`source`).
+- **Una sola geometría de referencia** (19 barrios `mapa_auzoak`); todo join se
+  hace una vez, en ingestión.

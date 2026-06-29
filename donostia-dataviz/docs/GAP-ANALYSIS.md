@@ -141,8 +141,8 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 
 ### B. Análisis (sobre datos que YA tenemos — mayor retorno inmediato)
 
-> ✅ **AN-1, AN-2, AN-3 HECHOS (Sprint A).** Código reproducible en
-> `analysis/sprint_a.py`; resultados e interpretación en `ANALISIS-SPRINT-A.md`.
+> ✅ **AN-1…AN-5 HECHOS.** Sprint A en `analysis/sprint_a.py`; AN-4/AN-5 en
+> `analysis/distribucion_barrios.py`. Resultados en `ANALISIS-SPRINT-A.md`.
 
 - **AN-1 ✅ Correlaciones robustas.** Hechas con Pearson + Spearman (rangos) +
   leave-one-out. Hallazgo más fuerte y robusto: `housing_tension ~ income`
@@ -153,10 +153,10 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 - **AN-3 ✅ Tipología de barrios.** k-means k=4 (semilla fija) → 4 perfiles
   (central turístico / acomodado / transicional / popular en tensión). Egia es
   el caso "en movimiento". Presentado como perfiles descriptivos (N=13).
-- **AN-4 🟧 [A] Matriz niveles vs. variaciones.** Cruce nivel × pendiente (p.ej.
+- **AN-4 ✅ [A] Matriz niveles vs. variaciones — HECHA.** Cruce nivel × pendiente (p.ej.
   alquiler alto vs. crecimiento de alquiler; renta baja vs. tensión alta).
   Insumo de la coropleta bivariada VIZ-3 (Perplexity, Gemini, ChatGPT).
-- **AN-5 🟧 [A] Índices de polarización.** Gini inter-barrio y ratio P90/P10 de
+- **AN-5 ✅ [A] Índices de polarización — HECHA** (Gini territorial estable ~0,10 2016–23; brecha no se ensancha). Gini inter-barrio y ratio P90/P10 de
   renta por año → ¿se ensancha la brecha Aiete↔Altza? (Gemini).
 - **AN-6 🟧 [C] Lead/lag y shift-share.** Tras REC-4: ¿la presión turística
   *precede* a la subida de alquileres? Descomposición shift-share del alza
@@ -205,15 +205,15 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   `ANALISIS-SPRINT-A.md` (correlaciones robustas, velocidades, perfiles, con
   distinción explícita correlación/causa). *Pendiente menor:* fundir un resumen
   en `INSIGHTS.md` (está en italiano; decidir si se migra a español).
-- **DOC-2 🟥 [A] Nota metodológica** de las correcciones MET-1…MET-4 (por qué se
+- **DOC-2 ✅ [A] Nota metodológica — HECHA** (`NOTA-METODOLOGICA.md`): de las correcciones MET-1…MET-4 (por qué se
   reformula la tensión, por qué "transformación" y no "gentrificación").
 - **DOC-3 🟧 [B/C] Fichas de fuente y supuestos** por dimensión nueva (edad,
   ruido, fiscalidad, Airbnb) en `SOURCES.md`, con nivel de confianza.
-- **DOC-4 🟨 [D] Documento de "tesis de la ciudad".** Integrar señales en una
+- **DOC-4 ✅ [D] Documento de "tesis de la ciudad" — HECHO** (`TESIS-CIUDAD.md`). Integrar señales en una
   lectura causal cauta: touristificación concentrada → presión inmobiliaria →
   tensión máxima en barrios obreros del este; clima que se calienta; etc.
   (amplía la tesis ya esbozada en `INSIGHTS.md`).
-- **DOC-5 🟨 [D/E] Guion de los outputs narrativos** (ver §6): para cada relato,
+- **DOC-5 ✅ [D/E] Guion de los outputs narrativos — HECHO** (`GUION-OUTPUTS.md`) (ver §6): para cada relato,
   la pregunta que responde, las métricas/vistas que usa y la conclusión.
 - **DOC-6 🟦 [F] Working paper metodológico** (opcional, DeepSeek): pipeline,
   supuestos e índice compuesto, publicable en sitio personal/arXiv.
