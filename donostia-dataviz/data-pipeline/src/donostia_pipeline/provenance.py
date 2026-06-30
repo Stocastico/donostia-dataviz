@@ -47,6 +47,11 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Annunci Inside Airbnb (snapshot 2025-09, inclusi non registrati): "
         "universo più ampio dei VUT legali, non lo stesso dato.",
     ]),
+    "airbnb_activity": ("proxy", [
+        "Recensioni/anno ≈ soggiorni recensiti («modello San Francisco»): sottostima "
+        "le presenze reali e cresce con l'adozione della piattaforma, non solo con l'occupazione.",
+        "Denominatore: popolazione dell'ultimo anno (semplificazione a denominatore fisso).",
+    ]),
     "schools_per_1000": ("derived", ["Join spaziale punto→barrio.", _PER_1000]),
     "housing_tension": ("derived", [
         "Assunzione esplicita: 30 m²/persona (regolabile nella sezione dedicata).",

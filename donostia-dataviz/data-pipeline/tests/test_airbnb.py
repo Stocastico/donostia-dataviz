@@ -61,7 +61,8 @@ def _ctx(tmp_path):
 
 
 def test_density_is_spatial_joined_and_per_capita(tmp_path):
-    (m,) = airbnb.build(_ctx(tmp_path))
+    density, _activity = airbnb.build(_ctx(tmp_path))
+    m = density
     assert m.id == "airbnb_density"
     assert m.theme == "tourism"
     assert m.kind == "sequential"
@@ -69,6 +70,19 @@ def test_density_is_spatial_joined_and_per_capita(tmp_path):
     # a: 2 listings / 4000 * 1000 = 0.5 ; b: 1 / 1000 * 1000 = 1.0 ; l4 dropped.
     assert m.values["a"][airbnb.SNAPSHOT] == 0.5
     assert m.values["b"][airbnb.SNAPSHOT] == 1.0
+
+
+def test_activity_panel_is_reviews_per_year_per_capita(tmp_path):
+    _density, activity = airbnb.build(_ctx(tmp_path))
+    assert activity.id == "airbnb_activity"
+    assert activity.time_grain == "year"
+    assert activity.periods == ["2023", "2024"]
+    # barrio a: 2 reviews in Jan 2024 (l1+l2) / 4000 * 1000 = 0.5; 1 in 2023 (l1)
+    assert activity.values["a"]["2024"] == 0.5
+    assert activity.values["a"]["2023"] == 0.2
+    # barrio b: 1 review in 2024 (l3) / 1000 * 1000 = 1.0; none in 2023 → 0.0
+    assert activity.values["b"]["2024"] == 1.0
+    assert activity.values["b"]["2023"] == 0.0  # zero activity, not n/d
 
 
 def test_reviews_series_counts_city_listings_by_month(tmp_path):

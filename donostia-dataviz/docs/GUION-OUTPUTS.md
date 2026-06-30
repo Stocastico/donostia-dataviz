@@ -158,7 +158,11 @@ la evidencia reproducible (`analysis/*.py`) y a la vista de la app.
 - **#5 y #6: ✅ cerrados.** REC-4 (Inside Airbnb) aportó `airbnb_density` por barrio
   + la serie `airbnb_reviews` (reseñas/mes), y VIZ-6 llevó el Índice de
   Transformación al frontend como dashboard de 3 mapas.
-- **Siguiente refinamiento (opcional, no bloqueante):** el **lead/lag
-  turismo→alquiler (AN-6)** — cruzar la serie mensual de Airbnb con la evolución
-  anual del alquiler; y **consolidar el modo turístico** del índice integrando
-  `airbnb_density` (hoy disponible como capa-componente) junto a VUT y ruido.
+- **Lead/lag turismo→alquiler (AN-6): ✅ primer cut exploratorio** en
+  `analysis/lead_lag.py` + `docs/ANALISIS-LEADLAG.md`. Sobre el panel barrio×año
+  `airbnb_activity` (reseñas/año/1000 ab.) vs `rent_eur_m2`, en primeras
+  diferencias: la correlación es máxima a **+1 año (r≈0,27)** —el turismo precede
+  al alquiler— y mayor que la contemporánea (0,19) y que el sentido inverso
+  (≈0). Débil pero **direccionalmente consistente**; exploratorio (MET-3).
+- **Siguiente refinamiento (opcional):** **consolidar el modo turístico** del
+  índice integrando `airbnb_density` junto a VUT y ruido.
