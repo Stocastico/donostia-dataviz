@@ -8,6 +8,8 @@ import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
 import { BivariateSection } from "../components/BivariateSection";
 import { TransformationSection } from "../components/TransformationSection";
+import { TourismCompareSection } from "../components/TourismCompareSection";
+import { LeadLagSection } from "../components/LeadLagSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
@@ -131,6 +133,8 @@ export function Dashboard() {
       <ScatterSection />
       <BivariateSection />
       <TransformationSection />
+      <TourismCompareSection />
+      <LeadLagSection />
       <HousingPressureSection />
       <MiceSection />
       <IndicatorsSection />
