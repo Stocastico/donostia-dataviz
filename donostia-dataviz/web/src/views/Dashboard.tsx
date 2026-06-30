@@ -7,6 +7,7 @@ import { BarrioCompareChart } from "../components/BarrioCompareChart";
 import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
 import { BivariateSection } from "../components/BivariateSection";
+import { TransformationSection } from "../components/TransformationSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
@@ -40,12 +41,18 @@ export function Dashboard() {
 
   const period = metric?.periods[periodIndex] ?? "";
 
-  // Color scale is rebuilt from the values of the currently shown period.
+  // Color scale is fixed over ALL periods, not just the one shown: otherwise the
+  // per-year min/max would recolor a barrio whose value never changed (the legend
+  // would shift under the slider). With a stable domain, color always means the
+  // same value and only moves when the data does — so the slider shows real change.
+  // (Categorical domains are period-independent anyway.)
   const scale = useMemo(() => {
     if (!metric) return null;
-    const vals = Object.values(metric.values).map((byPeriod) => byPeriod[period]);
+    const vals = Object.values(metric.values).flatMap((byPeriod) =>
+      Object.values(byPeriod),
+    );
     return buildColorScale(vals, metric.kind, "warm", metric.categories);
-  }, [metric, period]);
+  }, [metric]);
 
   const toggleBarrio = (id: string) =>
     setCompare((cur) =>
@@ -123,6 +130,7 @@ export function Dashboard() {
       <SeasonalitySection />
       <ScatterSection />
       <BivariateSection />
+      <TransformationSection />
       <HousingPressureSection />
       <MiceSection />
       <IndicatorsSection />

@@ -151,11 +151,24 @@ multi-definición.
   permitiría una versión *dinámica* del Modo B y el lead/lag (AN-6).
 - **REC-2 (ruido):** componente de calidad de vida para el Modo B.
 
-## Para el frontend (VIZ-6)
+## Para el frontend (VIZ-6) — ✅ implementado
 
-Exponer el índice como **dashboard de 3 mapas en paralelo** + selector de modo:
-(1) transformación socioeconómica (clase categórica), (2) presión turística,
-(3) un mapa de componentes (univ_excess / rent_excess / VUT). El CSV
-`analysis/output/transformation_index.csv` ya trae todas las columnas necesarias
-(score por modo + cada componente visible + clase). Nunca etiquetar como
-"gentrificación".
+Expuesto en la sección **"Donostia in trasformazione (Indice AN-8)"** del
+dashboard: **3 mapas en paralelo** — (1) `transform_class` (clase socioeconómica
+categórica), (2) `transform_tourism_score` (presión turística), (3) un mapa de
+**componente seleccionable** (`transform_univ_excess` / `transform_rent_excess` /
+`vut_density` / `airbnb_density`). Cada mapa lleva su ficha de confianza; nunca
+se etiqueta como "gentrificación".
+
+Los datos los produce el módulo del pipeline
+`data-pipeline/.../datasets/transformation.py` (`build_from_metrics`), que
+**reproduce exactamente** la lógica de `analysis/transformation_index.py` (mismo
+año base, mismas medianas, mismos z-scores) y queda bloqueado contra los números
+documentados por `tests/test_transformation.py`. Los componentes salen como
+métricas `diverging` (centradas en 0) y la clase como `categorical`, así que
+encajan en el choropleth/leyenda existentes sin código de mapa nuevo.
+
+> **Airbnb (REC-4) ya disponible.** `airbnb_density` entra como capa-componente
+> del tercer mapa. La consolidación del **modo turístico** del score (sumar Airbnb
+> y ruido a VUT+alquiler) queda como refinamiento; el score publicado sigue siendo
+> el documentado (VUT + nivel de alquiler) para no divergir de estas tablas.
