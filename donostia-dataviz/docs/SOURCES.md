@@ -64,8 +64,13 @@ reference geometry by `spatial.py` (point-in-polygon + area-weighted
 interpolation) at ingestion — the same "join once" principle as attribute data.
 Donostia's GeoJSON resources are already WGS84. **SHP-only** sources (e.g. the
 noise grids `ruido-total`/`ruido-noche`, served in EPSG:25830) are handled by
-`gis_io.load_shapefile` (pyshp) + `gis_io.reproject_geometry` (pyproj),
-which reproject 25830→4326 on load — no external `ogr2ogr` step needed.
+`gis_io.load_shapefile` / `gis_io.load_shapefile_zip` (pyshp) +
+`gis_io.reproject_geometry` (pyproj), which reproject 25830→4326 on load — no
+external `ogr2ogr` step needed.
+
+| Theme | Source | Handle / endpoint | Access | Verified |
+|---|---|---|---|---|
+| Night noise (Lnight) | Donostia Open Data — `ruido-noche` | `.../shp/Zarata_Ruido/**2022_DSS_IZT_totala_gau.zip**` (zipped SHP, EPSG:25830; nested iso-contours Lnight ≥50/55/60/65/70 dB, field `Isovalue`). Areal overlap → `noise_night_pct55` (% barrio area ≥55 dB). **Transport-dominated**, not nightlife | **wired ✓** | code ✓ |
 
 ## AEMET access note
 

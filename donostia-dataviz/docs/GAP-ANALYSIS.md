@@ -19,9 +19,10 @@
 **Estado del repo de referencia:** 11 métricas coropléticas por barrio + 5
 métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
 métrica **categórica** de perfiles de barrio (`barrio_profile`) + 2 métricas de
-**estructura por edad** (`ageing_index`, `pct_youth_adults`), 5 series
+**estructura por edad** (`ageing_index`, `pct_youth_adults`) + 1 métrica GIS de
+**ruido nocturno** (`noise_night_pct55`), 5 series
 mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 81 tests pipeline + 39 frontend.
+espacial completo (P0.2), 87 tests pipeline + 39 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -117,10 +118,14 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   envejece; el este gana jóvenes). Antigua envejece rápido (+203 en 25 años);
   Miramón-Zorroaga rejuvenece por desarrollo residencial nuevo. *(No edad mediana:
   no se interpola sobre datos en bandas.)*
-- **REC-2 🟥 [B] Ruido (SHP) por barrio.** Ingerir `ruido-total`/`ruido-noche`
-  (EPSG:25830, SHP 2008/2017/2022) vía interpolación areal → dB por barrio. El
-  módulo P0.2 ya lo soporta. *Mejor ratio valor/coste* (Perplexity, Gemini,
-  DeepSeek).
+- **REC-2 ✅ [B] Ruido (SHP) por barrio — HECHA.** Ingerido `ruido-noche` (zip
+  SHP, EPSG:25830, 2022) vía `gis_io.load_shapefile_zip` + nuevo
+  `spatial.coverage_fraction`. Métrica `noise_night_pct55` = **% del área del
+  barrio expuesta a Lnight ≥55 dB** (umbral OMS/Directiva END). *Hallazgo
+  honesto:* los mapas estratégicos están **dominados por ruido de transporte**
+  (Amara 60 % por la estación/arterias, corredor este Intxaurrondo/Martutene,
+  Gros), **no** aíslan el ocio/turismo — es una capa de calidad de vida, no un
+  proxy de turismo. (El módulo P0.2 ya soportaba la reproyección.)
 - **REC-3 🟥 [B] Fiscalidad municipal.** `impuestos_tipo`, `tasas_tipo`,
   `subvenciones` (CSV ciudad, anual). La viz genérica de indicadores ya existe →
   integración casi inmediata.
@@ -213,8 +218,10 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   para compartir el lienzo maplibre).
 - **VIZ-4 ✅ [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +
   panel de "familia de medidas" — **HECHO** (`HousingPressureSection`; ver MET-1).
-- **VIZ-5 🟧 [B] Coropleta de ruido nocturno por barrio** + overlay sobre
-  densidad VUT/Airbnb (REC-2 + REC-4) — relato turismo↔ruido en Parte Vieja/Gros.
+- **VIZ-5 🟧 [B] Coropleta de ruido nocturno por barrio — PARCIAL.** La coropleta
+  ya está (`noise_night_pct55` en el selector, grupo "Ambiente"). *Pendiente:* el
+  overlay con densidad VUT/Airbnb (REC-4). Nota: el dato es ruido de transporte,
+  así que el relato "turismo↔ruido" no se sostiene directamente (ver REC-2).
 - **VIZ-6 🟨 [D] Dashboard del Índice de Transformación** (3 mapas en paralelo:
   presión inmobiliaria / cambio demográfico / presión turística + índice
   sintético opcional, definición seleccionable) (AN-8; DeepSeek).

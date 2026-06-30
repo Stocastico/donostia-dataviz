@@ -69,6 +69,27 @@ def test_areal_interpolate_sum_distributes_by_overlap_fraction():
     assert out["c"] == 0.0
 
 
+def test_coverage_fraction_is_share_of_barrio_area_covered():
+    idx = spatial.BarrioIndex(GEO)
+    # one source covering a's left half (x 0–5) and all of b
+    out = idx.coverage_fraction([_poly(0, 5), _poly(10, 20)])
+    assert round(out["a"], 3) == 0.5   # half of a
+    assert round(out["b"], 3) == 1.0   # all of b
+    assert out["c"] == 0.0             # untouched barrio present as 0
+
+
+def test_coverage_fraction_unions_overlapping_sources():
+    idx = spatial.BarrioIndex(GEO)
+    # two overlapping sources over a must not double-count past 100%
+    out = idx.coverage_fraction([_poly(0, 8), _poly(4, 10)])
+    assert round(out["a"], 3) == 1.0
+
+
+def test_coverage_fraction_empty_sources_all_zero():
+    idx = spatial.BarrioIndex(GEO)
+    assert idx.coverage_fraction([]) == {"a": 0.0, "b": 0.0, "c": 0.0}
+
+
 def test_rate_per_1000():
     counts = {"a": 10, "b": 1, "c": 0}
     pop = {"a": 5000, "b": 2000, "c": 0}

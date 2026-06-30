@@ -17,6 +17,7 @@ from __future__ import annotations
 from typing import Iterable
 
 from shapely.geometry import Point, shape
+from shapely.ops import unary_union
 from shapely.strtree import STRtree
 
 
@@ -98,6 +99,29 @@ class BarrioIndex:
             return {bid: (num[bid] / weight[bid] if weight[bid] > 0 else None)
                     for bid in self.barrio_ids}
         return {bid: num[bid] for bid in self.barrio_ids}
+
+    def coverage_fraction(
+        self, source_geoms: Iterable[dict]
+    ) -> dict[str, float]:
+        """Fraction (0–1) of each barrio's area covered by the source geometries.
+
+        For "share of area exposed to X" metrics (noise contour, flood zone,
+        green area): unions the sources once, then for each barrio returns
+        ``area(barrio ∩ union) / area(barrio)``. Every barrio is present (0.0 if
+        no overlap). Areas are computed in the input CRS (4326); within a single
+        city the ratio is a sound approximation.
+        """
+        geoms = [shape(g) for g in source_geoms]
+        out = {bid: 0.0 for bid in self.barrio_ids}
+        if not geoms:
+            return out
+        cover = unary_union(geoms)
+        for i in (int(j) for j in self._tree.query(cover)):
+            barrio = self._geoms[i]
+            if barrio.area <= 0:
+                continue
+            out[self.barrio_ids[i]] = barrio.intersection(cover).area / barrio.area
+        return out
 
 
 def rate_per_1000(

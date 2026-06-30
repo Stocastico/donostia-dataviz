@@ -9,7 +9,9 @@ sources — e.g. the noise grids — will need a convert/reproject step before t
 
 from __future__ import annotations
 
+import io
 import json
+import zipfile
 from functools import lru_cache
 from pathlib import Path
 from typing import Iterator
@@ -75,13 +77,7 @@ def reproject_geometry(geom: dict, source_crs: str = DEFAULT_SOURCE_CRS) -> dict
     return {"type": geom["type"], "coordinates": walk(geom["coordinates"])}
 
 
-def load_shapefile(path, source_crs: str = DEFAULT_SOURCE_CRS) -> dict:
-    """Read a shapefile (pyshp) into a GeoJSON ``FeatureCollection`` in WGS84.
-
-    ``path`` may be the base path or the ``.shp``. Attributes are kept as the
-    feature properties. Use this for SHP-only sources (e.g. the noise grids).
-    """
-    reader = shapefile.Reader(str(path))
+def _reader_to_featurecollection(reader: "shapefile.Reader", source_crs: str) -> dict:
     features = []
     for sr in reader.shapeRecords():
         geom = reproject_geometry(sr.shape.__geo_interface__, source_crs)
@@ -91,3 +87,36 @@ def load_shapefile(path, source_crs: str = DEFAULT_SOURCE_CRS) -> dict:
             "geometry": geom,
         })
     return {"type": "FeatureCollection", "features": features}
+
+
+def load_shapefile(path, source_crs: str = DEFAULT_SOURCE_CRS) -> dict:
+    """Read a shapefile (pyshp) into a GeoJSON ``FeatureCollection`` in WGS84.
+
+    ``path`` may be the base path or the ``.shp``. Attributes are kept as the
+    feature properties. Use this for SHP-only sources (e.g. the noise grids).
+    """
+    return _reader_to_featurecollection(shapefile.Reader(str(path)), source_crs)
+
+
+def load_shapefile_zip(zip_path, source_crs: str = DEFAULT_SOURCE_CRS) -> dict:
+    """Read a zipped shapefile into a GeoJSON ``FeatureCollection`` in WGS84.
+
+    Donostia's noise maps ship as a ``.zip`` of ``.shp/.shx/.dbf``. We read the
+    members straight from the archive (no extraction to disk), matching ``.shp``
+    components by base name case-insensitively.
+    """
+    with zipfile.ZipFile(zip_path) as zf:
+        names = zf.namelist()
+        shp_name = next(n for n in names if n.lower().endswith(".shp"))
+        base = shp_name[:-4]
+
+        def member(ext: str) -> io.BytesIO | None:
+            for n in names:
+                if n.lower() == (base + ext).lower():
+                    return io.BytesIO(zf.read(n))
+            return None
+
+        reader = shapefile.Reader(
+            shp=member(".shp"), shx=member(".shx"), dbf=member(".dbf")
+        )
+        return _reader_to_featurecollection(reader, source_crs)
