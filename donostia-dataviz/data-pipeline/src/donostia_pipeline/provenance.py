@@ -73,8 +73,10 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Mai «gentrificazione»: nessun dato di sostituzione/rotazione dei residenti (MET-2).",
     ]),
     "transform_tourism_score": ("derived", [
-        "Media degli z-score di densità VUT e livello d'affitto (livelli, non crescita).",
-        "Provvisorio: «caro» e «turistico» qui non sono ancora separati del tutto (cfr. Aiete).",
+        "Media degli z-score di densità VUT, livello d'affitto e densità Airbnb "
+        "(livelli, non crescita).",
+        "Airbnb (REC-4) aiuta a separare «caro» da «turistico» (es. Aiete). Il rumore "
+        "notturno NON è incluso: è dominato dal traffico, non è un proxy di turismo.",
     ]),
     "transform_univ_excess": ("derived", [
         "Crescita annua di % laureati meno la mediana della città (shift-share).",

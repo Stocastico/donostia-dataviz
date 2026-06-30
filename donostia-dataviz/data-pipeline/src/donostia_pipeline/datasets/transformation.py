@@ -40,6 +40,7 @@ INCOME = "income_total"
 RENT = "rent_eur_m2"
 UNIV = "pct_university"
 VUT = "vut_density"
+AIRBNB = "airbnb_density"
 
 # Socioeconomic classes, fixed order → the categorical index a barrio gets is its
 # position here. Internal Spanish keys (from the analysis) map to these UI labels.
@@ -139,6 +140,7 @@ def _diverging(metric_id: str, label: str, unit: str, by_barrio: dict[str, float
 def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
     income, rent, univ = metrics.get(INCOME), metrics.get(RENT), metrics.get(UNIV)
     vut = metrics.get(VUT)
+    airbnb = metrics.get(AIRBNB)
     if income is None or rent is None or univ is None:
         return []
 
@@ -153,6 +155,7 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
     renta_base = np.array([inc_y.get(b, {}).get(BASE_YEAR, np.nan) for b in ids])
     alquiler_nivel = np.array([_latest(rent, b) for b in ids])
     vut_density = np.array([_latest(vut, b) if vut else np.nan for b in ids])
+    airbnb_density = np.array([_latest(airbnb, b) if airbnb else np.nan for b in ids])
     univ_rate = np.array([_annual_rate(univ_y.get(b, {}), "pp") for b in ids])
     rent_rate = np.array([_annual_rate(rent_y.get(b, {}), "level") for b in ids])
 
@@ -166,9 +169,16 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
     median_rent = np.nanmedian(rent_rate)
     score_socio = np.nanmean(np.vstack([_z(univ_excess), _z(rent_excess)]), axis=0)
 
+    # The classifiable set (= the documented N=13): barrios with base income and a
+    # fittable growth rate for both signals. Medians/z above stay over the full
+    # income sample (so the documented socio numbers are unchanged); only the
+    # *emitted* values are restricted to this set, keeping every transform map on
+    # the same barrios and out of the tiny-population peripheral per-capita noise.
+    valid = ~(np.isnan(renta_base) | np.isnan(univ_rate) | np.isnan(rent_rate))
+
     class_values: dict[str, dict[str, float | None]] = {}
     for i, bid in enumerate(ids):
-        if np.isnan(renta_base[i]) or np.isnan(univ_rate[i]) or np.isnan(rent_rate[i]):
+        if not valid[i]:
             continue  # "datos insuficientes" → no value (renders as n/d)
         klass = _classify(
             renta_base[i] < median_income,
@@ -177,10 +187,17 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
         )
         class_values[bid] = {PERIOD: float(_CLASS_INDEX[klass])}
 
-    # --- B) Tourism-pressure mode (levels; provisional) ---
-    score_tourism = np.nanmean(np.vstack([_z(vut_density), _z(alquiler_nivel)]), axis=0)
+    # --- B) Tourism-pressure mode (levels) ---
+    # VUT density + rent level + (when REC-4 is present) Airbnb density. Airbnb is
+    # the real-tourism signal that helps separate "expensive" from "touristic"
+    # (e.g. Aiete: high rent, low Airbnb). Night noise is deliberately NOT folded
+    # in: the strategic map is transport-dominated, not a tourism proxy (see #5).
+    tourism_components = [_z(vut_density), _z(alquiler_nivel)]
+    if airbnb is not None:
+        tourism_components.append(_z(airbnb_density))
+    score_tourism = np.nanmean(np.vstack(tourism_components), axis=0)
 
-    by = lambda arr: {bid: arr[i] for i, bid in enumerate(ids)}  # noqa: E731
+    by = lambda arr: {bid: arr[i] for i, bid in enumerate(ids) if valid[i]}  # noqa: E731
 
     out: list[Metric] = [
         Metric(

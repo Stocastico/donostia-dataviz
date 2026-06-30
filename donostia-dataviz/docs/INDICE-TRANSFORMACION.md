@@ -41,12 +41,19 @@ debajo** y **sube en cultura y precio** más que la media de la ciudad.
   `estable` (susceptible + ninguna).
 - **Score continuo:** media de z-scores de los dos componentes locales.
 
-### Modo B — presión turística (PROVISIONAL)
+### Modo B — presión turística
 
-Componentes de **nivel**: densidad VUT y nivel de alquiler ("la ciudad
-turística-cara"). **No** se usa el *crecimiento* de alquiler: penalizaría a los
-centros ya caros en 2016 (menos margen de subida). Score = media de z-scores.
-Se consolidará con **ruido (REC-2)** y **Airbnb + serie temporal (REC-4)**.
+Componentes de **nivel**: densidad VUT, nivel de alquiler ("la ciudad
+turística-cara") y **densidad Airbnb** (REC-4). **No** se usa el *crecimiento* de
+alquiler: penalizaría a los centros ya caros en 2016 (menos margen de subida).
+Score = media de z-scores de los tres componentes.
+
+**Por qué Airbnb y no ruido.** Airbnb es la señal de turismo *real* que faltaba:
+añade alojamiento turístico (incluido el no registrado) y, sobre todo, **separa
+"caro" de "turístico"** — un barrio caro pero con poca presencia de visitantes
+(Aiete) deja de puntuar alto. El **ruido nocturno (REC-2) NO se integra** aquí: el
+mapa estratégico está dominado por el **tráfico**, no aísla la vida nocturna, así
+que no es un proxy de turismo (entra como capa ambiental en el relato #5).
 
 ---
 
@@ -88,28 +95,31 @@ Ordenados por score.
   **no son casos de gentrificación "desde abajo"**. Es correcto y revelador
   (ver §"hallazgo clave").
 
-## Resultados — Modo B (presión turística, provisional)
+## Resultados — Modo B (presión turística, consolidado con Airbnb)
 
-| Barrio | Densidad VUT | Alquiler €/m² | Score |
-|---|---|---|---|
-| **Erdialdea** | 29,9 | 16,6 | **2,22** |
-| **Gros** | 20,7 | 15,9 | **1,46** |
-| Antigua | 8,5 | 15,3 | 0,54 |
-| Aiete | 2,3 | 16,2 | 0,37 |
-| Ibaeta | 3,1 | 15,4 | 0,23 |
-| Egia | 4,9 | 14,5 | 0,10 |
-| Amara Berri | 3,9 | 14,4 | 0,03 |
-| Loiola | 2,6 | 13,6 | −0,25 |
-| Intxaurrondo | 1,5 | 12,9 | −0,51 |
-| Mirakruz-Bidebieta | 1,7 | 12,1 | −0,70 |
-| Ategorrieta-Ulia | 2,3 | 11,7 | −0,77 |
-| Altza | 0,4 | 11,7 | −0,89 |
-| Martutene | 0,8 | 10,6 | −1,14 |
+| Barrio | Densidad VUT | Densidad Airbnb | Alquiler €/m² | Score |
+|---|---|---|---|---|
+| **Erdialdea** | 29,9 | 33,6 | 16,6 | **+2,40** |
+| **Gros** | 20,7 | 19,1 | 15,9 | **+1,37** |
+| Antigua | 8,5 | 7,9 | 15,3 | +0,35 |
+| Aiete | 2,3 | 3,4 | 16,2 | **+0,07** |
+| Ibaeta | 3,1 | 4,0 | 15,4 | −0,00 |
+| Egia | 4,8 | 5,6 | 14,5 | −0,04 |
+| Amara Berri | 3,9 | 3,4 | 14,4 | −0,16 |
+| Loiola | 2,6 | 2,4 | 13,6 | −0,38 |
+| Ategorrieta-Ulia | 2,3 | 9,8 | 11,7 | −0,46 |
+| Intxaurrondo | 1,5 | 1,5 | 12,9 | −0,59 |
+| Mirakruz-Bidebieta | 1,7 | 2,6 | 12,1 | −0,67 |
+| Altza | 0,4 | 0,5 | 11,7 | −0,88 |
+| Martutene | 0,8 | 0,4 | 10,6 | −1,05 |
 
-**Lectura:** Erdialdea y Gros dominan con claridad (densidad VUT extrema).
-⚠️ **Caveat transparente:** Aiete (0,37) puntúa por **alquiler alto, no por
-turismo** (VUT muy baja). Los componentes a la vista lo dejan ver — es el límite
-del modo hasta integrar ruido y Airbnb, que separarán "caro" de "turístico".
+**Lectura:** Erdialdea y Gros siguen dominando con claridad (VUT **y** Airbnb
+extremos). ✅ **El caveat de Aiete queda resuelto:** con Airbnb integrado, Aiete
+**baja de 0,37 a 0,07** — su alquiler es alto pero su presencia turística es baja,
+y ahora el score lo refleja. La densidad Airbnb (universo más amplio que los VUT)
+confirma además el patrón VUT sin invertirlo. *Nota: las densidades Airbnb se
+calculan sobre la población del último año; los barrios periféricos diminutos
+quedan fuera de los 13 clasificables, evitando artefactos per cápita.*
 
 ---
 
@@ -138,8 +148,9 @@ multi-definición.
   Añorga, Oarain, Miramón) no tienen renta/alquiler.
 - **"Real" aproximado**: el crecimiento se mide como exceso sobre la mediana de
   la ciudad (descuenta lo macro común), no con un deflactor IPC.
-- **Modo B provisional**: VUT es un *snapshot*; el nivel de alquiler se comparte
-  con la riqueza (Aiete). Se firma con ruido (REC-2) y Airbnb (REC-4).
+- **Modo B**: combina niveles (VUT + Airbnb + alquiler), todos *snapshots* — mide
+  la foto actual de presión turística, no su velocidad. La parte dinámica vive en
+  el lead/lag (AN-6, `analysis/lead_lag.py`).
 - **Sin desplazamiento/rotación** → "transformación", no "gentrificación".
 - **Pesos iguales** (documentado); umbrales = medianas de la ciudad.
 
@@ -147,9 +158,10 @@ multi-definición.
 
 - **REC-1 (edad):** añadir cambio en estructura de edad → señal de sustitución
   residencial (¿el centro que pierde población gana qué perfil?).
-- **REC-4 (Inside Airbnb):** presión turística real + **serie temporal** →
-  permitiría una versión *dinámica* del Modo B y el lead/lag (AN-6).
-- **REC-2 (ruido):** componente de calidad de vida para el Modo B.
+- **REC-4 (Inside Airbnb): ✅ integrado** en el Modo B (densidad Airbnb) y como
+  serie temporal → lead/lag turismo→alquiler (AN-6, exploratorio).
+- **REC-2 (ruido):** componente de calidad de vida; **no** como proxy de turismo
+  (es ruido de tráfico) — entra en el relato #5 como capa ambiental.
 
 ## Para el frontend (VIZ-6) — ✅ implementado
 
@@ -168,7 +180,8 @@ documentados por `tests/test_transformation.py`. Los componentes salen como
 métricas `diverging` (centradas en 0) y la clase como `categorical`, así que
 encajan en el choropleth/leyenda existentes sin código de mapa nuevo.
 
-> **Airbnb (REC-4) ya disponible.** `airbnb_density` entra como capa-componente
-> del tercer mapa. La consolidación del **modo turístico** del score (sumar Airbnb
-> y ruido a VUT+alquiler) queda como refinamiento; el score publicado sigue siendo
-> el documentado (VUT + nivel de alquiler) para no divergir de estas tablas.
+> **Airbnb (REC-4) integrado.** `airbnb_density` es ahora un componente del
+> `transform_tourism_score` (VUT + alquiler + Airbnb) y además una capa
+> seleccionable del tercer mapa. El ruido se mantiene **fuera** del score turístico
+> (es ruido de tráfico, no proxy de turismo). El score reportado arriba ya es el
+> consolidado.

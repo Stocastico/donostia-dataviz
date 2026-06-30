@@ -70,6 +70,13 @@ justo la que el método en diferencias evita sobre-interpretar.
   modesto pese al panel.
 - **N=13 barrios.** Los periféricos sin alquiler/actividad quedan fuera.
 
+## En la app
+
+Además del script, el resultado vive en el frontend: sección **"Turismo → affitto
+(AN-6)"** (gráfico de barras de r por desfase, con sus avisos), calculada en el
+navegador desde las mismas métricas `airbnb_activity` y `rent_eur_m2`
+(`web/src/lib/leadLag.ts`, con test).
+
 ## Qué lo reforzaría
 
 - Alquiler **mensual/trimestral** (si apareciera) → desfases finos y más potencia.

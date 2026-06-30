@@ -50,7 +50,7 @@ def _load(metric_id):
 
 
 def _build_real():
-    metrics = {v: _load(v) for v in (tr.INCOME, tr.RENT, tr.UNIV, tr.VUT)}
+    metrics = {v: _load(v) for v in (tr.INCOME, tr.RENT, tr.UNIV, tr.VUT, tr.AIRBNB)}
     return {m.id: m for m in tr.build_from_metrics(metrics)}
 
 
@@ -79,10 +79,16 @@ def test_documented_classes_and_scores():
     assert socio.values["egia"][tr.PERIOD] == 0.23
 
     tour = out["transform_tourism_score"]
-    assert tour.values["erdialdea"][tr.PERIOD] == 2.22
-    assert tour.values["gros"][tr.PERIOD] == 1.46
+    # Consolidated with Airbnb density (REC-4): the two touristic centres lead.
+    assert tour.values["erdialdea"][tr.PERIOD] == 2.40
+    assert tour.values["gros"][tr.PERIOD] == 1.37
     # diverging scores carry negatives (e.g. Martutene)
     assert tour.values["martutene"][tr.PERIOD] < 0
+    # "expensive but not touristic": Aiete (high rent, low Airbnb) now scores near
+    # zero, no longer a false positive of the rent-only signal.
+    assert tour.values["aiete"][tr.PERIOD] < 0.2
+    # all transform metrics share the same classifiable set (the documented N=13)
+    assert len(tour.values) == 13 == len(out["transform_socio_score"].values) == len(cls.values)
 
 
 def test_components_are_diverging_and_centered():

@@ -8,9 +8,10 @@
 > `TESIS-CIUDAD.md`, `ANALISIS-SPRINT-A.md` e `INDICE-TRANSFORMACION.md`.
 >
 > **Todos los números citados son reproducibles** en `analysis/*.py`
-> (`sprint_a.py`, `distribucion_barrios.py`, `transformation_index.py`) o salen
-> directamente de las métricas del pipeline. Cada métrica lleva su **ficha de
-> confianza** (badge observado/derivado/proxy + supuestos) bajo el mapa.
+> (`sprint_a.py`, `distribucion_barrios.py`, `transformation_index.py`,
+> `lead_lag.py`) o salen directamente de las métricas del pipeline. Cada métrica
+> lleva su **ficha de confianza** (badge observado/derivado/proxy + supuestos) bajo
+> el mapa.
 
 ---
 
@@ -26,8 +27,8 @@ dashboard de transformación) cerraron los dos que quedaban (#5 y #6).
 | **#2** | Qué barrios cambian más rápido | ✅ **LISTO** | métricas `velocity_*` y `barrio_profile` (grupo *Velocità di cambiamento*); sección scatter |
 | **#3** | Quién vive Donostia | ✅ **LISTO** | métricas `ageing_index`, `pct_youth_adults` (grupo *Demografia*) |
 | **#4** | El clima cambia | ✅ **LISTO** | secciones de clima (warming stripes, heatmap mes×año, tendencia anual, días ≥30 °C) |
-| #5 | Ciudad turística vs. vivida | ✅ **LISTO** *(desbloqueado por REC-4)* | `airbnb_density` (grupo *Turismo*) + serie `airbnb_reviews` (presión turística/mes); contraste con `noise_night_pct55`/`schools_per_1000` |
-| #6 | Donostia en transformación | ✅ **LISTO** *(VIZ-6 en frontend)* | sección **"Donostia in trasformazione (Indice AN-8)"**: dashboard de 3 mapas (`transform_class`, `transform_tourism_score`, componente seleccionable) |
+| #5 | Ciudad turística vs. vivida | ✅ **LISTO** *(desbloqueado por REC-4)* | `airbnb_density` (grupo *Turismo*) + serie `airbnb_reviews`; sección **"Due turismi: Airbnb vs hotel"** (índice base 2016); sección **"Turismo → affitto (AN-6)"** (lead/lag); contraste con `noise_night_pct55`/`schools_per_1000` |
+| #6 | Donostia en transformación | ✅ **LISTO** *(VIZ-6 en frontend)* | sección **"Donostia in trasformazione (Indice AN-8)"**: dashboard de 3 mapas (`transform_class`, `transform_tourism_score` —ya **consolidado con Airbnb**—, componente seleccionable) |
 
 **Sugerencia de arranque:** escribe en este orden — **#4** (el más cerrado y
 autónomo), **#1**, **#2**, **#3**. **#5 y #6 ya tienen datos y vistas** tras REC-4
@@ -36,6 +37,39 @@ autónomo), **#1**, **#2**, **#3**. **#5 y #6 ya tienen datos y vistas** tras RE
 > Contexto-ciudad disponible para apoyar cualquier relato (sección "Altri
 > indicatori cittadini" + MICE): reciclaje, **impuestos** (`tax_revenue`,
 > 73→106 M€) y **tasas** (`fee_revenue`, 35→63 M€) 2011–2025; MICE; pernoctaciones.
+
+---
+
+## 🖋️ Handoff para Cowork — qué escribir ahora
+
+**El trabajo de datos e ingeniería está cerrado para los 6 relatos.** Lo que queda
+es **escribir las narrativas**. Para cada una, este documento ya trae la pregunta,
+las vistas exactas en la app, los números verificados, la conclusión y los avisos.
+
+**Cómo proceder (Cowork):**
+
+1. **Escribe en este orden:** #4 (clima, el más cerrado) → #1 (encarecimiento) →
+   #2 (velocidades) → #3 (quién vive) → #5 (turística vs. vivida) → #6 (síntesis).
+   #6 es el cierre: reúne #1–#5.
+2. **Para cada relato, usa la plantilla de §"Cómo escribir cada relato"** (al final):
+   pregunta → 2–3 números con fuente → conclusión causal *cauta* (MET-3) → aviso de
+   confianza (la ficha de la métrica) → enlace a la evidencia (`analysis/*.py`) y a
+   la vista de la app.
+3. **No inventes números.** Toma cada cifra de la sección del relato (abajo) o de
+   `analysis/*.py`; cada métrica de la app lleva su badge observado/derivado/proxy.
+4. **Reglas de encuadre no negociables:** "transformación", **no** "gentrificación"
+   (MET-2, falta rotación de población); correlación ≠ causalidad (MET-3); el ruido
+   nocturno es de **tráfico**, no proxy de turismo (corrección de #5).
+5. **Idioma/tono:** la app está en italiano; los relatos siguen la voz de
+   `TESIS-CIUDAD.md`. Tono editorial pero cauto; los avisos van *dentro* del texto,
+   no como nota al pie.
+
+**Insumos por relato** (detalle completo en cada §abajo): #1 corr. tensión↔renta
+−0,89; #2 alquiler +3–4 %/año, centro pierde población; #3 Gros/Erdialdea los más
+envejecidos vs. este joven; #4 +0,31 °C/década; #5 Airbnb se dispara (Erdialdea
+~34/1000) y crece mucho más rápido que los hoteles, lead/lag turismo→alquiler
+r≈0,27 a +1 año; #6 las dos transformaciones **no coinciden** (turismo en el centro
+acomodado, cambio social en la periferia interior).
 
 ---
 
@@ -110,14 +144,16 @@ autónomo), **#1**, **#2**, **#3**. **#5 y #6 ya tienen datos y vistas** tras RE
 - **Vistas hoy:** lado "turismo" con **Inside Airbnb** (`airbnb_density`, annunci
   per 1000 ab.) además de los VUT legales (`vut_density`, `vut_count`); **serie
   temporal de presión turística** `airbnb_reviews` (reseñas/mes, proxy de
-  presencia, 2011→2025) en la sección de estacionalidad; lado "residente/ambiente"
-  con `noise_night_pct55` y `schools_per_1000`.
+  presencia, 2011→2025) en estacionalidad; sección **"Due turismi: Airbnb vs
+  hotel"** (índice base 2016, Airbnb vs pernoctaciones INE); sección **"Turismo →
+  affitto (AN-6)"** (lead/lag); lado "residente/ambiente" con `noise_night_pct55` y
+  `schools_per_1000`.
 - **Números:** la densidad Airbnb se dispara en el centro turístico (**Erdialdea
   ~34/1000**, **Gros ~19/1000**) — un universo **más amplio que los VUT legales**
-  (Airbnb incluye no registrados). La serie de reseñas marca la **estacionalidad
-  estival** y el crecimiento sostenido del alojamiento turístico (≈25.000 reseñas
-  en 2024). El ruido nocturno, en cambio, está **dominado por el transporte**, no
-  por el ocio.
+  (Airbnb incluye no registrados). El alojamiento turístico **crece mucho más rápido
+  que la hotelería** (índice base 2016; ≈25.000 reseñas en 2024). El **lead/lag
+  AN-6** sugiere que el turismo **precede al alquiler ~1 año** (r≈0,27, débil pero
+  direccional). El ruido nocturno, en cambio, está **dominado por el transporte**.
 - **⚠️ Corrección de encuadre (mantenida):** el ruido estratégico es de tráfico,
   no de vida nocturna → entra como **capa ambiental**, no como proxy de turismo.
   La presión turística real por barrio la da ahora **Airbnb**.
@@ -133,16 +169,19 @@ autónomo), **#1**, **#2**, **#3**. **#5 y #6 ya tienen datos y vistas** tras RE
 - **Pregunta:** Reuniéndolo todo, ¿qué barrios se transforman y cómo?
 - **Vistas:** sección **"Donostia in trasformazione (Indice AN-8)"** — dashboard de
   **3 mapas en paralelo**: (1) `transform_class` (clase socioeconómica categórica),
-  (2) `transform_tourism_score` (presión turística), (3) un mapa de **componente
-  seleccionable** (`transform_univ_excess` / `transform_rent_excess` / `vut_density`
-  / `airbnb_density`). Reproduce los números de `analysis/transformation_index.py`
-  (test que los bloquea en el pipeline) y lleva fichas de confianza por mapa.
+  (2) `transform_tourism_score` (presión turística, **consolidado con Airbnb**),
+  (3) un mapa de **componente seleccionable** (`transform_univ_excess` /
+  `transform_rent_excess` / `vut_density` / `airbnb_density`). Reproduce los números
+  de `analysis/transformation_index.py` (test que los bloquea en el pipeline) y
+  lleva fichas de confianza por mapa.
 - **Número clave:** las dos transformaciones **no coinciden** geográficamente —
-  turismo en el centro acomodado (Erdialdea, Gros); cambio social en la periferia
-  interior (Loiola en transformación; Egia/Altza/Intxaurrondo incipientes).
+  turismo en el centro acomodado (Erdialdea +2,40, Gros +1,37); cambio social en la
+  periferia interior (Loiola +1,02 en transformación; Egia/Altza/Intxaurrondo
+  incipientes). Con Airbnb integrado, **Aiete baja de 0,37 a 0,07**: caro pero no
+  turístico — el modo turístico ya separa "caro" de "turístico".
 - **Aviso:** "transformación", no "gentrificación" (MET-2); definición visible y
-  seleccionable; fichas de confianza en la UI (VIZ-7). Modo turístico todavía
-  *provisional* (niveles VUT + alquiler); Airbnb ya disponible como capa-componente.
+  seleccionable; fichas de confianza en la UI (VIZ-7). El modo turístico combina
+  niveles (VUT + Airbnb + alquiler); el ruido **no** entra (es tráfico, no turismo).
 
 ---
 
