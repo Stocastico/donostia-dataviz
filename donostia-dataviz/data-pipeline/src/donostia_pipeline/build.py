@@ -24,6 +24,7 @@ from .datasets import (
     demografia,
     demografia_edad,
     educacion_gis,
+    fiscalidad,
     estudios,
     housing_tension,
     ine_eoh,
@@ -85,6 +86,17 @@ RAW_DOWNLOADS: dict[str, str] = {
     "ruido_noche_2022.zip": (
         "https://www.donostia.eus/ide/INGURUMENA-MEDIO_AMBIENTE/shp/"
         "Zarata_Ruido/2022_DSS_IZT_totala_gau.zip"
+    ),
+    # Municipal fiscality (annual, city) → tax/fee revenue indicators.
+    "impuestos_ciudad.csv": (
+        "https://www.donostia.eus/datosabiertos/dataset/"
+        "36ef69b9-b2f9-4ebc-b5e9-a7e6e8f32d37/resource/"
+        "8b821f48-2add-4d61-a0bc-98f1749925da/download/pfi_impuestos_tipo_ciudad_ckan.csv"
+    ),
+    "tasas_ciudad.csv": (
+        "https://www.donostia.eus/datosabiertos/dataset/"
+        "7c0f2bf4-00b6-44bf-bf24-c9bdbc9bd00c/resource/"
+        "cde02a4c-8113-45b9-ba59-614855e18919/download/pfi_tasas_tipo_ciudad_ckan.csv"
     ),
 }
 
@@ -257,7 +269,8 @@ def run(offline: bool = False) -> dict:
     print(f"  ✓ series.json ({len(series_registry)} series)")
 
     # 5. Annual city indicators (MICE — curated; recycling rate — from residuos).
-    indicators = mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
+    indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
+                  + fiscalidad.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

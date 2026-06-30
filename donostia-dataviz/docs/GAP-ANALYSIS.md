@@ -21,9 +21,10 @@ métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
 métrica **categórica** de perfiles de barrio (`barrio_profile`) + 2 métricas de
 **estructura por edad** (`ageing_index`, `pct_youth_adults`) + 1 métrica GIS de
 **ruido nocturno** (`noise_night_pct55`), 5 series
-mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
+mensuales ciudad, **6 indicadores anuales ciudad** (MICE ×3, reciclaje,
+impuestos, tasas), export CSV "long", módulo de join
 espacial completo (P0.2), fichas de confianza por métrica (MET-4),
-92 tests pipeline + 39 frontend.
+95 tests pipeline + 39 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -130,9 +131,13 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   (Amara 60 % por la estación/arterias, corredor este Intxaurrondo/Martutene,
   Gros), **no** aíslan el ocio/turismo — es una capa de calidad de vida, no un
   proxy de turismo. (El módulo P0.2 ya soportaba la reproyección.)
-- **REC-3 🟥 [B] Fiscalidad municipal.** `impuestos_tipo`, `tasas_tipo`,
-  `subvenciones` (CSV ciudad, anual). La viz genérica de indicadores ya existe →
-  integración casi inmediata.
+- **REC-3 ✅ [B] Fiscalidad municipal — HECHA (parcial).** `datasets/fiscalidad.py`
+  → indicadores ciudad `tax_revenue` (impuestos emitidos 73→106 M€, 2011–25) y
+  `fee_revenue` (tasas 35→63 M€), renderizados por `IndicatorsSection`. Caveat:
+  importes **emitidos** (no recaudados), € nominales. `subvenciones` **no está**
+  en el catálogo (no encontrado vía CKAN). Existe versión **por barrio** de
+  impuestos/tasas (con bucket "Ezezaguna" sin geocodificar) — no integrada por
+  redundante con renta; posible futura coropleta de IBI/cápita.
 - **REC-4 🟧 [C] Inside Airbnb (puntos geolocalizados).** Snapshot(s) San
   Sebastián → densidad Airbnb por barrio (join espacial) y, clave, **serie
   temporal por barrio** vía reseñas/mes. Desbloquea presión turística real y el
