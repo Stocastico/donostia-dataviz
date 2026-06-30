@@ -6,6 +6,7 @@ import { TimeSlider } from "../components/TimeSlider";
 import { BarrioCompareChart } from "../components/BarrioCompareChart";
 import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
+import { BivariateSection } from "../components/BivariateSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
 import { buildColorScale } from "../lib/colorScale";
@@ -111,6 +112,7 @@ export function Dashboard() {
 
       <SeasonalitySection />
       <ScatterSection />
+      <BivariateSection />
       <MiceSection />
       <IndicatorsSection />
     </div>

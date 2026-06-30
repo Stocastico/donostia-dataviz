@@ -371,6 +371,58 @@ body {
   margin-bottom: 0.2rem;
 }
 
+/* Bivariate 3×3 map */
+.bivariate {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.bivariate-body {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.bivariate-body .map-area {
+  flex: 1 1 420px;
+}
+.bivariate-legend {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "ylabel grid"
+    ".      xlabel";
+  align-items: center;
+  gap: 4px 6px;
+  padding-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.bivariate-grid {
+  grid-area: grid;
+  display: grid;
+  grid-template-columns: repeat(3, 22px);
+  grid-template-rows: repeat(3, 22px);
+  gap: 2px;
+}
+.bivariate-cell {
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+}
+.bivariate-ylabel {
+  grid-area: ylabel;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  justify-self: center;
+}
+.bivariate-xlabel {
+  grid-area: xlabel;
+  justify-self: center;
+  text-align: center;
+  max-width: 90px;
+}
+
 /* MICE */
 .mice {
   margin-top: 2.5rem;

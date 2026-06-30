@@ -20,7 +20,7 @@
 métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
 métrica **categórica** de perfiles de barrio (`barrio_profile`), 5 series
 mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 76 tests pipeline + 29 frontend.
+espacial completo (P0.2), 76 tests pipeline + 34 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -194,8 +194,13 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   Egia/Amara/Ategorrieta = transicional; Altza/Intxaurrondo/Loiola/Martutene/
   Mirakruz = popular en tensión), fijada por test. *Pendiente opcional:* ver el
   cambio de cluster en el tiempo.
-- **VIZ-3 🟧 [A] Coropleta bivariada 3×3.** Cruza dos métricas (renta × tensión)
-  para resaltar barrios anómalos (AN-4).
+- **VIZ-3 ✅ [A] Coropleta bivariada 3×3 — HECHA.** Sección interactiva
+  (`BivariateSection`): cruza dos métricas cualquiera en terciles (bajo/medio/alto)
+  por eje, con paleta bivariada Stevens 3×3 y leyenda-matriz. Por defecto renta ×
+  tensión, que resalta el ángulo "anómalo" (renta baja × tensión alta = este
+  obrero), confirmando AN-1/AN-4 visualmente. Lógica en `lib/bivariate.ts`
+  (testeada); el mapa reutiliza el nuevo `BarrioMap` (extraído de `ChoroplethMap`
+  para compartir el lienzo maplibre).
 - **VIZ-4 🟧 [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +
   panel de "familia de medidas" (MET-1).
 - **VIZ-5 🟧 [B] Coropleta de ruido nocturno por barrio** + overlay sobre
