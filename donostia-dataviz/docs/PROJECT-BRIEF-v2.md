@@ -1,466 +1,472 @@
-> **Nota:** versione aggiornata e ampliata del brief di progetto (backlog). Espande
-> `PROJECT-BRIEF.md` (v1) con nuove dimensioni dati, la correzione sul catastro
-> foral, sezioni MICE/visitatori/gasto, idee avanzate e la raccomandazione
-> dell'indicator store unificato. Lo stato di avanzamento e la prioritizzazione
-> sono tracciati in `GAP-ANALYSIS.md`.
+> **Nota:** versión actualizada y ampliada del brief de proyecto (backlog). Amplía
+> `PROJECT-BRIEF.md` (v1) con nuevas dimensiones de datos, la corrección sobre el
+> catastro foral, secciones MICE/visitantes/gasto, ideas avanzadas y la
+> recomendación del indicator store unificado. El estado de avance y la
+> priorización se siguen en `GAP-ANALYSIS.md`.
+>
+> *(Traducido del italiano al español, junio 2026, manteniendo el contenido.)*
 
-# Donostia Dataviz — Piano di progetto
+# Donostia Dataviz — Plan de proyecto
 
-## Obiettivo
+## Objetivo
 
-Dashboard interattiva che mostra l'evoluzione di Donostia/San Sebastián da molteplici punti di vista — principalmente tramite mappe coropletiche per barrio con slider temporale, integrate da time-series e grafici comparativi.
-
----
-
-## Stack tecnico suggerito
-
-- **Mappe**: MapLibre GL JS (choropleth) oppure D3.js + GeoJSON
-- **Grafici**: D3.js o Recharts
-- **Dati**: CSV/GeoJSON locali (pre-processati da Python/pandas)
-- **Framework**: React + Vite (allineato al sito esistente) o standalone HTML/JS
-- **GIS base**: GeoJSON barrios da Open Data Donostia
+Dashboard interactiva que muestra la evolución de Donostia/San Sebastián desde
+múltiples puntos de vista — principalmente mediante mapas coropléticos por barrio
+con slider temporal, complementados con series temporales y gráficos comparativos.
 
 ---
 
-## Geometrie base (GIS)
+## Stack técnico sugerido
 
-| Risorsa | URL | Formato | Note |
+- **Mapas**: MapLibre GL JS (choropleth) o D3.js + GeoJSON
+- **Gráficos**: D3.js o Recharts
+- **Datos**: CSV/GeoJSON locales (preprocesados con Python/pandas)
+- **Framework**: React + Vite (alineado con el sitio existente) o HTML/JS standalone
+- **GIS base**: GeoJSON de barrios desde Open Data Donostia
+
+---
+
+## Geometrías base (GIS)
+
+| Recurso | URL | Formato | Notas |
 |---|---|---|---|
-| Barrios (poligoni) | `https://www.donostia.eus/datosabiertos/catalogo/mapa_auzoak` | Shapefile / GeoJSON | 17 barrios ufficiali |
-| Unidades menores | Open Data Donostia | Shapefile | Granularità sub-barrio |
-| Distretti censali | `https://www.donostia.eus/datosabiertos/catalogo/delimitaciones_censales` | Shapefile | |
-| WMS limiti amministrativi | `https://www.donostia.eus/datosabiertos/` (WMS) | WMS tile | EPSG:25830 o 3857 |
+| Barrios (polígonos) | `https://www.donostia.eus/datosabiertos/catalogo/mapa_auzoak` | Shapefile / GeoJSON | 17 barrios oficiales |
+| Unidades menores | Open Data Donostia | Shapefile | Granularidad sub-barrio |
+| Distritos censales | `https://www.donostia.eus/datosabiertos/catalogo/delimitaciones_censales` | Shapefile | |
+| WMS límites administrativos | `https://www.donostia.eus/datosabiertos/` (WMS) | WMS tile | EPSG:25830 o 3857 |
 
-> ⚠️ **Problema noto**: la suddivisione in barrios varia tra dataset dello stesso Comune. Scegliere UN'unica geometria di riferimento e fare join su quella.
+> ⚠️ **Problema conocido**: la subdivisión en barrios varía entre datasets del mismo Ayuntamiento. Elegir UNA única geometría de referencia y hacer join sobre ella.
 
 ---
 
-## Dataset per categoria
+## Datasets por categoría
 
-### 🏠 Abitazioni e affitti
+### 🏠 Vivienda y alquileres
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Prezzi vendita €/m² per barrio | Indomio | Barrio | Mensile (2023–oggi) | `indomio.es/en/mercado-inmobiliario/pais-vasco/san-sebastian-donostia/` |
-| Prezzi affitto €/m² per barrio | Indomio | Barrio | Mensile (2023–oggi) | stessa URL |
-| Prezzi storici €/m² (serie lunga) | Eustat / Ministerio Vivienda | Municipio | Trimestrale (2000–oggi) | `eustat.eus` → Vivienda |
-| Renta disponibile per barrio | Open Data Donostia | Barrio | Annuale | `donostia.eus/datosabiertos/catalogo/eustat_renta` |
-| Reddito familiare mediano per barrio | Eustat | Barrio | Annuale | `eustat.eus` → renta familiar |
+| Precios venta €/m² por barrio | Indomio | Barrio | Mensual (2023–hoy) | `indomio.es/en/mercado-inmobiliario/pais-vasco/san-sebastian-donostia/` |
+| Precios alquiler €/m² por barrio | Indomio | Barrio | Mensual (2023–hoy) | misma URL |
+| Precios históricos €/m² (serie larga) | Eustat / Ministerio Vivienda | Municipio | Trimestral (2000–hoy) | `eustat.eus` → Vivienda |
+| Renta disponible por barrio | Open Data Donostia | Barrio | Anual | `donostia.eus/datosabiertos/catalogo/eustat_renta` |
+| Renta familiar mediana por barrio | Eustat | Barrio | Anual | `eustat.eus` → renta familiar |
 
-**Visualizzazione suggerita**: choropleth animata (slider anno) + line chart comparativo barrios selezionati.
+**Visualización sugerida**: choropleth animada (slider de año) + line chart comparativo de barrios seleccionados.
 
 ---
 
-### 🏘️ Turismo e Airbnb
+### 🏘️ Turismo y Airbnb
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| VUT/HUT (viviendas uso turístico) per barrio | Open Data Donostia | Barrio + indirizzo | Mensile | `donostia.eus/datosabiertos/catalogo/censo-viviendas-turisticas` |
-| Snapshot Airbnb (listings geolocalizzati) | Inside Airbnb | Punto (lat/lon) | Snapshot periodici | `insideairbnb.com/get-the-data/` → cercare San Sebastián |
-| Pernottamenti in alloggi turistici | INE | Municipio | Mensile | `ine.es` → Encuesta de Ocupación en Alojamientos Turísticos |
-| Viaggiatori per nazionalità | INE | Municipio | Mensile | stessa indagine INE |
-| Hotel: posti letto e occupazione | INE / Eustat | Municipio | Mensile | `eustat.eus` → Turismo |
+| VUT/HUT (viviendas uso turístico) por barrio | Open Data Donostia | Barrio + dirección | Mensual | `donostia.eus/datosabiertos/catalogo/censo-viviendas-turisticas` |
+| Snapshot Airbnb (listings geolocalizados) | Inside Airbnb | Punto (lat/lon) | Snapshots periódicos | `insideairbnb.com/get-the-data/` → buscar San Sebastián |
+| Pernoctaciones en alojamientos turísticos | INE | Municipio | Mensual | `ine.es` → Encuesta de Ocupación en Alojamientos Turísticos |
+| Viajeros por nacionalidad | INE | Municipio | Mensual | misma encuesta INE |
+| Hotel: plazas y ocupación | INE / Eustat | Municipio | Mensual | `eustat.eus` → Turismo |
 
-**Visualizzazione suggerita**: 
-- Mappa densità VUT per barrio (choropleth) con slider temporale
-- Heatmap Airbnb puntuale (listings come punti su mappa) 
-- Bar chart stagionalità turistica (mesi)
+**Visualización sugerida**:
+- Mapa de densidad VUT por barrio (choropleth) con slider temporal
+- Heatmap Airbnb puntual (listings como puntos en el mapa)
+- Bar chart de estacionalidad turística (meses)
 
 ---
 
-### 👥 Demografia
+### 👥 Demografía
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Popolazione per barrio / età / genere | Open Data Donostia | Barrio + unidad menor | Annuale (dal 2000) | `donostia.eus/datosabiertos/catalogo/demografia-origen` |
-| Popolazione straniera per nazionalità | Open Data Donostia | Barrio | Annuale | stesso dataset |
-| Livello d'istruzione (>16 anni) | Open Data Donostia | Barrio + unidad menor | Annuale (dal 2000) | `donostia.eus/datosabiertos/recursos/demografia-nivelestudios/demografianivelestudiosciudad.csv` |
-| Indice di invecchiamento | calcolabile da Eustat | Barrio | Annuale | rapporto pop >64 / pop <15 |
-| Tasso di natalità | Eustat | Municipio | Annuale | |
+| Población por barrio / edad / género | Open Data Donostia | Barrio + unidad menor | Anual (desde 2000) | `donostia.eus/datosabiertos/catalogo/demografia-origen` |
+| Población extranjera por nacionalidad | Open Data Donostia | Barrio | Anual | mismo dataset |
+| Nivel de estudios (>16 años) | Open Data Donostia | Barrio + unidad menor | Anual (desde 2000) | `donostia.eus/datosabiertos/recursos/demografia-nivelestudios/demografianivelestudiosciudad.csv` |
+| Índice de envejecimiento | calculable desde Eustat | Barrio | Anual | razón pob >64 / pob <15 |
+| Tasa de natalidad | Eustat | Municipio | Anual | |
 
-**Visualizzazione suggerita**: choropleth % popolazione straniera per barrio; piramide demografica animata per la città.
+**Visualización sugerida**: choropleth % población extranjera por barrio; pirámide demográfica animada para la ciudad.
 
 ---
 
-### 💼 Occupazione e settori lavorativi
+### 💼 Empleo y sectores laborales
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Occupati per settore | Open Data Donostia / Eustat | Barrio / municipio | Annuale | `donostia.eus/datosabiertos/tema/empleo` |
-| Tasso di disoccupazione | SEPE / Eustat | Municipio | Mensile | `eustat.eus` → Mercado laboral |
-| Salari per settore e genere | Eustat | Barrio (parziale) | Annuale | gender pay gap documentato per barrio |
+| Ocupados por sector | Open Data Donostia / Eustat | Barrio / municipio | Anual | `donostia.eus/datosabiertos/tema/empleo` |
+| Tasa de desempleo | SEPE / Eustat | Municipio | Mensual | `eustat.eus` → Mercado laboral |
+| Salarios por sector y género | Eustat | Barrio (parcial) | Anual | gender pay gap documentado por barrio |
 
-**Visualizzazione suggerita**: stacked bar chart evoluzione settori (hostelería vs industria vs tecnologia); choropleth salario mediano con evidenza gap di genere.
+**Visualización sugerida**: stacked bar chart de evolución de sectores (hostelería vs industria vs tecnología); choropleth de salario mediano con evidencia de brecha de género.
 
 ---
 
-### 🌡️ Meteo e clima
+### 🌡️ Meteo y clima
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Temperature medie mensili storiche | AEMET — stazione Igeldo | Una stazione | Mensile (dal 1981) | `aemet.es/es/serviciosclimaticos/datosclimatologicos/valoresclimatologicos?l=1024E` |
-| Precipitazioni cumulate mensili | AEMET — stazione Igeldo | Una stazione | Mensile (dal 1981) | stessa URL |
-| Dati climatologici Euskalmet | Euskalmet | Reti di stazioni | Orario/giornaliero | `euskalmet.euskadi.eus` |
-| API AEMET OpenData | AEMET | Stazione | Giornaliero (recente) | `opendata.aemet.es` — richiede API key gratuita |
+| Temperaturas medias mensuales históricas | AEMET — estación Igeldo | Una estación | Mensual (desde 1981) | `aemet.es/es/serviciosclimaticos/datosclimatologicos/valoresclimatologicos?l=1024E` |
+| Precipitaciones acumuladas mensuales | AEMET — estación Igeldo | Una estación | Mensual (desde 1981) | misma URL |
+| Datos climatológicos Euskalmet | Euskalmet | Redes de estaciones | Horario/diario | `euskalmet.euskadi.eus` |
+| API AEMET OpenData | AEMET | Estación | Diario (reciente) | `opendata.aemet.es` — requiere API key gratuita |
 
-> ⚠️ **Limite**: una sola stazione → no choropleth intra-urbana. Solo time-series.
+> ⚠️ **Límite**: una sola estación → no hay choropleth intraurbana. Solo series temporales.
 
-**Visualizzazione suggerita**: line chart temperatura media annuale con trend (regressione lineare); heatmap mese × anno con colore = temperatura media.
+**Visualización sugerida**: line chart de temperatura media anual con tendencia (regresión lineal); heatmap mes × año con color = temperatura media.
 
 ---
 
-### 🚨 Sicurezza e qualità della vita
+### 🚨 Seguridad y calidad de vida
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Delitti registrati per barrio | Open Data Donostia (Guardia Municipal) | Barrio | Annuale | `donostia.eus/datosabiertos/tema/seguridad` |
-| Uso del suolo / verde urbano | Open Data Donostia | GIS poligoni | Snapshot | `donostia.eus/datosabiertos/tema/urbanismo-infraestructuras` |
+| Delitos registrados por barrio | Open Data Donostia (Guardia Municipal) | Barrio | Anual | `donostia.eus/datosabiertos/tema/seguridad` |
+| Uso del suelo / verde urbano | Open Data Donostia | GIS polígonos | Snapshot | `donostia.eus/datosabiertos/tema/urbanismo-infraestructuras` |
 
 ---
 
-### 🚌 Mobilità
+### 🚌 Movilidad
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Passeggeri DBus totali | Open Data Donostia | Linea / fermata | Annuale (dal 2011) | `donostia.eus/datosabiertos/tema/transporte` |
-| Parcheggi in superficie (ubicazione e tipo) | Open Data Donostia | Punto | Snapshot | stesso portale |
+| Pasajeros DBus totales | Open Data Donostia | Línea / parada | Anual (desde 2011) | `donostia.eus/datosabiertos/tema/transporte` |
+| Aparcamientos en superficie (ubicación y tipo) | Open Data Donostia | Punto | Snapshot | mismo portal |
 
 ---
 
-### 🎪 Turismo MICE (Congressi, Incentivi, Riunioni, Fiere)
+### 🎪 Turismo MICE (Congresos, Incentivos, Reuniones, Ferias)
 
-Il settore MICE è strategicamente prioritario per Donostia e ha un Observatorio dedicato. I dati sono più frammentati rispetto al turismo leisure, ma esistono fonti specifiche.
+El sector MICE es estratégicamente prioritario para Donostia y tiene un Observatorio dedicado. Los datos están más fragmentados que el turismo leisure, pero existen fuentes específicas.
 
-**Fonte principale**: **Donostia San Sebastián Convention Bureau** (`conventionbureau.sansebastianturismoa.eus`) — pubblica ranking e statistiche congressuali annuali. Il 63% degli eventi organizzati in città è internazionale.
+**Fuente principal**: **Donostia San Sebastián Convention Bureau** (`conventionbureau.sansebastianturismoa.eus`) — publica ranking y estadísticas congresuales anuales. El 63% de los eventos organizados en la ciudad es internacional.
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Número de congresos/eventos per anno | Convention Bureau / ICCA | Città | Annuale | `conventionbureau.sansebastianturismoa.eus` → publicaciones; ICCA database |
-| Partecipanti a congressi | Convention Bureau / Memoria anual | Città | Annuale | Memorie annuali DSS Turismoa (PDF) su `press.sansebastianturismoa.eus` |
-| Ranking internazionale MICE | ICCA (International Congress & Convention Assoc.) | Città mondiale | Annuale | ICCA Statistics Report — Donostia al pos. 221 mondiale (2019) |
-| Sedi congressuali (Kursaal, Victoria Eugenia, Reale Arena, BCC...) | Convention Bureau | Punto GIS | Snapshot | lista completa su sito CB |
-| Pernottamenti turisti MICE vs leisure | Eustat / Observatorio | Municipio | Annuale | serie Ibiltur (Eustat) con motivo visita |
+| Número de congresos/eventos por año | Convention Bureau / ICCA | Ciudad | Anual | `conventionbureau.sansebastianturismoa.eus` → publicaciones; base de datos ICCA |
+| Participantes en congresos | Convention Bureau / Memoria anual | Ciudad | Anual | Memorias anuales DSS Turismoa (PDF) en `press.sansebastianturismoa.eus` |
+| Ranking internacional MICE | ICCA (International Congress & Convention Assoc.) | Ciudad mundial | Anual | ICCA Statistics Report — Donostia en pos. 221 mundial (2019) |
+| Sedes congresuales (Kursaal, Victoria Eugenia, Reale Arena, BCC...) | Convention Bureau | Punto GIS | Snapshot | lista completa en el sitio del CB |
+| Pernoctaciones turistas MICE vs leisure | Eustat / Observatorio | Municipio | Anual | serie Ibiltur (Eustat) con motivo de visita |
 
-> ⚠️ **Limite**: i dati MICE granulari (numero eventi per sede, partecipanti per congresso) sono nelle Memorie annuali in PDF — richiedono estrazione manuale o scraping. Non esiste un dataset strutturato open.
+> ⚠️ **Límite**: los datos MICE granulares (número de eventos por sede, participantes por congreso) están en las Memorias anuales en PDF — requieren extracción manual o scraping. No existe un dataset estructurado abierto.
 
-**Visualizzazione suggerita**: bar chart numero eventi per anno (con breakdown internazionali vs nazionali); line chart confronto pernottamenti MICE vs leisure nel tempo.
+**Visualización sugerida**: bar chart de número de eventos por año (con desglose internacionales vs nacionales); line chart comparando pernoctaciones MICE vs leisure en el tiempo.
 
 ---
 
-### 🧳 Profilo e segmentazione dei visitatori
+### 🧳 Perfil y segmentación de los visitantes
 
-Fonti che descrivono *chi* visita Donostia, non solo *quanti*.
+Fuentes que describen *quién* visita Donostia, no solo *cuántos*.
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Motivo della visita (ocio / lavoro / congresos / visita familiar) | Eustat — Ibiltur | Municipio / zona | Annuale | `eustat.eus` → Ibiltur (Encuesta de Turismo Receptivo) |
-| Nazionalità turisti alojados | INE — EOH + Eustat | Municipio | Mensile | `ine.es` tabella 2078; `eustat.eus` → Turismo |
-| Turismo organizzato vs individuale | Eustat Ibiltur | Municipio | Annuale | breakdown per tipo di organizzazione del viaggio |
-| Mezzo di trasporto usato | Eustat Ibiltur | Municipio | Annuale | coche / AVE / avión / autocar |
-| Stima excursionismo (visitatori giornalieri senza pernottamento) | Observatorio Turístico Donostia / Eustat | Città | Annuale | dato critico e difficile da misurare — in fase di studio capacity carga (2025) |
-| Soddisfazione turisti (score 0–10) | Observatorio Turístico Donostia | Città | Annuale | 2025: 9,2/10 con pernottamento, 9,0/10 senza |
-| Pernottamenti per tipo alloggio (hotel / VUT / rural / camping) | INE — EOH / Eustat | Municipio | Mensile | distinzione fondamentale per analisi impatto |
+| Motivo de la visita (ocio / trabajo / congresos / visita familiar) | Eustat — Ibiltur | Municipio / zona | Anual | `eustat.eus` → Ibiltur (Encuesta de Turismo Receptivo) |
+| Nacionalidad turistas alojados | INE — EOH + Eustat | Municipio | Mensual | `ine.es` tabla 2078; `eustat.eus` → Turismo |
+| Turismo organizado vs individual | Eustat Ibiltur | Municipio | Anual | desglose por tipo de organización del viaje |
+| Medio de transporte usado | Eustat Ibiltur | Municipio | Anual | coche / AVE / avión / autocar |
+| Estimación excursionismo (visitantes diarios sin pernoctación) | Observatorio Turístico Donostia / Eustat | Ciudad | Anual | dato crítico y difícil de medir — en fase de estudio de capacidad de carga (2025) |
+| Satisfacción turistas (score 0–10) | Observatorio Turístico Donostia | Ciudad | Anual | 2025: 9,2/10 con pernoctación, 9,0/10 sin |
+| Pernoctaciones por tipo de alojamiento (hotel / VUT / rural / camping) | INE — EOH / Eustat | Municipio | Mensual | distinción fundamental para análisis de impacto |
 
-**Dati chiave già noti** (utili come valori di riferimento per il viz):
-- 2025: 2.122.612 pernottamenti totali (−0,48% vs 2024); 66,05% internazionali (+2,83%); stanza media 2,05 notti (internazionali 2,13, statali 1,91)
-- 2024: pernottamenti +6,0% rispetto al 2023, nuovo massimo storico; turismo internazionale +10,2%, statale +1,5%
-- Il turismo rappresenta il 13,9% del PIL cittadino e più di 15.000 occupati sono legati al settore
+**Datos clave ya conocidos** (útiles como valores de referencia para la viz):
+- 2025: 2.122.612 pernoctaciones totales (−0,48% vs 2024); 66,05% internacionales (+2,83%); estancia media 2,05 noches (internacionales 2,13, estatales 1,91)
+- 2024: pernoctaciones +6,0% respecto a 2023, nuevo máximo histórico; turismo internacional +10,2%, estatal +1,5%
+- El turismo representa el 13,9% del PIB de la ciudad y más de 15.000 ocupados están ligados al sector
 
 ---
 
-### 💸 Gasto turístico (capacità di spesa)
+### 💸 Gasto turístico (capacidad de gasto)
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Gasto medio turista alojado (€/giorno) | Eustat — Ibiltur / Observatorio | Municipio | Annuale | breakdown per nazionalità e tipo alloggio |
-| Gasto medio excursionista (€/giorno) | Eustat — Ibiltur | Municipio | Annuale | dato separato da turista alojado |
-| Gasto medio turista MICE / lavoro (€/giorno) | Eustat — Ibiltur | Municipio | Annuale | storicamente molto superiore a turismo leisure |
-| Distribuzione spesa per categoria (alloggio / ristoranti / acquisti / trasporto) | Eustat / Gobierno Vasco | Regione/municipio | Annuale/irregolare | serie storica disponibile dal 2000 ca. |
-| RevPAR (Revenue per Available Room) | Eustat / rapporti settore | Municipio | Annuale | Donostia è il secondo destino urbano spagnolo per RevPAR, solo dietro Barcellona |
-| Fatturato settore hostelería e ristorazione | Eustat | Municipio | Annuale | proxy dell'impatto economico reale |
+| Gasto medio turista alojado (€/día) | Eustat — Ibiltur / Observatorio | Municipio | Anual | desglose por nacionalidad y tipo de alojamiento |
+| Gasto medio excursionista (€/día) | Eustat — Ibiltur | Municipio | Anual | dato separado del turista alojado |
+| Gasto medio turista MICE / trabajo (€/día) | Eustat — Ibiltur | Municipio | Anual | históricamente muy superior al turismo leisure |
+| Distribución del gasto por categoría (alojamiento / restaurantes / compras / transporte) | Eustat / Gobierno Vasco | Región/municipio | Anual/irregular | serie histórica disponible desde ~2000 |
+| RevPAR (Revenue per Available Room) | Eustat / informes de sector | Municipio | Anual | Donostia es el segundo destino urbano español por RevPAR, solo tras Barcelona |
+| Facturación sector hostelería y restauración | Eustat | Municipio | Anual | proxy del impacto económico real |
 
-> **Nota metodologica**: la distinzione tra turista alojado, excursionista e turista de negocios è cruciale perché la spesa per persona/giorno varia enormemente tra i tre segmenti. Eustat Ibiltur è l'unica fonte che li separa sistematicamente.
+> **Nota metodológica**: la distinción entre turista alojado, excursionista y turista de negocios es crucial porque el gasto por persona/día varía enormemente entre los tres segmentos. Eustat Ibiltur es la única fuente que los separa sistemáticamente.
 
-**Visualizzazione suggerita**: stacked area chart gasto totale = (turisti × giorni × spesa/giorno), decomposto per segmento nel tempo; scatter gasto medio vs nazionalità (bolla = volume).
+**Visualización sugerida**: stacked area chart de gasto total = (turistas × días × gasto/día), descompuesto por segmento en el tiempo; scatter gasto medio vs nacionalidad (burbuja = volumen).
 
 ---
 
-### 📅 Stagionalità e de-stagionalizzazione
+### 📅 Estacionalidad y desestacionalización
 
-Donostia ha un piano esplicito di de-stagionalizzazione — i dati mensili mostrano questa evoluzione nel tempo.
+Donostia tiene un plan explícito de desestacionalización — los datos mensuales muestran esta evolución en el tiempo.
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Pernottamenti mensili per anno (serie lunga) | INE — EOH | Municipio | Mensile (dal ~2000) | `ine.es` → tabella 2078, filtro San Sebastián |
-| Occupazione alberghiera mensile | INE / Eustat | Municipio | Mensile | grado di ocupación % per mese |
-| Viaggiatori per mese e nazionalità | INE / Eustat | Municipio | Mensile | |
+| Pernoctaciones mensuales por año (serie larga) | INE — EOH | Municipio | Mensual (desde ~2000) | `ine.es` → tabla 2078, filtro San Sebastián |
+| Ocupación hotelera mensual | INE / Eustat | Municipio | Mensual | grado de ocupación % por mes |
+| Viajeros por mes y nacionalidad | INE / Eustat | Municipio | Mensual | |
 
-> Nel 2025 crescono i mesi di bassa stagione (gennaio, febbraio, giugno, dicembre) mentre cala l'estate (−1,48%) — questo trend de-stagionalizzazione è perfetto per una visualizzazione tipo heatmap mese × anno.
+> En 2025 crecen los meses de temporada baja (enero, febrero, junio, diciembre) mientras cae el verano (−1,48%) — esta tendencia de desestacionalización es perfecta para una visualización tipo heatmap mes × año.
 
-**Visualizzazione suggerita**: heatmap mese × anno con colore = pernottamenti (rivela stagionalità e sua evoluzione in un'unica vista); line chart multiplo confronto gen-dic tra anni diversi.
+**Visualización sugerida**: heatmap mes × año con color = pernoctaciones (revela la estacionalidad y su evolución en una sola vista); line chart múltiple comparando ene-dic entre años distintos.
 
 ---
 
-### 🚨 Criminalità (espansione)
+### 🚨 Criminalidad (ampliación)
 
-Il dato esiste ed è open. Ci sono due fonti complementari con granularità diversa.
+El dato existe y es abierto. Hay dos fuentes complementarias con granularidad distinta.
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Delitti per barrio (Guardia Municipal) | Open Data Donostia | Barrio | Annuale | CSV diretto: `donostia.eus/datosabiertos/catalogo/delitos-guardia/recurso/gua_delitosbarrio_ckan.csv` |
-| Delitti totali per tipo (Guardia Municipal + Ertzaintza) | Gobierno Vasco — Memoria Delincuencia | Municipio | Annuale | `ertzaintza.euskadi.eus` → estadísticas delictivas; serie dal 2010 ca. |
-| Tasa delincuencial (reati / 1000 abitanti) | Gobierno Vasco | Municipio | Annuale | stessa fonte; Donostia: 67,54‰ nel 2021, 2025: −5,18% vs 2024 |
-| Infracciones penales per tipo (hurtos, estafas, robos…) | Ertzaintza + MIR | Municipio | Annuale | `estadisticasdecriminalidad.ses.mir.es` — Portal Estadístico Criminalidad |
-| Puntos críticos de seguridad (mappa partecipativa) | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/seguridad-ptos_criticos` (SHP + WMS) |
-| Violencia de género — denúncias | Eustat / Gobierno Vasco | Municipio | Annuale | Eustat → Sociedad, dato separato da criminalità generale |
+| Delitos por barrio (Guardia Municipal) | Open Data Donostia | Barrio | Anual | CSV directo: `donostia.eus/datosabiertos/catalogo/delitos-guardia/recurso/gua_delitosbarrio_ckan.csv` |
+| Delitos totales por tipo (Guardia Municipal + Ertzaintza) | Gobierno Vasco — Memoria Delincuencia | Municipio | Anual | `ertzaintza.euskadi.eus` → estadísticas delictivas; serie desde ~2010 |
+| Tasa delincuencial (delitos / 1000 habitantes) | Gobierno Vasco | Municipio | Anual | misma fuente; Donostia: 67,54‰ en 2021, 2025: −5,18% vs 2024 |
+| Infracciones penales por tipo (hurtos, estafas, robos…) | Ertzaintza + MIR | Municipio | Anual | `estadisticasdecriminalidad.ses.mir.es` — Portal Estadístico Criminalidad |
+| Puntos críticos de seguridad (mapa participativo) | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/seguridad-ptos_criticos` (SHP + WMS) |
+| Violencia de género — denuncias | Eustat / Gobierno Vasco | Municipio | Anual | Eustat → Sociedad, dato separado de la criminalidad general |
 
-> **Nota**: il 77,7% dei delitti a Donostia sono contro il patrimonio (hurtos, robos, estafas). I dati per barrio dalla Guardia Municipal sono il dataset più granulare — scaricabile direttamente in CSV.
+> **Nota**: el 77,7% de los delitos en Donostia son contra el patrimonio (hurtos, robos, estafas). Los datos por barrio de la Guardia Municipal son el dataset más granular — descargable directamente en CSV.
+>
+> ⚠️ **Actualización (junio 2026):** la criminalidad por barrio ha quedado **descartada** del camino crítico — el CSV de la Guardia Municipal ya no está en el catálogo y la escala sub-municipal está blindada por protección de datos. Ver `GAP-ANALYSIS.md` §5 y `FEEDBACK-CONSOLIDADO.md`.
 
-**Visualizzazione suggerita**: choropleth delitti per barrio normalizzati per popolazione (tasa/1000 ab.); line chart evoluzione tasa delincuencial per anno; donut/stacked bar tipi di delitto.
+**Visualización sugerida**: choropleth de delitos por barrio normalizados por población (tasa/1000 ab.); line chart de evolución de la tasa delincuencial por año; donut/stacked bar de tipos de delito.
 
 ---
 
-### 🏫 Educazione e giovani
+### 🏫 Educación y juventud
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Equipamientos educativos (scuole, asili, università) con geolocalizzazione | Open Data Donostia | Punto GIS | Annuale | `donostia.eus/datosabiertos/catalogo/servicios-educativos` — GeoJSON + CSV + WMS disponibili |
-| Equipamientos de juventud (gaztelekus, haurtxokos, centros jóvenes) | Open Data Donostia | Punto GIS | Annuale | `donostia.eus/datosabiertos/catalogo/equipamiento_juventud` |
-| Livello di studi popolazione per barrio | Open Data Donostia | Barrio + unidad menor | Annuale (dal 2000) | `donostia.eus/datosabiertos/catalogo/demografia-nivelestudios` |
-| Alunni per livello / lingua (modelo A/B/D) | Gobierno Vasco — Dpto. Educación | Municipio / centro | Annuale | `hezkuntza.euskadi.eus` → estadísticas educación; serie storica lunga |
-| Tasa escolarización 0–2 anni | Eustat | Municipio | Annuale | `eustat.eus` → Educación |
+| Equipamientos educativos (escuelas, guarderías, universidad) con geolocalización | Open Data Donostia | Punto GIS | Anual | `donostia.eus/datosabiertos/catalogo/servicios-educativos` — GeoJSON + CSV + WMS disponibles |
+| Equipamientos de juventud (gaztelekus, haurtxokos, centros jóvenes) | Open Data Donostia | Punto GIS | Anual | `donostia.eus/datosabiertos/catalogo/equipamiento_juventud` |
+| Nivel de estudios de la población por barrio | Open Data Donostia | Barrio + unidad menor | Anual (desde 2000) | `donostia.eus/datosabiertos/catalogo/demografia-nivelestudios` |
+| Alumnos por nivel / lengua (modelo A/B/D) | Gobierno Vasco — Dpto. Educación | Municipio / centro | Anual | `hezkuntza.euskadi.eus` → estadísticas educación; serie histórica larga |
+| Tasa escolarización 0–2 años | Eustat | Municipio | Anual | `eustat.eus` → Educación |
 
-> **Nota sul modello linguistico**: i modelli A (solo spagnolo), B (bilingue) e D (solo euskera) sono un dato particolarmente significativo per l'evoluzione identitaria della città. La percentuale di iscritti al modelo D è cresciuta costantemente dal 1983.
+> **Nota sobre el modelo lingüístico**: los modelos A (solo español), B (bilingüe) y D (solo euskera) son un dato particularmente significativo para la evolución identitaria de la ciudad. El porcentaje de matriculados en el modelo D ha crecido de forma constante desde 1983.
 
-**Visualizzazione suggerita**: mappa punti scuole per livello; line chart evoluzione % alunni in ciascun modelo lingüístico; choropleth livello di studi per barrio.
+**Visualización sugerida**: mapa de puntos de escuelas por nivel; line chart de evolución del % de alumnos en cada modelo lingüístico; choropleth de nivel de estudios por barrio.
 
 ---
 
-### 🏥 Salute e servizi sociali
+### 🏥 Salud y servicios sociales
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Equipamientos de salud (ospedali, ambulatori, cliniche) | Open Data Donostia | Punto GIS | Annuale | `donostia.eus/datosabiertos/catalogo/servicios-salud` — GeoJSON + CSV + WMS |
-| Equipamientos socio-asistenciali (centri diurni, residenze anziani) | Open Data Donostia | Punto GIS | Annuale | `donostia.eus/datosabiertos/catalogo/servicios-socio_asistencial` — GeoJSON disponibile |
-| Famiglie assistite dai Servizi Sociali | Open Data Donostia | Municipio | Annuale | `donostia.eus/datosabiertos/catalogo/bso-familias-cas` — CSV; proxy della fragilità sociale |
-| Ámbiti territoriali dei servizi sociali | Open Data Donostia | Zone GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/servicio-social` (SHP + WMS) |
-| Speranza di vita / mortalità | Eustat | Municipio | Annuale | `eustat.eus` → Demografía → Mortalidad |
-| Rifugi climatici (heatwave resilience) | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/refugio-climatico` — nuova infrastruttura (2024) |
+| Equipamientos de salud (hospitales, ambulatorios, clínicas) | Open Data Donostia | Punto GIS | Anual | `donostia.eus/datosabiertos/catalogo/servicios-salud` — GeoJSON + CSV + WMS |
+| Equipamientos socio-asistenciales (centros de día, residencias de mayores) | Open Data Donostia | Punto GIS | Anual | `donostia.eus/datosabiertos/catalogo/servicios-socio_asistencial` — GeoJSON disponible |
+| Familias atendidas por los Servicios Sociales | Open Data Donostia | Municipio | Anual | `donostia.eus/datosabiertos/catalogo/bso-familias-cas` — CSV; proxy de fragilidad social |
+| Ámbitos territoriales de los servicios sociales | Open Data Donostia | Zonas GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/servicio-social` (SHP + WMS) |
+| Esperanza de vida / mortalidad | Eustat | Municipio | Anual | `eustat.eus` → Demografía → Mortalidad |
+| Refugios climáticos (resiliencia ante olas de calor) | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/refugio-climatico` — nueva infraestructura (2024) |
 
-**Visualizzazione suggerita**: mappa accessibilità sanitaria (distanza a piedi dal centro di salute più vicino per barrio); line chart famiglie in carico ai servizi sociali vs reddito mediano.
+**Visualización sugerida**: mapa de accesibilidad sanitaria (distancia a pie al centro de salud más cercano por barrio); line chart de familias atendidas por servicios sociales vs renta mediana.
 
 ---
 
-### 🔊 Ambiente urbano: rumore, qualità dell'aria, rifiuti
+### 🔊 Entorno urbano: ruido, calidad del aire, residuos
 
-Questa è forse la categoria più sottovalutata per una dataviz sulla qualità della vita urbana — e Donostia ha dati eccellenti.
+Esta es quizá la categoría más infravalorada para una dataviz sobre calidad de vida urbana — y Donostia tiene datos excelentes.
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Mappa rumore totale (mattina/pomeriggio/notte) | Open Data Donostia | Griglia GIS | Biennale | `donostia.eus/datosabiertos/catalogo/ruido-total` (SHP + WMS) |
-| Mappa rumore notturno | Open Data Donostia | Griglia GIS | Biennale | `donostia.eus/datosabiertos/catalogo/ruido-noche` |
-| Qualità dell'aria | Open Data Donostia / Gobierno Vasco | Stazioni | Annuale | `donostia.eus/datosabiertos/tema/medio-ambiente` — tag `calidad_aire` |
-| Raccolta differenziata rifiuti per tipo | Open Data Donostia | Municipio | Annuale | `donostia.eus/datosabiertos/catalogo/residuos` — CSV; evoluzione % raccolta differenziata |
-| Localizzazione contenitori raccolta differenziata | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/mambiente-residuos` (SHP) |
-| Zona de bajas emisiones (ZBE, 2024) | Open Data Donostia | Poligono GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/mambiente-zbe` — approvata 2024 |
+| Mapa de ruido total (mañana/tarde/noche) | Open Data Donostia | Rejilla GIS | Bienal | `donostia.eus/datosabiertos/catalogo/ruido-total` (SHP + WMS) |
+| Mapa de ruido nocturno | Open Data Donostia | Rejilla GIS | Bienal | `donostia.eus/datosabiertos/catalogo/ruido-noche` |
+| Calidad del aire | Open Data Donostia / Gobierno Vasco | Estaciones | Anual | `donostia.eus/datosabiertos/tema/medio-ambiente` — tag `calidad_aire` |
+| Recogida selectiva de residuos por tipo | Open Data Donostia | Municipio | Anual | `donostia.eus/datosabiertos/catalogo/residuos` — CSV; evolución % recogida selectiva |
+| Localización de contenedores de recogida selectiva | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/mambiente-residuos` (SHP) |
+| Zona de bajas emisiones (ZBE, 2024) | Open Data Donostia | Polígono GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/mambiente-zbe` — aprobada 2024 |
 
-> La mappa del rumore notturno è particolarmente rilevante per la qualità della vita nei barrios della Parte Vieja e Gros, dove l'hostelería è concentrata.
+> El mapa de ruido nocturno es particularmente relevante para la calidad de vida en los barrios de la Parte Vieja y Gros, donde se concentra la hostelería. *(Caveat verificado después: los mapas estratégicos están dominados por ruido de transporte, no de ocio — ver `GAP-ANALYSIS.md` REC-2.)*
 
-**Visualizzazione suggerita**: choropleth livelli di rumore notturno per zona; line chart % raccolta differenziata per anno (trend sostenibilità); overlay ZBE su mappa city.
+**Visualización sugerida**: choropleth de niveles de ruido nocturno por zona; line chart % recogida selectiva por año (tendencia de sostenibilidad); overlay ZBE sobre el mapa de la ciudad.
 
 ---
 
-### 🌿 Spazio verde e uso del suolo
+### 🌿 Espacio verde y uso del suelo
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Parchi e zone verdi (poligoni GIS) | Open Data Donostia | Poligono GIS | Snapshot | `donostia.eus/datosabiertos/tema/urbanismo-infraestructuras` |
-| Biodiversità urbana (inventario specie) | Open Data Donostia | GIS | Biennale/triennale | tag `biodiversidad` nel portale medio-ambiente |
-| Potencial fotovoltaico edifici | Open Data Donostia | Edificio GIS | Biennale | `donostia.eus/datosabiertos/catalogo/mambiente-fotovoltaico` (SHP + WMS) |
-| Uso del suolo per tipo | Gobierno Vasco — Lurralde Informazioa | Poligono GIS | Quadriennale | `geo.euskadi.eus` — Mapa de Usos del Suelo (CORINE adaptato) |
+| Parques y zonas verdes (polígonos GIS) | Open Data Donostia | Polígono GIS | Snapshot | `donostia.eus/datosabiertos/tema/urbanismo-infraestructuras` |
+| Biodiversidad urbana (inventario de especies) | Open Data Donostia | GIS | Bienal/trienal | tag `biodiversidad` en el portal medio-ambiente |
+| Potencial fotovoltaico de edificios | Open Data Donostia | Edificio GIS | Bienal | `donostia.eus/datosabiertos/catalogo/mambiente-fotovoltaico` (SHP + WMS) |
+| Uso del suelo por tipo | Gobierno Vasco — Lurralde Informazioa | Polígono GIS | Cuatrienal | `geo.euskadi.eus` — Mapa de Usos del Suelo (CORINE adaptado) |
 
 ---
 
-### 🏪 Commercio e trasformazione urbana
+### 🏪 Comercio y transformación urbana
 
-Il portale ha pochi dataset diretti sul commercio, ma il dato più interessante è già disponibile:
+El portal tiene pocos datasets directos sobre comercio, pero el dato más interesante ya está disponible:
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Zone sature di locali e attività ricreative | Open Data Donostia | Poligono GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/urbanismo-zsaturada` (SHP + WMS) — barrios dove è stata limitata l'apertura di nuovi locali |
-| Licenze di apertura per tipo di attività | Ayuntamiento (su richiesta / Hacienda) | Municipio | Annuale | dato disponibile nelle statistiche di Hacienda; non strutturato come open data CSV |
-| Locali chiusi / sfitti | Non disponibile come open data | — | — | potenzialmente rilevabile da foto satellitari o street view temporali |
-| Numero di ristoranti/bar per barrio | Eustat / IAE (Impuesto Actividades Económicas) | Barrio | Annuale | `eustat.eus` → Empresas → por actividad CNAE; proxy della touristificazione commerciale |
+| Zonas saturadas de locales y actividades recreativas | Open Data Donostia | Polígono GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/urbanismo-zsaturada` (SHP + WMS) — barrios donde se ha limitado la apertura de nuevos locales |
+| Licencias de apertura por tipo de actividad | Ayuntamiento (a petición / Hacienda) | Municipio | Anual | dato disponible en las estadísticas de Hacienda; no estructurado como open data CSV |
+| Locales cerrados / vacíos | No disponible como open data | — | — | potencialmente detectable desde fotos satelitales o street view temporales |
+| Número de restaurantes/bares por barrio | Eustat / IAE (Impuesto Actividades Económicas) | Barrio | Anual | `eustat.eus` → Empresas → por actividad CNAE; proxy de la turistificación comercial |
 
 ---
 
-### 💰 Fiscalità e bilancio municipale
+### 💰 Fiscalidad y presupuesto municipal
 
-| Dataset | Fonte | Granularità geo | Granularità tempo | URL / Note |
+| Dataset | Fuente | Granularidad geo | Granularidad tiempo | URL / Notas |
 |---|---|---|---|---|
-| Impuestos municipali emessi (IBI, plusvalía…) | Open Data Donostia | Municipio | Annuale | `donostia.eus/datosabiertos/catalogo/impuestos_tipo` — CSV aggiornato |
-| Tasas municipali per tipo | Open Data Donostia | Municipio | Annuale | `donostia.eus/datosabiertos/catalogo/tasas_tipo` — CSV aggiornato |
-| Subvenciones concedidas per anno | Open Data Donostia | Municipio | Annuale | `donostia.eus/datosabiertos/catalogo/subvenciones_2023` |
-| **Catastro de Gipuzkoa** (valore catastale, dati fisici immobili) | **Diputación Foral de Gipuzkoa** — NON il catastro statale | Parcela / unidad constructiva | Aggiornato ogni 15 giorni | Open data CSV su `gipuzkoairekia.eus` → Catastro urbano (Bienes Inmuebles de Naturaleza Urbana); licenza CC-BY |
+| Impuestos municipales emitidos (IBI, plusvalía…) | Open Data Donostia | Municipio | Anual | `donostia.eus/datosabiertos/catalogo/impuestos_tipo` — CSV actualizado |
+| Tasas municipales por tipo | Open Data Donostia | Municipio | Anual | `donostia.eus/datosabiertos/catalogo/tasas_tipo` — CSV actualizado |
+| Subvenciones concedidas por año | Open Data Donostia | Municipio | Anual | `donostia.eus/datosabiertos/catalogo/subvenciones_2023` |
+| **Catastro de Gipuzkoa** (valor catastral, datos físicos de inmuebles) | **Diputación Foral de Gipuzkoa** — NO el catastro estatal | Parcela / unidad constructiva | Actualizado cada 15 días | Open data CSV en `gipuzkoairekia.eus` → Catastro urbano (Bienes Inmuebles de Naturaleza Urbana); licencia CC-BY |
 
-> ⚠️ **Importante — competenza foral**: Gipuzkoa (come tutto il País Vasco e la Navarra) ha un regime fiscale foral. Il catastro NON è gestito dalla Dirección General del Catastro statale (`sedecatastro.gob.es`), che non restituisce dati per i territori forali. Va usato il **Catastro de la Diputación Foral de Gipuzkoa**. Vantaggio: i dati sono pubblicati come **open data CSV scaricabili in bulk** su `gipuzkoairekia.eus` (dataset "Bienes Inmuebles de Naturaleza Urbana", ~6 MB per file, aggiornato ogni 15 giorni), molto più comodo dello scraping parcela-per-parcela. Consultazione web puntuale per referencia catastral o indirizzo su `egoitza.gipuzkoa.eus/es/web/ogasuna/catastro`.
+> ⚠️ **Importante — competencia foral**: Gipuzkoa (como todo el País Vasco y Navarra) tiene un régimen fiscal foral. El catastro NO lo gestiona la Dirección General del Catastro estatal (`sedecatastro.gob.es`), que no devuelve datos para los territorios forales. Hay que usar el **Catastro de la Diputación Foral de Gipuzkoa**. Ventaja: los datos se publican como **open data CSV descargables en bulk** en `gipuzkoairekia.eus` (dataset "Bienes Inmuebles de Naturaleza Urbana", ~6 MB por fichero, actualizado cada 15 días), mucho más cómodo que el scraping parcela a parcela. Consulta web puntual por referencia catastral o dirección en `egoitza.gipuzkoa.eus/es/web/ogasuna/catastro`.
 
 ---
 
-## Metriche derivate interessanti (calcolate)
+## Métricas derivadas interesantes (calculadas)
 
-Queste non esistono come dataset pronti ma si calcolano combinando i dati sopra:
+Estas no existen como datasets listos, sino que se calculan combinando los datos anteriores:
 
-| Metrica | Formula | Dati necessari |
+| Métrica | Fórmula | Datos necesarios |
 |---|---|---|
-| **Tasso touristificazione** | VUT / abitazioni totali per barrio | VUT + censimento abitazioni |
-| **Pressione immobiliare** | Δ prezzo affitto / Δ reddito mediano per barrio | Prezzi + reddito |
-| **Airbnb intensity** | Listings Airbnb / abitazioni totali | Inside Airbnb + censimento |
-| **Indice di invecchiamento** | Pop >64 / Pop <15 × 100 | Dataset demografico |
-| **Gender pay gap** | (salario_uomo - salario_donna) / salario_uomo | Eustat per barrio |
-| **Trend temperatura annuale** | regressione lineare su medie annuali | AEMET |
-| **Indice de-stagionalizzazione** | coefficiente di variazione mensile pernottamenti per anno | INE — EOH mensile |
-| **Peso MICE sul turismo totale** | pernottamenti MICE / pernottamenti totali | Ibiltur + INE |
-| **Gasto totale stimato** | visitatori × durata media × spesa media/giorno | Ibiltur multi-segmento |
-| **Rapporto excursionisti / turisti** | escursionistas / turistas alojados | Observatorio + Eustat |
-| **Tasa delincuencial** | delitti / pop × 1000 per barrio | Guardia Municipal CSV + demografico |
-| **Indice accessibilità sanitaria** | distanza media a piedi al centro salud più vicino | GeoJSON salute + geometria barrios |
-| **% raccolta differenziata** | rifiuti differenziati / totale × 100 | dataset residuos |
-| **Densità hostelería** | bar+ristoranti / abitazioni per barrio | IAE/Eustat + censimento |
-| **Pressione fiscale immobiliare** | valore catastale / valore mercato per zona | Catastro + Indomio |
-| **% alunni modelo D** | iscritti modelo D / totale iscritti | Dpto. Educación
+| **Tasa de turistificación** | VUT / viviendas totales por barrio | VUT + censo de viviendas |
+| **Presión inmobiliaria** | Δ precio alquiler / Δ renta mediana por barrio | Precios + renta |
+| **Airbnb intensity** | Listings Airbnb / viviendas totales | Inside Airbnb + censo |
+| **Índice de envejecimiento** | Pob >64 / Pob <15 × 100 | Dataset demográfico |
+| **Gender pay gap** | (salario_hombre − salario_mujer) / salario_hombre | Eustat por barrio |
+| **Tendencia temperatura anual** | regresión lineal sobre medias anuales | AEMET |
+| **Índice de desestacionalización** | coeficiente de variación mensual de pernoctaciones por año | INE — EOH mensual |
+| **Peso MICE sobre turismo total** | pernoctaciones MICE / pernoctaciones totales | Ibiltur + INE |
+| **Gasto total estimado** | visitantes × duración media × gasto medio/día | Ibiltur multi-segmento |
+| **Ratio excursionistas / turistas** | excursionistas / turistas alojados | Observatorio + Eustat |
+| **Tasa delincuencial** | delitos / pob × 1000 por barrio | Guardia Municipal CSV + demográfico |
+| **Índice de accesibilidad sanitaria** | distancia media a pie al centro de salud más cercano | GeoJSON salud + geometría barrios |
+| **% recogida selectiva** | residuos selectivos / total × 100 | dataset residuos |
+| **Densidad de hostelería** | bares+restaurantes / viviendas por barrio | IAE/Eustat + censo |
+| **Presión fiscal inmobiliaria** | valor catastral / valor de mercado por zona | Catastro + Indomio |
+| **% alumnos modelo D** | matriculados modelo D / total matriculados | Dpto. Educación |
 
 ---
 
-## Visualizzazioni prioritarie
+## Visualizaciones prioritarias
 
-### Fase 1 — Mappa coropletica con slider
-- Selezione metrica (dropdown): affitto €/m², VUT density, % stranieri, reddito mediano
-- Slider anno
-- Tooltip al hover con barrio + valore + Δ rispetto anno precedente
-- Legenda con scala colori
+### Fase 1 — Mapa coroplético con slider
+- Selección de métrica (dropdown): alquiler €/m², densidad VUT, % extranjeros, renta mediana
+- Slider de año
+- Tooltip al hover con barrio + valor + Δ respecto al año anterior
+- Leyenda con escala de colores
 
-### Fase 2 — Panel comparativo barrios
-- Seleziona 2–3 barrios → line chart affiancati per metrica scelta
-- Evidenzia COVID-19 (2020) e turismo post-COVID
+### Fase 2 — Panel comparativo de barrios
+- Seleccionar 2–3 barrios → line chart en paralelo por la métrica elegida
+- Resaltar COVID-19 (2020) y turismo post-COVID
 
-### Fase 3 — Time-series meteo e turismo
-- Heatmap mese × anno (temperatura, precipitazioni)
-- **Heatmap stagionalità**: mese × anno, colore = pernottamenti → mostra evoluzione de-stagionalizzazione
-- Bar chart stagionalità turistica con overlay trend annuale
-- Stacked area chart segmenti turisti (leisure / lavoro / MICE) nel tempo
+### Fase 3 — Series temporales de meteo y turismo
+- Heatmap mes × año (temperatura, precipitaciones)
+- **Heatmap de estacionalidad**: mes × año, color = pernoctaciones → muestra la evolución de la desestacionalización
+- Bar chart de estacionalidad turística con overlay de tendencia anual
+- Stacked area chart de segmentos de turistas (leisure / trabajo / MICE) en el tiempo
 
-### Fase 4 — Scatter e correlazioni
-- Scatter: densità VUT vs prezzo affitto per barrio (colore = barrio, dimensione = popolazione)
-- Scatter: reddito mediano vs % stranieri
-
----
-
-## 🚀 Idee avanzate (concetti differenzianti)
-
-Queste sono idee che vanno oltre la choropleth classica e che renderebbero il progetto distintivo. Diverse sono ispirate a progetti analoghi di altre città (riferimenti in fondo).
-
-### 1. Indice composito di "desplazamiento" / gentrificazione per barrio
-
-Il contributo più forte che il progetto può dare non è mostrare una variabile alla volta, ma **costruire un indice tipologico** che classifica ogni barrio in categorie di trasformazione, sul modello dell'**Urban Displacement Project (UC Berkeley)** e di **Displaced by Design (NCRC)**.
-
-Metodologia consolidata (Freeman 2005, adattata da Ding/Hwang): un barrio è "gentrificabile" se parte sotto la mediana cittadina di reddito; è "in gentrificazione" se in un dato periodo cresce, più della mediana cittadina, sia in (a) livello di istruzione / reddito sia in (b) prezzo affitto/vendita. Variabili operative tipiche: reddito mediano, valore casa, affitto, tasso di sfitto, livello d'istruzione.
-
-**Adattamento a Donostia**: combinare 5 variabili già nel progetto → reddito mediano, prezzo affitto €/m², % popolazione con studi superiori, densità VUT, % stranieri (qui da interpretare con cautela: a Donostia parte degli "stranieri" sono espatriati ad alto reddito, non immigrazione economica — vedi nota etica sotto). Output: ogni barrio classificato (es. "stabile", "in gentrificazione iniziale", "gentrificazione avanzata", "esclusivo/escludente") con una mappa categorica + spiegazione interattiva dei criteri.
-
-> Questo trasforma il progetto da "dashboard di dati" a "strumento analitico con una tesi" — molto più memorabile.
-
-### 2. Dimensione temporale come protagonista (non solo slider)
-
-Ispirato a **Zurich Time Travel** (Lisa Stähli, ArcGIS JS API + modello 3D edifici con anno di costruzione). Due varianti possibili:
-
-- **Small multiples temporali**: invece di un solo slider, mostrare la stessa mappa a 4-6 istanti (es. 2000, 2008, 2015, 2020, 2025) affiancate → l'occhio coglie immediatamente la propagazione spaziale del fenomeno (es. la touristificazione che si espande da Parte Vieja-Gros verso Antiguo e Egia).
-- **Animazione "play"**: pulsante che anima la transizione anno-per-anno, con un contatore. Tecnicamente facile con D3 transitions o MapLibre `setPaintProperty` interpolato.
-- **3D extrusion temporale** (se vuoi usare la tua base Three.js esistente): estrudere i barrios in 3D dove l'altezza = prezzo affitto o densità VUT, animato nel tempo. Questo sarebbe il ponte naturale tra il tuo stack Three.js e il nuovo progetto.
-
-### 3. Storia guidata (scrollytelling)
-
-Sul modello dei pezzi del **NYT "A Decade of Urban Transformation"**: invece di lasciare l'utente solo davanti a controlli, una narrazione che scorre (scroll-driven) e pilota la mappa: "Nel 2014 il turismo supera 1,4M di pernottamenti…" → la mappa evidenzia Parte Vieja → "…e i prezzi nell'Antiguo iniziano a salire" → la mappa pana sull'Antiguo. Librerie: Scrollama.js + il tuo motore mappa. Ottimo per un sito personale dove vuoi comunicare, non solo esplorare.
-
-### 4. Indicatore di "tensione" affitti vs salari
-
-Una delle metriche più parlanti per "la vita di chi ci abita": il rapporto tra **costo annuale dell'affitto medio** e **reddito mediano del barrio**. Mostra dove vivere sta diventando insostenibile per i residenti storici. Si calcola interamente con dati già nel progetto. Visualizzazione: choropleth con scala che evidenzia i barrios dove l'affitto supera il 30-40% del reddito (soglia di "housing stress").
-
-### 5. Confronto "città turistica vs città vissuta"
-
-Idea concettuale forte: due viste affiancate della stessa mappa. A sinistra "Donostia dei turisti" (densità VUT, hotel, ristoranti, punti di interesse, foto Flickr/Instagram geolocalizzate). A destra "Donostia dei residenti" (scuole, centri di salute, servizi sociali, mercati di quartiere). Il contrasto visivo racconta la divergenza tra i due usi dello spazio urbano.
-
-### 6. Modello di accessibilità (15-minute city)
-
-Per ogni barrio, calcolare la distanza/tempo a piedi ai servizi essenziali (scuola, centro salute, farmacia, supermercato, fermata bus) usando i GeoJSON dei servizi già disponibili + un motore di routing (OSRM o isocrone con Valhalla/openrouteservice). Visualizzazione: isocrone o choropleth di "completezza dei servizi". Misura concreta della qualità della vita quotidiana.
-
-### 7. Dato testuale / qualitativo (avanzato, opzionale)
-
-Sentiment o temi dalle proposte cittadine. **Decide Madrid** e progetti simili hanno mostrato il valore di integrare la voce dei cittadini. Donostia ha processi di partecipazione (`participacion-noticias` nel portale open data). Si potrebbe fare topic modeling sulle proposte/reclami cittadini per barrio e sovrapporli alle metriche oggettive. Avanzato e rumoroso, ma differenziante.
-
-### ⚖️ Nota etica e metodologica (importante)
-
-Tre avvertenze, viste su tutti i progetti seri di questo tipo:
-
-1. **"% stranieri" non è "gentrificazione"**. A Donostia la popolazione straniera include sia immigrazione economica sia espatriati benestanti (telelavoratori, pensionati europei). Usare questa variabile acriticamente come proxy di gentrificazione è scorretto e potenzialmente stigmatizzante. Meglio incrociare con reddito e nazionalità specifica.
-2. **La scelta della definizione cambia il risultato**. Come mostra la letteratura (HUD Cityscape 2024), esistono molte definizioni di gentrificazione e danno mappe diverse. Un progetto onesto rende esplicita la definizione scelta e idealmente permette all'utente di cambiarla.
-3. **Normalizzare sempre per popolazione**. Valori assoluti (delitti, servizi) ingannano: un barrio popoloso avrà più di tutto. Tasso per 1000 abitanti quasi sempre.
-
-### Pattern architetturali da progetti di riferimento
-
-- **CoreData.nyc (NYU Furman Center)**: standardizza 20+ dataset eterogenei su una griglia geografica comune di indicatori multi-anno → questo è esattamente il pattern di normalizzazione che ti serve per il problema dei barrios incoerenti. Un singolo "indicator store" (un CSV/Parquet lungo: `barrio_id, anno, metrica, valore`) da cui tutte le viste attingono.
-- **Open Data BCN / Observatori del Turisme a Barcelona**: separano il portale dati dalle visualizzazioni tematiche. Conferma la scelta di tenere il dataviz come progetto separato.
-- **idealista18 (R package)**: esempio di dataset immobiliare geo-referenziato con attributi catastali — modello di come arricchire i listing con dati catastali (qui: catastro foral di Gipuzkoa).
+### Fase 4 — Scatter y correlaciones
+- Scatter: densidad VUT vs precio alquiler por barrio (color = barrio, tamaño = población)
+- Scatter: renta mediana vs % extranjeros
 
 ---
 
-## Note implementative
+## 🚀 Ideas avanzadas (conceptos diferenciadores)
 
-- Usare **GeoJSON** (convertire da shapefile con `ogr2ogr` o `mapshaper`)
-- Pre-processare tutti i CSV in Python/pandas → output JSON puliti per il frontend
-- **Indicator store unificato**: adottare il pattern CoreData.nyc — un unico dataset "lungo" (`barrio_id, anno, metrica, valore, unità, fonte`) in CSV o Parquet, da cui tutte le viste attingono. Risolve alla radice il problema dei barrios incoerenti: il join geometrico si fa una volta sola, in fase di ingestion, contro la geometria di riferimento. Aggiungere una nuova metrica = aggiungere righe, non toccare il frontend.
-- Per le choropleth: MapLibre GL JS (se si vuole base map stradale) o D3 puro (se solo mappa vettoriale)
-- Colori: scala divergente per variazioni (blu=calo, rosso=aumento), sequenziale per valori assoluti
-- Normalizzare sempre su geometria barrios ufficiale dal portale comunale
-- Normalizzare sempre i conteggi per popolazione (tasso per 1000 ab.) prima di mappare
+Estas son ideas que van más allá del choropleth clásico y que harían el proyecto distintivo. Varias se inspiran en proyectos análogos de otras ciudades (referencias al final).
+
+### 1. Índice compuesto de "desplazamiento" / gentrificación por barrio
+
+La aportación más fuerte que puede hacer el proyecto no es mostrar una variable cada vez, sino **construir un índice tipológico** que clasifique cada barrio en categorías de transformación, sobre el modelo del **Urban Displacement Project (UC Berkeley)** y de **Displaced by Design (NCRC)**.
+
+Metodología consolidada (Freeman 2005, adaptada por Ding/Hwang): un barrio es "gentrificable" si parte por debajo de la mediana de renta de la ciudad; está "en gentrificación" si en un periodo dado crece, más que la mediana de la ciudad, tanto en (a) nivel de estudios / renta como en (b) precio alquiler/venta. Variables operativas típicas: renta mediana, valor de la vivienda, alquiler, tasa de vacancia, nivel de estudios.
+
+**Adaptación a Donostia**: combinar 5 variables ya en el proyecto → renta mediana, precio alquiler €/m², % población con estudios superiores, densidad VUT, % extranjeros (aquí a interpretar con cautela: en Donostia parte de los "extranjeros" son expatriados de alto ingreso, no inmigración económica — ver nota ética abajo). Output: cada barrio clasificado (p.ej. "estable", "gentrificación inicial", "gentrificación avanzada", "exclusivo/excluyente") con un mapa categórico + explicación interactiva de los criterios.
+
+> Esto transforma el proyecto de "dashboard de datos" a "herramienta analítica con una tesis" — mucho más memorable.
+
+### 2. La dimensión temporal como protagonista (no solo slider)
+
+Inspirado en **Zurich Time Travel** (Lisa Stähli, ArcGIS JS API + modelo 3D de edificios con año de construcción). Dos variantes posibles:
+
+- **Small multiples temporales**: en vez de un solo slider, mostrar el mismo mapa en 4-6 instantes (p.ej. 2000, 2008, 2015, 2020, 2025) en paralelo → el ojo capta de inmediato la propagación espacial del fenómeno (p.ej. la turistificación expandiéndose desde Parte Vieja-Gros hacia Antiguo y Egia).
+- **Animación "play"**: botón que anima la transición año a año, con un contador. Técnicamente fácil con D3 transitions o MapLibre `setPaintProperty` interpolado.
+- **Extrusión 3D temporal** (si quieres usar tu base Three.js existente): extruir los barrios en 3D donde la altura = precio alquiler o densidad VUT, animado en el tiempo. Sería el puente natural entre tu stack Three.js y el nuevo proyecto.
+
+### 3. Historia guiada (scrollytelling)
+
+Sobre el modelo de las piezas del **NYT "A Decade of Urban Transformation"**: en vez de dejar al usuario solo ante controles, una narración que se desplaza (scroll-driven) y pilota el mapa: "En 2014 el turismo supera 1,4M de pernoctaciones…" → el mapa resalta Parte Vieja → "…y los precios en el Antiguo empiezan a subir" → el mapa se desplaza al Antiguo. Librerías: Scrollama.js + tu motor de mapas. Excelente para un sitio personal donde quieres comunicar, no solo explorar.
+
+### 4. Indicador de "tensión" alquileres vs salarios
+
+Una de las métricas más elocuentes para "la vida de quien habita": la razón entre el **coste anual del alquiler medio** y la **renta mediana del barrio**. Muestra dónde vivir se está volviendo insostenible para los residentes históricos. Se calcula enteramente con datos ya en el proyecto. Visualización: choropleth con escala que resalta los barrios donde el alquiler supera el 30-40% de la renta (umbral de "housing stress").
+
+### 5. Comparación "ciudad turística vs ciudad vivida"
+
+Idea conceptual fuerte: dos vistas en paralelo del mismo mapa. A la izquierda "Donostia de los turistas" (densidad VUT, hoteles, restaurantes, puntos de interés, fotos Flickr/Instagram geolocalizadas). A la derecha "Donostia de los residentes" (escuelas, centros de salud, servicios sociales, mercados de barrio). El contraste visual cuenta la divergencia entre los dos usos del espacio urbano.
+
+### 6. Modelo de accesibilidad (ciudad de los 15 minutos)
+
+Para cada barrio, calcular la distancia/tiempo a pie a los servicios esenciales (escuela, centro de salud, farmacia, supermercado, parada de bus) usando los GeoJSON de servicios ya disponibles + un motor de routing (OSRM o isócronas con Valhalla/openrouteservice). Visualización: isócronas o choropleth de "completitud de servicios". Medida concreta de la calidad de vida cotidiana.
+
+### 7. Dato textual / cualitativo (avanzado, opcional)
+
+Sentimiento o temas a partir de las propuestas ciudadanas. **Decide Madrid** y proyectos similares han mostrado el valor de integrar la voz de la ciudadanía. Donostia tiene procesos de participación (`participacion-noticias` en el portal open data). Se podría hacer topic modeling sobre las propuestas/quejas ciudadanas por barrio y superponerlas a las métricas objetivas. Avanzado y ruidoso, pero diferenciador.
+
+### ⚖️ Nota ética y metodológica (importante)
+
+Tres advertencias, vistas en todos los proyectos serios de este tipo:
+
+1. **"% extranjeros" no es "gentrificación"**. En Donostia la población extranjera incluye tanto inmigración económica como expatriados acomodados (teletrabajadores, pensionistas europeos). Usar esta variable acríticamente como proxy de gentrificación es incorrecto y potencialmente estigmatizante. Mejor cruzar con renta y nacionalidad específica.
+2. **La elección de la definición cambia el resultado**. Como muestra la literatura (HUD Cityscape 2024), existen muchas definiciones de gentrificación y dan mapas distintos. Un proyecto honesto hace explícita la definición elegida e idealmente permite al usuario cambiarla.
+3. **Normalizar siempre por población**. Los valores absolutos (delitos, servicios) engañan: un barrio poblado tendrá más de todo. Tasa por 1000 habitantes casi siempre.
+
+### Patrones arquitectónicos de proyectos de referencia
+
+- **CoreData.nyc (NYU Furman Center)**: estandariza 20+ datasets heterogéneos sobre una rejilla geográfica común de indicadores multi-año → este es exactamente el patrón de normalización que necesitas para el problema de los barrios incoherentes. Un único "indicator store" (un CSV/Parquet largo: `barrio_id, año, métrica, valor`) del que beben todas las vistas.
+- **Open Data BCN / Observatori del Turisme a Barcelona**: separan el portal de datos de las visualizaciones temáticas. Confirma la decisión de mantener la dataviz como proyecto separado.
+- **idealista18 (paquete R)**: ejemplo de dataset inmobiliario geo-referenciado con atributos catastrales — modelo de cómo enriquecer los listings con datos catastrales (aquí: catastro foral de Gipuzkoa).
 
 ---
 
-## Riferimenti accademici utili
+## Notas de implementación
+
+- Usar **GeoJSON** (convertir desde shapefile con `ogr2ogr` o `mapshaper`)
+- Preprocesar todos los CSV en Python/pandas → output JSON limpios para el frontend
+- **Indicator store unificado**: adoptar el patrón CoreData.nyc — un único dataset "largo" (`barrio_id, año, métrica, valor, unidad, fuente`) en CSV o Parquet, del que beben todas las vistas. Resuelve de raíz el problema de los barrios incoherentes: el join geométrico se hace una sola vez, en ingestión, contra la geometría de referencia. Añadir una métrica nueva = añadir filas, no tocar el frontend.
+- Para las choropleth: MapLibre GL JS (si se quiere base map de calles) o D3 puro (si solo mapa vectorial)
+- Colores: escala divergente para variaciones (azul=baja, rojo=sube), secuencial para valores absolutos
+- Normalizar siempre sobre la geometría de barrios oficial del portal municipal
+- Normalizar siempre los conteos por población (tasa por 1000 ab.) antes de mapear
+
+---
+
+## Referencias académicas útiles
 
 - Aguado-Moralejo & Del Campo-Echeverría (2020) — *El fenómeno Airbnb en Donostia-San Sebastián* — CyTET 52(206)
-- Etxezarreta-Etxarri et al. (2020) — *Urban touristification in Spanish cities: rental-housing sector in San Sebastian* — analisi econometrica Airbnb vs affitti
-- Boletín AGE (2023) — *The touristification of urban spaces: measurement proposal* — metodologia indicatori a scala di manzana
-- Eustat — *Ibiltur: Encuesta de Turismo Receptivo* — serie annuale con segmentazione motivo visita, nazionalità, gasto medio (`eustat.eus`)
-- ICCA — *International Congress Statistics Report* — ranking mondiale città congressuali (Donostia pos. 221 mondiale / 112 Europa nel 2019)
-- Donostia San Sebastián Turismoa — *Memorie annuali* — dati MICE, pernottamenti, soddisfazione (`press.sansebastianturismoa.eus/images/prensa_agentes/pdf/memoria/`)
+- Etxezarreta-Etxarri et al. (2020) — *Urban touristification in Spanish cities: rental-housing sector in San Sebastian* — análisis econométrico Airbnb vs alquileres
+- Boletín AGE (2023) — *The touristification of urban spaces: measurement proposal* — metodología de indicadores a escala de manzana
+- Eustat — *Ibiltur: Encuesta de Turismo Receptivo* — serie anual con segmentación por motivo de visita, nacionalidad, gasto medio (`eustat.eus`)
+- ICCA — *International Congress Statistics Report* — ranking mundial de ciudades congresuales (Donostia pos. 221 mundial / 112 Europa en 2019)
+- Donostia San Sebastián Turismoa — *Memorias anuales* — datos MICE, pernoctaciones, satisfacción (`press.sansebastianturismoa.eus/images/prensa_agentes/pdf/memoria/`)
 
-### Progetti di dataviz urbana di riferimento (per ispirazione metodologica e tecnica)
+### Proyectos de dataviz urbana de referencia (para inspiración metodológica y técnica)
 
-- **Urban Displacement Project** (UC Berkeley) — `urbandisplacement.org` — tipologia di gentrificazione/desplazamiento per census tract, metodologia validata con organizzazioni comunitarie
-- **Displaced by Design** (NCRC, 2025) — `ncrc.org/displaced-by-design` — 50 anni di cambiamento di quartiere (1970-2020) con mappa interattiva multi-variabile
-- **CoreData.nyc** (NYU Furman Center) — datahub che standardizza 20+ dataset su griglia geografica comune — modello per l'indicator store
-- **Zurich Time Travel** (Lisa Stähli) — `staehlli.medium.com` — visualizzazione 3D della trasformazione urbana nel tempo, ArcGIS JS API; codice su GitHub
-- **NYT "A Decade of Urban Transformation, Seen From Above"** (Badger & Bui) — esempio di scrollytelling su cambiamento urbano
-- **Open Data BCN + Observatori del Turisme a Barcelona** — `opendata-ajuntament.barcelona.cat` — modello di separazione portale-dati / visualizzazioni tematiche
-- **HUD Cityscape vol.26** — *Mapping Gentrification: A Methodology for Measuring Neighborhood Change* — rassegna delle definizioni operative di gentrificazione
+- **Urban Displacement Project** (UC Berkeley) — `urbandisplacement.org` — tipología de gentrificación/desplazamiento por census tract, metodología validada con organizaciones comunitarias
+- **Displaced by Design** (NCRC, 2025) — `ncrc.org/displaced-by-design` — 50 años de cambio de barrio (1970-2020) con mapa interactivo multivariable
+- **CoreData.nyc** (NYU Furman Center) — datahub que estandariza 20+ datasets sobre una rejilla geográfica común — modelo para el indicator store
+- **Zurich Time Travel** (Lisa Stähli) — `staehlli.medium.com` — visualización 3D de la transformación urbana en el tiempo, ArcGIS JS API; código en GitHub
+- **NYT "A Decade of Urban Transformation, Seen From Above"** (Badger & Bui) — ejemplo de scrollytelling sobre cambio urbano
+- **Open Data BCN + Observatori del Turisme a Barcelona** — `opendata-ajuntament.barcelona.cat` — modelo de separación portal-datos / visualizaciones temáticas
+- **HUD Cityscape vol.26** — *Mapping Gentrification: A Methodology for Measuring Neighborhood Change* — repaso de las definiciones operativas de gentrificación
 
 ---
 
-## Prossimi passi
+## Próximos pasos
 
-1. [ ] Scaricare GeoJSON barrios da `donostia.eus/datosabiertos/catalogo/mapa_auzoak`
-2. [ ] Scaricare dataset VUT (CSV mensile) e demografico (CSV annuale)
-3. [ ] Registrarsi per API key AEMET gratuita → scaricare serie storica stazione Igeldo
-4. [ ] Cercare snapshot Inside Airbnb per San Sebastián (o richiedere il dataset)
-5. [ ] Scaricare serie INE EOH mensile per San Sebastián (tabella 2078) → dati stagionalità
-6. [ ] Scaricare Memorie annuali DSS Turismoa (PDF) per estrarre dati MICE e profilo visitatori
-7. [ ] Verificare accesso dati Eustat Ibiltur (motivo visita, gasto medio per segmento)
-8. [ ] Scaricare CSV criminalità per barrio: `donostia.eus/datosabiertos/catalogo/delitos-guardia/recurso/gua_delitosbarrio_ckan.csv`
-9. [ ] Scaricare GeoJSON centri educativi: `donostia.eus/datosabiertos/catalogo/servicios-educativos`
-10. [ ] Scaricare SHP mappe rumore: `donostia.eus/datosabiertos/catalogo/ruido-total` e `ruido-noche`
-11. [ ] Scaricare CSV rifiuti differenziati: `donostia.eus/datosabiertos/catalogo/residuos`
-12. [ ] Scaricare CSV del Catastro de Gipuzkoa (Diputación Foral) da `gipuzkoairekia.eus` — NON il catastro statale
-13. [ ] Cercare serie storica modelos lingüísticos A/B/D su `hezkuntza.euskadi.eus`
-14. [ ] Script Python di pulizia e join su geometria barrios comune
-15. [ ] Prototipo choropleth con D3 o MapLibre + un dataset (es. VUT density)
+1. [ ] Descargar GeoJSON de barrios desde `donostia.eus/datosabiertos/catalogo/mapa_auzoak`
+2. [ ] Descargar dataset VUT (CSV mensual) y demográfico (CSV anual)
+3. [ ] Registrarse para la API key gratuita de AEMET → descargar serie histórica de la estación Igeldo
+4. [ ] Buscar snapshot Inside Airbnb para San Sebastián (o solicitar el dataset)
+5. [ ] Descargar serie INE EOH mensual para San Sebastián (tabla 2078) → datos de estacionalidad
+6. [ ] Descargar Memorias anuales DSS Turismoa (PDF) para extraer datos MICE y perfil de visitantes
+7. [ ] Verificar acceso a datos Eustat Ibiltur (motivo de visita, gasto medio por segmento)
+8. [ ] Descargar CSV de criminalidad por barrio: `donostia.eus/datosabiertos/catalogo/delitos-guardia/recurso/gua_delitosbarrio_ckan.csv` *(descartado, ver §criminalidad)*
+9. [ ] Descargar GeoJSON de centros educativos: `donostia.eus/datosabiertos/catalogo/servicios-educativos`
+10. [ ] Descargar SHP de mapas de ruido: `donostia.eus/datosabiertos/catalogo/ruido-total` y `ruido-noche`
+11. [ ] Descargar CSV de residuos selectivos: `donostia.eus/datosabiertos/catalogo/residuos`
+12. [ ] Descargar CSV del Catastro de Gipuzkoa (Diputación Foral) desde `gipuzkoairekia.eus` — NO el catastro estatal
+13. [ ] Buscar serie histórica de modelos lingüísticos A/B/D en `hezkuntza.euskadi.eus`
+14. [ ] Script Python de limpieza y join sobre geometría de barrios común
+15. [ ] Prototipo de choropleth con D3 o MapLibre + un dataset (p.ej. densidad VUT)

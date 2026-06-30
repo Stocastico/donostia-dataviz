@@ -1,3 +1,5 @@
+> ⚠️ **ARCHIVADO** — documento histórico: superado por una versión más reciente o ya volcado en la documentación activa. Se conserva como referencia. Punto de entrada actualizado en `../../README.md`.
+
 # Donostia Dataviz — documento di handoff per revisione esterna
 
 > **Scopo di questo documento.** È un riepilogo autosufficiente del progetto

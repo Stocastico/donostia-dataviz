@@ -1,3 +1,5 @@
+> ⚠️ **ARCHIVADO** — documento histórico: superado por una versión más reciente o ya volcado en la documentación activa. Se conserva como referencia. Punto de entrada actualizado en `../../README.md`.
+
 # Donostia Dataviz — Piano di progetto
 
 > Documento di brief originale fornito da Stefano. Conservato verbatim come

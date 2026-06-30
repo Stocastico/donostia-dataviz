@@ -250,8 +250,9 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 
 - **DOC-1 ✅ [A] HECHO** — hallazgos de AN-1/AN-2/AN-3 documentados en
   `ANALISIS-SPRINT-A.md` (correlaciones robustas, velocidades, perfiles, con
-  distinción explícita correlación/causa). *Pendiente menor:* fundir un resumen
-  en `INSIGHTS.md` (está en italiano; decidir si se migra a español).
+  distinción explícita correlación/causa). *Hecho (jun 2026):* `INSIGHTS.md`
+  migrado a español, consolidado en el anexo de `TESIS-CIUDAD.md` y archivado en
+  `docs/archive/`.
 - **DOC-2 ✅ [A] Nota metodológica — HECHA** (`NOTA-METODOLOGICA.md`): de las correcciones MET-1…MET-4 (por qué se
   reformula la tensión, por qué "transformación" y no "gentrificación").
 - **DOC-3 🟧 [B/C] Fichas de fuente y supuestos** por dimensión nueva (edad,
@@ -262,6 +263,17 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   (amplía la tesis ya esbozada en `INSIGHTS.md`).
 - **DOC-5 ✅ [D/E] Guion de los outputs narrativos — HECHO** (`GUION-OUTPUTS.md`) (ver §6): para cada relato,
   la pregunta que responde, las métricas/vistas que usa y la conclusión.
+- **DOC-7 ✅ [E] Output narrativo entregado — HECHO** (`../historias.html`):
+  documento HTML autocontenido en español que **empaqueta las 4 historias listas**
+  (#1 encarece, #2 velocidad, #3 quién vive, #4 clima) con texto + visualizaciones
+  generadas desde las tablas (coropletas SVG, scatter, warming stripes, heatmap) y
+  **controles interactivos**: slider m²/persona que recalcula la presión de alquiler
+  en vivo (+ familia de medidas), slider de año en el índice de vejez y selector de
+  indicador de velocidad. Añade una sección de **contexto de ciudad** (estacionalidad
+  turística, reciclaje, fiscalidad, MICE), el **cuadrante nivel×crecimiento (AN-4)**
+  y la **polarización Gini (AN-5)**. Todas las cifras verificadas contra
+  `data/*_long.csv` y `analysis/output/*.csv`. *Pendiente:* historias #5 y #6
+  (esperan REC-4 Airbnb y VIZ-6).
 - **DOC-6 🟦 [F] Working paper metodológico** (opcional, DeepSeek): pipeline,
   supuestos e índice compuesto, publicable en sitio personal/arXiv.
 
@@ -297,6 +309,11 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 ---
 
 ## 6. Outputs narrativos objetivo (la meta final)
+
+> **✅ Entregado (jun 2026):** las **4 historias listas (#1–#4)** están publicadas
+> en **`../historias.html`** (documento narrativo autocontenido en español, con
+> texto + visualizaciones interactivas; ver DOC-7). #5 y #6 quedan pendientes de
+> REC-4 (Airbnb) y VIZ-6.
 
 Los relatos que el proyecto debe poder contar al final, cada uno como una vista o
 pieza con una pregunta de partida (framing "máquina de preguntas", ChatGPT):

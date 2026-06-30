@@ -97,3 +97,50 @@ la presión turística (centro) son geografías distintas; que el clima se calie
 > **presiones** que moldean Donostia. Para pasar de "presiones" a "transformación
 > demostrada" faltan, sobre todo, la dimensión temporal del turismo y la
 > estructura por edad.
+
+---
+
+## Anexo — hallazgos por eje (digest reproducible)
+
+> Resumen temático que antes vivía en `INSIGHTS.md` (archivado en `archive/`).
+> Cada número viene de las tablas en `../data/` y es reproducible con
+> `python -m donostia_pipeline.build`.
+
+**🏘️ Turismo y turistificación.** VUT concentradas en el centro: Erdialdea **664**
+y Gros **359** (de ~1.490 en la ciudad); densidad Erdialdea **29,9**/1000 hab.,
+Gros **20,7**, Antigua 8,5. Estacionalidad hotelera (INE EOH 2005–2026): pico
+jul/ago ~245k, mínimo ene ~116k; desplome 2020 (COVID) y recuperación + ligera
+**desestacionalización** desde 2021; total 2025 ≈ **2,2 M** de pernoctaciones.
+
+**🏠 Vivienda.** Alquiler €/m² (EMA 2024): Erdialdea **16,6**, Aiete 16,2, Gros
+15,9; este más barato; Erdialdea **+29 %** desde 2016. Esfuerzo alquiler/renta
+máximo en el este obrero (Altza 21,9 %, Egia 21,3 %, Intxaurrondo 20,9 %), mínimo
+en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %.
+
+**💶 Economía.** Renta per cápita 2023: Aiete ~30.440 € vs. Altza ~18.371 €
+(~1,7×). Brecha de género marcada (Aiete ~29,9 %). Gini territorial **estable**
+(~0,10 en 2016 y 2023): la brecha *entre* barrios no se ensancha.
+
+**👥 Demografía.** % extranjeros al alza en todas partes (Gros 1,3 %→9,9 %,
+2000→2025), más rápido en el este (Intxaurrondo +0,92 pp/año). Edad: centro
+envejecido (índice de vejez Gros **370**, Erdialdea **350**), este joven
+(Intxaurrondo 21 % de 25–39); Antigua +203 puntos de índice en 25 años;
+Miramón-Zorroaga rejuvenece (387→151).
+
+**🏫 Educación.** Universitarios al alza (Aiete 25,3 %→35,0 %). Centros educativos
+per cápita: la normalización cambia el ranking (Ibaeta 1ª en absoluto, 3ª per
+cápita; Zubieta 1ª per cápita por población baja).
+
+**🌡️ Clima (AEMET Igeldo, 1981–2025).** +0,31 °C/década (R²=0,39), media 13,1→14,7 °C;
+días ≥30 °C **+0,81/década** (15 en 2022); máx absoluta **39,7 °C (2022)**, 38,6 °C
+(2003); precipitación sin tendencia clara (R²=0,06).
+
+**♻️ Medio ambiente.** Recogida selectiva del 28,8 % (2010) al **41,0 % (2023)**;
+tendencia clara de mejora, aún bajo el objetivo UE (55 %).
+
+**🎪 MICE.** Récord 2024: **188 eventos**, **259.000 participantes**, 50 %
+internacionales. Congresos ICCA: 16 (2018) → 12 (2019) → 15 (2023) → 13 (2025).
+
+**🔗 Correlaciones clave.** Densidad VUT ↔ alquiler **r = 0,64** (0,62 sin el
+centro; Spearman 0,75); esfuerzo ↔ renta **r = −0,81** (−0,89 sin el centro), la
+más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (−0,72 sin el centro).

@@ -1,7 +1,8 @@
-# Normalize all text files to LF in the repo (avoids CRLF/LF churn between
-# Windows working trees and the Linux pipeline/CI). Working-tree EOL is left to
-# each platform; only what gets stored in git is normalized.
-* text=auto
+# Normalize all text files to LF, both in the repo and in the working tree
+# (avoids CRLF/LF churn between Windows and the Linux pipeline/CI, and silences
+# the "LF will be replaced by CRLF" warning on Windows). eol=lf keeps the
+# working-tree copies in LF too.
+* text=auto eol=lf
 
 # Known binaries — never touch line endings
 *.png  binary

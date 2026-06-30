@@ -1,119 +1,167 @@
 # Donostia Dataviz
 
-Interactive dashboard of the evolution of **Donostia / San Sebastián**, by
-barrio — choropleth maps with a time slider, plus comparative charts. Built from
-public open data (Donostia Open Data, INE, AEMET, …).
+Análisis y narrativa de datos sobre la evolución de **Donostia / San Sebastián**,
+barrio a barrio: turismo, vivienda, renta, demografía, educación, medio ambiente y
+clima. El proyecto combina un **pipeline de datos** reproducible, un **dashboard
+interactivo** y, sobre todo, un cuerpo de **documentación y relatos** que convierte
+los datos en historias sobre cómo cambia la ciudad.
 
-This is one experiment in the `Experiments` repo; it lives entirely under
-`donostia-dataviz/` on its own branch.
+> **Naturaleza del proyecto.** Hoy es un proyecto **de documentación y análisis**:
+> el pipeline y el frontend ya existen y funcionan; el trabajo actual es *definir,
+> analizar y narrar* — no modificar el código. La documentación define qué se
+> analiza, qué se concluye y qué quedaría por desarrollar.
 
-## What's here
+---
+
+## 🚀 Empieza aquí
+
+1. **[`historias.html`](historias.html)** — el documento narrativo: cuatro
+   historias (la ciudad que se encarece · qué barrios cambian más rápido · quién
+   vive Donostia · el clima cambia) con texto y **visualizaciones interactivas**
+   (mueve el supuesto de m²/persona, recorre los años, cambia de indicador). Ábrelo
+   en cualquier navegador; es autocontenido, sin dependencias.
+2. **[`docs/GUION-OUTPUTS.md`](docs/GUION-OUTPUTS.md)** — el plan de los relatos:
+   para cada historia, la pregunta de partida, las cifras verificadas, dónde vive
+   en la app y los avisos de confianza.
+3. **[`docs/TESIS-CIUDAD.md`](docs/TESIS-CIUDAD.md)** — la lectura integrada: qué
+   dicen en conjunto los datos sobre la transformación de Donostia, y qué **no** se
+   puede afirmar todavía.
+
+---
+
+## 🗺️ Cómo navegar el repositorio
 
 ```
 donostia-dataviz/
-  docs/            # PROJECT-BRIEF*.md, SOURCES.md, DATA-CONTRACT.md, INSIGHTS.md, GAP-ANALYSIS.md
-  data-pipeline/   # Python: raw public sources -> cleaned JSON
-  web/             # React + Vite + TS app (MapLibre choropleth + Recharts)
+├── historias.html        ← documento narrativo interactivo (output principal)
+├── README.md             ← este fichero
+├── docs/                 ← documentación activa (brief, fuentes, metodología, análisis, relatos)
+│   └── archive/          ← documentos históricos / superados (no borrados)
+├── data/                 ← tablas tidy CSV (datos en formato abierto, ver data/README.md)
+├── data-pipeline/        ← Python: fuentes públicas → JSON/CSV limpios
+├── analysis/             ← scripts de análisis (correlaciones, velocidades, clusters, índice)
+└── web/                  ← app React + Vite (dashboard coroplético)
 ```
 
-The pipeline writes cleaned JSON into `web/src/data/` (committed), so **the site
-builds with no Python and no live network calls** — it loads static JSON/GeoJSON.
-It also exports the same numbers as **tidy CSV tables** in `data/` (see
-`data/README.md`), so the data can be reused in any stack/language without the
-app.
+### Mapa de documentos (`docs/`)
 
-## Current status
+Agrupados por para qué sirven. Toda la documentación activa está en español.
 
-A working choropleth dashboard over the 19 official barrios, with **8 live**
-metrics from Donostia Open Data, grouped by theme in the picker:
+**Visión y plan**
 
-- **Turismo** — Viviendas turísticas (VUT/HUT) and posti letto (census
-  snapshot); **Densità VUT per 1000 ab.** (derived: VUT / population).
-- **Demografia** — Popolazione residente and Popolazione straniera (%), annual
-  **2000–2025** (drives the time slider + the barrio-comparison line chart with
-  a COVID-19 marker at 2020).
-- **Economia** — Renta disponibile pro capite (€, 2016–2023) and the
-  **divario di reddito di genere** (%).
-- **Istruzione** — Popolazione con studi universitari (%), 2000–2025; **Centri
-  educativi per 1000 ab.** (joined to barrios by point-in-polygon — the first
-  GIS spatial-join metric).
-- **Abitazioni** — Affitto medio €/m² (2016–2024), official Gobierno Vasco EMA
-  rental-market statistics by barrio (real registered contracts, not listings);
-  **Sforzo per l'affitto (% del reddito)** — a derived rent-to-income housing
-  stress index, heaviest on the working-class barrios.
+| Documento | Qué es | Idioma |
+|---|---|---|
+| `PROJECT-BRIEF-v2.md` | Brief del proyecto: objetivo, dimensiones de datos, ideas. La visión. | es |
+| `GAP-ANALYSIS.md` | **El backlog** (canónico): qué está hecho, qué falta, prioridades y sprints. | es |
 
-It also has **3 city-grain monthly time series**, shown as a month × year
-heatmap in the "Serie temporali" section:
+**Fuentes y datos (técnico)**
 
-- **Pernottamenti hotel** (INE EOH, 2005–2026) — seasonality and its evolution.
-- **Temperatura media**, **massima assoluta**, **Precipitazioni** and **giorni
-  caldi (≥30°C)** (AEMET Igeldo `1024E`, 1981–2025) — each shown as a month×year
-  heatmap, a monthly-cycles overlay (recent years highlighted) and an annual
-  trend; together they read the warming + more frequent heat extremes.
+| Documento | Qué es | Idioma |
+|---|---|---|
+| `SOURCES.md` | Registro de fuentes verificadas + estado de acceso de cada dataset. | en |
+| `PLAN-RECOLECCION.md` | Especificación de adquisición de las fuentes **pendientes** (REC-*). | es |
+| `IMPLEMENTACION-INGESTA.md` | Guía para implementar la ingesta de nuevas fuentes en el pipeline. | es |
+| `DATA-CONTRACT.md` | Contrato pipeline ↔ frontend (forma estable de cada métrica). | en |
+| `../data/README.md` | Diccionario de las tablas CSV (`metrics_long`, `series_long`, …). | en |
 
-Plus annual city indicators (MICE record + ICCA congresses; **recycling rate**
-2010–2023, shown as a generic indicator line chart).
+**Metodología, análisis y relatos**
 
-Remaining roadmap items (sale prices, MICE, Ibiltur spend) are city-grain or
-need manual extraction; see `docs/SOURCES.md` for each source's access status
-and `docs/PROJECT-BRIEF.md` for the full roadmap.
+| Documento | Qué es | Idioma |
+|---|---|---|
+| `NOTA-METODOLOGICA.md` | Decisiones metodológicas (MET-1…5): por qué medimos como medimos. | es |
+| `ANALISIS-SPRINT-A.md` | Resultados del análisis: correlaciones robustas, velocidades, perfiles. | es |
+| `INDICE-TRANSFORMACION.md` | Índice de Transformación Urbana (multi-definición, componentes a la vista). | es |
+| `TESIS-CIUDAD.md` | Lectura integrada y *cauta* de la transformación + **anexo con el digest de hallazgos por eje**. | es |
+| `GUION-OUTPUTS.md` | **Plan de los relatos finales** (empieza por aquí para narrar). | es |
 
-**Writing the narratives?** Start at **`docs/GUION-OUTPUTS.md`** ("EMPIEZA
-AQUÍ"): it maps each target story to its status, the exact metric/section in the
-app that backs it, the verified numbers, and the reproducible evidence.
+**Histórico / revisión (`docs/archive/`)**
 
-### Build phases
+Conservados como referencia, no borrados. No forman parte del camino activo.
 
-- **Phase 1** — pipeline + generic MapLibre choropleth + slider/legend/tooltip;
-  first metrics (VUT census, demographics).
-- **Phase 2** — renta (+ gender gap), education, and the derived VUT density;
-  theme-grouped metric picker.
-- **Phase 3** — city-grain monthly time series + seasonality heatmap: INE EOH
-  overnight stays, AEMET Igeldo temperature & precipitation.
-- **Housing** — rent €/m² per barrio from the official Gobierno Vasco EMA
-  statistics (no scraping).
-- **Phase 4** — per-barrio scatter/correlation view: pick any two metrics
-  (latest period each), points sized by population, with the live Pearson
-  correlation. Headline pairs: VUT density ↔ rent (r≈0.64) and income ↔ %
-  foreign (r≈−0.58).
-- **MICE + tables** — curated MICE annual indicators (ICCA congresses + the
-  2024 Convention Bureau record), shown as a bar chart + stat cards; plus the
-  full tidy-CSV export under `data/`. *(current)*
+| Documento | Qué es |
+|---|---|
+| `archive/FEEDBACK-CONSOLIDADO.md` | Síntesis de cuatro revisiones externas; sus acciones ya están en GAP-ANALYSIS y NOTA-METODOLOGICA. |
+| `archive/INSIGHTS.md` | Digest por eje; su contenido vive ahora en el anexo de `TESIS-CIUDAD.md`. |
+| `archive/DATA-HANDOFF.md` | Resumen que se pasó a revisión externa (su origen). En italiano. |
+| `archive/PROJECT-BRIEF.md` | Brief original (v1), verbatim. Superado por v2. En italiano. |
 
-## Run it
+> **Consolidación aplicada (junio 2026):** se archivaron los cuatro documentos
+> anteriores y se tradujo el brief v2 al español. Los técnicos `SOURCES.md`,
+> `DATA-CONTRACT.md` y `data/README.md` se mantienen en inglés a propósito (campos
+> y términos del código en inglés); traducirlos es opcional.
 
-### Frontend
+---
+
+## 📊 Los datos
+
+El pipeline escribe JSON limpio en `web/src/data/` (versionado), de modo que **la
+web se construye sin Python ni red**: carga JSON/GeoJSON estáticos. Los mismos
+números se exportan como **tablas tidy CSV** en `data/` (ver
+[`data/README.md`](data/README.md)), reutilizables en cualquier stack.
+
+Estado actual: **11 métricas coropléticas por barrio** + **5 de velocidad de
+cambio** (`velocity_*`) + **1 categórica** de perfiles + **2 de estructura por
+edad** + **1 GIS** de ruido nocturno; **5 series mensuales** de ciudad (clima +
+pernoctaciones); **6 indicadores anuales** (MICE, reciclaje, fiscalidad). Cada
+métrica lleva su **ficha de confianza** (observado / derivado / proxy + supuestos).
+Geometría única de referencia: 19 barrios oficiales (`mapa_auzoak`), con `barrio_id`
+estable como clave de join.
+
+Todas las cifras citadas en la documentación y en `historias.html` son
+**reproducibles** desde `analysis/*.py` o desde las métricas del pipeline.
+
+---
+
+## ⚙️ Ejecutar
+
+### Frontend (dashboard)
 
 ```bash
 cd web
 npm install
 npm run dev        # http://localhost:5173
-npm test           # vitest (color scale, formatting)
-npm run build      # type-check + production build
+npm test           # vitest
+npm run build      # type-check + build de producción
 ```
 
-### Data pipeline (only needed to refresh data)
+### Pipeline de datos (solo para refrescar datos)
 
 ```bash
 cd data-pipeline
 python3 -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev]"
-python -m donostia_pipeline.build          # download + rebuild web/src/data
-python -m donostia_pipeline.build --offline # rebuild from cached raw/ only
-pytest                                      # contract + join-integrity tests
+python -m donostia_pipeline.build            # descarga + reconstruye web/src/data
+python -m donostia_pipeline.build --offline  # reconstruye desde raw/ cacheado
+pytest                                        # tests de contrato e integridad de joins
 ```
 
-Adding a metric = add a module in `data-pipeline/src/donostia_pipeline/datasets/`
-exposing `build(ctx) -> list[Metric]`, register it in `build.DATASETS`, rerun the
-pipeline. No frontend change is needed — it appears via `metrics.json`.
+Añadir una métrica = añadir un módulo en
+`data-pipeline/src/donostia_pipeline/datasets/` que exponga `build(ctx) -> list[Metric]`,
+registrarlo en `build.DATASETS` y reejecutar. El frontend la recoge vía
+`metrics.json` sin cambios. El dataset AEMET necesita una API key gratuita en
+`AEMET_API_KEY` (se solicita en <https://opendata.aemet.es>).
 
-The AEMET dataset needs a free API key in the `AEMET_API_KEY` environment
-variable (request at <https://opendata.aemet.es>); without it that dataset is
-skipped and stays `planned`.
+### Análisis
 
-## Data contract
+```bash
+python analysis/sprint_a.py --save             # correlaciones, velocidades, clusters
+python analysis/distribucion_barrios.py --save # niveles×variaciones, polarización
+python analysis/transformation_index.py --save # índice de transformación urbana
+```
 
-One stable shape per choropleth metric keeps the map generic — see
-`docs/DATA-CONTRACT.md`. Every dataset joins to a single reference geometry
-(`barrios.geojson`) on a stable `barrio_id` slug, which is how we deal with the
-fact that barrio subdivisions differ between council datasets.
+### Regenerar `historias.html`
+
+El documento narrativo embebe sus datos. Para regenerarlo tras refrescar el
+pipeline, vuelve a extraer los datos de `data/*_long.csv`, `analysis/output/*.csv`
+y `web/src/data/barrios.geojson` (ver el script de extracción del proyecto) y
+reinyéctalos en la plantilla.
+
+---
+
+## 🧭 Principios
+
+- **Una sola geometría de referencia** y join único en ingestión.
+- **Provenance explícita**: cada valor arrastra su fuente.
+- **Honestidad metodológica**: correlación ≠ causalidad; fichas de confianza;
+  "transformación", nunca "gentrificación" (no se puede demostrar con estos datos).
+- **Reproducibilidad**: todo número tiene un script o una métrica detrás.
