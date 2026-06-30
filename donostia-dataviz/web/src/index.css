@@ -459,6 +459,43 @@ body {
   max-width: 90px;
 }
 
+/* Transformation index dashboard (AN-8 / VIZ-6) */
+.transformation {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.transform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.transform-card h3 {
+  font-size: 0.92rem;
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.transform-card .choropleth-map {
+  height: 360px;
+}
+.transform-card .map-placeholder {
+  height: 360px;
+}
+.transform-select {
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.8rem;
+}
+.transform-card .confidence-card {
+  margin-top: 0.6rem;
+}
+
 /* Housing pressure (MET-1 / VIZ-4) */
 .housing {
   margin-top: 2.5rem;

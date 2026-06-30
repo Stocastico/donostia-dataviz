@@ -19,6 +19,7 @@ import requests
 from . import config, export_tables, geometry, provenance, spatial
 from .datasets import (
     aemet_climate,
+    airbnb,
     barrio_profiles,
     change_velocity,
     demografia,
@@ -33,6 +34,7 @@ from .datasets import (
     renta,
     residuos,
     ruido_gis,
+    transformation,
     vut,
     vut_density,
 )
@@ -98,22 +100,31 @@ RAW_DOWNLOADS: dict[str, str] = {
         "7c0f2bf4-00b6-44bf-bf24-c9bdbc9bd00c/resource/"
         "cde02a4c-8113-45b9-ba59-614855e18919/download/pfi_tasas_tipo_ciudad_ckan.csv"
     ),
+    # Inside Airbnb — Euskadi region snapshot 2025-09-29 (gzipped CSV). The full
+    # `data/` files carry coordinates + per-review dates; we spatial-join to barrios
+    # and keep only Donostia. License: Inside Airbnb (CC BY 4.0).
+    "airbnb_listings.csv.gz": (
+        "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz"
+    ),
+    "airbnb_reviews.csv.gz": (
+        "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, renta, estudios, vut_density, rent,
-            educacion_gis, ruido_gis]
+            educacion_gis, ruido_gis, airbnb]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
 # the base metrics' time series, so it must run after they (and any derived
 # inputs) are in the store.
-DERIVED_METRICS = [housing_tension, change_velocity, barrio_profiles]
+DERIVED_METRICS = [housing_tension, change_velocity, barrio_profiles, transformation]
 
 # City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
-SERIES_DATASETS = [ine_eoh, aemet_climate]
+SERIES_DATASETS = [ine_eoh, aemet_climate, airbnb]
 
 # AEMET climate fetch: monthly endpoint caps each request at 36 months, so we
 # pull the history in 3-year windows and cache the concatenation in raw/.

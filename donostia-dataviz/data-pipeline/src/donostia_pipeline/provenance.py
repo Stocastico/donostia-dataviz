@@ -42,6 +42,11 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Popolazione ≥65 ÷ <15 × 100; bande quinquennali (nessuna età mediana interpolata).",
     ]),
     "vut_density": ("derived", [_PER_1000]),
+    "airbnb_density": ("derived", [
+        "Join spaziale punto→barrio.", _PER_1000,
+        "Annunci Inside Airbnb (snapshot 2025-09, inclusi non registrati): "
+        "universo più ampio dei VUT legali, non lo stesso dato.",
+    ]),
     "schools_per_1000": ("derived", ["Join spaziale punto→barrio.", _PER_1000]),
     "housing_tension": ("derived", [
         "Assunzione esplicita: 30 m²/persona (regolabile nella sezione dedicata).",
@@ -51,6 +56,26 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
     "barrio_profile": ("derived", [
         "k-means k=4 su 4 variabili standardizzate; N=13 barrios.",
         "Profili descrittivi, non una classificazione dura (sensibile a scala/seme).",
+    ]),
+    # --- Urban Transformation Index (AN-8 / VIZ-6) ---
+    "transform_class": ("derived", [
+        "Modo Freeman: suscettibilità (reddito base 2016 < mediana città) + crescita "
+        "laureati e affitto sopra la mediana; pesi uguali, componenti a vista.",
+        "Mai «gentrificazione»: nessun dato di sostituzione/rotazione dei residenti (MET-2).",
+    ]),
+    "transform_socio_score": ("derived", [
+        "Media degli z-score dei due componenti locali (eccesso laureati / affitto).",
+        "Mai «gentrificazione»: nessun dato di sostituzione/rotazione dei residenti (MET-2).",
+    ]),
+    "transform_tourism_score": ("derived", [
+        "Media degli z-score di densità VUT e livello d'affitto (livelli, non crescita).",
+        "Provvisorio: «caro» e «turistico» qui non sono ancora separati del tutto (cfr. Aiete).",
+    ]),
+    "transform_univ_excess": ("derived", [
+        "Crescita annua di % laureati meno la mediana della città (shift-share).",
+    ]),
+    "transform_rent_excess": ("derived", [
+        "Crescita annua dell'affitto meno la mediana della città (shift-share).",
     ]),
     # --- proxy (approximation) ---
     "noise_night_pct55": ("proxy", [

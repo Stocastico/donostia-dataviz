@@ -16,8 +16,9 @@
 
 ## 0. Resumen: qué se puede producir HOY
 
-Tras los Sprints A y B, **cuatro de los seis relatos están listos para escribir
-ya** — datos y vistas en el frontend, ambos hechos. Empieza por estos.
+Tras los Sprints A, B y C, **los seis relatos están listos para escribir ya** —
+datos y vistas en el frontend, ambos hechos. REC-4 (Inside Airbnb) y VIZ-6 (el
+dashboard de transformación) cerraron los dos que quedaban (#5 y #6).
 
 | # | Relato | Estado | Dónde vive en la app (selector "Metrica" / sección) |
 |---|---|---|---|
@@ -25,11 +26,12 @@ ya** — datos y vistas en el frontend, ambos hechos. Empieza por estos.
 | **#2** | Qué barrios cambian más rápido | ✅ **LISTO** | métricas `velocity_*` y `barrio_profile` (grupo *Velocità di cambiamento*); sección scatter |
 | **#3** | Quién vive Donostia | ✅ **LISTO** | métricas `ageing_index`, `pct_youth_adults` (grupo *Demografia*) |
 | **#4** | El clima cambia | ✅ **LISTO** | secciones de clima (warming stripes, heatmap mes×año, tendencia anual, días ≥30 °C) |
-| #5 | Ciudad turística vs. vivida | 🟡 **PARCIAL** | `noise_night_pct55` (grupo *Ambiente*) listo, pero es ruido de transporte; falta Airbnb (REC-4) |
-| #6 | Donostia en transformación | 🟡 **EXPLORATORIO** | `INDICE-TRANSFORMACION.md` + fichas de confianza; consolidación pendiente de REC-4 |
+| #5 | Ciudad turística vs. vivida | ✅ **LISTO** *(desbloqueado por REC-4)* | `airbnb_density` (grupo *Turismo*) + serie `airbnb_reviews` (presión turística/mes); contraste con `noise_night_pct55`/`schools_per_1000` |
+| #6 | Donostia en transformación | ✅ **LISTO** *(VIZ-6 en frontend)* | sección **"Donostia in trasformazione (Indice AN-8)"**: dashboard de 3 mapas (`transform_class`, `transform_tourism_score`, componente seleccionable) |
 
 **Sugerencia de arranque:** escribe en este orden — **#4** (el más cerrado y
-autónomo), **#1**, **#2**, **#3**. Luego #5/#6 cuando llegue Airbnb (REC-4).
+autónomo), **#1**, **#2**, **#3**. **#5 y #6 ya tienen datos y vistas** tras REC-4
+(Inside Airbnb) y VIZ-6.
 
 > Contexto-ciudad disponible para apoyar cualquier relato (sección "Altri
 > indicatori cittadini" + MICE): reciclaje, **impuestos** (`tax_revenue`,
@@ -101,35 +103,46 @@ autónomo), **#1**, **#2**, **#3**. Luego #5/#6 cuando llegue Airbnb (REC-4).
 - **Aviso:** una sola estación (Igeldo) → relato **temporal de ciudad**, no
   espacial por barrio.
 
-## #5 — "La ciudad turística vs. la ciudad vivida"  ·  🟡 PARCIAL
+## #5 — "La ciudad turística vs. la ciudad vivida"  ·  ✅ LISTO  *(desbloqueado por REC-4)*
 
 - **Pregunta:** ¿Conviven dos ciudades superpuestas — la del visitante y la del
   residente?
-- **Vistas hoy:** lado "residente/ambiente" disponible (`noise_night_pct55`,
-  `schools_per_1000`); lado "turismo" disponible (`vut_density`, `vut_count`).
-- **Números:** el ruido nocturno está **dominado por el transporte** (Amara 60 %
-  por estación/arterias, corredor este Intxaurrondo/Martutene, Gros), **no por el
-  ocio**.
-- **⚠️ Corrección de encuadre:** el relato original "ruido↔turismo en Parte
-  Vieja/Gros" **no se sostiene** con este dato — el mapa estratégico de ruido es
-  de tráfico, no de vida nocturna. Para la presión turística real por barrio
-  hace falta **Inside Airbnb (REC-4)**; el ruido entra como capa ambiental, no
-  como proxy de turismo.
-- **Pendiente:** REC-4 (Airbnb) para el lado turístico con serie temporal.
+- **Vistas hoy:** lado "turismo" con **Inside Airbnb** (`airbnb_density`, annunci
+  per 1000 ab.) además de los VUT legales (`vut_density`, `vut_count`); **serie
+  temporal de presión turística** `airbnb_reviews` (reseñas/mes, proxy de
+  presencia, 2011→2025) en la sección de estacionalidad; lado "residente/ambiente"
+  con `noise_night_pct55` y `schools_per_1000`.
+- **Números:** la densidad Airbnb se dispara en el centro turístico (**Erdialdea
+  ~34/1000**, **Gros ~19/1000**) — un universo **más amplio que los VUT legales**
+  (Airbnb incluye no registrados). La serie de reseñas marca la **estacionalidad
+  estival** y el crecimiento sostenido del alojamiento turístico (≈25.000 reseñas
+  en 2024). El ruido nocturno, en cambio, está **dominado por el transporte**, no
+  por el ocio.
+- **⚠️ Corrección de encuadre (mantenida):** el ruido estratégico es de tráfico,
+  no de vida nocturna → entra como **capa ambiental**, no como proxy de turismo.
+  La presión turística real por barrio la da ahora **Airbnb**.
+- **Conclusión:** dos ciudades superpuestas y **geográficamente separadas** — el
+  alojamiento turístico se concentra en Parte Vieja/Centro y Gros, mientras la
+  ciudad vivida (escuelas, residentes) se reparte por la periferia.
+- **Aviso (ficha):** `airbnb_density` es *derivado* (join espacial + per cápita);
+  `airbnb_reviews` es **proxy** de ocupación ("modelo San Francisco": una reseña ≈
+  un alojamiento recensito), infraestima las estancias reales.
 
-## #6 — "Donostia en transformación"  ·  🟡 EXPLORATORIO LISTO
+## #6 — "Donostia en transformación"  ·  ✅ LISTO  *(VIZ-6 en frontend)*
 
 - **Pregunta:** Reuniéndolo todo, ¿qué barrios se transforman y cómo?
-- **Estado:** versión exploratoria en `analysis/transformation_index.py` +
-  `INDICE-TRANSFORMACION.md` (modo socioeconómico estilo Freeman + modo presión
-  turística, componentes visibles). Falta el **dashboard de 3 mapas** en frontend
-  (VIZ-6) y consolidar con edad (✅ ya disponible, REC-1), ruido (✅ REC-2) y
-  Airbnb (⏳ REC-4).
+- **Vistas:** sección **"Donostia in trasformazione (Indice AN-8)"** — dashboard de
+  **3 mapas en paralelo**: (1) `transform_class` (clase socioeconómica categórica),
+  (2) `transform_tourism_score` (presión turística), (3) un mapa de **componente
+  seleccionable** (`transform_univ_excess` / `transform_rent_excess` / `vut_density`
+  / `airbnb_density`). Reproduce los números de `analysis/transformation_index.py`
+  (test que los bloquea en el pipeline) y lleva fichas de confianza por mapa.
 - **Número clave:** las dos transformaciones **no coinciden** geográficamente —
   turismo en el centro acomodado (Erdialdea, Gros); cambio social en la periferia
-  interior (Loiola, Egia).
+  interior (Loiola en transformación; Egia/Altza/Intxaurrondo incipientes).
 - **Aviso:** "transformación", no "gentrificación" (MET-2); definición visible y
-  seleccionable; fichas de confianza ya en la UI (VIZ-7).
+  seleccionable; fichas de confianza en la UI (VIZ-7). Modo turístico todavía
+  *provisional* (niveles VUT + alquiler); Airbnb ya disponible como capa-componente.
 
 ---
 
@@ -142,8 +155,10 @@ la evidencia reproducible (`analysis/*.py`) y a la vista de la app.
 
 ## Qué falta para cerrar los pendientes
 
-- **#5 completo y #6 consolidado:** dependen de **REC-4 (Inside Airbnb)** —
-  presión turística real por barrio + serie temporal (reseñas/mes) → habilita el
-  lead/lag turismo→alquiler (AN-6) hoy imposible (VUT es snapshot).
-- **#6 en frontend:** VIZ-6 (3 mapas en paralelo + selector de definición), que
-  ya puede integrar edad y ruido además de la base socioeconómica.
+- **#5 y #6: ✅ cerrados.** REC-4 (Inside Airbnb) aportó `airbnb_density` por barrio
+  + la serie `airbnb_reviews` (reseñas/mes), y VIZ-6 llevó el Índice de
+  Transformación al frontend como dashboard de 3 mapas.
+- **Siguiente refinamiento (opcional, no bloqueante):** el **lead/lag
+  turismo→alquiler (AN-6)** — cruzar la serie mensual de Airbnb con la evolución
+  anual del alquiler; y **consolidar el modo turístico** del índice integrando
+  `airbnb_density` (hoy disponible como capa-componente) junto a VUT y ruido.

@@ -31,7 +31,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Rent €/m² per barrio | Gobierno Vasco — EMA/EMAL | **EMAL.-Barrios-Municipios.-2016-2025_es.xlsx**, sheet **T8.3** (renta media €/m² construido, annual 2016–2024). EMA barrio codes 001–017 = auzoak codes 1–17 → join by code | **wired ✓** | code ✓ |
 | Climate (temp / precip / extremes) | AEMET — Igeldo station | **station `1024E`**, OpenData REST `valores/climatologicos/mensualesanuales` (monthly **1981–2025**; 36-month cap → 3-year windows). From the same records: `temp_avg` (tm_mes), `temp_max` (ta_max, picco assoluto), `precip` (p_mes), `hot_days_30` (nt_30, giorni ≥30 °C) | **wired ✓** (free key) | code ✓ |
 | Hotel occupancy / overnight stays | INE EOH | wstempus table **2078**, series **EOT2721**+**EOT2722** (pernoctaciones España+extranjero) → `overnight_stays` series (2005–2026) | **wired ✓** | code ✓ |
-| Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
+| Airbnb listings (geolocated) | Inside Airbnb | region **Euskadi** snapshot **2025-09-29**: `data/listings.csv.gz` (lat/lon + attrs) + `data/reviews.csv.gz` (one row per review w/ date). Spatial-joined point→barrio (only Donostia kept) → `airbnb_density`; reviews/month → `airbnb_reviews` series. CC BY 4.0 | **wired ✓** | code ✓ |
 | Educational facilities (GIS) | Donostia Open Data | recursos/servicios-educativos/**hezkuntzaekipamenduak.json** (GeoJSON, 157 punti; geometrie già in WGS84). Join spaziale punto→barrio (`spatial.py`) → `schools_per_1000` | **wired ✓** | code ✓ |
 | Waste / recycling | Donostia Open Data | recursos/residuos/**datos-residuos.csv** (Año, Tipo de recogida, Ambito, kg; annual 2010–2024) → indicatore `recycling_rate` (ámbito urbano; 2024 incompleto escluso) | **wired ✓** | code ✓ |
 | Municipal taxes / fees | Donostia Open Data | `impuestos_tipo`/`tasas_tipo` → **pfi_impuestos_tipo_ciudad_ckan.csv**, **pfi_tasas_tipo_ciudad_ckan.csv** (Urtea, Zerga/Tasa, Kopurua €; annual 2011–2025) → indicadores `tax_revenue`/`fee_revenue` (M€, importes **emitidos** nominales). `subvenciones` no en catálogo; existe versión por barrio | **wired ✓** | code ✓ |
@@ -45,8 +45,10 @@ gracefully (shows "data coming soon") until their extraction lands.
 | `vut_density` — VUT per 1000 ab. | VUT units / population(latest year) × 1000 | VUT census + demographics | **wired ✓** |
 | `income_gender_gap` — divario di genere | (RentaPer_Hombres − RentaPer_Mujeres) / RentaPer_Hombres × 100 | renta barrio | **wired ✓** |
 | `schools_per_1000` — centri educativi | #scuole(join spaziale) / popolazione × 1000 | educativos GeoJSON + demographics | **wired ✓** |
+| `airbnb_density` — annunci Airbnb per 1000 ab. | #annunci(join spaziale) / popolazione × 1000 | Inside Airbnb listings + demographics | **wired ✓** (REC-4) |
 | `housing_tension` — sforzo affitto/reddito (%) | affitto €/m² × 12 × 30 m²/persona / reddito pro capite × 100 | rent EMA + income | **wired ✓** (idea #4; assunzione 30 m²/persona) |
-| ageing index, Airbnb intensity, pressure index | see brief | future sources | planned |
+| `transform_class` / `transform_*_score` / `transform_*_excess` — Indice di Trasformazione (AN-8) | modo Freeman (suscettibilità + crescita laureati/affitto) e modo pressione turistica; z-score, componenti a vista | income + rent + % university + VUT density | **wired ✓** (VIZ-6; cfr. INDICE-TRANSFORMACION.md) |
+| ageing index | pop ≥65 / <15 × 100 | pirámide de edad por barrio | **wired ✓** (REC-1) |
 
 ## Manual / planned (no structured open dataset — extraction needed)
 

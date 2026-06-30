@@ -15,6 +15,7 @@ const THEME_LABELS: Record<string, string> = {
   climate: "Clima",
   change: "Velocità di cambiamento",
   environment: "Ambiente",
+  transformation: "Trasformazione (AN-8)",
 };
 
 /** Dropdown over the metric registry, grouped by theme. Planned (not-yet-built)

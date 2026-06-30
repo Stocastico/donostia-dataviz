@@ -7,6 +7,7 @@ import { BarrioCompareChart } from "../components/BarrioCompareChart";
 import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
 import { BivariateSection } from "../components/BivariateSection";
+import { TransformationSection } from "../components/TransformationSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
@@ -123,6 +124,7 @@ export function Dashboard() {
       <SeasonalitySection />
       <ScatterSection />
       <BivariateSection />
+      <TransformationSection />
       <HousingPressureSection />
       <MiceSection />
       <IndicatorsSection />
