@@ -161,6 +161,42 @@ body {
   margin: 0.5rem 0 0;
 }
 
+/* Confidence card (MET-4) */
+.metric-meta {
+  margin-top: 0.5rem;
+}
+.confidence-card {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.confidence-badge {
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  cursor: help;
+  color: #fff;
+}
+.conf-observed { background: #2e8b57; }   /* green — measured */
+.conf-derived  { background: #c47f17; }   /* amber — computed */
+.conf-proxy    { background: #b0413e; }   /* red — approximation */
+.confidence-assumptions {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.74rem;
+  color: var(--muted);
+  max-width: 70ch;
+}
+.confidence-assumptions li {
+  margin: 0.1rem 0;
+}
+
 .maplibregl-popup-content {
   font-size: 0.82rem;
   padding: 0.45rem 0.6rem;

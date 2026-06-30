@@ -22,7 +22,8 @@ métrica **categórica** de perfiles de barrio (`barrio_profile`) + 2 métricas 
 **estructura por edad** (`ageing_index`, `pct_youth_adults`) + 1 métrica GIS de
 **ruido nocturno** (`noise_night_pct55`), 5 series
 mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 87 tests pipeline + 39 frontend.
+espacial completo (P0.2), fichas de confianza por métrica (MET-4),
+92 tests pipeline + 39 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -89,8 +90,11 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 - **MET-3 — Correlaciones robustas como invariante.** Con N=19: añadir Spearman
   junto a Pearson, scatter con/sin outliers, leave-one-out (Erdialdea/Gros),
   correlaciones parciales. Aplica a toda correlación que se publique.
-- **MET-4 — Fichas de confianza por indicador** (★ observado / derivado / proxy
-  + supuestos). Encaja con la prudencia metodológica ya practicada.
+- **MET-4 ✅ Fichas de confianza por indicador — HECHO** (observado / derivado /
+  proxy + supuestos). Campo `confidence` + `assumptions` en el contrato, definidos
+  en un único `provenance.py` y aplicados en `build.run`; ficha en la UI
+  (`ConfidenceCard`, badge de color + supuestos). 8 observadas, 11 derivadas, 1
+  proxy. (= VIZ-7.)
 - **MET-5 — Invariantes ya fijadas:** normalizar conteos por población (tasa/1000);
   `% extranjeros` nunca como proxy directo de gentrificación; provenance explícita.
 
@@ -225,7 +229,8 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 - **VIZ-6 🟨 [D] Dashboard del Índice de Transformación** (3 mapas en paralelo:
   presión inmobiliaria / cambio demográfico / presión turística + índice
   sintético opcional, definición seleccionable) (AN-8; DeepSeek).
-- **VIZ-7 🟨 [D] Fichas de confianza** por indicador en la UI (MET-4).
+- **VIZ-7 ✅ [D] Fichas de confianza** por indicador en la UI (`ConfidenceCard`)
+  — HECHO (ver MET-4).
 - **VIZ-8 🟦 [E] Dimensión temporal protagonista.** Small multiples por año +
   botón "play" animado; opcional 3D extrusion (idea #2).
 - **VIZ-9 🟦 [E] Scrollytelling** (Scrollama) — **solo tras Sprints A–D**.

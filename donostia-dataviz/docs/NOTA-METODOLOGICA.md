@@ -78,6 +78,15 @@ Cada métrica lleva (o llevará, en la UI) una **ficha de confianza** que distin
 …y enumera los **supuestos**. Es poco habitual en dashboards públicas y refuerza
 la honestidad del proyecto.
 
+**Implementado (junio 2026).** Cada métrica lleva un campo `confidence`
+(`observed`/`derived`/`proxy`) + `assumptions`, definidos en un único lugar
+(`data-pipeline/.../provenance.py`) y aplicados centralmente en `build.run`. La UI
+muestra una **ficha de confianza** (badge de color + supuestos) bajo el mapa.
+Reparto actual: 8 observadas, 11 derivadas, 1 proxy (`noise_night_pct55`, ruido de
+transporte). Ejemplos de supuestos expuestos: el 30 m²/persona de
+`housing_tension`, el k-means N=13 de `barrio_profile`, "% extranjeros no es proxy
+de gentrificación".
+
 ## MET-5 — Invariantes ya fijadas
 
 - **Normalizar por población** (tasa/1000) antes de mapear cualquier conteo;

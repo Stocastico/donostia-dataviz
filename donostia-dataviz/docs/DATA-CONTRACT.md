@@ -51,6 +51,11 @@ metric joins on it.
   labels. Each `value` is then the **0-based index** into this list (e.g.
   `barrio_profile` carries the barrio-typology cluster). The legend renders one
   swatch per label and the tooltip shows the label, not the number.
+- `confidence` — MET-4 provenance tier: `observed` (measured directly),
+  `derived` (computed from observed metrics) or `proxy` (an approximation). Drives
+  the UI's confidence badge.
+- `assumptions` — optional list of short caveat strings shown on the confidence
+  card (omitted when empty).
 
 ### `metrics.json` — the registry the UI reads
 

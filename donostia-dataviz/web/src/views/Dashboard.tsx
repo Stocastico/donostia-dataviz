@@ -10,6 +10,7 @@ import { BivariateSection } from "../components/BivariateSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
+import { ConfidenceCard } from "../components/ConfidenceCard";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
 import type { MetricData } from "../lib/types";
@@ -83,7 +84,15 @@ export function Dashboard() {
       </div>
 
       {selectedInfo && (
-        <p className="source-note">Fonte: {selectedInfo.source}</p>
+        <div className="metric-meta">
+          <p className="source-note">Fonte: {selectedInfo.source}</p>
+          {selectedInfo.confidence && (
+            <ConfidenceCard
+              confidence={selectedInfo.confidence}
+              assumptions={selectedInfo.assumptions}
+            />
+          )}
+        </div>
       )}
 
       {metric && metric.periods.length > 1 && (

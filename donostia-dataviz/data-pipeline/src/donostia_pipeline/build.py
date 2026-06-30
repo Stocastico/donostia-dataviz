@@ -16,7 +16,7 @@ from pathlib import Path
 
 import requests
 
-from . import config, export_tables, geometry, spatial
+from . import config, export_tables, geometry, provenance, spatial
 from .datasets import (
     aemet_climate,
     barrio_profiles,
@@ -223,6 +223,9 @@ def run(offline: bool = False) -> dict:
     metrics_by_id = {m.id: m for m in metrics}
     for module in DERIVED_METRICS:
         metrics.extend(module.build_from_metrics(metrics_by_id))
+
+    # Stamp confidence tier + assumptions on every metric (MET-4), centrally.
+    provenance.apply(metrics)
 
     registry = []
     for metric in metrics:

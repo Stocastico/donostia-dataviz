@@ -2,6 +2,8 @@
 
 export type MetricKind = "sequential" | "diverging" | "categorical";
 export type MetricStatus = "live" | "partial" | "planned";
+/** MET-4 confidence tier: how the number relates to reality. */
+export type Confidence = "observed" | "derived" | "proxy";
 
 /** Lightweight descriptor from metrics.json — drives the metric picker. */
 export interface MetricInfo {
@@ -17,6 +19,9 @@ export interface MetricInfo {
   periods: string[];
   /** Ordered category labels; present only for kind === "categorical". */
   categories?: string[];
+  /** MET-4 confidence tier + assumptions for the confidence card. */
+  confidence?: Confidence;
+  assumptions?: string[];
 }
 
 /** Full metric payload from metric_<id>.json. */

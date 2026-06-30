@@ -46,6 +46,12 @@ class Metric:
     values: dict[str, dict[str, float | None]] = field(default_factory=dict)
     # Ordered category labels; only set (non-empty) for kind == "categorical".
     categories: list[str] = field(default_factory=list)
+    # Confidence tier (MET-4): how the number relates to reality.
+    #   "observed" = measured directly · "derived" = computed from observed
+    #   metrics · "proxy" = an approximation standing in for the real thing.
+    confidence: str = "observed"
+    # Short, human-readable assumptions/caveats shown on the confidence card.
+    assumptions: list[str] = field(default_factory=list)
 
     def to_metric_file(self) -> dict:
         """The ``metric_<id>.json`` payload."""
@@ -56,11 +62,14 @@ class Metric:
             "kind": self.kind,
             "theme": self.theme,
             "source": self.source,
+            "confidence": self.confidence,
             "periods": self.periods,
             "values": self.values,
         }
         if self.categories:
             payload["categories"] = self.categories
+        if self.assumptions:
+            payload["assumptions"] = self.assumptions
         return payload
 
     def to_registry_entry(self) -> dict:
@@ -75,10 +84,13 @@ class Metric:
             "timeGrain": self.time_grain,
             "source": self.source,
             "status": self.status,
+            "confidence": self.confidence,
             "periods": self.periods,
         }
         if self.categories:
             entry["categories"] = self.categories
+        if self.assumptions:
+            entry["assumptions"] = self.assumptions
         return entry
 
 
@@ -175,6 +187,8 @@ def validate(metric: Metric, valid_barrio_ids: set[str]) -> None:
         raise ValueError(f"{metric.id}: bad kind {metric.kind!r}")
     if metric.status not in ("live", "partial", "planned"):
         raise ValueError(f"{metric.id}: bad status {metric.status!r}")
+    if metric.confidence not in ("observed", "derived", "proxy"):
+        raise ValueError(f"{metric.id}: bad confidence {metric.confidence!r}")
     if metric.kind == "categorical" and not metric.categories:
         raise ValueError(f"{metric.id}: categorical metric needs categories")
     if metric.categories and metric.kind != "categorical":
