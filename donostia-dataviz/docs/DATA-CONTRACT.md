@@ -30,7 +30,7 @@ metric joins on it.
   "id": "vut_density",
   "label": "Densità VUT (per 1000 abitanti)",
   "unit": "per 1000 ab.",
-  "kind": "sequential",          // "sequential" (absolute) | "diverging" (deltas)
+  "kind": "sequential",          // "sequential" | "diverging" | "categorical"
   "theme": "tourism",
   "source": "Donostia Open Data — censo viviendas turísticas",
   "periods": ["2020", "2021", "2022", "2023", "2024"],
@@ -45,7 +45,17 @@ metric joins on it.
 - `values[barrio_id][period]` — a `number`, or `null` when missing for that
   period (the map renders missing barrios in a neutral "no data" color).
 - `kind` selects the color scale: `sequential` (D3 sequential for absolute
-  values) or `diverging` (blue=down / red=up, centered at 0, for deltas).
+  values), `diverging` (blue=down / red=up, centered at 0, for deltas), or
+  `categorical` (qualitative palette for class/profile metrics).
+- `categories` — **only** for `kind: "categorical"`: an ordered list of class
+  labels. Each `value` is then the **0-based index** into this list (e.g.
+  `barrio_profile` carries the barrio-typology cluster). The legend renders one
+  swatch per label and the tooltip shows the label, not the number.
+- `confidence` — MET-4 provenance tier: `observed` (measured directly),
+  `derived` (computed from observed metrics) or `proxy` (an approximation). Drives
+  the UI's confidence badge.
+- `assumptions` — optional list of short caveat strings shown on the confidence
+  card (omitted when empty).
 
 ### `metrics.json` — the registry the UI reads
 

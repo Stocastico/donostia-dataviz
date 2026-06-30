@@ -13,6 +13,8 @@ const THEME_LABELS: Record<string, string> = {
   education: "Istruzione",
   housing: "Abitazioni",
   climate: "Clima",
+  change: "Velocità di cambiamento",
+  environment: "Ambiente",
 };
 
 /** Dropdown over the metric registry, grouped by theme. Planned (not-yet-built)

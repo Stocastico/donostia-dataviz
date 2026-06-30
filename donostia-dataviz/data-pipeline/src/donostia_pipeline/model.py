@@ -34,32 +34,47 @@ class Metric:
     id: str
     label: str
     unit: str
-    kind: str  # "sequential" | "diverging"
+    kind: str  # "sequential" | "diverging" | "categorical"
     theme: str
     source: str
     geo_grain: str  # "barrio"
     time_grain: str  # "year" | "month" | "snapshot"
     status: str = "live"  # "live" | "partial" | "planned"
     periods: list[str] = field(default_factory=list)
-    # values[barrio_id][period] -> number | None
+    # values[barrio_id][period] -> number | None. For categorical metrics the
+    # number is the 0-based index into ``categories``.
     values: dict[str, dict[str, float | None]] = field(default_factory=dict)
+    # Ordered category labels; only set (non-empty) for kind == "categorical".
+    categories: list[str] = field(default_factory=list)
+    # Confidence tier (MET-4): how the number relates to reality.
+    #   "observed" = measured directly · "derived" = computed from observed
+    #   metrics · "proxy" = an approximation standing in for the real thing.
+    confidence: str = "observed"
+    # Short, human-readable assumptions/caveats shown on the confidence card.
+    assumptions: list[str] = field(default_factory=list)
 
     def to_metric_file(self) -> dict:
         """The ``metric_<id>.json`` payload."""
-        return {
+        payload = {
             "id": self.id,
             "label": self.label,
             "unit": self.unit,
             "kind": self.kind,
             "theme": self.theme,
             "source": self.source,
+            "confidence": self.confidence,
             "periods": self.periods,
             "values": self.values,
         }
+        if self.categories:
+            payload["categories"] = self.categories
+        if self.assumptions:
+            payload["assumptions"] = self.assumptions
+        return payload
 
     def to_registry_entry(self) -> dict:
         """The lightweight descriptor for ``metrics.json``."""
-        return {
+        entry = {
             "id": self.id,
             "label": self.label,
             "unit": self.unit,
@@ -69,8 +84,14 @@ class Metric:
             "timeGrain": self.time_grain,
             "source": self.source,
             "status": self.status,
+            "confidence": self.confidence,
             "periods": self.periods,
         }
+        if self.categories:
+            entry["categories"] = self.categories
+        if self.assumptions:
+            entry["assumptions"] = self.assumptions
+        return entry
 
 
 @dataclass
@@ -162,10 +183,16 @@ def validate_series(series: Series) -> None:
 
 def validate(metric: Metric, valid_barrio_ids: set[str]) -> None:
     """Raise ``ValueError`` if ``metric`` breaks a data-contract invariant."""
-    if metric.kind not in ("sequential", "diverging"):
+    if metric.kind not in ("sequential", "diverging", "categorical"):
         raise ValueError(f"{metric.id}: bad kind {metric.kind!r}")
     if metric.status not in ("live", "partial", "planned"):
         raise ValueError(f"{metric.id}: bad status {metric.status!r}")
+    if metric.confidence not in ("observed", "derived", "proxy"):
+        raise ValueError(f"{metric.id}: bad confidence {metric.confidence!r}")
+    if metric.kind == "categorical" and not metric.categories:
+        raise ValueError(f"{metric.id}: categorical metric needs categories")
+    if metric.categories and metric.kind != "categorical":
+        raise ValueError(f"{metric.id}: categories only valid for categorical kind")
 
     # periods sorted ascending and unique
     if list(metric.periods) != sorted(set(metric.periods)):
@@ -188,4 +215,12 @@ def validate(metric: Metric, valid_barrio_ids: set[str]) -> None:
             if metric.kind == "sequential" and value < 0:
                 raise ValueError(
                     f"{metric.id}: negative value {value} for {barrio_id}/{period}"
+                )
+            # categorical values are 0-based indices into ``categories``
+            if metric.kind == "categorical" and (
+                value != int(value) or not 0 <= value < len(metric.categories)
+            ):
+                raise ValueError(
+                    f"{metric.id}: category index {value} out of range for "
+                    f"{barrio_id}/{period}"
                 )

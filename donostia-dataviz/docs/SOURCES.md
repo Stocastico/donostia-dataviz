@@ -25,6 +25,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 |---|---|---|---|---|
 | VUT (viviendas uso turístico) | Donostia Open Data | recursos/censo-viviendas-turisticas/**urb_ckan_vtur_censo.csv** (Auzoa, helbidea, Mota, plazak — current *snapshot*, no time field) | **wired ✓** | code ✓ |
 | Demographics / origin | Donostia Open Data | recursos/demografia-origen/**demografianacionalidadbarrio.csv** (Urtea, AuzoKodea, Jatorria, PertsonenKop; annual 2000–2025) | **wired ✓** | code ✓ |
+| Demographics / age | Donostia Open Data | recursos/demografia-piramideedad/**demografiapiramideedadbarrio.csv** (Urtea, AuzoKodea, AdinTartea 5-year bands `00 - 04`…`95 - >=`, PertsonenKop; annual 2000–2025) → `ageing_index`, `pct_youth_adults` | **wired ✓** | code ✓ |
 | Education level | Donostia Open Data | recursos/demografia-nivelestudios/**demografianivelestudiosbarrio.csv** (year, AuzoKodea, level, Ehuneko_Totala 0–1; annual 2000–2025) | **wired ✓** | code ✓ |
 | Renta | Donostia Open Data (Eustat) | recursos/eustat_renta/**eustatrentabarrio.csv** (Anyo, CodBarrio, RentaPer_Total + by gender/age/origin; annual 2016–2023) | **wired ✓** | code ✓ |
 | Rent €/m² per barrio | Gobierno Vasco — EMA/EMAL | **EMAL.-Barrios-Municipios.-2016-2025_es.xlsx**, sheet **T8.3** (renta media €/m² construido, annual 2016–2024). EMA barrio codes 001–017 = auzoak codes 1–17 → join by code | **wired ✓** | code ✓ |
@@ -33,6 +34,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | Airbnb listings (geolocated) | Inside Airbnb | https://insideairbnb.com/euskadi/ region page (San Sebastián) | download / request | web ✓ |
 | Educational facilities (GIS) | Donostia Open Data | recursos/servicios-educativos/**hezkuntzaekipamenduak.json** (GeoJSON, 157 punti; geometrie già in WGS84). Join spaziale punto→barrio (`spatial.py`) → `schools_per_1000` | **wired ✓** | code ✓ |
 | Waste / recycling | Donostia Open Data | recursos/residuos/**datos-residuos.csv** (Año, Tipo de recogida, Ambito, kg; annual 2010–2024) → indicatore `recycling_rate` (ámbito urbano; 2024 incompleto escluso) | **wired ✓** | code ✓ |
+| Municipal taxes / fees | Donostia Open Data | `impuestos_tipo`/`tasas_tipo` → **pfi_impuestos_tipo_ciudad_ckan.csv**, **pfi_tasas_tipo_ciudad_ckan.csv** (Urtea, Zerga/Tasa, Kopurua €; annual 2011–2025) → indicadores `tax_revenue`/`fee_revenue` (M€, importes **emitidos** nominales). `subvenciones` no en catálogo; existe versión por barrio | **wired ✓** | code ✓ |
 | Bus passengers / parking | Donostia Open Data | tema/transporte (annual from 2011; point snapshot) | direct | brief |
 | Crime | Donostia Open Data (Guardia Municipal) | ⚠️ **non più nel catalogo**: `delitos-guardia`/`gua_delitosbarrio_ckan.csv` (brief) dà 403/404 e non è in `package_list` (138 dataset) — probabile rimozione/riorganizzazione (collaborazione Ertzaintza↔Guardia Municipal, 2026). Ripiego: serie municipio Ertzaintza/MIR. | non disponibile (barrio) | web ✓ |
 
@@ -63,8 +65,13 @@ reference geometry by `spatial.py` (point-in-polygon + area-weighted
 interpolation) at ingestion — the same "join once" principle as attribute data.
 Donostia's GeoJSON resources are already WGS84. **SHP-only** sources (e.g. the
 noise grids `ruido-total`/`ruido-noche`, served in EPSG:25830) are handled by
-`gis_io.load_shapefile` (pyshp) + `gis_io.reproject_geometry` (pyproj),
-which reproject 25830→4326 on load — no external `ogr2ogr` step needed.
+`gis_io.load_shapefile` / `gis_io.load_shapefile_zip` (pyshp) +
+`gis_io.reproject_geometry` (pyproj), which reproject 25830→4326 on load — no
+external `ogr2ogr` step needed.
+
+| Theme | Source | Handle / endpoint | Access | Verified |
+|---|---|---|---|---|
+| Night noise (Lnight) | Donostia Open Data — `ruido-noche` | `.../shp/Zarata_Ruido/**2022_DSS_IZT_totala_gau.zip**` (zipped SHP, EPSG:25830; nested iso-contours Lnight ≥50/55/60/65/70 dB, field `Isovalue`). Areal overlap → `noise_night_pct55` (% barrio area ≥55 dB). **Transport-dominated**, not nightlife | **wired ✓** | code ✓ |
 
 ## AEMET access note
 

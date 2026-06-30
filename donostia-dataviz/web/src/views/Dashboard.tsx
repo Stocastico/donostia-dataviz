@@ -6,8 +6,11 @@ import { TimeSlider } from "../components/TimeSlider";
 import { BarrioCompareChart } from "../components/BarrioCompareChart";
 import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
+import { BivariateSection } from "../components/BivariateSection";
+import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
+import { ConfidenceCard } from "../components/ConfidenceCard";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
 import type { MetricData } from "../lib/types";
@@ -41,7 +44,7 @@ export function Dashboard() {
   const scale = useMemo(() => {
     if (!metric) return null;
     const vals = Object.values(metric.values).map((byPeriod) => byPeriod[period]);
-    return buildColorScale(vals, metric.kind);
+    return buildColorScale(vals, metric.kind, "warm", metric.categories);
   }, [metric, period]);
 
   const toggleBarrio = (id: string) =>
@@ -81,7 +84,15 @@ export function Dashboard() {
       </div>
 
       {selectedInfo && (
-        <p className="source-note">Fonte: {selectedInfo.source}</p>
+        <div className="metric-meta">
+          <p className="source-note">Fonte: {selectedInfo.source}</p>
+          {selectedInfo.confidence && (
+            <ConfidenceCard
+              confidence={selectedInfo.confidence}
+              assumptions={selectedInfo.assumptions}
+            />
+          )}
+        </div>
       )}
 
       {metric && metric.periods.length > 1 && (
@@ -111,6 +122,8 @@ export function Dashboard() {
 
       <SeasonalitySection />
       <ScatterSection />
+      <BivariateSection />
+      <HousingPressureSection />
       <MiceSection />
       <IndicatorsSection />
     </div>

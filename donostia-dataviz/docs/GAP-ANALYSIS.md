@@ -16,9 +16,15 @@
 > 2. **El índice se llama "Índice de Transformación Urbana"** (nunca
 >    "gentrificación"), con definición explícita y seleccionable.
 
-**Estado del repo de referencia:** 11 métricas coropléticas por barrio, 5 series
-mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 66 tests pipeline + 28 frontend.
+**Estado del repo de referencia:** 11 métricas coropléticas por barrio + 5
+métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
+métrica **categórica** de perfiles de barrio (`barrio_profile`) + 2 métricas de
+**estructura por edad** (`ageing_index`, `pct_youth_adults`) + 1 métrica GIS de
+**ruido nocturno** (`noise_night_pct55`), 5 series
+mensuales ciudad, **6 indicadores anuales ciudad** (MICE ×3, reciclaje,
+impuestos, tasas), export CSV "long", módulo de join
+espacial completo (P0.2), fichas de confianza por métrica (MET-4),
+95 tests pipeline + 39 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -69,11 +75,14 @@ de botella ya no es técnico: es de selección de dimensiones y disciplina causa
 Estas no son "datos nuevos": son ajustes a lo que ya existe, acordados por las
 cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 
-- **MET-1 — Reformular `housing_tension`.** Hacer el parámetro m²/persona
-  **explícito y seleccionable** (20/30/40); mostrar una **familia de medidas**
-  (`alquiler/renta`, `z(alquiler)−z(renta)`, `percentil(alquiler)−percentil(renta)`);
-  reetiquetar como "presión teórica sobre el residente medio". *(No requiere
-  datos nuevos.)*
+- **MET-1 ✅ Reformular `housing_tension` — HECHO.** Métrica reetiquetada a
+  "Pressione dell'affitto sul residente medio (30 m²)" + sección dedicada (VIZ-4,
+  `HousingPressureSection`) con parámetro m²/persona **seleccionable** (20/30/40) y
+  la **familia de medidas** (`alquiler/renta`, `z(alquiler)−z(renta)`,
+  `percentil−percentil`). Lógica en `lib/housing.ts` (testeada). *Hallazgo honesto
+  documentado en `NOTA-METODOLOGICA.md`:* las tres medidas no convergen del todo
+  (carga de renta → este; desajuste estandarizado → también centro); Egia es el
+  único barrio robusto a las tres. *(No requiere datos nuevos.)*
 - **MET-2 — "Índice de Transformación Urbana"** (nombre canónico decidido; nunca
   "gentrificación", porque con los datos actuales no se puede demostrar
   gentrificación — falta rotación de población / sustitución social). Definición
@@ -82,8 +91,11 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 - **MET-3 — Correlaciones robustas como invariante.** Con N=19: añadir Spearman
   junto a Pearson, scatter con/sin outliers, leave-one-out (Erdialdea/Gros),
   correlaciones parciales. Aplica a toda correlación que se publique.
-- **MET-4 — Fichas de confianza por indicador** (★ observado / derivado / proxy
-  + supuestos). Encaja con la prudencia metodológica ya practicada.
+- **MET-4 ✅ Fichas de confianza por indicador — HECHO** (observado / derivado /
+  proxy + supuestos). Campo `confidence` + `assumptions` en el contrato, definidos
+  en un único `provenance.py` y aplicados en `build.run`; ficha en la UI
+  (`ConfidenceCard`, badge de color + supuestos). 8 observadas, 11 derivadas, 1
+  proxy. (= VIZ-7.)
 - **MET-5 — Invariantes ya fijadas:** normalizar conteos por población (tasa/1000);
   `% extranjeros` nunca como proxy directo de gentrificación; provenance explícita.
 
@@ -100,18 +112,32 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 > confirmadas y accesibles; granularidad de REC-5/6/9 limitada a ciudad/línea
 > (ver detalle y caveats allí).
 
-- **REC-1 🟥 [B] Estructura por edad por barrio.** El catálogo `demografia-origen`
-  ofrece población por edad y barrio (2000–2025), pero el CSV ya ingerido es solo
-  nacionalidad: hay que **descargar el CSV de edad** de la misma fuente y derivar
-  **índice de envejecimiento** (pob >64 / pob <15), cuota 25–40 y evolución.
-  *Bajo coste* (misma fuente y join), no "ya integrado" (Gemini, Perplexity).
-- **REC-2 🟥 [B] Ruido (SHP) por barrio.** Ingerir `ruido-total`/`ruido-noche`
-  (EPSG:25830, SHP 2008/2017/2022) vía interpolación areal → dB por barrio. El
-  módulo P0.2 ya lo soporta. *Mejor ratio valor/coste* (Perplexity, Gemini,
-  DeepSeek).
-- **REC-3 🟥 [B] Fiscalidad municipal.** `impuestos_tipo`, `tasas_tipo`,
-  `subvenciones` (CSV ciudad, anual). La viz genérica de indicadores ya existe →
-  integración casi inmediata.
+- **REC-1 ✅ [B] Estructura por edad por barrio — HECHA.** Nuevo dataset
+  `demografia-piramideedad` → `demografiapiramideedadbarrio.csv` (padrón por edad
+  y sexo, 2000–2025, bandas quinquenales), `datasets/demografia_edad.py` (mismo
+  join `AuzoKodea`). Dos métricas anuales: **`ageing_index`** (≥65/<15 ×100) y
+  **`pct_youth_adults`** (25–39). *Hallazgo (output #3):* los barrios centrales y
+  turísticos son los **más envejecidos** entre los urbanos (Gros 370, Erdialdea
+  350), mientras el este obrero tiene la población adulta **más joven**
+  (Intxaurrondo 21 %, Loiola) — coherente con AN-2 (el centro pierde población y
+  envejece; el este gana jóvenes). Antigua envejece rápido (+203 en 25 años);
+  Miramón-Zorroaga rejuvenece por desarrollo residencial nuevo. *(No edad mediana:
+  no se interpola sobre datos en bandas.)*
+- **REC-2 ✅ [B] Ruido (SHP) por barrio — HECHA.** Ingerido `ruido-noche` (zip
+  SHP, EPSG:25830, 2022) vía `gis_io.load_shapefile_zip` + nuevo
+  `spatial.coverage_fraction`. Métrica `noise_night_pct55` = **% del área del
+  barrio expuesta a Lnight ≥55 dB** (umbral OMS/Directiva END). *Hallazgo
+  honesto:* los mapas estratégicos están **dominados por ruido de transporte**
+  (Amara 60 % por la estación/arterias, corredor este Intxaurrondo/Martutene,
+  Gros), **no** aíslan el ocio/turismo — es una capa de calidad de vida, no un
+  proxy de turismo. (El módulo P0.2 ya soportaba la reproyección.)
+- **REC-3 ✅ [B] Fiscalidad municipal — HECHA (parcial).** `datasets/fiscalidad.py`
+  → indicadores ciudad `tax_revenue` (impuestos emitidos 73→106 M€, 2011–25) y
+  `fee_revenue` (tasas 35→63 M€), renderizados por `IndicatorsSection`. Caveat:
+  importes **emitidos** (no recaudados), € nominales. `subvenciones` **no está**
+  en el catálogo (no encontrado vía CKAN). Existe versión **por barrio** de
+  impuestos/tasas (con bucket "Ezezaguna" sin geocodificar) — no integrada por
+  redundante con renta; posible futura coropleta de IBI/cápita.
 - **REC-4 🟧 [C] Inside Airbnb (puntos geolocalizados).** Snapshot(s) San
   Sebastián → densidad Airbnb por barrio (join espacial) y, clave, **serie
   temporal por barrio** vía reseñas/mes. Desbloquea presión turística real y el
@@ -175,20 +201,41 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 
 ### C. Visualización
 
-- **VIZ-1 🟥 [A] Vista de "velocidad de cambio".** Coropleta de pendientes
-  (Δ/año) con escala divergente, alimentada por AN-2.
-- **VIZ-2 🟥 [A] Vista de perfiles/clusters.** Mapa categórico por cluster +
-  explicación; opción de ver el cambio de cluster en el tiempo (AN-3).
-- **VIZ-3 🟧 [A] Coropleta bivariada 3×3.** Cruza dos métricas (renta × tensión)
-  para resaltar barrios anómalos (AN-4).
-- **VIZ-4 🟧 [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +
-  panel de "familia de medidas" (MET-1).
-- **VIZ-5 🟧 [B] Coropleta de ruido nocturno por barrio** + overlay sobre
-  densidad VUT/Airbnb (REC-2 + REC-4) — relato turismo↔ruido en Parte Vieja/Gros.
+- **VIZ-1 ✅ [A] Vista de "velocidad de cambio" — HECHA.** Coropleta de tasas
+  anualizadas (escala divergente, azul=baja / rojo=sube) por barrio para renta,
+  alquiler, población, % universitarios y % extranjeros. Implementada como
+  **métricas derivadas** (`datasets/change_velocity.py`, `velocity_*`), así que
+  reutiliza el choropleth/leyenda existentes sin vista nueva; aparecen en el
+  selector bajo "Velocità di cambiamento". Valores reproducen AN-2 (p.ej. alquiler
+  Loiola +4,3 %/año; % extranjeros Intxaurrondo +0,92 p.p./año; población
+  Gros −0,60 %/año).
+- **VIZ-2 ✅ [A] Vista de perfiles/clusters — HECHA.** Métrica categórica
+  `barrio_profile` (`datasets/barrio_profiles.py`): coropleta por perfil con
+  paleta cualitativa + leyenda de swatches. Introduce el **tipo de métrica
+  `categorical`** en el contrato (model + frontend: colorScale, Legend, tooltip),
+  reutilizable por VIZ-6. Reproduce la asignación documentada de AN-3
+  (Erdialdea/Gros = central turístico; Aiete/Antigua/Ibaeta = acomodado;
+  Egia/Amara/Ategorrieta = transicional; Altza/Intxaurrondo/Loiola/Martutene/
+  Mirakruz = popular en tensión), fijada por test. *Pendiente opcional:* ver el
+  cambio de cluster en el tiempo.
+- **VIZ-3 ✅ [A] Coropleta bivariada 3×3 — HECHA.** Sección interactiva
+  (`BivariateSection`): cruza dos métricas cualquiera en terciles (bajo/medio/alto)
+  por eje, con paleta bivariada Stevens 3×3 y leyenda-matriz. Por defecto renta ×
+  tensión, que resalta el ángulo "anómalo" (renta baja × tensión alta = este
+  obrero), confirmando AN-1/AN-4 visualmente. Lógica en `lib/bivariate.ts`
+  (testeada); el mapa reutiliza el nuevo `BarrioMap` (extraído de `ChoroplethMap`
+  para compartir el lienzo maplibre).
+- **VIZ-4 ✅ [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +
+  panel de "familia de medidas" — **HECHO** (`HousingPressureSection`; ver MET-1).
+- **VIZ-5 🟧 [B] Coropleta de ruido nocturno por barrio — PARCIAL.** La coropleta
+  ya está (`noise_night_pct55` en el selector, grupo "Ambiente"). *Pendiente:* el
+  overlay con densidad VUT/Airbnb (REC-4). Nota: el dato es ruido de transporte,
+  así que el relato "turismo↔ruido" no se sostiene directamente (ver REC-2).
 - **VIZ-6 🟨 [D] Dashboard del Índice de Transformación** (3 mapas en paralelo:
   presión inmobiliaria / cambio demográfico / presión turística + índice
   sintético opcional, definición seleccionable) (AN-8; DeepSeek).
-- **VIZ-7 🟨 [D] Fichas de confianza** por indicador en la UI (MET-4).
+- **VIZ-7 ✅ [D] Fichas de confianza** por indicador en la UI (`ConfidenceCard`)
+  — HECHO (ver MET-4).
 - **VIZ-8 🟦 [E] Dimensión temporal protagonista.** Small multiples por año +
   botón "play" animado; opcional 3D extrusion (idea #2).
 - **VIZ-9 🟦 [E] Scrollytelling** (Scrollama) — **solo tras Sprints A–D**.
@@ -260,7 +307,9 @@ pieza con una pregunta de partida (framing "máquina de preguntas", ChatGPT):
 2. **"Qué barrios cambian más rápido"** — mapa de velocidades + perfiles/clusters.
    *Datos ya disponibles.* (AN-2, AN-3, VIZ-1, VIZ-2)
 3. **"Quién vive Donostia"** — estructura por edad y su evolución; ¿sustitución
-   residencial? (REC-1)
+   residencial? *Datos ya disponibles* (REC-1 ✅): `ageing_index` +
+   `pct_youth_adults`. Centro envejecido vs. este joven; falta aún rotación de
+   población para hablar de sustitución.
 4. **"El clima cambia"** — calentamiento +0,31 °C/década, más días ≥30 °C.
    *Ya sólido* — empaquetar como relato. (DOC-5)
 5. **"La ciudad turística vs. la ciudad vivida"** — contraste espacial de usos.

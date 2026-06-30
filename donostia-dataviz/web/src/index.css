@@ -135,10 +135,66 @@ body {
   display: inline-block;
 }
 
+.legend-categorical {
+  width: auto;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.legend-cat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-cat .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
 .source-note {
   font-size: 0.78rem;
   color: var(--muted);
   margin: 0.5rem 0 0;
+}
+
+/* Confidence card (MET-4) */
+.metric-meta {
+  margin-top: 0.5rem;
+}
+.confidence-card {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.confidence-badge {
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  cursor: help;
+  color: #fff;
+}
+.conf-observed { background: #2e8b57; }   /* green — measured */
+.conf-derived  { background: #c47f17; }   /* amber — computed */
+.conf-proxy    { background: #b0413e; }   /* red — approximation */
+.confidence-assumptions {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.74rem;
+  color: var(--muted);
+  max-width: 70ch;
+}
+.confidence-assumptions li {
+  margin: 0.1rem 0;
 }
 
 .maplibregl-popup-content {
@@ -349,6 +405,117 @@ body {
 .scatter-tip strong {
   display: block;
   margin-bottom: 0.2rem;
+}
+
+/* Bivariate 3×3 map */
+.bivariate {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.bivariate-body {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.bivariate-body .map-area {
+  flex: 1 1 420px;
+}
+.bivariate-legend {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "ylabel grid"
+    ".      xlabel";
+  align-items: center;
+  gap: 4px 6px;
+  padding-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.bivariate-grid {
+  grid-area: grid;
+  display: grid;
+  grid-template-columns: repeat(3, 22px);
+  grid-template-rows: repeat(3, 22px);
+  gap: 2px;
+}
+.bivariate-cell {
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+}
+.bivariate-ylabel {
+  grid-area: ylabel;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  justify-self: center;
+}
+.bivariate-xlabel {
+  grid-area: xlabel;
+  justify-self: center;
+  text-align: center;
+  max-width: 90px;
+}
+
+/* Housing pressure (MET-1 / VIZ-4) */
+.housing {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.housing-controls {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.housing-measure select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+.m2-buttons {
+  display: flex;
+  gap: 4px;
+}
+.m2-buttons .chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.housing-family {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+.family-cols {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+.family-col {
+  flex: 1;
+}
+.family-col h4 {
+  font-size: 0.74rem;
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.family-col ol {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.8rem;
+}
+.family-col li.common {
+  font-weight: 700;
+  color: var(--accent);
+}
+.family-note {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin: 0.6rem 0 0;
 }
 
 /* MICE */

@@ -1,7 +1,9 @@
 // TypeScript mirror of the pipeline data contract (docs/DATA-CONTRACT.md).
 
-export type MetricKind = "sequential" | "diverging";
+export type MetricKind = "sequential" | "diverging" | "categorical";
 export type MetricStatus = "live" | "partial" | "planned";
+/** MET-4 confidence tier: how the number relates to reality. */
+export type Confidence = "observed" | "derived" | "proxy";
 
 /** Lightweight descriptor from metrics.json — drives the metric picker. */
 export interface MetricInfo {
@@ -15,6 +17,11 @@ export interface MetricInfo {
   source: string;
   status: MetricStatus;
   periods: string[];
+  /** Ordered category labels; present only for kind === "categorical". */
+  categories?: string[];
+  /** MET-4 confidence tier + assumptions for the confidence card. */
+  confidence?: Confidence;
+  assumptions?: string[];
 }
 
 /** Full metric payload from metric_<id>.json. */
@@ -26,7 +33,10 @@ export interface MetricData {
   theme: string;
   source: string;
   periods: string[];
+  /** For categorical metrics each value is the 0-based index into categories. */
   values: Record<string, Record<string, number | null>>;
+  /** Ordered category labels; present only for kind === "categorical". */
+  categories?: string[];
 }
 
 /** Lightweight descriptor from series.json. */

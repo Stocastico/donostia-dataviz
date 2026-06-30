@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { buildColorScale, NO_DATA_COLOR, legendStops } from "../src/lib/colorScale";
+import {
+  buildColorScale,
+  CATEGORICAL_PALETTE,
+  NO_DATA_COLOR,
+  legendStops,
+} from "../src/lib/colorScale";
 
 describe("buildColorScale", () => {
   it("maps null/undefined to the no-data color", () => {
@@ -19,6 +24,17 @@ describe("buildColorScale", () => {
     expect(s.domain).toEqual([-3, 3]);
     // zero sits at the neutral midpoint
     expect(s.color(0)).toBeTruthy();
+  });
+
+  it("maps categorical indices to distinct palette colors and exposes labels", () => {
+    const cats = ["A", "B", "C"];
+    const s = buildColorScale([0, 1, 2], "categorical", "warm", cats);
+    expect(s.kind).toBe("categorical");
+    expect(s.categories).toEqual(cats);
+    expect(s.color(0)).toBe(CATEGORICAL_PALETTE[0]);
+    expect(s.color(1)).toBe(CATEGORICAL_PALETTE[1]);
+    expect(s.color(0)).not.toBe(s.color(1));
+    expect(s.color(null)).toBe(NO_DATA_COLOR);
   });
 
   it("produces n legend stops spanning the domain", () => {

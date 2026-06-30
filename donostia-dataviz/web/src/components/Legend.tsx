@@ -7,8 +7,24 @@ interface Props {
 }
 
 /** Color-scale legend: a gradient bar with compact min/mid/max ticks, the unit
- * shown once, plus a no-data swatch. */
+ * shown once, plus a no-data swatch. Categorical metrics get a swatch-per-label
+ * list instead of a gradient. */
 export function Legend({ scale, unit }: Props) {
+  if (scale.kind === "categorical") {
+    return (
+      <div className="legend legend-categorical">
+        {(scale.categories ?? []).map((label, i) => (
+          <span key={label} className="legend-cat">
+            <span className="swatch" style={{ background: scale.color(i) }} /> {label}
+          </span>
+        ))}
+        <span className="legend-nodata">
+          <span className="swatch" style={{ background: NO_DATA_COLOR }} /> n/d
+        </span>
+      </div>
+    );
+  }
+
   const stops = legendStops(scale, 5);
   const gradient = `linear-gradient(to right, ${stops
     .map((s) => s.color)

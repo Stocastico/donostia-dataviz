@@ -23,6 +23,22 @@ Cambios acordados (no requieren datos nuevos):
 - Cuando llegue el catastro foral (REC-8), sustituir el 30 fijo por la
   **superficie construida real por barrio**.
 
+**Implementado (junio 2026).** El metric de mapa se reetiqueta a *"Pressione
+dell'affitto sul residente medio (30 m²)"* y hay una sección dedicada
+(`HousingPressureSection`, VIZ-4) con selector m²/persona (20/30/40) y las tres
+medidas. **Hallazgo honesto:** la familia de medidas **no converge del todo**, y
+eso es informativo, no un fallo:
+- La *quota di reddito* (alquiler×m²/renta) mide **carga de accesibilidad** y está
+  dominada por la renta baja → señala el **este obrero** (Loiola, Altza,
+  Intxaurrondo, Mirakruz).
+- Los *scarti standardizzati* (`z(alquiler)−z(renta)`, `percentil−percentil`) miden
+  cuánto el alquiler **corre por delante** de la renta → iluminan también el
+  **centro caro** (Gros, Erdialdea).
+- **Egia** es el único barrio en el top-5 de las tres medidas: bajo presión se mida
+  como se mida — y coincide con su perfil "transicional / en movimiento" de AN-3.
+No se fuerza un relato de "todas coinciden": carga de renta y desajuste
+alquiler-renta no son lo mismo, y la UI lo dice.
+
 ## MET-2 — "Índice de Transformación Urbana", nunca "gentrificación"
 
 Con los datos disponibles **no se puede demostrar gentrificación**: faltan
@@ -61,6 +77,15 @@ Cada métrica lleva (o llevará, en la UI) una **ficha de confianza** que distin
 
 …y enumera los **supuestos**. Es poco habitual en dashboards públicas y refuerza
 la honestidad del proyecto.
+
+**Implementado (junio 2026).** Cada métrica lleva un campo `confidence`
+(`observed`/`derived`/`proxy`) + `assumptions`, definidos en un único lugar
+(`data-pipeline/.../provenance.py`) y aplicados centralmente en `build.run`. La UI
+muestra una **ficha de confianza** (badge de color + supuestos) bajo el mapa.
+Reparto actual: 8 observadas, 11 derivadas, 1 proxy (`noise_night_pct55`, ruido de
+transporte). Ejemplos de supuestos expuestos: el 30 m²/persona de
+`housing_tension`, el k-means N=13 de `barrio_profile`, "% extranjeros no es proxy
+de gentrificación".
 
 ## MET-5 — Invariantes ya fijadas
 
