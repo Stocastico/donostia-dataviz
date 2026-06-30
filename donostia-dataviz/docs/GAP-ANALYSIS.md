@@ -20,7 +20,7 @@
 métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
 métrica **categórica** de perfiles de barrio (`barrio_profile`), 5 series
 mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 76 tests pipeline + 34 frontend.
+espacial completo (P0.2), 76 tests pipeline + 39 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -71,11 +71,14 @@ de botella ya no es técnico: es de selección de dimensiones y disciplina causa
 Estas no son "datos nuevos": son ajustes a lo que ya existe, acordados por las
 cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 
-- **MET-1 — Reformular `housing_tension`.** Hacer el parámetro m²/persona
-  **explícito y seleccionable** (20/30/40); mostrar una **familia de medidas**
-  (`alquiler/renta`, `z(alquiler)−z(renta)`, `percentil(alquiler)−percentil(renta)`);
-  reetiquetar como "presión teórica sobre el residente medio". *(No requiere
-  datos nuevos.)*
+- **MET-1 ✅ Reformular `housing_tension` — HECHO.** Métrica reetiquetada a
+  "Pressione dell'affitto sul residente medio (30 m²)" + sección dedicada (VIZ-4,
+  `HousingPressureSection`) con parámetro m²/persona **seleccionable** (20/30/40) y
+  la **familia de medidas** (`alquiler/renta`, `z(alquiler)−z(renta)`,
+  `percentil−percentil`). Lógica en `lib/housing.ts` (testeada). *Hallazgo honesto
+  documentado en `NOTA-METODOLOGICA.md`:* las tres medidas no convergen del todo
+  (carga de renta → este; desajuste estandarizado → también centro); Egia es el
+  único barrio robusto a las tres. *(No requiere datos nuevos.)*
 - **MET-2 — "Índice de Transformación Urbana"** (nombre canónico decidido; nunca
   "gentrificación", porque con los datos actuales no se puede demostrar
   gentrificación — falta rotación de población / sustitución social). Definición
@@ -201,8 +204,8 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   obrero), confirmando AN-1/AN-4 visualmente. Lógica en `lib/bivariate.ts`
   (testeada); el mapa reutiliza el nuevo `BarrioMap` (extraído de `ChoroplethMap`
   para compartir el lienzo maplibre).
-- **VIZ-4 🟧 [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +
-  panel de "familia de medidas" (MET-1).
+- **VIZ-4 ✅ [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +
+  panel de "familia de medidas" — **HECHO** (`HousingPressureSection`; ver MET-1).
 - **VIZ-5 🟧 [B] Coropleta de ruido nocturno por barrio** + overlay sobre
   densidad VUT/Airbnb (REC-2 + REC-4) — relato turismo↔ruido en Parte Vieja/Gros.
 - **VIZ-6 🟨 [D] Dashboard del Índice de Transformación** (3 mapas en paralelo:

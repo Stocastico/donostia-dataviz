@@ -423,6 +423,65 @@ body {
   max-width: 90px;
 }
 
+/* Housing pressure (MET-1 / VIZ-4) */
+.housing {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.housing-controls {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.housing-measure select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+.m2-buttons {
+  display: flex;
+  gap: 4px;
+}
+.m2-buttons .chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.housing-family {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+.family-cols {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+.family-col {
+  flex: 1;
+}
+.family-col h4 {
+  font-size: 0.74rem;
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.family-col ol {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.8rem;
+}
+.family-col li.common {
+  font-weight: 700;
+  color: var(--accent);
+}
+.family-note {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin: 0.6rem 0 0;
+}
+
 /* MICE */
 .mice {
   margin-top: 2.5rem;
