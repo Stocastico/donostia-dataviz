@@ -22,6 +22,7 @@ from .datasets import (
     barrio_profiles,
     change_velocity,
     demografia,
+    demografia_edad,
     educacion_gis,
     estudios,
     housing_tension,
@@ -45,6 +46,10 @@ RAW_DOWNLOADS: dict[str, str] = {
     "demo_barrio.csv": (
         "https://www.donostia.eus/datosabiertos/recursos/"
         "demografia-origen/demografianacionalidadbarrio.csv"
+    ),
+    "edad_barrio.csv": (
+        "https://www.donostia.eus/datosabiertos/recursos/"
+        "demografia-piramideedad/demografiapiramideedadbarrio.csv"
     ),
     "renta_barrio.csv": (
         "https://www.donostia.eus/datosabiertos/recursos/"
@@ -80,7 +85,7 @@ RAW_DOWNLOADS: dict[str, str] = {
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
-DATASETS = [vut, demografia, renta, estudios, vut_density, rent, educacion_gis]
+DATASETS = [vut, demografia, demografia_edad, renta, estudios, vut_density, rent, educacion_gis]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads

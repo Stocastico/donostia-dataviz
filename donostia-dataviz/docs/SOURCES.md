@@ -25,6 +25,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 |---|---|---|---|---|
 | VUT (viviendas uso turístico) | Donostia Open Data | recursos/censo-viviendas-turisticas/**urb_ckan_vtur_censo.csv** (Auzoa, helbidea, Mota, plazak — current *snapshot*, no time field) | **wired ✓** | code ✓ |
 | Demographics / origin | Donostia Open Data | recursos/demografia-origen/**demografianacionalidadbarrio.csv** (Urtea, AuzoKodea, Jatorria, PertsonenKop; annual 2000–2025) | **wired ✓** | code ✓ |
+| Demographics / age | Donostia Open Data | recursos/demografia-piramideedad/**demografiapiramideedadbarrio.csv** (Urtea, AuzoKodea, AdinTartea 5-year bands `00 - 04`…`95 - >=`, PertsonenKop; annual 2000–2025) → `ageing_index`, `pct_youth_adults` | **wired ✓** | code ✓ |
 | Education level | Donostia Open Data | recursos/demografia-nivelestudios/**demografianivelestudiosbarrio.csv** (year, AuzoKodea, level, Ehuneko_Totala 0–1; annual 2000–2025) | **wired ✓** | code ✓ |
 | Renta | Donostia Open Data (Eustat) | recursos/eustat_renta/**eustatrentabarrio.csv** (Anyo, CodBarrio, RentaPer_Total + by gender/age/origin; annual 2016–2023) | **wired ✓** | code ✓ |
 | Rent €/m² per barrio | Gobierno Vasco — EMA/EMAL | **EMAL.-Barrios-Municipios.-2016-2025_es.xlsx**, sheet **T8.3** (renta media €/m² construido, annual 2016–2024). EMA barrio codes 001–017 = auzoak codes 1–17 → join by code | **wired ✓** | code ✓ |

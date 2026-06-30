@@ -18,9 +18,10 @@
 
 **Estado del repo de referencia:** 11 métricas coropléticas por barrio + 5
 métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
-métrica **categórica** de perfiles de barrio (`barrio_profile`), 5 series
+métrica **categórica** de perfiles de barrio (`barrio_profile`) + 2 métricas de
+**estructura por edad** (`ageing_index`, `pct_youth_adults`), 5 series
 mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 76 tests pipeline + 39 frontend.
+espacial completo (P0.2), 81 tests pipeline + 39 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -105,11 +106,17 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
 > confirmadas y accesibles; granularidad de REC-5/6/9 limitada a ciudad/línea
 > (ver detalle y caveats allí).
 
-- **REC-1 🟥 [B] Estructura por edad por barrio.** El catálogo `demografia-origen`
-  ofrece población por edad y barrio (2000–2025), pero el CSV ya ingerido es solo
-  nacionalidad: hay que **descargar el CSV de edad** de la misma fuente y derivar
-  **índice de envejecimiento** (pob >64 / pob <15), cuota 25–40 y evolución.
-  *Bajo coste* (misma fuente y join), no "ya integrado" (Gemini, Perplexity).
+- **REC-1 ✅ [B] Estructura por edad por barrio — HECHA.** Nuevo dataset
+  `demografia-piramideedad` → `demografiapiramideedadbarrio.csv` (padrón por edad
+  y sexo, 2000–2025, bandas quinquenales), `datasets/demografia_edad.py` (mismo
+  join `AuzoKodea`). Dos métricas anuales: **`ageing_index`** (≥65/<15 ×100) y
+  **`pct_youth_adults`** (25–39). *Hallazgo (output #3):* los barrios centrales y
+  turísticos son los **más envejecidos** entre los urbanos (Gros 370, Erdialdea
+  350), mientras el este obrero tiene la población adulta **más joven**
+  (Intxaurrondo 21 %, Loiola) — coherente con AN-2 (el centro pierde población y
+  envejece; el este gana jóvenes). Antigua envejece rápido (+203 en 25 años);
+  Miramón-Zorroaga rejuvenece por desarrollo residencial nuevo. *(No edad mediana:
+  no se interpola sobre datos en bandas.)*
 - **REC-2 🟥 [B] Ruido (SHP) por barrio.** Ingerir `ruido-total`/`ruido-noche`
   (EPSG:25830, SHP 2008/2017/2022) vía interpolación areal → dB por barrio. El
   módulo P0.2 ya lo soporta. *Mejor ratio valor/coste* (Perplexity, Gemini,
@@ -283,7 +290,9 @@ pieza con una pregunta de partida (framing "máquina de preguntas", ChatGPT):
 2. **"Qué barrios cambian más rápido"** — mapa de velocidades + perfiles/clusters.
    *Datos ya disponibles.* (AN-2, AN-3, VIZ-1, VIZ-2)
 3. **"Quién vive Donostia"** — estructura por edad y su evolución; ¿sustitución
-   residencial? (REC-1)
+   residencial? *Datos ya disponibles* (REC-1 ✅): `ageing_index` +
+   `pct_youth_adults`. Centro envejecido vs. este joven; falta aún rotación de
+   población para hablar de sustitución.
 4. **"El clima cambia"** — calentamiento +0,31 °C/década, más días ≥30 °C.
    *Ya sólido* — empaquetar como relato. (DOC-5)
 5. **"La ciudad turística vs. la ciudad vivida"** — contraste espacial de usos.
