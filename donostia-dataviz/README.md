@@ -58,6 +58,10 @@ Remaining roadmap items (sale prices, MICE, Ibiltur spend) are city-grain or
 need manual extraction; see `docs/SOURCES.md` for each source's access status
 and `docs/PROJECT-BRIEF.md` for the full roadmap.
 
+**Writing the narratives?** Start at **`docs/GUION-OUTPUTS.md`** ("EMPIEZA
+AQUÍ"): it maps each target story to its status, the exact metric/section in the
+app that backs it, the verified numbers, and the reproducible evidence.
+
 ### Build phases
 
 - **Phase 1** — pipeline + generic MapLibre choropleth + slider/legend/tooltip;
