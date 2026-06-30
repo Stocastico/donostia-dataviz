@@ -135,6 +135,26 @@ body {
   display: inline-block;
 }
 
+.legend-categorical {
+  width: auto;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.legend-cat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-cat .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
 .source-note {
   font-size: 0.78rem;
   color: var(--muted);

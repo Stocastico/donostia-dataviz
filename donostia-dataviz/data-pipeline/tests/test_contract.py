@@ -50,12 +50,19 @@ def test_metrics_join_to_geometry(registry, barrio_ids):
         )
         assert metric["periods"] == sorted(set(metric["periods"]))
         period_set = set(metric["periods"])
+        categories = metric.get("categories", [])
+        if metric["kind"] == "categorical":
+            assert categories, f"{entry['id']}: categorical metric needs categories"
         for barrio_id, by_period in metric["values"].items():
             assert barrio_id in barrio_ids, f"{entry['id']}: orphan {barrio_id}"
             for period, value in by_period.items():
                 assert period in period_set, f"{entry['id']}: stray period {period}"
                 if value is not None and metric["kind"] == "sequential":
                     assert value >= 0, f"{entry['id']}: negative {barrio_id}/{period}"
+                if value is not None and metric["kind"] == "categorical":
+                    assert value == int(value) and 0 <= value < len(categories), (
+                        f"{entry['id']}: bad category index {value} for {barrio_id}"
+                    )
 
 
 def test_registry_entries_have_required_fields(registry):

@@ -17,9 +17,10 @@
 >    "gentrificación"), con definición explícita y seleccionable.
 
 **Estado del repo de referencia:** 11 métricas coropléticas por barrio + 5
-métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes), 5 series
+métricas derivadas de **velocidad de cambio** (`velocity_*`, divergentes) + 1
+métrica **categórica** de perfiles de barrio (`barrio_profile`), 5 series
 mensuales ciudad, 4 indicadores anuales ciudad, export CSV "long", módulo de join
-espacial completo (P0.2), 71 tests pipeline + 28 frontend.
+espacial completo (P0.2), 76 tests pipeline + 29 frontend.
 
 - **Métricas por barrio (11):** `population`, `pct_foreign`, `pct_university`,
   `income_total`, `income_gender_gap`, `rent_eur_m2`, `housing_tension`,
@@ -184,8 +185,15 @@ cuatro revisiones. Son requisito de credibilidad y van en paralelo a todo.
   selector bajo "Velocità di cambiamento". Valores reproducen AN-2 (p.ej. alquiler
   Loiola +4,3 %/año; % extranjeros Intxaurrondo +0,92 p.p./año; población
   Gros −0,60 %/año).
-- **VIZ-2 🟥 [A] Vista de perfiles/clusters.** Mapa categórico por cluster +
-  explicación; opción de ver el cambio de cluster en el tiempo (AN-3).
+- **VIZ-2 ✅ [A] Vista de perfiles/clusters — HECHA.** Métrica categórica
+  `barrio_profile` (`datasets/barrio_profiles.py`): coropleta por perfil con
+  paleta cualitativa + leyenda de swatches. Introduce el **tipo de métrica
+  `categorical`** en el contrato (model + frontend: colorScale, Legend, tooltip),
+  reutilizable por VIZ-6. Reproduce la asignación documentada de AN-3
+  (Erdialdea/Gros = central turístico; Aiete/Antigua/Ibaeta = acomodado;
+  Egia/Amara/Ategorrieta = transicional; Altza/Intxaurrondo/Loiola/Martutene/
+  Mirakruz = popular en tensión), fijada por test. *Pendiente opcional:* ver el
+  cambio de cluster en el tiempo.
 - **VIZ-3 🟧 [A] Coropleta bivariada 3×3.** Cruza dos métricas (renta × tensión)
   para resaltar barrios anómalos (AN-4).
 - **VIZ-4 🟧 [B] Selector de parámetro en `housing_tension`** (20/30/40 m²) +

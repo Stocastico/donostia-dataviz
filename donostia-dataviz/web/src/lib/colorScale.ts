@@ -19,12 +19,24 @@ export const PALETTES: Record<string, (t: number) => string> = {
   cool: interpolateBlues,
 };
 
+/** Qualitative palette for categorical metrics (indexed by category). */
+export const CATEGORICAL_PALETTE = [
+  "#d6604d", // 0 — warm red
+  "#4393c3", // 1 — blue
+  "#f4a582", // 2 — amber
+  "#5aae61", // 3 — green
+  "#9970ab", // 4 — purple
+  "#bf812d", // 5 — brown
+];
+
 export interface ColorScale {
   /** Map a value (or null) to a fill color. */
   color(value: number | null | undefined): string;
   /** [min, max] of the data that defined the scale (for the legend). */
   domain: [number, number];
   kind: MetricKind;
+  /** Ordered category labels, present only for kind === "categorical". */
+  categories?: string[];
 }
 
 /** Build a color scale for one set of values (typically one period).
@@ -33,11 +45,25 @@ export function buildColorScale(
   values: Array<number | null | undefined>,
   kind: MetricKind,
   palette: keyof typeof PALETTES = "warm",
+  categories?: string[],
 ): ColorScale {
   const nums = values.filter((v): v is number => v != null && Number.isFinite(v));
   const [lo, hi] = extent(nums);
   const min = lo ?? 0;
   const max = hi ?? 0;
+
+  if (kind === "categorical") {
+    const labels = categories ?? [];
+    return {
+      color: (v) =>
+        v == null || !Number.isFinite(v)
+          ? NO_DATA_COLOR
+          : CATEGORICAL_PALETTE[(v as number) % CATEGORICAL_PALETTE.length],
+      domain: [0, Math.max(0, labels.length - 1)],
+      kind,
+      categories: labels,
+    };
+  }
 
   if (kind === "diverging") {
     const bound = Math.max(Math.abs(min), Math.abs(max)) || 1;

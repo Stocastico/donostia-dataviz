@@ -46,13 +46,18 @@ function decorate(geojson: BarriosGeoJSON, metric: MetricData, period: string, s
       const id = f.properties.barrio_id;
       const value = metric.values[id]?.[period] ?? null;
       const prevValue = prev ? metric.values[id]?.[prev] ?? null : null;
+      const isCategorical = metric.kind === "categorical";
+      const valueLabel = isCategorical
+        ? (value != null ? metric.categories?.[value] ?? "n/d" : "n/d")
+        : formatValue(value, metric.unit);
       return {
         ...f,
         properties: {
           ...f.properties,
           __value: value,
-          __valueLabel: formatValue(value, metric.unit),
-          __deltaLabel: prev ? formatDelta(value, prevValue) : "",
+          __valueLabel: valueLabel,
+          // No period-over-period delta for categorical (or single-period) metrics.
+          __deltaLabel: prev && !isCategorical ? formatDelta(value, prevValue) : "",
           __color: scale.color(value),
         },
       };

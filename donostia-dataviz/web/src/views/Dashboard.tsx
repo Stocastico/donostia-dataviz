@@ -41,7 +41,7 @@ export function Dashboard() {
   const scale = useMemo(() => {
     if (!metric) return null;
     const vals = Object.values(metric.values).map((byPeriod) => byPeriod[period]);
-    return buildColorScale(vals, metric.kind);
+    return buildColorScale(vals, metric.kind, "warm", metric.categories);
   }, [metric, period]);
 
   const toggleBarrio = (id: string) =>

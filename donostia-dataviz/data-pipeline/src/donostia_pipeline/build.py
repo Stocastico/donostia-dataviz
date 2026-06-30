@@ -19,6 +19,7 @@ import requests
 from . import config, export_tables, geometry, spatial
 from .datasets import (
     aemet_climate,
+    barrio_profiles,
     change_velocity,
     demografia,
     educacion_gis,
@@ -85,7 +86,7 @@ DATASETS = [vut, demografia, renta, estudios, vut_density, rent, educacion_gis]
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
 # the base metrics' time series, so it must run after they (and any derived
 # inputs) are in the store.
-DERIVED_METRICS = [housing_tension, change_velocity]
+DERIVED_METRICS = [housing_tension, change_velocity, barrio_profiles]
 
 # City-grain time-series modules (each exposes build_series(ctx) -> list[Series]).
 SERIES_DATASETS = [ine_eoh, aemet_climate]
