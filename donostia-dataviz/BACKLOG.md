@@ -144,6 +144,25 @@ e **iteración narrativa (Cowork)**.
   (solo existen a nivel Euskadi, no Donostia) ni una serie temporal (la ficha
   2022 es "Verano", ventana distinta a "Ocio" 2023 → no se mezclan para no
   fabricar una tendencia falsa). Módulo `datasets/ibiltur.py` + tests.
+- ⬜ **REC-11 locales comerciales vacíos** (idea jul-2026): ¿cuántos/qué % de
+  locales están vacíos (cierre de negocio, jubilación, alquiler
+  inasequible…) y tendría sentido reconvertir parte a vivienda para aliviar
+  la presión del mercado inmobiliario? Investigado sin éxito por ahora:
+  - El fichero `locales` del catastro foral (REC-8) trae un campo `Om` con
+    solo 5 valores (`EU` 65%, `MI` 16%, `EC` 15%, `MP` 6%, `ES` <1%) que
+    *podría* clasificar el tipo/ocupación de la unidad, pero **no hay manual
+    público que lo confirme** (el formato CAT nacional no aplica al catastro
+    foral de Gipuzkoa) — no se construye una métrica sobre una suposición sin
+    verificar. Contacto técnico: `hirilurra@gipuzkoa.eus`.
+  - Las tablas "altas/bajas" de establecimientos de Eustat (CDIRAE, ver
+    REC-7) solo bajan a nivel **comarca** (Donostialdea = Donostia + pueblos
+    vecinos), no aíslan la ciudad — tampoco sirven como proxy de vacío.
+  - Sin fuente pública verificable hoy. Pendiente: confirmar el campo `Om` o
+    localizar un censo municipal de locales vacíos (algunos ayuntamientos lo
+    publican vía su observatorio de comercio; no verificado para Donostia).
+  - **Cowork**: si aparecen datos, el ángulo narrativo (reconversión
+    comercial→vivienda como alivio a la tensión habitacional) encaja con la
+    tesis de transformación urbana ya desarrollada.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
   independiente para triangular el lead/lag.
 
