@@ -57,6 +57,12 @@ dl_post eustat_modelos_linguisticos.json \
   "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040601_ceens_mun01.px" \
   '{"query":[{"code":"municipio","selection":{"filter":"item","values":["20069"]}},{"code":"titularidad del centro","selection":{"filter":"item","values":["10"]}},{"code":"nivel de enseñanza","selection":{"filter":"item","values":["100"]}},{"code":"modelo lingüistico","selection":{"filter":"item","values":["10","20","30","40","50"]}},{"code":"características","selection":{"filter":"item","values":["10"]}}],"response":{"format":"json"}}'
 
+# Eustat PxWeb (REC-5): tasa de paro por capitales, Donostia, promedio anual
+# 2015–. Filtro server-side vía POST (sin clave).
+dl_post eustat_paro_donostia.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050403_cpra_tab19.px" \
+  '{"query":[{"code":"tasa (%)","selection":{"filter":"item","values":["30"]}},{"code":"capital","selection":{"filter":"item","values":["30"]}},{"code":"sexo","selection":{"filter":"item","values":["10","20","30"]}},{"code":"trimestre","selection":{"filter":"item","values":["10"]}}],"response":{"format":"json"}}'
+
 if [ -n "${AEMET_API_KEY:-}" ]; then
   echo "· AEMET: usa el pipeline (ventanas de 3 años + backoff): cd data-pipeline && python -m donostia_pipeline.build"
 else

@@ -35,6 +35,7 @@ existe dataset abierto estructurado.
 | `airbnb_reviews.csv.gz` | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz` | `airbnb_reviews`, `airbnb_activity` | **2025-09-29** | CC BY 4.0 |
 | `aemet_igeldo.json` | AEMET OpenData | REST `valores/climatologicos/mensualesanuales`, estación **1024E** | `temp_avg`, `temp_max`, `precip`, `hot_days_30` | mensual 1981–2025 | AEMET (**requiere clave** `AEMET_API_KEY`) |
 | `eustat_modelos_linguisticos.json` | Eustat (PxWeb) | tabla `PX_040601_ceens_mun01`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `pct_language_model_a/b/d` | anual 1983/1984–2024/2025 | Eustat (open) |
+| `eustat_paro_donostia.json` | Eustat (PxWeb) | tabla `PX_050403_cpra_tab19`, capital Donostia/San Sebastián, **POST** con filtro server-side (ver `descargar_raw.sh`) | `unemployment_rate(_men/_women)` | anual 2015–2025 (promedio anual) | Eustat (open) |
 
 ## Inputs curados (versionados en el repo)
 

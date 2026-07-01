@@ -91,7 +91,16 @@ e **iteración narrativa (Cowork)**.
   prohibido por política). Ver `datos/input/FUENTES.md`.
 
 ### Datos nuevos / análisis (del backlog histórico)
-- ⬜ **REC-5 empleo/paro/sectores** (SEPE/Eustat, prob. solo ciudad).
+- ✅ **REC-5 tasa de paro** — hecho (jul-2026): 3 indicadores ciudad
+  `unemployment_rate(_men/_women)` desde Eustat PxWeb (tabla
+  `PX_050403_cpra_tab19`, capital Donostia — no agregada con otros
+  municipios —, auto-fetch por POST en `build.ensure_eustat_paro`), anual
+  **2015–2025** (promedio anual): 12,0%→5,0% (hombres 12,9%→5,1%, mujeres
+  11,0%→5,0%), con el repunte de 2020 (COVID) visible. Módulo
+  `datasets/paro.py` + tests. Ciudad, no barrio ni por sectores — la
+  "ventana barrio 2016-19" que el plan archivado marcaba como pista a
+  verificar no aparece en el banco PxWeb de Eustat; sectores/LANBIDE no
+  investigados.
 - ⬜ **REC-6 movilidad** — investigado (jul-2026): el dataset `dbus_utilizacion`
   (viajeros DBus por línea/mes/hora) que enlaza Open Data Euskadi ya **no existe**
   en el catálogo CKAN de Donostia (403 + 0 resultados en su buscador de
