@@ -99,7 +99,13 @@ e **iteración narrativa (Cowork)**.
   con el mismo problema de calles que cruzan barrios que REC-6). **No es el
   quick-win que asumía `docs/archive/PLAN-RECOLECCION.md`** (lo marcaba ✅);
   aparcado hasta decidir si vale la pena la geocodificación por calle o el WFS.
-- ⬜ **REC-9 modelos lingüísticos (euskera)** (Eustat / Mapa Sociolingüístico GV).
+- ✅ **REC-9 modelos lingüísticos (euskera)** — hecho (jul-2026): 3 indicadores
+  ciudad `pct_language_model_a/b/d` (% alumnado por modelo) desde Eustat PxWeb
+  (tabla `PX_040601_ceens_mun01`, municipio Donostia, auto-fetch por POST en
+  `build.ensure_eustat_modelos`), serie completa **1983/1984–2024/2025**.
+  Municipio, no barrio (mismo límite que anticipaba el plan archivado).
+  Módulo `datasets/modelos_linguisticos.py` + tests; se renderiza solo con la
+  `IndicatorsSection` genérica, sin cambios de frontend.
 - ⬜ **REC-10 Ibiltur (Eustat)** — gasto/segmentos/motivo de visita.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
   independiente para triangular el lead/lag.

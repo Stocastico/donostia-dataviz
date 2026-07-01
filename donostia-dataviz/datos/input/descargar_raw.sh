@@ -19,6 +19,14 @@ dl () { # dl <fichero> <url>
   curl -fsSL "$url" -o "$DEST/$f" || echo "  ⚠ fallo al descargar $f"
 }
 
+dl_post () { # dl_post <fichero> <url> <json-body>
+  local f="$1" url="$2" body="$3"
+  if [ -f "$DEST/$f" ]; then echo "· ya existe $f"; return; fi
+  echo "↓ $f"
+  curl -fsSL -X POST -H "Content-Type: application/json" -d "$body" "$url" -o "$DEST/$f" \
+    || echo "  ⚠ fallo al descargar $f"
+}
+
 BASE="https://www.donostia.eus/datosabiertos/recursos"
 
 dl auzoak.json                "$BASE/mapa_auzoak/auzoak.json"
@@ -42,6 +50,12 @@ dl tasas_ciudad.csv           "https://www.donostia.eus/datosabiertos/dataset/7c
 
 dl airbnb_listings.csv.gz     "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz"
 dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
+
+# Eustat PxWeb (REC-9): modelo lingüístico A/B/D, Donostia (municipio 20069),
+# serie completa 1983/1984–. Filtro server-side vía POST (sin clave).
+dl_post eustat_modelos_linguisticos.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040601_ceens_mun01.px" \
+  '{"query":[{"code":"municipio","selection":{"filter":"item","values":["20069"]}},{"code":"titularidad del centro","selection":{"filter":"item","values":["10"]}},{"code":"nivel de enseñanza","selection":{"filter":"item","values":["100"]}},{"code":"modelo lingüistico","selection":{"filter":"item","values":["10","20","30","40","50"]}},{"code":"características","selection":{"filter":"item","values":["10"]}}],"response":{"format":"json"}}'
 
 if [ -n "${AEMET_API_KEY:-}" ]; then
   echo "· AEMET: usa el pipeline (ventanas de 3 años + backoff): cd data-pipeline && python -m donostia_pipeline.build"

@@ -30,6 +30,7 @@ from .datasets import (
     housing_tension,
     ine_eoh,
     mice,
+    modelos_linguisticos,
     rent,
     renta,
     residuos,
@@ -185,6 +186,42 @@ def _fetch_aemet_window(start: int, end: int, key: str) -> list[dict] | None:
         time.sleep(3 * 2**attempt)
     return None
 
+
+# Eustat PxWeb table PX_040601_ceens_mun01, filtered server-side to Donostia
+# (municipio 20069), all years, titularidad "Total", nivel "Enseñanzas de
+# régimen general" (100), modelo lingüístico (Total/A/B/D/X), "Total alumnos".
+EUSTAT_MODELOS_RAW = modelos_linguisticos.RAW_FILE
+EUSTAT_MODELOS_URL = (
+    "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040601_ceens_mun01.px"
+)
+EUSTAT_MODELOS_QUERY = {
+    "query": [
+        {"code": "municipio", "selection": {"filter": "item", "values": ["20069"]}},
+        {"code": "titularidad del centro", "selection": {"filter": "item", "values": ["10"]}},
+        {"code": "nivel de enseñanza", "selection": {"filter": "item", "values": ["100"]}},
+        {"code": "modelo lingüistico",
+         "selection": {"filter": "item", "values": ["10", "20", "30", "40", "50"]}},
+        {"code": "características", "selection": {"filter": "item", "values": ["10"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def ensure_eustat_modelos(offline: bool) -> bool:
+    """Fetch the Donostia language-model schooling series into raw/ (once)."""
+    dest = config.RAW_DIR / EUSTAT_MODELOS_RAW
+    if dest.exists():
+        return True
+    if offline:
+        print("  · Eustat modelos lingüísticos skipped (offline)")
+        return False
+    resp = requests.post(EUSTAT_MODELOS_URL, json=EUSTAT_MODELOS_QUERY, timeout=60)
+    resp.raise_for_status()
+    dest.write_bytes(resp.content)
+    print(f"  ↓ {EUSTAT_MODELOS_RAW}")
+    return True
+
+
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
 # render disabled ("in arrivo") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
@@ -279,9 +316,12 @@ def run(offline: bool = False) -> dict:
     _write_json(out_dir / "series.json", series_registry)
     print(f"  ✓ series.json ({len(series_registry)} series)")
 
-    # 5. Annual city indicators (MICE — curated; recycling rate — from residuos).
+    # 5. Annual city indicators (MICE — curated; recycling rate — from residuos;
+    #    language-model schooling share — from Eustat).
+    ensure_eustat_modelos(offline)
     indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
-                  + fiscalidad.build_indicators(config.RAW_DIR))
+                  + fiscalidad.build_indicators(config.RAW_DIR)
+                  + modelos_linguisticos.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 
