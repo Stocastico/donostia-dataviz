@@ -54,6 +54,27 @@ turístico (Erdialdea, Gros).
   extranjera se concentra en barrios de **menor** renta. Refuerza la advertencia
   ética ya documentada: no usar `pct_foreign` como proxy de gentrificación.
 
+### Actualización jul-2026 — ruido nocturno vs. turismo (VIZ-5)
+
+`NOTA-METODOLOGICA.md` ya marcaba `noise_night_pct55` como proxy de **tráfico**,
+no de turismo (es el mapa estratégico de ruido de infraestructuras). Esta
+actualización lo cuantifica:
+
+| Par | n | Pearson | Spearman | Pearson sin outliers | ¿Robusto? |
+|---|---|---|---|---|---|
+| `noise_night_pct55` ~ `vut_density` | 18 | 0,29 | 0,24 | **0,05** | ❌ se desmorona sin el centro |
+| `noise_night_pct55` ~ `airbnb_density` | 18 | −0,05 | −0,15 | **−0,44** | ❌ se invierte sin el centro |
+
+**Lectura:** las correlaciones ya son débiles con todos los barrios, y **ambas
+colapsan o se invierten** al quitar Erdialdea y Gros — justo lo contrario de lo
+que se esperaría de una relación robusta (los pares turismo↔alquiler, por
+ejemplo, se mantienen o se refuerzan al quitar esos mismos outliers). Confirma
+cuantitativamente que **no hay overlay narrativo defendible** "más turismo → más
+ruido nocturno" en estos datos; el ruido va por otro lado (tráfico). El overlay
+sigue disponible como exploración libre en la app (`BivariateSection`,
+ejes X/Y seleccionables), pero no se promueve como historia porque los propios
+datos la contradicen.
+
 ---
 
 ## 2. Velocidad de cambio (AN-2)

@@ -34,18 +34,23 @@ existe dataset abierto estructurado.
 | `airbnb_listings.csv.gz` | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz` | `airbnb_density` | **2025-09-29** | CC BY 4.0 |
 | `airbnb_reviews.csv.gz` | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz` | `airbnb_reviews`, `airbnb_activity` | **2025-09-29** | CC BY 4.0 |
 | `aemet_igeldo.json` | AEMET OpenData | REST `valores/climatologicos/mensualesanuales`, estación **1024E** | `temp_avg`, `temp_max`, `precip`, `hot_days_30` | mensual 1981–2025 | AEMET (**requiere clave** `AEMET_API_KEY`) |
+| `eustat_modelos_linguisticos.json` | Eustat (PxWeb) | tabla `PX_040601_ceens_mun01`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `pct_language_model_a/b/d` | anual 1983/1984–2024/2025 | Eustat (open) |
+| `eustat_paro_donostia.json` | Eustat (PxWeb) | tabla `PX_050403_cpra_tab19`, capital Donostia/San Sebastián, **POST** con filtro server-side (ver `descargar_raw.sh`) | `unemployment_rate(_men/_women)` | anual 2015–2025 (promedio anual) | Eustat (open) |
+| `eustat_comercio_donostia.json` | Eustat (PxWeb) | tabla `PX_200163_cdirae_est04b`, municipio 20069, ~630 códigos CNAE-2009 (agregados a `comercio`/`hostelería` en el pipeline), **POST** con filtro server-side (ver `descargar_raw.sh`) | `total_establishments`, `retail_establishments_share`, `hospitality_establishments_share` | anual 2008–2025 | Eustat (open) |
 
 ## Inputs curados (versionados en el repo)
 
 | Fichero | Contenido | Origen |
 |---|---|---|
 | `mice_donostia.csv` | Indicadores MICE (congresos ICCA; récord 2024: 188 eventos / 259k asistentes) | Curado de notas de prensa citadas por fila (DSS Convention Bureau / ICCA). Ampliar añadiendo filas. |
+| `ibiltur_donostia.csv` | Indicadores IBILTUR Ocio 2023 (gasto/persona, gasto/persona/día, impacto económico) — solo turista de ocio que pernocta | Curado de la ficha de destino Donostia/San Sebastián de Basquetour (PDF). Ampliar cuando salga otra edición **Ocio** (anual) comparable — la de 2022 es "Verano" (otra ventana temporal) y no se mezcla. |
 
 ## Pendiente / manual (sin dataset abierto)
 
-Precio de venta €/m² por barrio (Indomio/Eustat), gasto/segmento del visitante
-(Eustat Ibiltur), satisfacción del visitante (Observatorio Turístico), catastro
-foral (Diputación de Gipuzkoa). Detalle en `docs/SOURCES.md`.
+Precio de venta €/m² por barrio (Indomio/Eustat), gasto de excursionistas y de
+turismo de negocios/MICE por destino (solo hay cifras Euskadi-wide, no
+Donostia-específicas), satisfacción del visitante (Observatorio Turístico),
+catastro foral (Diputación de Gipuzkoa). Detalle en `docs/SOURCES.md`.
 
 ## Cómo poblar `raw/`
 

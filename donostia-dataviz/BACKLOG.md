@@ -52,22 +52,37 @@ e **iteración narrativa (Cowork)**.
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
 - ⬜ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin color).
 - ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
+- ⬜ **Explorar granularidad calle/punto (no barrio) para REC-8**: el fichero
+  `locales` del catastro foral (REC-8, ver sección Code) trae calle + portal
+  por local — no agregable a barrio sin un callejero (bloqueado en Code), pero
+  sí explotable *sin* agregar a barrio: densidad de locales, superficie media,
+  antigüedad de la edificación (`FeFinObr`) por calle o por punto. Investigar
+  si tiene sentido narrativo una visualización a esa escala (mapa de puntos o
+  por eje viario en vez de coropleta) y qué insight aportaría (p. ej. ejes
+  comerciales, antigüedad del parque construido) que la vista por barrio no
+  muestre. REC-6 (movilidad) no aplica hoy: su fuente está dada de baja, sin
+  datos de ningún grano disponibles.
 
 ---
 
 ## Pendiente — Code ⬜
 
 ### Nomenclatura y estructura
-- ⬜ **Renombrar el barrio a "Antiguo"** (nombre visible) en `data/barrios.csv`
-  (columna `name`), `web/src/data/barrios.geojson` y cualquier test que fije el
-  nombre. El `barrio_id`/clave de join sigue siendo `antigua` (no cambiar la clave).
-  *Ya corregido en `output/historias.html` (Cowork).*
-- ⬜ **Mover los datos procesados a `datos/procesado/`** y actualizar todas las rutas:
-  `data-pipeline/.../config.py` (`WEB_DATA_DIR`, `TABLES_DIR`) y `build.py`,
-  `analysis/*.py`, `web/src/lib/data.ts`, y los tests. Dejar el CI en verde.
-  *(Hoy `data/`, `web/src/data/`, `analysis/output/` viven en su sitio a propósito.)*
-- ⬜ **Consolidar `data-pipeline/curated/` en `datos/input/`** (o apuntar el pipeline
-  a `datos/input/mice_donostia.csv`) para una sola fuente de verdad del input curado.
+- ✅ **Renombrar el barrio a "Antiguo"** (nombre visible) en
+  `datos/procesado/tablas/barrios.csv` (columna `name`),
+  `web/src/data/barrios.geojson`, `datos/procesado/tablas/metrics_long.csv`,
+  `output/historias.html` y docs activos (`GUION-OUTPUTS.md`, `TESIS-CIUDAD.md`).
+  El `barrio_id`/clave de join sigue siendo `antigua` (no cambiado). `geometry.py`
+  lleva la entrada en `DISPLAY_NAME_OVERRIDES` como fuente de verdad.
+- ✅ **Mover los datos procesados a `datos/procesado/`** (parcial, decisión
+  deliberada): `data/*.csv` → `datos/procesado/tablas/`, con `config.TABLES_DIR`
+  y `analysis/*.py` actualizados. `web/src/data/*.json` **se queda donde está**:
+  Vite los carga con `import.meta.glob` desde dentro de `web/src/`, así que
+  sacarlos de ahí exige tocar `server.fs.allow` por una ganancia puramente
+  organizativa; `config.WEB_DATA_DIR` no cambia. `analysis/output/` (gitignored,
+  regenerable) tampoco se ha movido por bajo valor. CI en verde.
+- ✅ **Consolidar `data-pipeline/curated/` en `datos/input/`** — `config.CURATED_DIR`
+  apunta ahora a `datos/input/`; se elimina el duplicado en `data-pipeline/curated/`.
 
 ### Datos crudos (input)
 - ⬜ **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
@@ -76,21 +91,111 @@ e **iteración narrativa (Cowork)**.
   prohibido por política). Ver `datos/input/FUENTES.md`.
 
 ### Datos nuevos / análisis (del backlog histórico)
-- ⬜ **REC-5 empleo/paro/sectores** (SEPE/Eustat, prob. solo ciudad).
-- ⬜ **REC-6 movilidad** (DBus por línea/parada, Dbizi; verificar agregabilidad a barrio).
-- ⬜ **REC-7 tejido comercial** (licencias IAE/CNAE o bajos vía catastro foral).
-- ⬜ **REC-8 Catastro Foral de Gipuzkoa** (`gipuzkoairekia.eus`) → superficie
-  construida (m²/persona real para MET-1), valor catastral, proxy venta €/m².
-- ⬜ **REC-9 modelos lingüísticos (euskera)** (Eustat / Mapa Sociolingüístico GV).
-- ⬜ **REC-10 Ibiltur (Eustat)** — gasto/segmentos/motivo de visita.
+- ✅ **REC-5 tasa de paro** — hecho (jul-2026): 3 indicadores ciudad
+  `unemployment_rate(_men/_women)` desde Eustat PxWeb (tabla
+  `PX_050403_cpra_tab19`, capital Donostia — no agregada con otros
+  municipios —, auto-fetch por POST en `build.ensure_eustat_paro`), anual
+  **2015–2025** (promedio anual): 12,0%→5,0% (hombres 12,9%→5,1%, mujeres
+  11,0%→5,0%), con el repunte de 2020 (COVID) visible. Módulo
+  `datasets/paro.py` + tests. Ciudad, no barrio ni por sectores — la
+  "ventana barrio 2016-19" que el plan archivado marcaba como pista a
+  verificar no aparece en el banco PxWeb de Eustat; sectores/LANBIDE no
+  investigados.
+- ⬜ **REC-6 movilidad** — investigado (jul-2026): el dataset `dbus_utilizacion`
+  (viajeros DBus por línea/mes/hora) que enlaza Open Data Euskadi ya **no existe**
+  en el catálogo CKAN de Donostia (403 + 0 resultados en su buscador de
+  paquetes/recursos) — parece otra fuente dada de baja, como la de criminalidad.
+  Sin URL viva confirmada, aparcado.
+- ✅ **REC-7 tejido comercial (proxy CNAE)** — hecho (jul-2026): 3 indicadores
+  ciudad `total_establishments`, `retail_establishments_share`,
+  `hospitality_establishments_share` desde el Directorio de Actividades
+  Económicas de Eustat (tabla `PX_200163_cdirae_est04b`, municipio Donostia,
+  ~630 códigos CNAE-2009 sumados a comercio 47xx / hostelería 55xx+56xx en
+  el pipeline, sin rollup de sección en la fuente), anual **2008–2025**:
+  comercio al por menor 14,9%→12,6%, hostelería 6,0%→8,1%, locales totales
+  22.862→18.037. **Proxy, no causal**: consistente con la sustitución
+  residente→turista de la hipótesis, pero no la demuestra (erosión del
+  comercio por e-commerce no descartada). No hay licencias por barrio (lo
+  que pedía originalmente REC-7); ciudad únicamente. Módulo
+  `datasets/tejido_comercial.py` + tests.
+- ⬜ **REC-8 Catastro Foral de Gipuzkoa** — investigado (jul-2026): los CSV **sí**
+  se pueden descargar (el host documentado `opepro08.sare.gipuzkoa.net` no es
+  alcanzable; hay espejo funcional en
+  `api.gipuzkoairekia.eus/dataset/recurso/<id>/descargar`), pero **ninguno de
+  los dos ficheros trae coordenadas ni barrio**: `parcelas` solo trae una
+  `Refer` catastral interna de 7 dígitos (haría falta geometría INSPIRE
+  WFS/GML de parcelas + cruce de referencia, sin confirmar); `locales` trae
+  calle + portal (geocodificable, pero sin callejero→barrio en el proyecto y
+  con el mismo problema de calles que cruzan barrios que REC-6). **No es el
+  quick-win que asumía `docs/archive/PLAN-RECOLECCION.md`** (lo marcaba ✅);
+  aparcado hasta decidir si vale la pena la geocodificación por calle o el WFS.
+- ✅ **REC-9 modelos lingüísticos (euskera)** — hecho (jul-2026): 3 indicadores
+  ciudad `pct_language_model_a/b/d` (% alumnado por modelo) desde Eustat PxWeb
+  (tabla `PX_040601_ceens_mun01`, municipio Donostia, auto-fetch por POST en
+  `build.ensure_eustat_modelos`), serie completa **1983/1984–2024/2025**.
+  Municipio, no barrio (mismo límite que anticipaba el plan archivado).
+  Módulo `datasets/modelos_linguisticos.py` + tests; se renderiza solo con la
+  `IndicatorsSection` genérica, sin cambios de frontend.
+- ✅ **REC-10 Ibiltur Ocio (Basquetour)** — hecho (jul-2026): 3 indicadores
+  ciudad `ibiltur_ocio_*` (gasto/persona, gasto/persona/día, impacto
+  económico) desde la ficha de destino Donostia 2023 de Basquetour (PDF,
+  curado como MICE — `datos/input/ibiltur_donostia.csv`). Solo turista de
+  ocio que pernocta; **no** están los segmentos excursionista/MICE-negocios
+  (solo existen a nivel Euskadi, no Donostia) ni una serie temporal (la ficha
+  2022 es "Verano", ventana distinta a "Ocio" 2023 → no se mezclan para no
+  fabricar una tendencia falsa). Módulo `datasets/ibiltur.py` + tests.
+- ⬜ **REC-11 locales comerciales vacíos** (idea jul-2026): ¿cuántos/qué % de
+  locales están vacíos (cierre de negocio, jubilación, alquiler
+  inasequible…) y tendría sentido reconvertir parte a vivienda para aliviar
+  la presión del mercado inmobiliario? Investigado sin éxito por ahora:
+  - El fichero `locales` del catastro foral (REC-8) trae un campo `Om` con
+    solo 5 valores (`EU` 65%, `MI` 16%, `EC` 15%, `MP` 6%, `ES` <1%) que
+    *podría* clasificar el tipo/ocupación de la unidad, pero **no hay manual
+    público que lo confirme** (el formato CAT nacional no aplica al catastro
+    foral de Gipuzkoa) — no se construye una métrica sobre una suposición sin
+    verificar. Contacto técnico: `hirilurra@gipuzkoa.eus`.
+  - Las tablas "altas/bajas" de establecimientos de Eustat (CDIRAE, ver
+    REC-7) solo bajan a nivel **comarca** (Donostialdea = Donostia + pueblos
+    vecinos), no aíslan la ciudad — tampoco sirven como proxy de vacío.
+  - Sin fuente pública verificable hoy. Pendiente: confirmar el campo `Om` o
+    localizar un censo municipal de locales vacíos (algunos ayuntamientos lo
+    publican vía su observatorio de comercio; no verificado para Donostia).
+  - **Cowork**: si aparecen datos, el ángulo narrativo (reconversión
+    comercial→vivienda como alivio a la tensión habitacional) encaja con la
+    tesis de transformación urbana ya desarrollada.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
   independiente para triangular el lead/lag.
 
 ### Visualización (si se llevan a la web)
-- ⬜ **VIZ-8** small multiples por año + "play" animado.
+- ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):
+  botón ▶/⏸ junto al `TimeSlider` que recorre automáticamente los periodos
+  (900 ms/paso, para al cambiar de métrica); nueva sección `SmallMultiples`
+  con un mini-mapa SVG por año (misma escala de color que el mapa principal),
+  clicable para saltar directamente a ese periodo. Renderizado en SVG plano
+  (`lib/miniMap.ts`, proyección equirectangular con corrección coseno-latitud,
+  testeada), no maplibre — métricas con 20+ años agotarían el límite de
+  contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
+  instancia maplibre real.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
-- ⬜ **VIZ-10** "ciudad turística vs. vivida" en la app (ya existe como historia #5 en el HTML).
-- ⬜ **VIZ-5 (resto)** overlay ruido × densidad turística.
+- ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
+  nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
+  lado (cada uno con su propio selector de métrica y escala de color, no
+  fusionados como la mappa bivariata VIZ-3). Izquierda: turismo (`airbnb_density`
+  por defecto, + `vut_density`/`vut_count`). Derecha: ciudad vivida
+  (`schools_per_1000` por defecto, + `population`/`ageing_index`/
+  `pct_youth_adults`/`noise_night_pct55`). Reutiliza `ChoroplethMap`/`Legend`/
+  `MetricPicker` sin lib nueva; nota de advertencia sobre ruido↔tráfico
+  (VIZ-5) enlazada. Colocada antes de "Due turismi"/lead-lag, siguiendo el
+  orden narrativo de la historia #5 (`GUION-OUTPUTS.md`).
+- ✅ **VIZ-5 (resto)** overlay ruido × densidad turística — hecho (jul-2026,
+  análisis): `sprint_a.py` añade `noise_night_pct55 ~ vut_density` (r=0,29,
+  **0,05 sin outliers**) y `~ airbnb_density` (r=−0,05, **−0,44 sin
+  outliers**) — ambas colapsan/se invierten al quitar el centro turístico,
+  confirmando cuantitativamente que el ruido es de tráfico, no de turismo
+  (ver `NOTA-METODOLOGICA.md` MET-5 y `intermedia/ANALISIS-SPRINT-A.md`). El
+  overlay en sí **ya existe** en la app (`BivariateSection`, ejes X/Y
+  seleccionables libremente); no se promueve como historia/mapa dedicado
+  porque los datos no sostienen esa narrativa.
 
 ---
 

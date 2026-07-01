@@ -23,6 +23,9 @@ DISPLAY_NAME_OVERRIDES: dict[str, str] = {
     "mirakruz-bidebieta": "Mirakruz-Bidebieta",
     "ategorrieta-ulia": "Ategorrieta-Ulia",
     "erdialdea": "Erdialdea (Centro)",
+    # Council raw data calls it "Antigua"; the accepted usage is "Antiguo".
+    # The join key (barrio_id) stays "antigua".
+    "antigua": "Antiguo",
 }
 
 # Douglas–Peucker tolerance in degrees (~0.00012° ≈ 13 m at this latitude):

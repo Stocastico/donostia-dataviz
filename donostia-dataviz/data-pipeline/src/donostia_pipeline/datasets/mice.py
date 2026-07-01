@@ -2,9 +2,9 @@
 
 There is no structured open dataset for Donostia's MICE figures: they live in
 annual PDF memorias, press releases and ICCA reports. So this dataset reads a
-**hand-curated, source-cited** CSV (``curated/mice_donostia.csv``) rather than
-fetching anything. Each row is one (indicator, year) observation with its own
-citation; extending the series = adding rows.
+**hand-curated, source-cited** CSV (``datos/input/mice_donostia.csv``) rather
+than fetching anything. Each row is one (indicator, year) observation with its
+own citation; extending the series = adding rows.
 
 Indicators:
 * ``mice_icca_congresses`` — international association congresses counted by ICCA

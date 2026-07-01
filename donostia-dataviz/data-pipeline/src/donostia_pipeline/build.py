@@ -28,12 +28,16 @@ from .datasets import (
     fiscalidad,
     estudios,
     housing_tension,
+    ibiltur,
     ine_eoh,
     mice,
+    modelos_linguisticos,
+    paro,
     rent,
     renta,
     residuos,
     ruido_gis,
+    tejido_comercial,
     transformation,
     vut,
     vut_density,
@@ -185,6 +189,98 @@ def _fetch_aemet_window(start: int, end: int, key: str) -> list[dict] | None:
         time.sleep(3 * 2**attempt)
     return None
 
+
+# Eustat PxWeb table PX_040601_ceens_mun01, filtered server-side to Donostia
+# (municipio 20069), all years, titularidad "Total", nivel "Enseñanzas de
+# régimen general" (100), modelo lingüístico (Total/A/B/D/X), "Total alumnos".
+EUSTAT_MODELOS_RAW = modelos_linguisticos.RAW_FILE
+EUSTAT_MODELOS_URL = (
+    "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040601_ceens_mun01.px"
+)
+EUSTAT_MODELOS_QUERY = {
+    "query": [
+        {"code": "municipio", "selection": {"filter": "item", "values": ["20069"]}},
+        {"code": "titularidad del centro", "selection": {"filter": "item", "values": ["10"]}},
+        {"code": "nivel de enseñanza", "selection": {"filter": "item", "values": ["100"]}},
+        {"code": "modelo lingüistico",
+         "selection": {"filter": "item", "values": ["10", "20", "30", "40", "50"]}},
+        {"code": "características", "selection": {"filter": "item", "values": ["10"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def _ensure_pxweb_table(offline: bool, raw_name: str, url: str, query: dict, label: str) -> bool:
+    """Fetch a Eustat PxWeb query response into raw/ (once); shared by the
+    modelos-lingüísticos and paro fetches (both single-request POST queries)."""
+    dest = config.RAW_DIR / raw_name
+    if dest.exists():
+        return True
+    if offline:
+        print(f"  · {label} skipped (offline)")
+        return False
+    resp = requests.post(url, json=query, timeout=60)
+    resp.raise_for_status()
+    dest.write_bytes(resp.content)
+    print(f"  ↓ {raw_name}")
+    return True
+
+
+def ensure_eustat_modelos(offline: bool) -> bool:
+    """Fetch the Donostia language-model schooling series into raw/ (once)."""
+    return _ensure_pxweb_table(
+        offline, EUSTAT_MODELOS_RAW, EUSTAT_MODELOS_URL, EUSTAT_MODELOS_QUERY,
+        "Eustat modelos lingüísticos",
+    )
+
+
+# Eustat PxWeb table PX_050403_cpra_tab19, filtered server-side to capital
+# Donostia/San Sebastián (30), tasa "Tasa de paro" (30), all years, sexo
+# (Total/Hombres/Mujeres), trimestre "Promedio anual" (10).
+EUSTAT_PARO_RAW = paro.RAW_FILE
+EUSTAT_PARO_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050403_cpra_tab19.px"
+EUSTAT_PARO_QUERY = {
+    "query": [
+        {"code": "tasa (%)", "selection": {"filter": "item", "values": ["30"]}},
+        {"code": "capital", "selection": {"filter": "item", "values": ["30"]}},
+        {"code": "sexo", "selection": {"filter": "item", "values": ["10", "20", "30"]}},
+        {"code": "trimestre", "selection": {"filter": "item", "values": ["10"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def ensure_eustat_paro(offline: bool) -> bool:
+    """Fetch the Donostia unemployment-rate series into raw/ (once)."""
+    return _ensure_pxweb_table(
+        offline, EUSTAT_PARO_RAW, EUSTAT_PARO_URL, EUSTAT_PARO_QUERY, "Eustat paro",
+    )
+
+
+# Eustat PxWeb table PX_200163_cdirae_est04b, filtered server-side to
+# municipio Donostia (20069), all ~630 CNAE-2009 activity codes (the source
+# has no section/division rollup rows — tejido_comercial.py sums client-side),
+# all years.
+EUSTAT_COMERCIO_RAW = tejido_comercial.RAW_FILE
+EUSTAT_COMERCIO_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est04b.px"
+EUSTAT_COMERCIO_QUERY = {
+    "query": [
+        {"code": "municipio", "selection": {"filter": "item", "values": ["20069"]}},
+        {"code": "CNAE-2009", "selection": {"filter": "all", "values": ["*"]}},
+        {"code": "periodo", "selection": {"filter": "all", "values": ["*"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def ensure_eustat_comercio(offline: bool) -> bool:
+    """Fetch the Donostia establishments-by-CNAE series into raw/ (once)."""
+    return _ensure_pxweb_table(
+        offline, EUSTAT_COMERCIO_RAW, EUSTAT_COMERCIO_URL, EUSTAT_COMERCIO_QUERY,
+        "Eustat tejido comercial",
+    )
+
+
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
 # render disabled ("in arrivo") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
@@ -279,9 +375,18 @@ def run(offline: bool = False) -> dict:
     _write_json(out_dir / "series.json", series_registry)
     print(f"  ✓ series.json ({len(series_registry)} series)")
 
-    # 5. Annual city indicators (MICE — curated; recycling rate — from residuos).
+    # 5. Annual city indicators (MICE — curated; recycling rate — from residuos;
+    #    language-model schooling share / unemployment rate / establishment
+    #    mix — from Eustat; Ibiltur Ocio — curated).
+    ensure_eustat_modelos(offline)
+    ensure_eustat_paro(offline)
+    ensure_eustat_comercio(offline)
     indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
-                  + fiscalidad.build_indicators(config.RAW_DIR))
+                  + fiscalidad.build_indicators(config.RAW_DIR)
+                  + modelos_linguisticos.build_indicators(config.RAW_DIR)
+                  + ibiltur.build_indicators()
+                  + paro.build_indicators(config.RAW_DIR)
+                  + tejido_comercial.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

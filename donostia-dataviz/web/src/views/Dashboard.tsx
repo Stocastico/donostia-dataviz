@@ -2,12 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { ChoroplethMap } from "../components/ChoroplethMap";
 import { Legend } from "../components/Legend";
 import { MetricPicker } from "../components/MetricPicker";
+import { SmallMultiples } from "../components/SmallMultiples";
 import { TimeSlider } from "../components/TimeSlider";
 import { BarrioCompareChart } from "../components/BarrioCompareChart";
 import { SeasonalitySection } from "../components/SeasonalitySection";
 import { ScatterSection } from "../components/ScatterSection";
 import { BivariateSection } from "../components/BivariateSection";
 import { TransformationSection } from "../components/TransformationSection";
+import { TwoCitiesSection } from "../components/TwoCitiesSection";
 import { TourismCompareSection } from "../components/TourismCompareSection";
 import { LeadLagSection } from "../components/LeadLagSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
@@ -27,10 +29,12 @@ export function Dashboard() {
   const [metric, setMetric] = useState<MetricData | null>(null);
   const [periodIndex, setPeriodIndex] = useState(0);
   const [compare, setCompare] = useState<string[]>(DEFAULT_COMPARE);
+  const [playing, setPlaying] = useState(false);
 
   // Load the selected metric; default the slider to its latest period.
   useEffect(() => {
     let active = true;
+    setPlaying(false); // switching metric mid-animation would be jarring
     loadMetric(metricId).then((m) => {
       if (!active) return;
       setMetric(m);
@@ -40,6 +44,16 @@ export function Dashboard() {
       active = false;
     };
   }, [metricId]);
+
+  // "▶ Play" (VIZ-8): step through every period, looping back to the start.
+  useEffect(() => {
+    if (!playing || !metric || metric.periods.length <= 1) return;
+    const periods = metric.periods;
+    const id = setInterval(() => {
+      setPeriodIndex((i) => (i + 1) % periods.length);
+    }, 900);
+    return () => clearInterval(id);
+  }, [playing, metric]);
 
   const period = metric?.periods[periodIndex] ?? "";
 
@@ -77,7 +91,13 @@ export function Dashboard() {
       <div className="controls">
         <MetricPicker metrics={metricRegistry} selectedId={metricId} onSelect={setMetricId} />
         {metric && (
-          <TimeSlider periods={metric.periods} index={periodIndex} onChange={setPeriodIndex} />
+          <TimeSlider
+            periods={metric.periods}
+            index={periodIndex}
+            onChange={setPeriodIndex}
+            playing={playing}
+            onTogglePlay={() => setPlaying((p) => !p)}
+          />
         )}
       </div>
 
@@ -102,6 +122,18 @@ export function Dashboard() {
             />
           )}
         </div>
+      )}
+
+      {metric && scale && (
+        <SmallMultiples
+          metric={metric}
+          scale={scale}
+          activeIndex={periodIndex}
+          onSelect={(i) => {
+            setPlaying(false);
+            setPeriodIndex(i);
+          }}
+        />
       )}
 
       {metric && metric.periods.length > 1 && (
@@ -133,6 +165,7 @@ export function Dashboard() {
       <ScatterSection />
       <BivariateSection />
       <TransformationSection />
+      <TwoCitiesSection />
       <TourismCompareSection />
       <LeadLagSection />
       <HousingPressureSection />

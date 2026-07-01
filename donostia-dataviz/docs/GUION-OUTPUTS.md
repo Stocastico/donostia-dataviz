@@ -101,7 +101,7 @@ acomodado, cambio social en la periferia interior).
 - **Números:** alquiler **+3–4 %/año en todas partes** (Loiola +4,3, Aiete +3,9,
   Intxaurrondo +3,9, Altza +3,6); **% extranjeros crece más rápido en el este**
   (Intxaurrondo +0,92 pp/año); **el centro pierde población** (Gros −0,60 %/año,
-  Antigua −0,45, Egia −0,33). Cuatro perfiles (central turístico / acomodado /
+  Antiguo −0,45, Egia −0,33). Cuatro perfiles (central turístico / acomodado /
   transicional / popular en tensión).
 - **Conclusión:** dos velocidades: periferia que crece en población vs. ciudad
   consolidada que se transforma en lo social; **Egia** es el caso "en movimiento"
@@ -116,7 +116,7 @@ acomodado, cambio social en la periferia interior).
 - **Números:** los barrios **centrales y turísticos son los más envejecidos** de
   los urbanos (Gros índice **370**, Erdialdea **350**), mientras el **este obrero
   tiene la población adulta más joven** (Intxaurrondo **21 %** de 25–39, Loiola).
-  Antigua **envejece rápido** (+203 puntos de índice 2000→2025);
+  Antiguo **envejece rápido** (+203 puntos de índice 2000→2025);
   Miramón-Zorroaga **rejuvenece** por desarrollo residencial nuevo.
 - **Conclusión:** el centro que pierde población (#2) es además el que más
   envejece → señal **indirecta** de recambio; el este se mantiene joven vía

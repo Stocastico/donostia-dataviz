@@ -41,17 +41,17 @@ donostia-dataviz/
 ├── README.md             ← este fichero
 ├── BACKLOG.md            ← backlog (hecho + pendiente), secciones Cowork / Code
 ├── output/               ← entregables: historias.html (6 historias) + resumen.md
-├── datos/                ← input/ (crudos + curados + FUENTES.md) · procesado/ (ver README interno)
+├── datos/                ← input/ (crudos + curados + FUENTES.md) · procesado/tablas/ (tablas tidy CSV)
 ├── docs/                 ← documentación activa (fuentes, metodología, relatos)
 │   ├── intermedia/       ← análisis ya volcados en los outputs (congelados)
 │   └── archive/          ← documentos históricos / superados (no borrados)
-├── data/                 ← tablas tidy CSV (las lee analysis/; ver data/README.md) *
-├── data-pipeline/        ← Python: fuentes públicas → JSON/CSV limpios *
-├── analysis/             ← scripts de análisis (correlaciones, velocidades, clusters, índice) *
-└── web/                  ← app React + Vite (dashboard coroplético) *
+├── data-pipeline/        ← Python: fuentes públicas → JSON/CSV limpios
+├── analysis/             ← scripts de análisis (correlaciones, velocidades, clusters, índice)
+└── web/                  ← app React + Vite (dashboard coroplético); web/src/data/ * es su JSON estático
 
-* código y datos que el pipeline/web leen de rutas fijas; su reubicación bajo
-  datos/procesado/ es una tarea de Code (ver BACKLOG).
+* Vite carga estos JSON con `import.meta.glob` desde dentro de `web/src/`, así
+  que se quedan en su sitio (a diferencia de `data/`, ya movido a
+  `datos/procesado/tablas/`; ver BACKLOG).
 ```
 
 ### Mapa de documentos (`docs/`)
@@ -72,7 +72,7 @@ Agrupados por para qué sirven. Toda la documentación activa está en español.
 | `SOURCES.md` | Registro de fuentes verificadas + estado de acceso de cada dataset. | en |
 | `../datos/input/FUENTES.md` | Manifiesto de los datos de entrada: origen, URL y qué alimenta cada uno. | es |
 | `DATA-CONTRACT.md` | Contrato pipeline ↔ frontend (forma estable de cada métrica). | en |
-| `../data/README.md` | Diccionario de las tablas CSV (`metrics_long`, `series_long`, …). | en |
+| `../datos/procesado/tablas/README.md` | Diccionario de las tablas CSV (`metrics_long`, `series_long`, …). | en |
 
 **Metodología y relatos (activos)**
 
@@ -113,10 +113,11 @@ Conservados como referencia, no borrados. No forman parte del camino activo.
 
 El pipeline escribe JSON limpio en `web/src/data/` (versionado), de modo que **la
 web se construye sin Python ni red**: carga JSON/GeoJSON estáticos. Los mismos
-números se exportan como **tablas tidy CSV** en `data/` (ver
-[`data/README.md`](data/README.md)), reutilizables en cualquier stack. La carpeta
-[`datos/`](datos/README.md) documenta y organiza entrada (`datos/input`, con
-`FUENTES.md`) y salida (`datos/procesado`).
+números se exportan como **tablas tidy CSV** en `datos/procesado/tablas/` (ver
+[`datos/procesado/tablas/README.md`](datos/procesado/tablas/README.md)),
+reutilizables en cualquier stack. La carpeta [`datos/`](datos/README.md)
+documenta y organiza entrada (`datos/input`, con `FUENTES.md`) y salida
+(`datos/procesado`).
 
 Estado actual: métricas coropléticas por barrio (población, origen, estudios,
 renta, alquiler, tensión, VUT, **densidad Airbnb**, escuelas) + **velocidad de

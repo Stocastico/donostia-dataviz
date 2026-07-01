@@ -60,6 +60,11 @@ body {
   flex: 1;
   min-width: 260px;
 }
+.time-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 .time-slider input[type="range"] {
   width: 100%;
 }
@@ -71,6 +76,62 @@ body {
   justify-content: space-between;
   font-size: 0.72rem;
   color: var(--muted);
+}
+
+.play-button {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.play-button:hover {
+  background: #f4f6f8;
+}
+.play-button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.small-multiples {
+  margin-top: 2rem;
+}
+.small-multiples-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.mini-map-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.3rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+.mini-map-cell:hover {
+  border-color: var(--border);
+}
+.mini-map-cell.active {
+  border-color: var(--accent);
+  background: #eaf3fa;
+}
+.mini-map-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.mini-map-cell.active .mini-map-label {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .map-area {
@@ -457,6 +518,31 @@ body {
   justify-self: center;
   text-align: center;
   max-width: 90px;
+}
+
+.two-cities {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.two-cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.two-cities-panel h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+.two-cities-map {
+  height: 340px;
+}
+.two-cities-map .choropleth-map {
+  height: 340px;
+}
+.two-cities-map .map-placeholder {
+  height: 340px;
 }
 
 /* Transformation index dashboard (AN-8 / VIZ-6) */

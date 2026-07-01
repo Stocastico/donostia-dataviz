@@ -95,6 +95,12 @@ de gentrificación".
   inmigración económica y expatriados acomodados. Empíricamente, fuera del centro
   turístico se asocia a **menor** renta (renta ↔ % extranjeros r = −0,58, que se
   refuerza a −0,72 sin el centro), así que usarla acríticamente sería engañoso.
+- **`noise_night_pct55` no es proxy de turismo** (VIZ-5, verificado jul-2026):
+  ruido↔VUT r = 0,29 (cae a **0,05** sin Erdialdea/Gros); ruido↔densidad Airbnb
+  r = −0,05 (se vuelve **−0,44** sin esos dos barrios) — ambas correlaciones se
+  desmoronan o invierten al quitar el centro turístico, confirmando que el mapa
+  estratégico de ruido mide **tráfico** (carreteras/infraestructura), no ocio
+  nocturno; ver `intermedia/ANALISIS-SPRINT-A.md`.
 - **Provenance explícita**: cada valor arrastra su fuente (`source`).
 - **Una sola geometría de referencia** (19 barrios `mapa_auzoak`); todo join se
   hace una vez, en ingestión.

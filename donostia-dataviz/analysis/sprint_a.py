@@ -1,7 +1,7 @@
 """Sprint A — análisis sobre los datos existentes (sin datos nuevos).
 
 Reproducible con la única dependencia del pipeline: pandas + numpy
-(sin scipy/sklearn). Lee el indicator store `data/metrics_long.csv` y produce:
+(sin scipy/sklearn). Lee el indicator store `datos/procesado/tablas/metrics_long.csv` y produce:
 
   1. Correlaciones robustas (Pearson + Spearman[rangos] + leave-one-out).
   2. Velocidad de cambio por barrio (tasas anualizadas 2016→último año).
@@ -24,7 +24,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data" / "metrics_long.csv"
+DATA = ROOT / "datos" / "procesado" / "tablas" / "metrics_long.csv"
 OUTDIR = Path(__file__).resolve().parent / "output"
 
 # Outliers conocidos (centro turístico) para el leave-one-out.
@@ -34,6 +34,7 @@ OUTLIERS = ["erdialdea", "gros"]
 CROSS_METRICS = [
     "income_total", "rent_eur_m2", "pct_university", "pct_foreign",
     "vut_density", "housing_tension", "schools_per_1000",
+    "noise_night_pct55", "airbnb_density",
 ]
 # Variables para el perfil/cluster (las 4 que sugiere el feedback).
 CLUSTER_VARS = ["income_total", "pct_university", "vut_density", "rent_eur_m2"]
@@ -78,6 +79,12 @@ def correlations(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, list[dic
         ("rent_eur_m2", "income_total"),
         ("pct_university", "income_total"),
         ("housing_tension", "income_total"),
+        # VIZ-5 (resto): ¿el ruido nocturno es un proxy de turismo, o de
+        # tráfico como ya se documenta en NOTA-METODOLOGICA? (noise_night_pct55
+        # es el mapa estratégico de ruido de infraestructuras — carreteras,
+        # no ocio nocturno.)
+        ("noise_night_pct55", "vut_density"),
+        ("noise_night_pct55", "airbnb_density"),
     ]
     robustness = []
     for a, b in key_pairs:
