@@ -177,7 +177,16 @@ e **iteración narrativa (Cowork)**.
   contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
   instancia maplibre real.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
-- ⬜ **VIZ-10** "ciudad turística vs. vivida" en la app (ya existe como historia #5 en el HTML).
+- ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
+  nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
+  lado (cada uno con su propio selector de métrica y escala de color, no
+  fusionados como la mappa bivariata VIZ-3). Izquierda: turismo (`airbnb_density`
+  por defecto, + `vut_density`/`vut_count`). Derecha: ciudad vivida
+  (`schools_per_1000` por defecto, + `population`/`ageing_index`/
+  `pct_youth_adults`/`noise_night_pct55`). Reutiliza `ChoroplethMap`/`Legend`/
+  `MetricPicker` sin lib nueva; nota de advertencia sobre ruido↔tráfico
+  (VIZ-5) enlazada. Colocada antes de "Due turismi"/lead-lag, siguiendo el
+  orden narrativo de la historia #5 (`GUION-OUTPUTS.md`).
 - ✅ **VIZ-5 (resto)** overlay ruido × densidad turística — hecho (jul-2026,
   análisis): `sprint_a.py` añade `noise_night_pct55 ~ vut_density` (r=0,29,
   **0,05 sin outliers**) y `~ airbnb_density` (r=−0,05, **−0,44 sin

@@ -520,6 +520,31 @@ body {
   max-width: 90px;
 }
 
+.two-cities {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+.two-cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.two-cities-panel h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+.two-cities-map {
+  height: 340px;
+}
+.two-cities-map .choropleth-map {
+  height: 340px;
+}
+.two-cities-map .map-placeholder {
+  height: 340px;
+}
+
 /* Transformation index dashboard (AN-8 / VIZ-6) */
 .transformation {
   margin-top: 2.5rem;
