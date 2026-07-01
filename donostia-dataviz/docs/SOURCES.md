@@ -56,7 +56,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 |---|---|---|---|
 | Sale price €/m² per barrio | Indomio / Eustat | scrape / tables | sale prices still pending; rent is now covered by the official EMA below |
 | Visit motive / gasto / segment | Eustat Ibiltur | tables / manual | annual; pull from Eustat tables |
-| MICE events / attendees | DSS Convention Bureau / ICCA | **curated ✓** | `data-pipeline/curated/mice_donostia.csv` — annual indicators (ICCA congresses 2018/19/23/25; 2024 record 188 events / 259k attendees), each value cited per-row. Extend by adding rows. |
+| MICE events / attendees | DSS Convention Bureau / ICCA | **curated ✓** | `datos/input/mice_donostia.csv` — annual indicators (ICCA congresses 2018/19/23/25; 2024 record 188 events / 259k attendees), each value cited per-row. Extend by adding rows. |
 | Visitor satisfaction, excursionism | Observatorio Turístico Donostia | manual | annual headline figures |
 | Catastro (valore/dati immobili) | **Diputación Foral de Gipuzkoa** | bulk CSV | ⚠️ usare il catastro **foral** su `gipuzkoairekia.eus` (Bienes Inmuebles de Naturaleza Urbana, CC-BY), **NON** `sedecatastro.gob.es` (non copre i territori forali). Parcela-level → aggregare a barrio col join spaziale. |
 

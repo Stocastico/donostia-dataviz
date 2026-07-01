@@ -1,5 +1,6 @@
-"""Unit tests for barrio identity (slug + alias)."""
+"""Unit tests for barrio identity (slug + alias) and shared paths."""
 
+from donostia_pipeline import config
 from donostia_pipeline.config import canonical_barrio_id, slugify_barrio
 
 
@@ -18,3 +19,10 @@ def test_alias_maps_alternate_spellings():
 
 def test_unaliased_name_falls_back_to_slug():
     assert canonical_barrio_id("GROS") == "gros"
+
+
+def test_curated_dir_points_at_datos_input():
+    # Single source of truth for hand-curated inputs: datos/input/, not the
+    # pipeline's own (now-removed) curated/ copy.
+    assert config.CURATED_DIR == config.PIPELINE_ROOT.parent / "datos" / "input"
+    assert (config.CURATED_DIR / "mice_donostia.csv").is_file()

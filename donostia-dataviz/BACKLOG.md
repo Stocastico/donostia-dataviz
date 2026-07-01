@@ -58,16 +58,17 @@ e **iteración narrativa (Cowork)**.
 ## Pendiente — Code ⬜
 
 ### Nomenclatura y estructura
-- ⬜ **Renombrar el barrio a "Antiguo"** (nombre visible) en `data/barrios.csv`
-  (columna `name`), `web/src/data/barrios.geojson` y cualquier test que fije el
-  nombre. El `barrio_id`/clave de join sigue siendo `antigua` (no cambiar la clave).
-  *Ya corregido en `output/historias.html` (Cowork).*
+- ✅ **Renombrar el barrio a "Antiguo"** (nombre visible) en `data/barrios.csv`
+  (columna `name`), `web/src/data/barrios.geojson`, `data/metrics_long.csv`,
+  `output/historias.html` y docs activos (`GUION-OUTPUTS.md`, `TESIS-CIUDAD.md`).
+  El `barrio_id`/clave de join sigue siendo `antigua` (no cambiado). `geometry.py`
+  lleva la entrada en `DISPLAY_NAME_OVERRIDES` como fuente de verdad.
 - ⬜ **Mover los datos procesados a `datos/procesado/`** y actualizar todas las rutas:
   `data-pipeline/.../config.py` (`WEB_DATA_DIR`, `TABLES_DIR`) y `build.py`,
   `analysis/*.py`, `web/src/lib/data.ts`, y los tests. Dejar el CI en verde.
   *(Hoy `data/`, `web/src/data/`, `analysis/output/` viven en su sitio a propósito.)*
-- ⬜ **Consolidar `data-pipeline/curated/` en `datos/input/`** (o apuntar el pipeline
-  a `datos/input/mice_donostia.csv`) para una sola fuente de verdad del input curado.
+- ✅ **Consolidar `data-pipeline/curated/` en `datos/input/`** — `config.CURATED_DIR`
+  apunta ahora a `datos/input/`; se elimina el duplicado en `data-pipeline/curated/`.
 
 ### Datos crudos (input)
 - ⬜ **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
