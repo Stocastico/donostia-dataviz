@@ -52,6 +52,16 @@ e **iteración narrativa (Cowork)**.
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
 - ⬜ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin color).
 - ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
+- ⬜ **Explorar granularidad calle/punto (no barrio) para REC-8**: el fichero
+  `locales` del catastro foral (REC-8, ver sección Code) trae calle + portal
+  por local — no agregable a barrio sin un callejero (bloqueado en Code), pero
+  sí explotable *sin* agregar a barrio: densidad de locales, superficie media,
+  antigüedad de la edificación (`FeFinObr`) por calle o por punto. Investigar
+  si tiene sentido narrativo una visualización a esa escala (mapa de puntos o
+  por eje viario en vez de coropleta) y qué insight aportaría (p. ej. ejes
+  comerciales, antigüedad del parque construido) que la vista por barrio no
+  muestre. REC-6 (movilidad) no aplica hoy: su fuente está dada de baja, sin
+  datos de ningún grano disponibles.
 
 ---
 
@@ -114,8 +124,6 @@ e **iteración narrativa (Cowork)**.
   (solo existen a nivel Euskadi, no Donostia) ni una serie temporal (la ficha
   2022 es "Verano", ventana distinta a "Ocio" 2023 → no se mezclan para no
   fabricar una tendencia falsa). Módulo `datasets/ibiltur.py` + tests.
-- ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
-  independiente para triangular el lead/lag.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
   independiente para triangular el lead/lag.
 
