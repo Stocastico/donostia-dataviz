@@ -59,6 +59,19 @@ export function annualTotals(series: SeriesData): Array<{ year: string; total: n
   });
 }
 
+/** Whether `year` is still in progress (1-11 populated months) rather than a
+ * finished calendar year (12) or simply absent (0). A partial year averaged
+ * as if complete can mislead — e.g. only the cooler months published so far
+ * would understate an annual temperature mean, not overstate it. Callers
+ * that compute year-over-year trends/anomalies should caption or exclude it
+ * rather than silently treat it as equivalent to a full year. */
+export function isPartialYear(series: SeriesData, year: string): boolean {
+  const count = Object.values(series.values[year] ?? {}).filter(
+    (v) => v != null && Number.isFinite(v),
+  ).length;
+  return count > 0 && count < 12;
+}
+
 /** Per-year aggregate (sum or mean of the months present), skipping years with
  * no data at all. ``sum`` suits precipitation/overnight stays, ``mean`` suits
  * temperature. */
