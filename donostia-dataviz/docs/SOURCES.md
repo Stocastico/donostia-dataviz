@@ -90,4 +90,4 @@ is absent, the AEMET dataset build is skipped and the metric is registered as
 - Boletín AGE (2023) — *The touristification of urban spaces: measurement proposal*
 - Eustat — *Ibiltur: Encuesta de Turismo Receptivo*
 - ICCA — *International Congress Statistics Report* (Donostia pos. 221 world / 112 Europe, 2019)
-- Donostia San Sebastián Turismoa — *Memorias anuales* (`press.sansebastianturi
+- Donostia San Sebastián Turismoa — *Memorias anuales* (`press.sansebastianturismoa.eus`)

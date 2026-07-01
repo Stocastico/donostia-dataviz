@@ -108,4 +108,7 @@ e **iteración narrativa (Cowork)**.
 
 - **"Transformación", nunca "gentrificación"** (falta rotación de población).
 - **Correlación ≠ causalidad**; incluso el lead/lag es exploratorio.
-- **% de extranjeros no es proxy** de transformación; e
+- **% de extranjeros no es proxy** de transformación; el **ruido es de tráfico**,
+  no de turismo.
+- Toda métrica lleva su **ficha de confianza** (observado / derivado / proxy).
+- **No versionar crudos grandes**; sí el input curado + `FUENTES.md` + script de descarga.

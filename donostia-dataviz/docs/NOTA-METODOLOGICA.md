@@ -97,4 +97,4 @@ de gentrificación".
   refuerza a −0,72 sin el centro), así que usarla acríticamente sería engañoso.
 - **Provenance explícita**: cada valor arrastra su fuente (`source`).
 - **Una sola geometría de referencia** (19 barrios `mapa_auzoak`); todo join se
-  hace una
+  hace una vez, en ingestión.

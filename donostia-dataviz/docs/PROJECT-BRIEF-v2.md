@@ -469,4 +469,4 @@ Tres advertencias, vistas en todos los proyectos serios de este tipo:
 12. [ ] Descargar CSV del Catastro de Gipuzkoa (Diputación Foral) desde `gipuzkoairekia.eus` — NO el catastro estatal
 13. [ ] Buscar serie histórica de modelos lingüísticos A/B/D en `hezkuntza.euskadi.eus`
 14. [ ] Script Python de limpieza y join sobre geometría de barrios común
-15. [ ] Prototipo de
+15. [ ] Prototipo de choropleth con D3 o MapLibre + un dataset (p.ej. densidad VUT)

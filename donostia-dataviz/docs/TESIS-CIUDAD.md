@@ -143,4 +143,4 @@ internacionales. Congresos ICCA: 16 (2018) → 12 (2019) → 15 (2023) → 13 (2
 
 **🔗 Correlaciones clave.** Densidad VUT ↔ alquiler **r = 0,64** (0,62 sin el
 centro; Spearman 0,75); esfuerzo ↔ renta **r = −0,81** (−0,89 sin el centro), la
-más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (�
+más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (−0,72 sin el centro).

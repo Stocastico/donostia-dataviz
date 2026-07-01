@@ -204,4 +204,4 @@ la evidencia reproducible (`analysis/*.py`) y a la vista de la app.
   al alquiler— y mayor que la contemporánea (0,19) y que el sentido inverso
   (≈0). Débil pero **direccionalmente consistente**; exploratorio (MET-3).
 - **Siguiente refinamiento (opcional):** **consolidar el modo turístico** del
-  índice integrando `airbnb_d
+  índice integrando `airbnb_density` junto a VUT y ruido.

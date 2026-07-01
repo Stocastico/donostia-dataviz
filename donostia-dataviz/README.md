@@ -158,4 +158,35 @@ python -m donostia_pipeline.build --offline  # reconstruye desde raw/ cacheado
 pytest                                        # tests de contrato e integridad de joins
 ```
 
-Añadir una métrica = añ
+Añadir una métrica = añadir un módulo en
+`data-pipeline/src/donostia_pipeline/datasets/` que exponga `build(ctx) -> list[Metric]`,
+registrarlo en `build.DATASETS` y reejecutar. El frontend la recoge vía
+`metrics.json` sin cambios. El dataset AEMET necesita una API key gratuita en
+`AEMET_API_KEY` (se solicita en <https://opendata.aemet.es>).
+
+### Análisis
+
+```bash
+python analysis/sprint_a.py --save             # correlaciones, velocidades, clusters
+python analysis/distribucion_barrios.py --save # niveles×variaciones, polarización
+python analysis/transformation_index.py --save # índice de transformación urbana
+python analysis/lead_lag.py --save             # lead/lag turismo→alquiler (AN-6)
+```
+
+### Regenerar `output/historias.html`
+
+El documento narrativo embebe sus datos en una única línea `<script>window.DONO =
+{…}` y dibuja los mapas/gráficos en SVG en el navegador. Para actualizar los datos
+tras refrescar el pipeline: parsea esa línea, funde las métricas desde
+`web/src/data/metric_*.json` / `series_*.json` (y `barrios.geojson` para la
+geometría) y reescríbela. Es autocontenido: no depende de ficheros externos en runtime.
+
+---
+
+## 🧭 Principios
+
+- **Una sola geometría de referencia** y join único en ingestión.
+- **Provenance explícita**: cada valor arrastra su fuente.
+- **Honestidad metodológica**: correlación ≠ causalidad; fichas de confianza;
+  "transformación", nunca "gentrificación" (no se puede demostrar con estos datos).
+- **Reproducibilidad**: todo número tiene un script o una métrica detrás.
