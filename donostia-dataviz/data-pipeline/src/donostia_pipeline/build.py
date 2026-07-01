@@ -133,7 +133,7 @@ SERIES_DATASETS = [ine_eoh, aemet_climate, airbnb]
 # AEMET climate fetch: monthly endpoint caps each request at 36 months, so we
 # pull the history in 3-year windows and cache the concatenation in raw/.
 AEMET_RAW = "aemet_igeldo.json"
-AEMET_YEAR_RANGE = (1981, 2025)
+AEMET_YEAR_RANGE = (1981, 2026)
 AEMET_DATOS_URL = (
     "https://opendata.aemet.es/opendata/api/valores/climatologicos/"
     "mensualesanuales/datos/anioini/{ini}/aniofin/{fin}/estacion/"
