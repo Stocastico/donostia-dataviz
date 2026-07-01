@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { annualAggregate } from "../lib/series";
+import { annualAggregate, isPartialYear } from "../lib/series";
 import { linearRegression } from "../lib/stats";
 import { formatCompact } from "../lib/format";
 import type { SeriesData } from "../lib/types";
@@ -27,7 +27,14 @@ export function AnnualTrendChart({ series, mode, color }: Props) {
   const agg = annualAggregate(series, mode);
   if (agg.length < 2) return null;
 
-  const fit = linearRegression(agg.map((d) => ({ x: Number(d.year), y: d.value })));
+  // A year still in progress (e.g. the current one, only its first few months
+  // published) isn't comparable to a full year for mode="mean" — including it
+  // in the regression would skew the fitted trend. Still plot its point (it's
+  // real data), just leave it out of the fit itself.
+  const lastYear = agg[agg.length - 1].year;
+  const partial = isPartialYear(series, lastYear);
+  const fitRows = partial ? agg.slice(0, -1) : agg;
+  const fit = linearRegression(fitRows.map((d) => ({ x: Number(d.year), y: d.value })));
   const data = agg.map((d) => ({
     year: d.year,
     value: Math.round(d.value * 100) / 100,
@@ -44,6 +51,7 @@ export function AnnualTrendChart({ series, mode, color }: Props) {
         <p className="trend-caption">
           Trend lineare: <strong>{sign}{DEC.format(Math.abs(perDecade))} {series.unit}/decennio</strong>{" "}
           (R² = {DEC.format(fit.r2)}).
+          {partial && ` Il ${lastYear} è parziale (in corso) e non è incluso nel calcolo del trend.`}
         </p>
       )}
       <ResponsiveContainer width="100%" height={240}>

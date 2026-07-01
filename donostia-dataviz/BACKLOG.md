@@ -85,10 +85,17 @@ e **iteración narrativa (Cowork)**.
   apunta ahora a `datos/input/`; se elimina el duplicado en `data-pipeline/curated/`.
 
 ### Datos crudos (input)
-- ⬜ **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
-  `python -m donostia_pipeline.build` (necesita red; **AEMET requiere
-  `AEMET_API_KEY`**). No se pudo hacer desde Cowork (web_fetch agota tiempo; curl
-  prohibido por política). Ver `datos/input/FUENTES.md`.
+- 🔷 **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
+  `python -m donostia_pipeline.build` (necesita red). No se pudo hacer desde
+  Cowork (web_fetch agota tiempo; curl prohibido por política). Ver
+  `datos/input/FUENTES.md`. **AEMET desbloqueado (jul-2026):** `AEMET_API_KEY`
+  configurada como variable de entorno de Code (Claude Code on the web no
+  tiene almacén de secretos dedicado; ver aviso en `claude-code-on-the-web`
+  docs). ⚠️ Ojo: se guardó con el nombre `AEMET_APY_KEY` (typo) en vez de
+  `AEMET_API_KEY` — corregir el nombre de la variable en la config del
+  entorno para no depender de un `export` manual en cada sesión. El resto de
+  fuentes (Donostia Open Data, INE, EMA, Airbnb) sigue sin probar en esta
+  sesión — solo se ha corrido `ensure_aemet`, no el pipeline completo.
 
 ### Datos nuevos / análisis (del backlog histórico)
 - ✅ **REC-5 tasa de paro** — hecho (jul-2026): 3 indicadores ciudad

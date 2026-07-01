@@ -6,6 +6,7 @@ import {
   annualAggregate,
   monthlyYearRows,
   temperatureAnomalies,
+  isPartialYear,
 } from "../src/lib/series";
 import type { SeriesData } from "../src/lib/types";
 
@@ -82,5 +83,21 @@ describe("series helpers", () => {
       { year: "2020", value: 15 },
       { year: "2021", value: 30 },
     ]);
+  });
+
+  it("isPartialYear flags a year with 1-11 populated months", () => {
+    const s: SeriesData = {
+      ...SERIES,
+      years: ["2020", "2021", "2022"],
+      values: {
+        "2020": Object.fromEntries(Array.from({ length: 12 }, (_, i) => [String(i + 1), 10])),
+        "2021": { "1": 10, "2": 11 }, // only 2 months so far — in progress
+        "2022": {}, // no data at all — not "partial", just empty
+      },
+    };
+    expect(isPartialYear(s, "2020")).toBe(false); // complete
+    expect(isPartialYear(s, "2021")).toBe(true); // partial
+    expect(isPartialYear(s, "2022")).toBe(false); // empty, not partial
+    expect(isPartialYear(s, "2099")).toBe(false); // year absent entirely
   });
 });
