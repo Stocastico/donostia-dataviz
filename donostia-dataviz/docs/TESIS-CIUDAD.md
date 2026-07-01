@@ -53,7 +53,7 @@ de los barrios son estables. Lo que cambia es la *asequibilidad* y la composici�
 Las tasas de subida 2016–2024 son parecidas (~3–4 %/año). En la matriz
 niveles×variaciones, el este (Loiola, Intxaurrondo, Altza, Mirakruz) cae en
 "alquiler bajo · crecimiento rápido": asequible aún, pero erosionándose; el
-centro (Erdialdea, Gros, Antigua) es "alto · lento" (caro y en meseta, con menos
+centro (Erdialdea, Gros, Antiguo) es "alto · lento" (caro y en meseta, con menos
 margen de subida).
 
 **7. Dos transformaciones, dos geografías distintas.** El Índice de
@@ -108,7 +108,7 @@ la presión turística (centro) son geografías distintas; que el clima se calie
 
 **🏘️ Turismo y turistificación.** VUT concentradas en el centro: Erdialdea **664**
 y Gros **359** (de ~1.490 en la ciudad); densidad Erdialdea **29,9**/1000 hab.,
-Gros **20,7**, Antigua 8,5. Estacionalidad hotelera (INE EOH 2005–2026): pico
+Gros **20,7**, Antiguo 8,5. Estacionalidad hotelera (INE EOH 2005–2026): pico
 jul/ago ~245k, mínimo ene ~116k; desplome 2020 (COVID) y recuperación + ligera
 **desestacionalización** desde 2021; total 2025 ≈ **2,2 M** de pernoctaciones.
 
@@ -124,7 +124,7 @@ en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %.
 **👥 Demografía.** % extranjeros al alza en todas partes (Gros 1,3 %→9,9 %,
 2000→2025), más rápido en el este (Intxaurrondo +0,92 pp/año). Edad: centro
 envejecido (índice de vejez Gros **370**, Erdialdea **350**), este joven
-(Intxaurrondo 21 % de 25–39); Antigua +203 puntos de índice en 25 años;
+(Intxaurrondo 21 % de 25–39); Antiguo +203 puntos de índice en 25 años;
 Miramón-Zorroaga rejuvenece (387→151).
 
 **🏫 Educación.** Universitarios al alza (Aiete 25,3 %→35,0 %). Centros educativos
