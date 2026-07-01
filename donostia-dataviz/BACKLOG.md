@@ -82,10 +82,23 @@ e **iteración narrativa (Cowork)**.
 
 ### Datos nuevos / análisis (del backlog histórico)
 - ⬜ **REC-5 empleo/paro/sectores** (SEPE/Eustat, prob. solo ciudad).
-- ⬜ **REC-6 movilidad** (DBus por línea/parada, Dbizi; verificar agregabilidad a barrio).
+- ⬜ **REC-6 movilidad** — investigado (jul-2026): el dataset `dbus_utilizacion`
+  (viajeros DBus por línea/mes/hora) que enlaza Open Data Euskadi ya **no existe**
+  en el catálogo CKAN de Donostia (403 + 0 resultados en su buscador de
+  paquetes/recursos) — parece otra fuente dada de baja, como la de criminalidad.
+  Sin URL viva confirmada, aparcado.
 - ⬜ **REC-7 tejido comercial** (licencias IAE/CNAE o bajos vía catastro foral).
-- ⬜ **REC-8 Catastro Foral de Gipuzkoa** (`gipuzkoairekia.eus`) → superficie
-  construida (m²/persona real para MET-1), valor catastral, proxy venta €/m².
+- ⬜ **REC-8 Catastro Foral de Gipuzkoa** — investigado (jul-2026): los CSV **sí**
+  se pueden descargar (el host documentado `opepro08.sare.gipuzkoa.net` no es
+  alcanzable; hay espejo funcional en
+  `api.gipuzkoairekia.eus/dataset/recurso/<id>/descargar`), pero **ninguno de
+  los dos ficheros trae coordenadas ni barrio**: `parcelas` solo trae una
+  `Refer` catastral interna de 7 dígitos (haría falta geometría INSPIRE
+  WFS/GML de parcelas + cruce de referencia, sin confirmar); `locales` trae
+  calle + portal (geocodificable, pero sin callejero→barrio en el proyecto y
+  con el mismo problema de calles que cruzan barrios que REC-6). **No es el
+  quick-win que asumía `docs/archive/PLAN-RECOLECCION.md`** (lo marcaba ✅);
+  aparcado hasta decidir si vale la pena la geocodificación por calle o el WFS.
 - ⬜ **REC-9 modelos lingüísticos (euskera)** (Eustat / Mapa Sociolingüístico GV).
 - ⬜ **REC-10 Ibiltur (Eustat)** — gasto/segmentos/motivo de visita.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
