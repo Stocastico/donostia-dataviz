@@ -34,6 +34,7 @@ OUTLIERS = ["erdialdea", "gros"]
 CROSS_METRICS = [
     "income_total", "rent_eur_m2", "pct_university", "pct_foreign",
     "vut_density", "housing_tension", "schools_per_1000",
+    "noise_night_pct55", "airbnb_density",
 ]
 # Variables para el perfil/cluster (las 4 que sugiere el feedback).
 CLUSTER_VARS = ["income_total", "pct_university", "vut_density", "rent_eur_m2"]
@@ -78,6 +79,12 @@ def correlations(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, list[dic
         ("rent_eur_m2", "income_total"),
         ("pct_university", "income_total"),
         ("housing_tension", "income_total"),
+        # VIZ-5 (resto): ¿el ruido nocturno es un proxy de turismo, o de
+        # tráfico como ya se documenta en NOTA-METODOLOGICA? (noise_night_pct55
+        # es el mapa estratégico de ruido de infraestructuras — carreteras,
+        # no ocio nocturno.)
+        ("noise_night_pct55", "vut_density"),
+        ("noise_night_pct55", "airbnb_density"),
     ]
     robustness = []
     for a, b in key_pairs:

@@ -170,7 +170,15 @@ e **iteración narrativa (Cowork)**.
 - ⬜ **VIZ-8** small multiples por año + "play" animado.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
 - ⬜ **VIZ-10** "ciudad turística vs. vivida" en la app (ya existe como historia #5 en el HTML).
-- ⬜ **VIZ-5 (resto)** overlay ruido × densidad turística.
+- ✅ **VIZ-5 (resto)** overlay ruido × densidad turística — hecho (jul-2026,
+  análisis): `sprint_a.py` añade `noise_night_pct55 ~ vut_density` (r=0,29,
+  **0,05 sin outliers**) y `~ airbnb_density` (r=−0,05, **−0,44 sin
+  outliers**) — ambas colapsan/se invierten al quitar el centro turístico,
+  confirmando cuantitativamente que el ruido es de tráfico, no de turismo
+  (ver `NOTA-METODOLOGICA.md` MET-5 y `intermedia/ANALISIS-SPRINT-A.md`). El
+  overlay en sí **ya existe** en la app (`BivariateSection`, ejes X/Y
+  seleccionables libremente); no se promueve como historia/mapa dedicado
+  porque los datos no sostienen esa narrativa.
 
 ---
 
