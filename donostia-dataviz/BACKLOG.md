@@ -167,7 +167,15 @@ e **iteración narrativa (Cowork)**.
   independiente para triangular el lead/lag.
 
 ### Visualización (si se llevan a la web)
-- ⬜ **VIZ-8** small multiples por año + "play" animado.
+- ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):
+  botón ▶/⏸ junto al `TimeSlider` que recorre automáticamente los periodos
+  (900 ms/paso, para al cambiar de métrica); nueva sección `SmallMultiples`
+  con un mini-mapa SVG por año (misma escala de color que el mapa principal),
+  clicable para saltar directamente a ese periodo. Renderizado en SVG plano
+  (`lib/miniMap.ts`, proyección equirectangular con corrección coseno-latitud,
+  testeada), no maplibre — métricas con 20+ años agotarían el límite de
+  contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
+  instancia maplibre real.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
 - ⬜ **VIZ-10** "ciudad turística vs. vivida" en la app (ya existe como historia #5 en el HTML).
 - ✅ **VIZ-5 (resto)** overlay ruido × densidad turística — hecho (jul-2026,

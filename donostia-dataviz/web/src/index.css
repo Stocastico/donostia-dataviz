@@ -60,6 +60,11 @@ body {
   flex: 1;
   min-width: 260px;
 }
+.time-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 .time-slider input[type="range"] {
   width: 100%;
 }
@@ -71,6 +76,62 @@ body {
   justify-content: space-between;
   font-size: 0.72rem;
   color: var(--muted);
+}
+
+.play-button {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.play-button:hover {
+  background: #f4f6f8;
+}
+.play-button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.small-multiples {
+  margin-top: 2rem;
+}
+.small-multiples-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.mini-map-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.3rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+.mini-map-cell:hover {
+  border-color: var(--border);
+}
+.mini-map-cell.active {
+  border-color: var(--accent);
+  background: #eaf3fa;
+}
+.mini-map-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.mini-map-cell.active .mini-map-label {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .map-area {
