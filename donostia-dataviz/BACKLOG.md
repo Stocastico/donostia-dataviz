@@ -106,7 +106,16 @@ e **iteración narrativa (Cowork)**.
   Municipio, no barrio (mismo límite que anticipaba el plan archivado).
   Módulo `datasets/modelos_linguisticos.py` + tests; se renderiza solo con la
   `IndicatorsSection` genérica, sin cambios de frontend.
-- ⬜ **REC-10 Ibiltur (Eustat)** — gasto/segmentos/motivo de visita.
+- ✅ **REC-10 Ibiltur Ocio (Basquetour)** — hecho (jul-2026): 3 indicadores
+  ciudad `ibiltur_ocio_*` (gasto/persona, gasto/persona/día, impacto
+  económico) desde la ficha de destino Donostia 2023 de Basquetour (PDF,
+  curado como MICE — `datos/input/ibiltur_donostia.csv`). Solo turista de
+  ocio que pernocta; **no** están los segmentos excursionista/MICE-negocios
+  (solo existen a nivel Euskadi, no Donostia) ni una serie temporal (la ficha
+  2022 es "Verano", ventana distinta a "Ocio" 2023 → no se mezclan para no
+  fabricar una tendencia falsa). Módulo `datasets/ibiltur.py` + tests.
+- ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
+  independiente para triangular el lead/lag.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
   independiente para triangular el lead/lag.
 

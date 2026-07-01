@@ -28,6 +28,7 @@ from .datasets import (
     fiscalidad,
     estudios,
     housing_tension,
+    ibiltur,
     ine_eoh,
     mice,
     modelos_linguisticos,
@@ -317,11 +318,12 @@ def run(offline: bool = False) -> dict:
     print(f"  ✓ series.json ({len(series_registry)} series)")
 
     # 5. Annual city indicators (MICE — curated; recycling rate — from residuos;
-    #    language-model schooling share — from Eustat).
+    #    language-model schooling share — from Eustat; Ibiltur Ocio — curated).
     ensure_eustat_modelos(offline)
     indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
                   + fiscalidad.build_indicators(config.RAW_DIR)
-                  + modelos_linguisticos.build_indicators(config.RAW_DIR))
+                  + modelos_linguisticos.build_indicators(config.RAW_DIR)
+                  + ibiltur.build_indicators())
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

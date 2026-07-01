@@ -14,6 +14,9 @@ fee_revenue,Tasse comunali emesse (M€),economy,M€,2022,50.5,"Donostia Open D
 fee_revenue,Tasse comunali emesse (M€),economy,M€,2023,51.0,"Donostia Open Data — tasas emitidas (ciudad, importe nominal)"
 fee_revenue,Tasse comunali emesse (M€),economy,M€,2024,55.6,"Donostia Open Data — tasas emitidas (ciudad, importe nominal)"
 fee_revenue,Tasse comunali emesse (M€),economy,M€,2025,62.6,"Donostia Open Data — tasas emitidas (ciudad, importe nominal)"
+ibiltur_ocio_economic_impact,Impatto economico del turismo leisure (IBILTUR Ocio),tourism,M€,2023,500.1,IBILTUR Aisia/Ocio 2023 — ficha Donostia/San Sebastián (Basquetour)
+ibiltur_ocio_spend_per_person,Spesa turistica leisure per persona (IBILTUR Ocio),tourism,€,2023,606.1,IBILTUR Aisia/Ocio 2023 — ficha Donostia/San Sebastián (Basquetour)
+ibiltur_ocio_spend_per_person_day,Spesa turistica leisure per persona e giorno (IBILTUR Ocio),tourism,€/giorno,2023,194.7,IBILTUR Aisia/Ocio 2023 — ficha Donostia/San Sebastián (Basquetour)
 mice_attendees,Partecipanti a congressi,tourism,persone,2024,259000.0,Donostitik 2024 (188 congresos; 259.000 asistentes)
 mice_events_total,Eventi professionali (totale),tourism,eventi,2023,175.0,Derivado de +7.43% sobre 188 (Nexotur 2024)
 mice_events_total,Eventi professionali (totale),tourism,eventi,2024,188.0,Donostitik/Nexotur 2024 (récord; 50% internacional)

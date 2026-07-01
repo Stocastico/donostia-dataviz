@@ -41,12 +41,14 @@ existe dataset abierto estructurado.
 | Fichero | Contenido | Origen |
 |---|---|---|
 | `mice_donostia.csv` | Indicadores MICE (congresos ICCA; récord 2024: 188 eventos / 259k asistentes) | Curado de notas de prensa citadas por fila (DSS Convention Bureau / ICCA). Ampliar añadiendo filas. |
+| `ibiltur_donostia.csv` | Indicadores IBILTUR Ocio 2023 (gasto/persona, gasto/persona/día, impacto económico) — solo turista de ocio que pernocta | Curado de la ficha de destino Donostia/San Sebastián de Basquetour (PDF). Ampliar cuando salga otra edición **Ocio** (anual) comparable — la de 2022 es "Verano" (otra ventana temporal) y no se mezcla. |
 
 ## Pendiente / manual (sin dataset abierto)
 
-Precio de venta €/m² por barrio (Indomio/Eustat), gasto/segmento del visitante
-(Eustat Ibiltur), satisfacción del visitante (Observatorio Turístico), catastro
-foral (Diputación de Gipuzkoa). Detalle en `docs/SOURCES.md`.
+Precio de venta €/m² por barrio (Indomio/Eustat), gasto de excursionistas y de
+turismo de negocios/MICE por destino (solo hay cifras Euskadi-wide, no
+Donostia-específicas), satisfacción del visitante (Observatorio Turístico),
+catastro foral (Diputación de Gipuzkoa). Detalle en `docs/SOURCES.md`.
 
 ## Cómo poblar `raw/`
 
