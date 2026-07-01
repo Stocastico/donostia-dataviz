@@ -36,6 +36,7 @@ existe dataset abierto estructurado.
 | `aemet_igeldo.json` | AEMET OpenData | REST `valores/climatologicos/mensualesanuales`, estación **1024E** | `temp_avg`, `temp_max`, `precip`, `hot_days_30` | mensual 1981–2025 | AEMET (**requiere clave** `AEMET_API_KEY`) |
 | `eustat_modelos_linguisticos.json` | Eustat (PxWeb) | tabla `PX_040601_ceens_mun01`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `pct_language_model_a/b/d` | anual 1983/1984–2024/2025 | Eustat (open) |
 | `eustat_paro_donostia.json` | Eustat (PxWeb) | tabla `PX_050403_cpra_tab19`, capital Donostia/San Sebastián, **POST** con filtro server-side (ver `descargar_raw.sh`) | `unemployment_rate(_men/_women)` | anual 2015–2025 (promedio anual) | Eustat (open) |
+| `eustat_comercio_donostia.json` | Eustat (PxWeb) | tabla `PX_200163_cdirae_est04b`, municipio 20069, ~630 códigos CNAE-2009 (agregados a `comercio`/`hostelería` en el pipeline), **POST** con filtro server-side (ver `descargar_raw.sh`) | `total_establishments`, `retail_establishments_share`, `hospitality_establishments_share` | anual 2008–2025 | Eustat (open) |
 
 ## Inputs curados (versionados en el repo)
 

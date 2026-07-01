@@ -106,7 +106,18 @@ e **iteración narrativa (Cowork)**.
   en el catálogo CKAN de Donostia (403 + 0 resultados en su buscador de
   paquetes/recursos) — parece otra fuente dada de baja, como la de criminalidad.
   Sin URL viva confirmada, aparcado.
-- ⬜ **REC-7 tejido comercial** (licencias IAE/CNAE o bajos vía catastro foral).
+- ✅ **REC-7 tejido comercial (proxy CNAE)** — hecho (jul-2026): 3 indicadores
+  ciudad `total_establishments`, `retail_establishments_share`,
+  `hospitality_establishments_share` desde el Directorio de Actividades
+  Económicas de Eustat (tabla `PX_200163_cdirae_est04b`, municipio Donostia,
+  ~630 códigos CNAE-2009 sumados a comercio 47xx / hostelería 55xx+56xx en
+  el pipeline, sin rollup de sección en la fuente), anual **2008–2025**:
+  comercio al por menor 14,9%→12,6%, hostelería 6,0%→8,1%, locales totales
+  22.862→18.037. **Proxy, no causal**: consistente con la sustitución
+  residente→turista de la hipótesis, pero no la demuestra (erosión del
+  comercio por e-commerce no descartada). No hay licencias por barrio (lo
+  que pedía originalmente REC-7); ciudad únicamente. Módulo
+  `datasets/tejido_comercial.py` + tests.
 - ⬜ **REC-8 Catastro Foral de Gipuzkoa** — investigado (jul-2026): los CSV **sí**
   se pueden descargar (el host documentado `opepro08.sare.gipuzkoa.net` no es
   alcanzable; hay espejo funcional en

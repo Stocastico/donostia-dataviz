@@ -37,6 +37,7 @@ from .datasets import (
     renta,
     residuos,
     ruido_gis,
+    tejido_comercial,
     transformation,
     vut,
     vut_density,
@@ -256,6 +257,30 @@ def ensure_eustat_paro(offline: bool) -> bool:
     )
 
 
+# Eustat PxWeb table PX_200163_cdirae_est04b, filtered server-side to
+# municipio Donostia (20069), all ~630 CNAE-2009 activity codes (the source
+# has no section/division rollup rows — tejido_comercial.py sums client-side),
+# all years.
+EUSTAT_COMERCIO_RAW = tejido_comercial.RAW_FILE
+EUSTAT_COMERCIO_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est04b.px"
+EUSTAT_COMERCIO_QUERY = {
+    "query": [
+        {"code": "municipio", "selection": {"filter": "item", "values": ["20069"]}},
+        {"code": "CNAE-2009", "selection": {"filter": "all", "values": ["*"]}},
+        {"code": "periodo", "selection": {"filter": "all", "values": ["*"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def ensure_eustat_comercio(offline: bool) -> bool:
+    """Fetch the Donostia establishments-by-CNAE series into raw/ (once)."""
+    return _ensure_pxweb_table(
+        offline, EUSTAT_COMERCIO_RAW, EUSTAT_COMERCIO_URL, EUSTAT_COMERCIO_QUERY,
+        "Eustat tejido comercial",
+    )
+
+
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
 # render disabled ("in arrivo") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
@@ -351,15 +376,17 @@ def run(offline: bool = False) -> dict:
     print(f"  ✓ series.json ({len(series_registry)} series)")
 
     # 5. Annual city indicators (MICE — curated; recycling rate — from residuos;
-    #    language-model schooling share / unemployment rate — from Eustat;
-    #    Ibiltur Ocio — curated).
+    #    language-model schooling share / unemployment rate / establishment
+    #    mix — from Eustat; Ibiltur Ocio — curated).
     ensure_eustat_modelos(offline)
     ensure_eustat_paro(offline)
+    ensure_eustat_comercio(offline)
     indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
                   + fiscalidad.build_indicators(config.RAW_DIR)
                   + modelos_linguisticos.build_indicators(config.RAW_DIR)
                   + ibiltur.build_indicators()
-                  + paro.build_indicators(config.RAW_DIR))
+                  + paro.build_indicators(config.RAW_DIR)
+                  + tejido_comercial.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 
