@@ -26,3 +26,15 @@ def test_curated_dir_points_at_datos_input():
     # pipeline's own (now-removed) curated/ copy.
     assert config.CURATED_DIR == config.PIPELINE_ROOT.parent / "datos" / "input"
     assert (config.CURATED_DIR / "mice_donostia.csv").is_file()
+
+
+def test_tables_dir_points_at_datos_procesado():
+    # The tidy CSV tables now live under datos/procesado/tablas/, not the
+    # repo-root data/ folder.
+    assert config.TABLES_DIR == config.PIPELINE_ROOT.parent / "datos" / "procesado" / "tablas"
+
+
+def test_web_data_dir_is_unchanged():
+    # Vite's import.meta.glob in web/src/lib/data.ts expects these JSON files
+    # inside web/src/, so this one stays put (unlike TABLES_DIR/CURATED_DIR).
+    assert config.WEB_DATA_DIR == config.PIPELINE_ROOT.parent / "web" / "src" / "data"

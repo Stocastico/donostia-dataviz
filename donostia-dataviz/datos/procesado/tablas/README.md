@@ -5,7 +5,7 @@ pipeline. They carry the same numbers the web app shows, but in a plain "long"
 format any tool can read (pandas, R, DuckDB, JS, spreadsheets) — so the data can
 be regenerated in another stack without touching the app or its JSON.
 
-Regenerate with `python -m donostia_pipeline.build` (see `../data-pipeline/`).
+Regenerate with `python -m donostia_pipeline.build` (see `../../../data-pipeline/`).
 All files are UTF-8, comma-separated, with a header row.
 
 ## Files
@@ -57,6 +57,6 @@ its own `source` because these are curated from individual press releases.
 ## Provenance
 
 Sources and access status for every dataset are documented in
-`../docs/SOURCES.md`. Most come from official open data (Donostia Open Data,
+`../../../docs/SOURCES.md`. Most come from official open data (Donostia Open Data,
 INE, AEMET, Gobierno Vasco EMA); the MICE indicators are hand-curated from cited
 press releases and ICCA reports.

@@ -36,7 +36,7 @@ export function MiceSection() {
       <p className="mice-sub">
         Dati curati da fonti citate (memorias DSS Turismoa, Convention Bureau,
         ICCA): non esiste un dataset aperto strutturato. Ogni valore porta la sua
-        fonte (vedi <code>data/indicators_long.csv</code>).
+        fonte (vedi <code>datos/procesado/tablas/indicators_long.csv</code>).
       </p>
 
       <div className="mice-cards">

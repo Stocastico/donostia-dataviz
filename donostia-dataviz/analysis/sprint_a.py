@@ -1,7 +1,7 @@
 """Sprint A — análisis sobre los datos existentes (sin datos nuevos).
 
 Reproducible con la única dependencia del pipeline: pandas + numpy
-(sin scipy/sklearn). Lee el indicator store `data/metrics_long.csv` y produce:
+(sin scipy/sklearn). Lee el indicator store `datos/procesado/tablas/metrics_long.csv` y produce:
 
   1. Correlaciones robustas (Pearson + Spearman[rangos] + leave-one-out).
   2. Velocidad de cambio por barrio (tasas anualizadas 2016→último año).
@@ -24,7 +24,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data" / "metrics_long.csv"
+DATA = ROOT / "datos" / "procesado" / "tablas" / "metrics_long.csv"
 OUTDIR = Path(__file__).resolve().parent / "output"
 
 # Outliers conocidos (centro turístico) para el leave-one-out.

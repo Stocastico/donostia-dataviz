@@ -1,6 +1,6 @@
 """AN-4 y AN-5 — distribución y polarización entre barrios (solo datos existentes).
 
-Reproducible con pandas + numpy (sin scipy/sklearn). Lee `data/metrics_long.csv`.
+Reproducible con pandas + numpy (sin scipy/sklearn). Lee `datos/procesado/tablas/metrics_long.csv`.
 
   AN-5  Polarización de la renta en el tiempo (2016–2023)
         - Gini inter-barrio (sin ponderar y ponderado por población).
@@ -27,7 +27,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data" / "metrics_long.csv"
+DATA = ROOT / "datos" / "procesado" / "tablas" / "metrics_long.csv"
 OUTDIR = Path(__file__).resolve().parent / "output"
 
 

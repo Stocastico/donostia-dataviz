@@ -21,7 +21,7 @@ CURATED_DIR = PIPELINE_ROOT.parent / "datos" / "input"
 # Pipeline writes cleaned JSON straight into the web app's data folder.
 WEB_DATA_DIR = PIPELINE_ROOT.parent / "web" / "src" / "data"
 # …and language-agnostic tidy CSV tables here, for reuse outside the app.
-TABLES_DIR = PIPELINE_ROOT.parent / "data"
+TABLES_DIR = PIPELINE_ROOT.parent / "datos" / "procesado" / "tablas"
 
 # ---------------------------------------------------------------------------
 # Source URLs (see docs/SOURCES.md for access status)
