@@ -2,7 +2,7 @@
 
 > **Qué es.** Una lectura de conjunto, *causal pero cauta*, de lo que dicen los
 > datos ya procesados sobre la transformación de Donostia. Integra los hallazgos
-> verificados de `ANALISIS-SPRINT-A.md`, `INDICE-TRANSFORMACION.md` y el análisis
+> verificados de `intermedia/ANALISIS-SPRINT-A.md`, `intermedia/INDICE-TRANSFORMACION.md` y el análisis
 > de distribución (AN-4/AN-5). Todos los números son reproducibles
 > (`analysis/*.py`). Distingue de forma explícita lo que **se puede afirmar** de
 > lo que **no**.
@@ -143,4 +143,4 @@ internacionales. Congresos ICCA: 16 (2018) → 12 (2019) → 15 (2023) → 13 (2
 
 **🔗 Correlaciones clave.** Densidad VUT ↔ alquiler **r = 0,64** (0,62 sin el
 centro; Spearman 0,75); esfuerzo ↔ renta **r = −0,81** (−0,89 sin el centro), la
-más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (−0,72 sin el centro).
+más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (�

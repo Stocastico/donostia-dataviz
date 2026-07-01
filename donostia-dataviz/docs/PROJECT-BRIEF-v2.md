@@ -2,7 +2,7 @@
 > `PROJECT-BRIEF.md` (v1) con nuevas dimensiones de datos, la corrección sobre el
 > catastro foral, secciones MICE/visitantes/gasto, ideas avanzadas y la
 > recomendación del indicator store unificado. El estado de avance y la
-> priorización se siguen en `GAP-ANALYSIS.md`.
+> priorización se siguen en `../BACKLOG.md` (histórico en `archive/GAP-ANALYSIS.md`).
 >
 > *(Traducido del italiano al español, junio 2026, manteniendo el contenido.)*
 
@@ -220,7 +220,7 @@ El dato existe y es abierto. Hay dos fuentes complementarias con granularidad di
 
 > **Nota**: el 77,7% de los delitos en Donostia son contra el patrimonio (hurtos, robos, estafas). Los datos por barrio de la Guardia Municipal son el dataset más granular — descargable directamente en CSV.
 >
-> ⚠️ **Actualización (junio 2026):** la criminalidad por barrio ha quedado **descartada** del camino crítico — el CSV de la Guardia Municipal ya no está en el catálogo y la escala sub-municipal está blindada por protección de datos. Ver `GAP-ANALYSIS.md` §5 y `FEEDBACK-CONSOLIDADO.md`.
+> ⚠️ **Actualización (junio 2026):** la criminalidad por barrio ha quedado **descartada** del camino crítico — el CSV de la Guardia Municipal ya no está en el catálogo y la escala sub-municipal está blindada por protección de datos. Ver `archive/GAP-ANALYSIS.md` §5 y `archive/FEEDBACK-CONSOLIDADO.md`.
 
 **Visualización sugerida**: choropleth de delitos por barrio normalizados por población (tasa/1000 ab.); line chart de evolución de la tasa delincuencial por año; donut/stacked bar de tipos de delito.
 
@@ -270,7 +270,7 @@ Esta es quizá la categoría más infravalorada para una dataviz sobre calidad d
 | Localización de contenedores de recogida selectiva | Open Data Donostia | Punto GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/mambiente-residuos` (SHP) |
 | Zona de bajas emisiones (ZBE, 2024) | Open Data Donostia | Polígono GIS | Snapshot | `donostia.eus/datosabiertos/catalogo/mambiente-zbe` — aprobada 2024 |
 
-> El mapa de ruido nocturno es particularmente relevante para la calidad de vida en los barrios de la Parte Vieja y Gros, donde se concentra la hostelería. *(Caveat verificado después: los mapas estratégicos están dominados por ruido de transporte, no de ocio — ver `GAP-ANALYSIS.md` REC-2.)*
+> El mapa de ruido nocturno es particularmente relevante para la calidad de vida en los barrios de la Parte Vieja y Gros, donde se concentra la hostelería. *(Caveat verificado después: los mapas estratégicos están dominados por ruido de transporte, no de ocio — ver `archive/GAP-ANALYSIS.md` REC-2.)*
 
 **Visualización sugerida**: choropleth de niveles de ruido nocturno por zona; line chart % recogida selectiva por año (tendencia de sostenibilidad); overlay ZBE sobre el mapa de la ciudad.
 
@@ -469,4 +469,4 @@ Tres advertencias, vistas en todos los proyectos serios de este tipo:
 12. [ ] Descargar CSV del Catastro de Gipuzkoa (Diputación Foral) desde `gipuzkoairekia.eus` — NO el catastro estatal
 13. [ ] Buscar serie histórica de modelos lingüísticos A/B/D en `hezkuntza.euskadi.eus`
 14. [ ] Script Python de limpieza y join sobre geometría de barrios común
-15. [ ] Prototipo de choropleth con D3 o MapLibre + un dataset (p.ej. densidad VUT)
+15. [ ] Prototipo de

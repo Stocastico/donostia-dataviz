@@ -47,7 +47,7 @@ gracefully (shows "data coming soon") until their extraction lands.
 | `schools_per_1000` — centri educativi | #scuole(join spaziale) / popolazione × 1000 | educativos GeoJSON + demographics | **wired ✓** |
 | `airbnb_density` — annunci Airbnb per 1000 ab. | #annunci(join spaziale) / popolazione × 1000 | Inside Airbnb listings + demographics | **wired ✓** (REC-4) |
 | `housing_tension` — sforzo affitto/reddito (%) | affitto €/m² × 12 × 30 m²/persona / reddito pro capite × 100 | rent EMA + income | **wired ✓** (idea #4; assunzione 30 m²/persona) |
-| `transform_class` / `transform_*_score` / `transform_*_excess` — Indice di Trasformazione (AN-8) | modo Freeman (suscettibilità + crescita laureati/affitto) e modo pressione turistica; z-score, componenti a vista | income + rent + % university + VUT density | **wired ✓** (VIZ-6; cfr. INDICE-TRANSFORMACION.md) |
+| `transform_class` / `transform_*_score` / `transform_*_excess` — Indice di Trasformazione (AN-8) | modo Freeman (suscettibilità + crescita laureati/affitto) e modo pressione turistica; z-score, componenti a vista | income + rent + % university + VUT density | **wired ✓** (VIZ-6; cfr. intermedia/INDICE-TRANSFORMACION.md) |
 | ageing index | pop ≥65 / <15 × 100 | pirámide de edad por barrio | **wired ✓** (REC-1) |
 
 ## Manual / planned (no structured open dataset — extraction needed)
@@ -90,4 +90,4 @@ is absent, the AEMET dataset build is skipped and the metric is registered as
 - Boletín AGE (2023) — *The touristification of urban spaces: measurement proposal*
 - Eustat — *Ibiltur: Encuesta de Turismo Receptivo*
 - ICCA — *International Congress Statistics Report* (Donostia pos. 221 world / 112 Europe, 2019)
-- Donostia San Sebastián Turismoa — *Memorias anuales* (`press.sansebastianturismoa.eus`)
+- Donostia San Sebastián Turismoa — *Memorias anuales* (`press.sansebastianturi

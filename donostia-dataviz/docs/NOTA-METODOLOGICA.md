@@ -46,7 +46,7 @@ rotación de población y sustitución social (quién entra y quién sale). Lo q
 podemos medir es **transformación observable**. Por eso:
 
 - El índice se llama **Índice de Transformación Urbana** (ver
-  `INDICE-TRANSFORMACION.md`).
+  `intermedia/INDICE-TRANSFORMACION.md`).
 - Definición **explícita y seleccionable**, con al menos dos modos
   (socioeconómico estilo Freeman; presión turística) y los **componentes a la
   vista** — nunca una caja negra de muchas variables.
@@ -63,7 +63,7 @@ publique debe reportarse con:
 - Cuando proceda, **correlación parcial** controlando por población/densidad.
 
 Y siempre: **correlación ≠ causalidad**. Ejemplo aplicado en
-`ANALISIS-SPRINT-A.md` (la tesis VUT↔alquiler sobrevive al leave-one-out; otras
+`intermedia/ANALISIS-SPRINT-A.md` (la tesis VUT↔alquiler sobrevive al leave-one-out; otras
 relaciones no).
 
 ## MET-4 — Fichas de confianza por indicador
@@ -97,4 +97,4 @@ de gentrificación".
   refuerza a −0,72 sin el centro), así que usarla acríticamente sería engañoso.
 - **Provenance explícita**: cada valor arrastra su fuente (`source`).
 - **Una sola geometría de referencia** (19 barrios `mapa_auzoak`); todo join se
-  hace una vez, en ingestión.
+  hace una

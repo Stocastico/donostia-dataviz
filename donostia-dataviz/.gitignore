@@ -22,3 +22,6 @@ web/tsconfig.tsbuildinfo
 
 # Generated analysis outputs (reproducibles con analysis/*.py)
 analysis/output/
+
+# backups temporales
+*.bak

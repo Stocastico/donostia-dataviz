@@ -4,8 +4,8 @@
 > escribirlos**. Cada *output* arranca de **una pregunta** (framing "máquina de
 > preguntas") y se especifica con: dónde vive ya en la app (métrica/sección
 > exacta), el estado de los datos, los números verificados, la conclusión y los
-> avisos. Operacionaliza la §6 de `GAP-ANALYSIS.md` y se apoya en
-> `TESIS-CIUDAD.md`, `ANALISIS-SPRINT-A.md` e `INDICE-TRANSFORMACION.md`.
+> avisos. Operacionaliza el backlog (`../BACKLOG.md`) y se apoya en
+> `TESIS-CIUDAD.md`, `intermedia/ANALISIS-SPRINT-A.md` e `intermedia/INDICE-TRANSFORMACION.md`.
 >
 > **Todos los números citados son reproducibles** en `analysis/*.py`
 > (`sprint_a.py`, `distribucion_barrios.py`, `transformation_index.py`,
@@ -198,10 +198,10 @@ la evidencia reproducible (`analysis/*.py`) y a la vista de la app.
   + la serie `airbnb_reviews` (reseñas/mes), y VIZ-6 llevó el Índice de
   Transformación al frontend como dashboard de 3 mapas.
 - **Lead/lag turismo→alquiler (AN-6): ✅ primer cut exploratorio** en
-  `analysis/lead_lag.py` + `docs/ANALISIS-LEADLAG.md`. Sobre el panel barrio×año
+  `analysis/lead_lag.py` + `intermedia/ANALISIS-LEADLAG.md`. Sobre el panel barrio×año
   `airbnb_activity` (reseñas/año/1000 ab.) vs `rent_eur_m2`, en primeras
   diferencias: la correlación es máxima a **+1 año (r≈0,27)** —el turismo precede
   al alquiler— y mayor que la contemporánea (0,19) y que el sentido inverso
   (≈0). Débil pero **direccionalmente consistente**; exploratorio (MET-3).
 - **Siguiente refinamiento (opcional):** **consolidar el modo turístico** del
-  índice integrando `airbnb_density` junto a VUT y ruido.
+  índice integrando `airbnb_d
