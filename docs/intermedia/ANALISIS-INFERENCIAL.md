@@ -82,3 +82,38 @@ tenga el mayor crecimiento de alquiler (historia #6).
 **Límites.** N pequeño (12–17), ventana corta (2016→2023/24), tasas lineales
 anualizadas (no log-growth clásico de la literatura de convergencia); es un
 test de asociación transversal, no un modelo dinámico.
+
+---
+
+## AN-19 — Alquiler ~ renta + universitarios + Airbnb: Airbnb no añade
+
+> Reproducible: `python analysis/rent_drivers.py --save`
+> (tests en `analysis/tests/test_rent_drivers.py`). **Exploratorio**: con
+> N=13 esto es una pregunta disciplinada, nunca un modelo.
+
+**Pregunta.** ¿La densidad Airbnb aporta información sobre el *nivel* de
+alquiler controlando por renta y capital educativo?
+
+**Método.** OLS estandarizado (coeficientes en z, comparables), IC95 %
+bootstrap por coeficiente (2.000 remuestreos) y ΔR² al añadir Airbnb al
+modelo renta+universitarios.
+
+**Resultado (jul-2026, N=13):**
+
+| Predictor | β (z) | IC95 % |
+|---|---|---|
+| % universitarios | **+1,44** | **+0,35 a +3,20** |
+| renta | −0,73 | −2,22 a +0,49 |
+| densidad Airbnb | +0,14 | −1,70 a +0,72 |
+
+R² completo 0,77 · sin Airbnb 0,76 · **ΔR² de Airbnb = 0,013**.
+
+**Lectura.** Controlando por el capital socioeconómico, **Airbnb apenas añade
+información sobre el nivel de alquiler** — coherente con AN-16 (la relación
+turismo↔alquiler es más débil de lo que parece a simple vista) y con el
+hallazgo de "dos geografías" (el turismo se concentra en el centro caro, pero
+no es lo que ordena los precios en el resto de la ciudad). El único
+coeficiente cuyo IC no cruza el 0 es **% universitarios**: en el corte
+transversal, el capital educativo absorbe la señal (y nota bene: renta y
+universitarios correlacionan 0,75 entre sí → colinealidad, coeficientes
+individuales inestables, IC anchísimos — la respuesta honesta con N=13).

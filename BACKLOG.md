@@ -265,9 +265,12 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   todo?).
 - ⬜ **AN-18 trayectorias de barrio**: connected scatter 2000→2025 (p.ej.
   envejecimiento × % universitarios); la lectura "trayectoria" de MET-8.
-- ⬜ **AN-19 regresión múltiple exploratoria**: alquiler ~ renta + universitarios
-  + Airbnb; ¿Airbnb aporta información controlando por renta? (N=13, nunca
-  publicable como modelo, sí como pregunta).
+- ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):
+  `analysis/rent_drivers.py` (+ tests). Respuesta: **Airbnb no añade**
+  (ΔR²=0,013, IC del coeficiente cruza 0); solo % universitarios sostiene IC
+  fuera de 0 (+0,35 a +3,20 en z). Colinealidad renta↔universitarios (0,75)
+  → coeficientes individuales inestables, y se dice. Coherente con AN-16 y
+  con "dos geografías". Detalle en `ANALISIS-INFERENCIAL.md`.
 - ⬜ **AN-20 efecto COVID en trayectorias**: ¿aceleró 2020 la turistificación o
   solo la interrumpió? Comparar tendencias pre/post (idea RDD, con cautela por N).
 
