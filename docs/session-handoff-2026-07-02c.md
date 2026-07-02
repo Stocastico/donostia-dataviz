@@ -40,6 +40,10 @@ anidamiento, SVG nuevo válido como XML, ficheros sin truncar.
   jul-2026).
 - **BACKLOG.md** al día (estado + notas de integración en AN-12/14/18/20 +
   entrada ✅ en Pendiente-Cowork).
+- **`datos.html` y `SOURCES.md` sincronizados** con la fuente nueva de la
+  sesión b (INE tabla 67235, mortalidad ₅qx Gipuzkoa, analysis-only) — se
+  detectó al repasar que `FUENTES.md` la tenía y los catálogos no (segundo
+  commit de la sesión).
 
 ## Tareas que esta sesión deja a Code (priorizadas)
 
