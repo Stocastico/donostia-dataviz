@@ -205,3 +205,31 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --- Donostia Dataviz project-specific rules ---
+
+# Python pipeline
+data-pipeline/.venv/
+data-pipeline/raw/
+**/__pycache__/
+
+# Frontend
+web/node_modules/
+web/dist/
+web/_shot.mjs
+web/*.tsbuildinfo
+web/tsconfig.tsbuildinfo
+
+# The generic Python `lib/` rule above wrongly matches the web app's source
+# folder web/src/lib — re-include it so the frontend is whole.
+!web/src/lib/
+!web/src/lib/**
+
+# Generated data is committed (web/src/data/*) so the site builds without the
+# pipeline — do NOT ignore it.
+
+# Generated analysis outputs (reproducibles con analysis/*.py)
+analysis/output/
+
+# backups temporales
+*.bak
