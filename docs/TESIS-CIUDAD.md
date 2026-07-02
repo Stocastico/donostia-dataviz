@@ -109,22 +109,33 @@ la presión turística (centro) son geografías distintas; que el clima se calie
 empieza a generar hipótesis empíricas contrastables. Hacerlas explícitas es parte
 del encuadre.)*
 
-**H1 — La presión turística anticipa el alquiler (~1 año).** Lo sugiere el
+**H1 — La presión turística anticipa el alquiler (~1 año).** Lo sugería el
 lead/lag AN-6 (r(+1)=0,27, mayor que la contemporánea y que el sentido inverso).
-La confirmaría o refutaría: alquiler mensual/trimestral, el histórico de
-licencias VUT (REC-12) como segunda señal, y el blindaje AN-16 (estacionariedad
-+ control macro).
+⚠️ **Primer test superado en contra (jul-2026):** el blindaje AN-16 muestra que
+la señal no sobrevive al control por shocks comunes de año (r cae a ≈0,10,
+p permutación ≈0,30) — la mayor parte era covariación macro de toda la ciudad.
+H1 queda **debilitada pero no cerrada**: el diseño con efectos fijos de año no
+puede ver un efecto uniforme en toda la ciudad; la reabrirían el alquiler
+mensual/trimestral y el histórico de licencias VUT (REC-12) como segunda señal.
 
 **H2 — La transformación turística y la social siguen geografías distintas.**
 Lo sugiere la correlación débil entre ambos scores (≈0,25) y el mapa: turismo en
-el centro acomodado, cambio social en la periferia interior. La pondría a prueba
-AN-9 (¿sobrevive el patrón a otros pesos del índice?) y AN-15 (¿hay
-autocorrelación espacial real?).
+el centro acomodado, cambio social en la periferia interior. ✅ **Primer test
+superado a favor (jul-2026):** AN-9 muestra que el patrón no depende de los
+pesos del índice (Loiola nunca baja del 3º puesto social en 1.000 permutaciones;
+Erdialdea es 1º turístico en el 100 %). ✅ **Segundo test a favor:** AN-15
+(Moran's I) confirma que las dos geografías son estructura espacial real —
+autocorrelación positiva significativa en alquiler (I=0,58, p=0,003),
+% universitarios, renta, VUT y Airbnb; el este obrero y el centro turístico
+salen como clusters locales nítidos (`ANALISIS-INFERENCIAL.md`).
 
 **H3 — La desigualdad territorial permanece estable mientras cambia la
 accesibilidad.** Lo sugieren el Gini plano (~0,10) junto a la tensión invertida
-respecto al precio. La contrastarían AN-13 (beta-convergencia) y, sobre todo,
-datos de desigualdad intra-barrio y de quien se marcha del municipio.
+respecto al precio. ✅ **Primer test superado a favor (jul-2026):** AN-13
+(beta-convergencia) no encuentra ni convergencia ni divergencia — el nivel de
+2016 no predice la tasa posterior en renta, alquiler ni % universitarios (los
+tres IC95 % de β cruzan el 0; `ANALISIS-INFERENCIAL.md`). Sigue pendiente lo
+que este dato no ve: desigualdad intra-barrio y quien se marcha del municipio.
 
 **H4 — El centro pierde población sin dejar de concentrar actividad.** Lo
 sugieren la pérdida de población (Gros −0,60 %/año) simultánea al máximo de

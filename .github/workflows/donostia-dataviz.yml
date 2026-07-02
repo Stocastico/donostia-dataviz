@@ -4,11 +4,13 @@ on:
   push:
     paths:
       - "data-pipeline/**"
+      - "analysis/**"
       - "web/**"
       - ".github/workflows/donostia-dataviz.yml"
   pull_request:
     paths:
       - "data-pipeline/**"
+      - "analysis/**"
       - "web/**"
 
 jobs:
@@ -25,6 +27,12 @@ jobs:
         working-directory: data-pipeline
       - name: Run tests
         run: pytest -q
+        working-directory: data-pipeline
+      # Invocación separada: los tests del pipeline importan su propio conftest
+      # por nombre (from conftest import ...), que chocaría con el conftest de
+      # analysis/tests si se recogieran en la misma sesión de pytest.
+      - name: Run analysis tests
+        run: pytest -q ../analysis/tests
         working-directory: data-pipeline
 
   web:

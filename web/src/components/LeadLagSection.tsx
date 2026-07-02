@@ -68,9 +68,10 @@ export function LeadLagSection() {
           <>
             {" "}
             Il massimo è a <strong>{lagLabel(best.lag)}</strong>, r ={" "}
-            <strong>{best.r.toFixed(2)}</strong> (n = {n}): señal{" "}
-            <strong>débil pero direccional</strong> de que el turismo va por
-            delante.
+            <strong>{best.r.toFixed(2)}</strong> (n = {n}) — ma il segnale{" "}
+            <strong>non sopravvive</strong> al controllo per gli shock comuni di
+            città (AN-16): con effetti fissi di anno r scende a ≈0,10
+            (p permutazione ≈0,30).
           </>
         )}
       </p>
@@ -119,8 +120,11 @@ export function LeadLagSection() {
         ⚠️ <strong>Esplorativo</strong> (MET-3): correlazione ≠ causalità. L'affitto
         è annuale (pochi punti) e le recensioni sono un <em>proxy</em> dell'occupazione
         che cresce anche con la piattaforma — per questo si leggono le differenze,
-        non i livelli. Riproducibile in <code>analysis/lead_lag.py</code> ·{" "}
-        <code>docs/ANALISIS-LEADLAG.md</code>.
+        non i livelli. Il <strong>blindaggio AN-16</strong> (stazionarietà + effetti
+        fissi di anno + permutazione) mostra che gran parte del r(+1)=0,27 era
+        covariazione macro comune: resta una domanda aperta, non un indizio.
+        Riproducibile in <code>analysis/lead_lag.py</code> ·{" "}
+        <code>analysis/lead_lag_robustness.py</code> · <code>docs/ANALISIS-LEADLAG.md</code>.
       </p>
     </section>
   );

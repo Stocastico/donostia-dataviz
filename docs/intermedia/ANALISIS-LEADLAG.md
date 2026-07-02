@@ -51,6 +51,52 @@ precede al alquiler*.
   alquiler con ~1 año de retardo, y **no** al revés.
 - r≈0,27 es una correlación **débil**: explica poca varianza. La señal está en la
   *forma* (lag+1 > lag0 > lag−1), no en su magnitud.
+- ⚠️ **Actualización jul-2026: el blindaje AN-16 (abajo) rebaja esta lectura.**
+  La señal +1 no sobrevive al control por shocks comunes de año.
+
+## Blindaje AN-16 (jul-2026): la señal no sobrevive al control macro
+
+> Reproducible: `python analysis/lead_lag_robustness.py [--save]`
+> (tests en `analysis/tests/test_lead_lag_robustness.py`). Responde a la
+> crítica del feedback externo: "sin estacionariedad + control macro,
+> r(+1)=0,27 podría ser artefacto". Lo es, al menos en buena parte.
+
+Tres defensas (pandas+numpy, sin scipy):
+
+1. **Estacionariedad del panel en diferencias** — KPSS no rechaza
+   estacionariedad en 27/28 series (5 %); Dickey-Fuller rechaza raíz unitaria
+   en 15/28, pero con T≈8–14 por serie apenas tiene potencia. Diagnóstico:
+   trabajar en diferencias era lo correcto y no hay evidencia de raíz unitaria
+   residual, aunque el test dice poco con estas longitudes.
+
+2. **Control macro por efectos fijos de año** (within-year demeaning del panel
+   Δ): absorbe *cualquier* shock común de ciudad — IPC, tipos, COVID — sin
+   necesitar series externas. Resultado: **r(+1) cae de 0,274 a 0,104**.
+   La mayor parte de la señal era covariación común de toda la ciudad, no
+   "los barrios con más turismo suben después su alquiler".
+
+3. **Test de permutación** (5.000 permutaciones del orden temporal de
+   Δactividad dentro de cada barrio, sobre el panel demediado):
+   **p=0,30 a lag +1** (dos colas). Ningún desfase es significativo
+   (lag 0: r_fe=0,13, p=0,18).
+
+| Desfase | r naive | r con FE de año | p permutación (FE) |
+|---|---|---|---|
+| −1 | −0,096 | 0,046 | 0,65 |
+| 0 | 0,189 | 0,130 | 0,18 |
+| **+1** | **0,274** | **0,104** | **0,30** |
+| +2 | 0,093 | −0,027 | 0,80 |
+
+**Lectura honesta.** El canal *diferencial entre barrios* (¿sube después el
+alquiler donde más crece el turismo, respecto a la media de la ciudad?) no
+muestra lead/lag robusto. Matiz importante: el FE de año también absorbe una
+eventual señal turismo→alquiler *de toda la ciudad a la vez* — si el efecto
+fuera uniforme entre barrios, este diseño no puede separarlo de la inflación o
+los tipos. Con estos datos no se puede distinguir "no hay efecto" de "el
+efecto es común a toda la ciudad": por eso la conclusión operativa es que el
+lead/lag +1 **no puede citarse como indicio direccional** — queda pendiente de
+una segunda señal turística independiente (REC-12) y de alquiler
+mensual/trimestral.
 
 ## Contexto-ciudad (descriptivo)
 

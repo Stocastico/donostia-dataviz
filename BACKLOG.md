@@ -15,9 +15,11 @@
 Pipeline + web + tests estables. **6 historias + sección de cierre** publicadas
 en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 hechos.
 **Revisión externa por 3 IAs consolidada** (jul-2026,
-`docs/intermedia/FEEDBACK-IAS-2026-07.md`) → alimenta AN-9…AN-20 y REC-12…REC-20.
-Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
-**iteración narrativa (Cowork)**.
+`docs/intermedia/FEEDBACK-IAS-2026-07.md`) → alimentó AN-9…AN-20 y REC-12…REC-20.
+**Tanda inferencial hecha (jul-2026): AN-9, 10, 11, 13, 15, 16, 17, 19, 20**
+(`docs/intermedia/ANALISIS-INFERENCIAL.md` + docs propios; hallazgo mayor: el
+lead/lag AN-6 **no sobrevive** al blindaje AN-16 y se retiró de los relatos).
+Quedan AN-12/14/18 (necesitan datos nuevos o son viz) y los REC de datos nuevos.
 
 ---
 
@@ -211,38 +213,81 @@ Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
 Prioridad sugerida: **AN-9, AN-10 y AN-16 blindan lo ya publicado** (índice,
 correlaciones, lead/lag) y van antes que las ampliaciones.
 
-- ⬜ **AN-9 sensibilidad del índice AN-8** *(consenso 3 IAs — prioridad alta)*:
-  ~1000 permutaciones aleatorias de pesos + variantes 60/40 y 40/60; ¿Loiola y
-  Egia siguen arriba? PCA solo como contraste (frágil con N=13). Documentar en
-  `INDICE-TRANSFORMACION.md`; si el ranking aguanta, decirlo en historia #6.
-- ⬜ **AN-10 incertidumbre en correlaciones**: bootstrap IC95 % para las
-  correlaciones publicadas (p.ej. r=0,72 con IC 0,48–0,86 se lee distinto).
-  Añadir a `corr_robustness.csv` y a las fichas de los relatos.
-- ⬜ **AN-11 tipologías de barrio**: clustering jerárquico + silhouette +
-  dendrograma (refina el k-means k=4 de `barrio_profile`); extras: "barrio más
-  parecido" (matriz de distancias) y ranking multivariable de cambio desde 2016.
+- ✅ **AN-9 sensibilidad del índice AN-8** — hecho (jul-2026):
+  `analysis/index_sensitivity.py` (+ tests en `analysis/tests/`, ahora con CI).
+  1000 permutaciones Dirichlet + variantes 60/40 y 40/60 + PCA contraste.
+  **El ranking aguanta**: Loiola 1º en el 83 % y nunca peor que 3º (Egia
+  mediana 2º, top-3 70 %); Erdialdea 1º en el 100 % en el modo turístico.
+  PCA confirma la decisión de no usarlo: en el modo A los dos componentes
+  están anticorrelacionados y la PC1 sale como contraste, no como índice.
+  Documentado en `INDICE-TRANSFORMACION.md` §"Sensibilidad de pesos" y una
+  línea en la ficha de historia #6.
+- ✅ **AN-10 incertidumbre en correlaciones** — hecho (jul-2026):
+  `bootstrap_ci_pearson` en `sprint_a.py` (percentil, 2.000 remuestreos,
+  semilla fija) + tests; columnas `pearson_ci95_lo/hi` en
+  `corr_robustness.csv`. El caso estrella confirma la intuición del feedback:
+  alquiler↔renta r=0,72 con IC 0,24–0,96. Fichas actualizadas: tabla de
+  `resumen.md`, MET-3 en `metodologia.html`, ficha VUT↔alquiler en
+  `historias.html`.
+- ✅ **AN-11 tipologías de barrio** — hecho (jul-2026):
+  `analysis/barrio_typology.py` (+ tests; jerárquico average-linkage y
+  silhouette en numpy puro). Resultado: la partición mejor sostenida es
+  **k=3** (silhouette 0,455 vs 0,416 de k=4): periferia popular /
+  Erdialdea+Gros / residencial acomodado — la división más profunda es
+  renta/estudios, no turismo. Estructura moderada (~0,45): las tipologías
+  siguen siendo perfiles descriptivos. Vecino más parecido: Egia↔Loiola
+  (coherente con historia #6). Detalle en `ANALISIS-INFERENCIAL.md`.
 - ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
   saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
   proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
-- ⬜ **AN-13 beta-convergencia**: `Δindicador ~ α + β·nivel_inicial` para renta,
-  alquiler, % universitarios; testea "brecha estable" con más rigor que el Gini.
+- ✅ **AN-13 beta-convergencia** — hecho (jul-2026):
+  `analysis/beta_convergence.py` (+ tests), IC bootstrap para β. Resultado:
+  **compatible con brecha estable en los tres indicadores** (renta, alquiler,
+  % universitarios: los IC95 de β cruzan el 0) → H3 reforzada por vía
+  independiente del Gini. Documentado en `ANALISIS-INFERENCIAL.md` (nuevo
+  cuaderno para AN-11…20), H3 en TESIS-CIUDAD, resumen y epílogo de historias.
 - ⬜ **AN-14 estacionalidad turística por barrio**: ratio verano/invierno o Gini
   mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
-- ⬜ **AN-15 estadística espacial**: Moran's I global y local sobre las métricas
-  clave — ¿los barrios similares se agrupan?
-- ⬜ **AN-16 blindar el lead/lag AN-6** *(prioridad alta)*: test ADF/KPSS de
-  estacionariedad del panel en diferencias + control macro (IPC, tipos); sin
-  esto, r(+1)=0,27 podría ser artefacto.
-- ⬜ **AN-17 red de correlaciones**: grafo variable↔variable con aristas =
-  correlaciones robustas; identifica variables "centrales" (¿la renta conecta
-  todo?).
+- ✅ **AN-15 estadística espacial** — hecho (jul-2026):
+  `analysis/spatial_autocorrelation.py` (+ tests; contigüidad queen desde
+  `barrios.geojson` con shapely, p por permutación). Moran I significativo en
+  alquiler (0,58, p=0,003), % universitarios (0,52), % extranjeros, renta,
+  VUT y Airbnb; **tensión no** (encaja: el ratio mezcla las dos geografías).
+  LISA: este obrero = cluster bajo-bajo, centro = alto-alto. H2 reforzada
+  (2º test). Exclaves (Zubieta/Landerbaso/Oarain) sin vecinos, fuera.
+  Detalle en `ANALISIS-INFERENCIAL.md`.
+- ✅ **AN-16 blindar el lead/lag AN-6** — hecho (jul-2026), **y la señal no
+  sobrevive**: `analysis/lead_lag_robustness.py` (+ tests). (1) DF/KPSS en
+  numpy puro sobre el panel en diferencias: KPSS no rechaza estacionariedad en
+  27/28 series, DF sin potencia con T≈8 (diagnóstico honesto). (2) Control
+  macro por **efectos fijos de año** (absorbe IPC/tipos/COVID sin series
+  externas): r(+1) cae de 0,274 a **0,104**. (3) Test de permutación (5.000):
+  **p=0,30**. Conclusión: el 0,27 era en su mayor parte shock común de ciudad;
+  el indicio direccional se retira de los relatos (historias #5 y epílogo,
+  resumen, metodologia.html MET-3, `LeadLagSection` de la app, H1 en
+  TESIS-CIUDAD debilitada). Matiz documentado en ANALISIS-LEADLAG.md: el FE de
+  año no puede ver un efecto uniforme en toda la ciudad → REC-12 sigue siendo
+  la vía para reabrir la pregunta.
+- ✅ **AN-17 red de correlaciones** — hecho (jul-2026):
+  `analysis/correlation_network.py` (+ tests; doble umbral Pearson+Spearman
+  ≥0,5, n≥10). 12 aristas robustas. Respuesta: no es "la renta" — es el
+  **triángulo renta–universitarios–alquiler** como núcleo denso; el turismo
+  (VUT↔Airbnb) es un módulo aparte conectado vía alquiler; el ruido,
+  periférico (refuerza MET-5). Detalle en `ANALISIS-INFERENCIAL.md`.
 - ⬜ **AN-18 trayectorias de barrio**: connected scatter 2000→2025 (p.ej.
   envejecimiento × % universitarios); la lectura "trayectoria" de MET-8.
-- ⬜ **AN-19 regresión múltiple exploratoria**: alquiler ~ renta + universitarios
-  + Airbnb; ¿Airbnb aporta información controlando por renta? (N=13, nunca
-  publicable como modelo, sí como pregunta).
-- ⬜ **AN-20 efecto COVID en trayectorias**: ¿aceleró 2020 la turistificación o
-  solo la interrumpió? Comparar tendencias pre/post (idea RDD, con cautela por N).
+- ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):
+  `analysis/rent_drivers.py` (+ tests). Respuesta: **Airbnb no añade**
+  (ΔR²=0,013, IC del coeficiente cruza 0); solo % universitarios sostiene IC
+  fuera de 0 (+0,35 a +3,20 en z). Colinealidad renta↔universitarios (0,75)
+  → coeficientes individuales inestables, y se dice. Coherente con AN-16 y
+  con "dos geografías". Detalle en `ANALISIS-INFERENCIAL.md`.
+- ✅ **AN-20 efecto COVID en trayectorias** — hecho (jul-2026):
+  `analysis/covid_break.py` (+ tests). Resultado: **aceleró, no interrumpió**
+  — pendiente post (≥2021) vs pre (≤2019): Airbnb ciudad ×1,9, alquiler ×2,4,
+  hotel rebota y supera 2019 en 2022. El mapa por barrio se mantiene
+  (Spearman pre/post 0,67) con difusión hacia barrios antes poco turísticos
+  (Ibaeta ×7,5, Mirakruz ×3,8). Detalle en `ANALISIS-INFERENCIAL.md`.
 
 ### Datos nuevos (feedback IAs jul-2026)
 

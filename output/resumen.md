@@ -81,18 +81,22 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
 
 ## 3. Insights y correlaciones (verificados)
 
-### Correlaciones entre barrios (Pearson; Spearman; sin outliers)
+### Correlaciones entre barrios (Pearson; IC95% bootstrap; Spearman; sin outliers)
 
-| Par | Pearson | Spearman | Sin outliers | Lectura |
-|---|---|---|---|---|
-| tensión de vivienda ↔ renta | **−0,81** | −0,86 | **−0,89** (n=11) | La más fuerte y robusta del sistema |
-| densidad VUT ↔ alquiler €/m² | 0,64 | 0,75 | 0,62 (n=11) | Turismo donde el alquiler es alto; aguanta sin Erdialdea/Gros |
-| % universitarios ↔ renta | 0,75 | 0,85 | 0,76 | Capital educativo ligado a renta |
-| % universitarios ↔ alquiler | 0,84 | 0,83 | — | — |
-| alquiler ↔ renta | 0,72 | 0,72 | 0,65 | — |
-| renta ↔ % extranjeros | −0,58 | −0,52 | −0,72 | Inmigración económica (no gentrificación) |
-| tensión ↔ % extranjeros | 0,74 | 0,64 | — | La presión recae donde crece la inmigración |
-| tensión ↔ escuelas/1000 | −0,63 | −0,39 | — | Más equipamiento donde menos presión |
+| Par | Pearson | IC95% (AN-10) | Spearman | Sin outliers | Lectura |
+|---|---|---|---|---|---|
+| tensión de vivienda ↔ renta | **−0,81** | −0,96 a −0,67 | −0,86 | **−0,89** (n=11) | La más fuerte y robusta del sistema |
+| densidad VUT ↔ alquiler €/m² | 0,64 | 0,42 a 0,87 | 0,75 | 0,62 (n=11) | Turismo donde el alquiler es alto; aguanta sin Erdialdea/Gros |
+| % universitarios ↔ renta | 0,75 | 0,58 a 0,93 | 0,85 | 0,76 | Capital educativo ligado a renta |
+| % universitarios ↔ alquiler | 0,84 | — | 0,83 | — | — |
+| alquiler ↔ renta | 0,72 | 0,24 a 0,96 | 0,72 | 0,65 | Intervalo ancho: compatible con asociación débil |
+| renta ↔ % extranjeros | −0,58 | −0,86 a −0,18 | −0,52 | −0,72 | Inmigración económica (no gentrificación) |
+| tensión ↔ % extranjeros | 0,74 | — | 0,64 | — | La presión recae donde crece la inmigración |
+| tensión ↔ escuelas/1000 | −0,63 | — | −0,39 | — | Más equipamiento donde menos presión |
+
+*IC95% = bootstrap percentil (2.000 remuestreos, `analysis/sprint_a.py`); solo
+para los pares del set de robustez. Con N=13–18 los intervalos son anchos a
+propósito: esa es la información.*
 
 > ⚠️ **Falacia ecológica (MET-6):** correlaciones a nivel de **barrio** (N=13),
 > no individual. P.ej. tensión↔extranjeros no dice nada de hogares concretos:
@@ -107,8 +111,11 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
   ⚠️ Parte del ×6 es **adopción de plataforma** (migración de canal, mayor tasa de
   reseña), no turistas nuevos (MET-7); orden de magnitud válido, cifra exacta no.
 - **Lead/lag turismo→alquiler (AN-6, panel n=90, primeras diferencias):**
-  r(−1)=−0,10 · r(0)=0,19 · **r(+1)=0,27** · r(+2)=0,09. Máximo a +1 año: el
-  turismo *precede* al alquiler. Débil pero asimétrico y direccional. **No** causal.
+  r(−1)=−0,10 · r(0)=0,19 · **r(+1)=0,27** · r(+2)=0,09. Máximo a +1 año.
+  ⚠️ **El blindaje AN-16 (jul-2026) rebajó esta señal:** con efectos fijos de
+  año (que absorben IPC, tipos, COVID) r(+1) cae a **0,10** y la permutación da
+  **p≈0,30** — la mayor parte era covariación macro común. El indicio
+  direccional **no se sostiene**; pregunta abierta a la espera de REC-12.
 - **Dos transformaciones, dos geografías:** correlación entre el score
   socioeconómico y el turístico ≈ **0,25** (débil, N=13) → **no coinciden**.
   Turismo en el centro acomodado (Erdialdea +2,40, Gros +1,37); cambio social en la
@@ -137,10 +144,14 @@ hecho demostrado: sin microdatos de movilidad no se puede afirmar desplazamiento
 
 Más que respuestas cerradas, el análisis deja **cuatro hipótesis empíricas**
 contrastables con datos mejores (detalle y tests propuestos en
-`docs/TESIS-CIUDAD.md`): **H1** la presión turística anticipa el alquiler ~1 año;
-**H2** transformación turística y social siguen geografías distintas; **H3** la
-desigualdad territorial permanece estable mientras cambia la accesibilidad;
-**H4** el centro pierde población sin dejar de concentrar actividad.
+`docs/TESIS-CIUDAD.md`): **H1** la presión turística anticipa el alquiler ~1 año
+(⚠️ *debilitada por AN-16: no sobrevive al control por shocks comunes de año*);
+**H2** transformación turística y social siguen geografías distintas (✅
+*reforzada por AN-9: el patrón no depende de los pesos del índice*); **H3** la
+desigualdad territorial permanece estable mientras cambia la accesibilidad (✅
+*reforzada por AN-13: ni convergencia ni divergencia — β≈0 en renta, alquiler y
+% universitarios*); **H4** el centro pierde población sin dejar de concentrar
+actividad.
 
 ---
 
@@ -168,8 +179,9 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    lluvia sin señal. *Observado; una sola estación (relato temporal, no espacial).*
 5. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
    centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel;
-   parte es adopción de plataforma, MET-7); indicio de que precede al alquiler
-   ~1 año (r≈0,27). El ruido nocturno es de **tráfico**, no de turismo (capa
+   parte es adopción de plataforma, MET-7). El indicio de que precedía al
+   alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,
+   r≈0,10, p≈0,30). El ruido nocturno es de **tráfico**, no de turismo (capa
    ambiental). *Densidad derivada; reseñas = proxy.*
 6. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
