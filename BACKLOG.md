@@ -410,6 +410,16 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   la capa subjetiva que falta.
 - ⬜ **REC-20 cajón de ideas** (menor prioridad): licencias de obra y
   rehabilitación, matrícula escolar por centro, vegetación/arbolado satelital.
+- ✅ **REC-21 perfil migratorio y de empleo** — hecho (jul-2026), petición de
+  usuario: país de origen por barrio (57 países, 2000–2025, único dato a
+  grano barrio) cruzado con renta/estudios (r=−0,69 renta↔% América Latina,
+  +0,59 % univ.↔% Europa occidental); actividad laboral por continente y
+  ocupación/renta/I+D generales (grano Gipuzkoa/C.A. de Euskadi — Eustat no
+  cruza nacionalidad×ocupación×salario a ningún grano español, catálogo
+  completo revisado). Confirma la intensidad investigadora de Gipuzkoa
+  (31 ‰ ocupados vs. 13,6 ‰ España, INE 2024). `analysis/perfil_extranjeros_empleo.py`
+  + tests; detalle en `docs/intermedia/ANALISIS-EXTRANJEROS-EMPLEO.md`.
+  Pendiente (Cowork): integración narrativa en `historias.html`/`resumen.md`.
 
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):

@@ -44,12 +44,14 @@ existe dataset abierto estructurado.
 | `eustat_dirae_empleo.json` | Eustat (PxWeb) | tabla `PX_200163_cdirae_est07`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `jobs_located`, numerador de `job_concentration_ratio` | anual 1995–2025 | Eustat (open) |
 | `airbnb_snapshot_<fecha>.csv` (×8) | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/<fecha>/visualisations/listings.csv` | solo `analysis/` (REC-13: serie de anuncios activos vs. reseñas, MET-7; **no** alimenta el pipeline) | trimestral **2023-12-29 → 2025-09-29** (los snapshots 2021-12-30…2023-09-24 existieron pero dan 403; solo vía data request) | CC BY 4.0 |
 | `ine_mortalidad_gipuzkoa.json` | INE Tablas de Mortalidad | tabla Tempus **67235**, filtro server-side prov. Gipuzkoa + función "Riesgo de muerte" (qx quinquenal, ‰, por sexo) | solo `analysis/` (AN-12: supervivencia esperada por cohorte; **no** alimenta el pipeline) | anual 1991–2024 | INE (open) |
+| `demo_barrio_nacionalidad.csv` | Donostia Open Data | mismo recurso que `demo_barrio.csv` (`demografia-origen/demografianacionalidadbarrio.csv`) sin agregar por país — 57 países, por barrio | solo `analysis/` (AN-21: origen detallado por barrio; el pipeline solo consume el agregado `pct_foreign`) | anual 2000–2025 | Open Data DSS |
 
 ### Fuentes analysis-only con descarga propia
 
 | Origen | Vía | Alimenta | Notas |
 |---|---|---|---|
 | Landsat 8/9 Collection 2 Level-2 (banda térmica `lwir11` + `qa_pixel`) | STAC de Microsoft Planetary Computer (acceso anónimo, firma SAS) — descarga el propio `analysis/heat_island.py`, recortes cacheados en `raw/heat_island/` | REC-14 isla de calor (`analysis/output/heat_island_barrio.csv`) | requiere `pip install rasterio pyproj` (solo ese script); USGS M2M y Copernicus Data Space se descartaron por pedir cuenta |
+| Eustat PxWeb — 7 tablas: extranjeros por continente×actividad (`pa16`), tasas de actividad/ocupación/paro por nacionalidad (`cpra_tab17`), ocupados por CNO-11 (`empa_po38`), personal I+D (`cid_res08c`), población ocupada total (`cpra_tab04`), establecimientos por sector A10 en Donostia (`cdirae_est02c`), renta por profesión (`crpf_rp_a_03`) | POST server-side vía `www.eustat.eus/bankupx/api/v1/es/DB/<tabla>.px` (ver queries exactas en las docstrings de cada `load_*` de `perfil_extranjeros_empleo.py`) | REC-21 / AN-21 perfil migratorio y de empleo (`analysis/output/*.csv`) | Grano **Gipuzkoa** salvo `cdirae_est02c` (municipio 20069) y `crpf_rp_a_03` (C.A. de Euskadi) — Eustat no cruza nacionalidad×ocupación×salario a grano municipal, ni siquiera provincial |
 
 ## Inputs curados (versionados en el repo)
 
