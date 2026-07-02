@@ -45,6 +45,11 @@ Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
   Gini inter-barrio, envejecimiento preexistente) y `resumen.md`; caveats en
   `historias.html` (#1, #3, #5) + **sección de cierre** "Lo que los datos aún
   no pueden responder".
+- **Capítulos + páginas de apoyo (jul-2026, Cowork):** `historias.html`
+  reestructurado como relato por capítulos con transiciones e hipótesis H1–H4
+  en el epílogo; nuevos `output/metodologia.html` (MET-1…8, fichas de
+  confianza, límites) y `output/datos.html` (catálogo métrica→fuente→confianza
+  + fuentes caídas/descartadas), enlazados desde nav y footer de historias.
 
 ---
 
@@ -56,18 +61,24 @@ Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
 - ✅ **Auditoría de enlaces internos** tras mover docs — hecha (jul-2026): los docs
   activos apuntan a `intermedia/`, `archive/` o `BACKLOG.md`; README y `resumen.md`
   actualizados. Los docs de `intermedia/`/`archive/` se dejan congelados.
-- ⬜ **Reestructurar las 6 historias como capítulos de un solo relato** (feedback
-  ChatGPT): hoy son bastante paralelas; arco sugerido estado → cambio → dónde →
-  por qué → qué significa → futuro, con transiciones entre historias. La sección
-  de cierre nueva ya hace de final común; falta el hilo entre capítulos.
-- ⬜ **Dar protagonismo a las 3 líneas fuertes** (ChatGPT): (a) la tensión
-  residencial invertida, (b) transformación turística ≠ transformación social
-  como mensaje central (hoy vive dentro de #6), (c) velocidad vs. estado (MET-8).
-- ⬜ **Encuadrar el proyecto como generador de hipótesis** (ChatGPT §8): las 4
-  hipótesis empíricas que ya emergen (turismo anticipa alquiler; dos geografías;
-  brecha estable con accesibilidad cambiante; centro que se vacía sin dejar de
-  concentrar actividad) merecen ser explícitas en `TESIS-CIUDAD`/`resumen.md`.
+- ✅ **Reestructurar las 6 historias como capítulos** — hecho (jul-2026): arco
+  estado → cambio → personas → telón de fondo → dos ciudades → síntesis →
+  epílogo; eyebrows "Capítulo N · etapa", transiciones `nextcap` entre
+  capítulos, hero reescrito. Sin reordenar secciones ni renumerar (los IDs
+  #1…#6 de los docs siguen valiendo).
+- ✅ **Encuadrar el proyecto como generador de hipótesis** — hecho (jul-2026):
+  H1–H4 explícitas con sus tests propuestos en `TESIS-CIUDAD` (§"Las hipótesis
+  que estos datos generan"), síntesis en `resumen.md` y en el epílogo del HTML.
+- ⬜ **Dar más protagonismo a la línea "tensión residencial"** (resto del punto
+  de ChatGPT): las líneas (b) dos-transformaciones y (c) velocidad-vs-estado ya
+  quedaron elevadas con los capítulos e hipótesis; queda (a) — un indicador de
+  accesibilidad residencial más completo, que es trabajo de Code (familia de
+  medidas ya existe en MET-1; ampliarla p.ej. con % de hogares que superarían
+  el 30 % de esfuerzo).
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
+- ⬜ **Mantener `metodologia.html` y `datos.html`** sincronizados con
+  `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
+  resúmenes manuales, no generados).
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
 - ⬜ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin color).
