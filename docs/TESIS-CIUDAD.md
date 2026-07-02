@@ -109,16 +109,21 @@ la presión turística (centro) son geografías distintas; que el clima se calie
 empieza a generar hipótesis empíricas contrastables. Hacerlas explícitas es parte
 del encuadre.)*
 
-**H1 — La presión turística anticipa el alquiler (~1 año).** Lo sugiere el
+**H1 — La presión turística anticipa el alquiler (~1 año).** Lo sugería el
 lead/lag AN-6 (r(+1)=0,27, mayor que la contemporánea y que el sentido inverso).
-La confirmaría o refutaría: alquiler mensual/trimestral, el histórico de
-licencias VUT (REC-12) como segunda señal, y el blindaje AN-16 (estacionariedad
-+ control macro).
+⚠️ **Primer test superado en contra (jul-2026):** el blindaje AN-16 muestra que
+la señal no sobrevive al control por shocks comunes de año (r cae a ≈0,10,
+p permutación ≈0,30) — la mayor parte era covariación macro de toda la ciudad.
+H1 queda **debilitada pero no cerrada**: el diseño con efectos fijos de año no
+puede ver un efecto uniforme en toda la ciudad; la reabrirían el alquiler
+mensual/trimestral y el histórico de licencias VUT (REC-12) como segunda señal.
 
 **H2 — La transformación turística y la social siguen geografías distintas.**
 Lo sugiere la correlación débil entre ambos scores (≈0,25) y el mapa: turismo en
-el centro acomodado, cambio social en la periferia interior. La pondría a prueba
-AN-9 (¿sobrevive el patrón a otros pesos del índice?) y AN-15 (¿hay
+el centro acomodado, cambio social en la periferia interior. ✅ **Primer test
+superado a favor (jul-2026):** AN-9 muestra que el patrón no depende de los
+pesos del índice (Loiola nunca baja del 3º puesto social en 1.000 permutaciones;
+Erdialdea es 1º turístico en el 100 %). Queda pendiente AN-15 (¿hay
 autocorrelación espacial real?).
 
 **H3 — La desigualdad territorial permanece estable mientras cambia la

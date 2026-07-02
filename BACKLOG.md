@@ -239,9 +239,18 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
 - ⬜ **AN-15 estadística espacial**: Moran's I global y local sobre las métricas
   clave — ¿los barrios similares se agrupan?
-- ⬜ **AN-16 blindar el lead/lag AN-6** *(prioridad alta)*: test ADF/KPSS de
-  estacionariedad del panel en diferencias + control macro (IPC, tipos); sin
-  esto, r(+1)=0,27 podría ser artefacto.
+- ✅ **AN-16 blindar el lead/lag AN-6** — hecho (jul-2026), **y la señal no
+  sobrevive**: `analysis/lead_lag_robustness.py` (+ tests). (1) DF/KPSS en
+  numpy puro sobre el panel en diferencias: KPSS no rechaza estacionariedad en
+  27/28 series, DF sin potencia con T≈8 (diagnóstico honesto). (2) Control
+  macro por **efectos fijos de año** (absorbe IPC/tipos/COVID sin series
+  externas): r(+1) cae de 0,274 a **0,104**. (3) Test de permutación (5.000):
+  **p=0,30**. Conclusión: el 0,27 era en su mayor parte shock común de ciudad;
+  el indicio direccional se retira de los relatos (historias #5 y epílogo,
+  resumen, metodologia.html MET-3, `LeadLagSection` de la app, H1 en
+  TESIS-CIUDAD debilitada). Matiz documentado en ANALISIS-LEADLAG.md: el FE de
+  año no puede ver un efecto uniforme en toda la ciudad → REC-12 sigue siendo
+  la vía para reabrir la pregunta.
 - ⬜ **AN-17 red de correlaciones**: grafo variable↔variable con aristas =
   correlaciones robustas; identifica variables "centrales" (¿la renta conecta
   todo?).

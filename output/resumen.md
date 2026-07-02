@@ -111,8 +111,11 @@ propósito: esa es la información.*
   ⚠️ Parte del ×6 es **adopción de plataforma** (migración de canal, mayor tasa de
   reseña), no turistas nuevos (MET-7); orden de magnitud válido, cifra exacta no.
 - **Lead/lag turismo→alquiler (AN-6, panel n=90, primeras diferencias):**
-  r(−1)=−0,10 · r(0)=0,19 · **r(+1)=0,27** · r(+2)=0,09. Máximo a +1 año: el
-  turismo *precede* al alquiler. Débil pero asimétrico y direccional. **No** causal.
+  r(−1)=−0,10 · r(0)=0,19 · **r(+1)=0,27** · r(+2)=0,09. Máximo a +1 año.
+  ⚠️ **El blindaje AN-16 (jul-2026) rebajó esta señal:** con efectos fijos de
+  año (que absorben IPC, tipos, COVID) r(+1) cae a **0,10** y la permutación da
+  **p≈0,30** — la mayor parte era covariación macro común. El indicio
+  direccional **no se sostiene**; pregunta abierta a la espera de REC-12.
 - **Dos transformaciones, dos geografías:** correlación entre el score
   socioeconómico y el turístico ≈ **0,25** (débil, N=13) → **no coinciden**.
   Turismo en el centro acomodado (Erdialdea +2,40, Gros +1,37); cambio social en la
@@ -141,8 +144,10 @@ hecho demostrado: sin microdatos de movilidad no se puede afirmar desplazamiento
 
 Más que respuestas cerradas, el análisis deja **cuatro hipótesis empíricas**
 contrastables con datos mejores (detalle y tests propuestos en
-`docs/TESIS-CIUDAD.md`): **H1** la presión turística anticipa el alquiler ~1 año;
-**H2** transformación turística y social siguen geografías distintas; **H3** la
+`docs/TESIS-CIUDAD.md`): **H1** la presión turística anticipa el alquiler ~1 año
+(⚠️ *debilitada por AN-16: no sobrevive al control por shocks comunes de año*);
+**H2** transformación turística y social siguen geografías distintas (✅
+*reforzada por AN-9: el patrón no depende de los pesos del índice*); **H3** la
 desigualdad territorial permanece estable mientras cambia la accesibilidad;
 **H4** el centro pierde población sin dejar de concentrar actividad.
 
@@ -172,8 +177,9 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    lluvia sin señal. *Observado; una sola estación (relato temporal, no espacial).*
 5. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
    centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel;
-   parte es adopción de plataforma, MET-7); indicio de que precede al alquiler
-   ~1 año (r≈0,27). El ruido nocturno es de **tráfico**, no de turismo (capa
+   parte es adopción de plataforma, MET-7). El indicio de que precedía al
+   alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,
+   r≈0,10, p≈0,30). El ruido nocturno es de **tráfico**, no de turismo (capa
    ambiental). *Densidad derivada; reseñas = proxy.*
 6. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
