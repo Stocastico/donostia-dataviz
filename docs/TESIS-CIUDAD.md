@@ -123,8 +123,11 @@ Lo sugiere la correlación débil entre ambos scores (≈0,25) y el mapa: turism
 el centro acomodado, cambio social en la periferia interior. ✅ **Primer test
 superado a favor (jul-2026):** AN-9 muestra que el patrón no depende de los
 pesos del índice (Loiola nunca baja del 3º puesto social en 1.000 permutaciones;
-Erdialdea es 1º turístico en el 100 %). Queda pendiente AN-15 (¿hay
-autocorrelación espacial real?).
+Erdialdea es 1º turístico en el 100 %). ✅ **Segundo test a favor:** AN-15
+(Moran's I) confirma que las dos geografías son estructura espacial real —
+autocorrelación positiva significativa en alquiler (I=0,58, p=0,003),
+% universitarios, renta, VUT y Airbnb; el este obrero y el centro turístico
+salen como clusters locales nítidos (`ANALISIS-INFERENCIAL.md`).
 
 **H3 — La desigualdad territorial permanece estable mientras cambia la
 accesibilidad.** Lo sugieren el Gini plano (~0,10) junto a la tensión invertida

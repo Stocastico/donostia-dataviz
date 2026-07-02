@@ -246,8 +246,14 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   cuaderno para AN-11…20), H3 en TESIS-CIUDAD, resumen y epílogo de historias.
 - ⬜ **AN-14 estacionalidad turística por barrio**: ratio verano/invierno o Gini
   mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
-- ⬜ **AN-15 estadística espacial**: Moran's I global y local sobre las métricas
-  clave — ¿los barrios similares se agrupan?
+- ✅ **AN-15 estadística espacial** — hecho (jul-2026):
+  `analysis/spatial_autocorrelation.py` (+ tests; contigüidad queen desde
+  `barrios.geojson` con shapely, p por permutación). Moran I significativo en
+  alquiler (0,58, p=0,003), % universitarios (0,52), % extranjeros, renta,
+  VUT y Airbnb; **tensión no** (encaja: el ratio mezcla las dos geografías).
+  LISA: este obrero = cluster bajo-bajo, centro = alto-alto. H2 reforzada
+  (2º test). Exclaves (Zubieta/Landerbaso/Oarain) sin vecinos, fuera.
+  Detalle en `ANALISIS-INFERENCIAL.md`.
 - ✅ **AN-16 blindar el lead/lag AN-6** — hecho (jul-2026), **y la señal no
   sobrevive**: `analysis/lead_lag_robustness.py` (+ tests). (1) DF/KPSS en
   numpy puro sobre el panel en diferencias: KPSS no rechaza estacionariedad en

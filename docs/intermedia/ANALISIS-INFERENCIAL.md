@@ -179,3 +179,35 @@ renta 2,86 · % universitarios 2,82 · alquiler 2,76 · tensión 2,21 · VUT 1,9
 - El **ruido nocturno es periférico** (una única arista, con % extranjeros
   0,62 — ambos siguen los grandes ejes viarios/vivienda más barata), y no
   conecta con el turismo: refuerza MET-5.
+
+---
+
+## AN-15 — Moran's I: las geografías son reales, no ruido
+
+> Reproducible: `python analysis/spatial_autocorrelation.py --save`
+> (tests en `analysis/tests/test_spatial_autocorrelation.py`). Contigüidad
+> queen desde `barrios.geojson` (los exclaves Zubieta/Landerbaso/Oarain
+> quedan fuera por no tener vecinos — geografía real); p por permutación
+> (999), sin supuestos distribucionales.
+
+**Global (jul-2026):**
+
+| Métrica | Moran I | p perm | n |
+|---|---|---|---|
+| alquiler €/m² | **0,58** | **0,003** | 13 |
+| % universitarios | **0,52** | **0,002** | 17 |
+| % extranjeros | 0,33 | 0,007 | 18 |
+| renta | 0,24 | 0,031 | 17 |
+| densidad VUT | 0,24 | 0,019 | 18 |
+| densidad Airbnb | 0,18 | 0,043 | 18 |
+| tensión de vivienda | 0,13 | 0,19 | 13 |
+
+**Lectura.** Todas las variables clave menos la tensión muestran
+autocorrelación espacial positiva significativa: **los barrios parecidos se
+tocan** — las "geografías" de los relatos son estructura espacial real, no
+una forma de hablar. El Moran local dibuja los dos clusters esperables: el
+**este obrero** (Altza–Martutene–Mirakruz–Intxaurrondo) como cluster
+bajo-bajo en renta/universitarios/alquiler, y el **centro** (Erdialdea–Gros,
+con Aiete) como alto-alto en precio y turismo. Que la **tensión** no sea
+espacialmente significativa encaja con su definición (ratio alquiler/renta):
+mezcla las dos geografías y el patrón se difumina.
