@@ -142,6 +142,42 @@ multi-definición.
 
 ---
 
+## Sensibilidad de pesos (AN-9)
+
+> Respuesta a la crítica del feedback externo (jul-2026, consenso de las 3 IAs):
+> ¿el ranking depende de los pesos iguales? Reproducible:
+>
+> ```bash
+> python analysis/index_sensitivity.py --save   # → analysis/output/index_sensitivity_*.csv
+> ```
+>
+> 1.000 permutaciones aleatorias de pesos (Dirichlet plano, semilla 42) +
+> variantes fijas 60/40 y 40/60 + PCA solo como contraste. Tests en
+> `analysis/tests/test_index_sensitivity.py`.
+
+**Modo A (socioeconómico) — el podio aguanta.** Loiola es 1º en el **83 %** de
+las 1.000 permutaciones y **nunca baja del 3º puesto** (top-3 en el 100 %).
+Egia mantiene la mediana en 2º y está en el top-3 el 70 % de las veces — su
+rank solo se degrada con pesos extremos que casi anulan `univ_excess` (su
+señal fuerte). Con las variantes fijas 60/40 y 40/60 el podio no se mueve:
+Loiola 1º y Egia 2º en ambas. La cola (Martutene, Ategorrieta-Ulia) también es
+estable.
+
+**Modo B (presión turística) — aún más robusto.** Erdialdea es 1º en el
+**100 %** de las permutaciones; Gros nunca baja del 3º (top-3 en el 100 %).
+Los tres componentes (VUT, Airbnb, alquiler) apuntan en la misma dirección:
+PC1 explica el 82 % de la varianza con cargas positivas casi iguales
+(0,62/0,60/0,50) y reproduce el ranking 50/50 al 100 %.
+
+**El contraste PCA confirma la decisión de no usarlo como método de pesos.**
+En el Modo A los dos componentes están **anticorrelacionados** entre los 13
+barrios (hay barrios con mucho recambio educativo y poco empuje de alquiler, y
+viceversa), así que la PC1 sale como un *contraste* entre ambos (cargas
+−0,71/+0,71) que no se parece al índice (8 % de coincidencia de ranks). Es la
+confirmación empírica de que con N=13 la PCA no recupera un constructo de
+"transformación": el índice de pesos iguales es una definición deliberada que
+combina dos señales casi independientes, no un factor latente de los datos.
+
 ## Limitaciones
 
 - **N=13** barrios clasificables; los periféricos (Igeldo, Zubieta, Landerbaso,

@@ -211,10 +211,15 @@ Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
 Prioridad sugerida: **AN-9, AN-10 y AN-16 blindan lo ya publicado** (índice,
 correlaciones, lead/lag) y van antes que las ampliaciones.
 
-- ⬜ **AN-9 sensibilidad del índice AN-8** *(consenso 3 IAs — prioridad alta)*:
-  ~1000 permutaciones aleatorias de pesos + variantes 60/40 y 40/60; ¿Loiola y
-  Egia siguen arriba? PCA solo como contraste (frágil con N=13). Documentar en
-  `INDICE-TRANSFORMACION.md`; si el ranking aguanta, decirlo en historia #6.
+- ✅ **AN-9 sensibilidad del índice AN-8** — hecho (jul-2026):
+  `analysis/index_sensitivity.py` (+ tests en `analysis/tests/`, ahora con CI).
+  1000 permutaciones Dirichlet + variantes 60/40 y 40/60 + PCA contraste.
+  **El ranking aguanta**: Loiola 1º en el 83 % y nunca peor que 3º (Egia
+  mediana 2º, top-3 70 %); Erdialdea 1º en el 100 % en el modo turístico.
+  PCA confirma la decisión de no usarlo: en el modo A los dos componentes
+  están anticorrelacionados y la PC1 sale como contraste, no como índice.
+  Documentado en `INDICE-TRANSFORMACION.md` §"Sensibilidad de pesos" y una
+  línea en la ficha de historia #6.
 - ⬜ **AN-10 incertidumbre en correlaciones**: bootstrap IC95 % para las
   correlaciones publicadas (p.ej. r=0,72 con IC 0,48–0,86 se lee distinto).
   Añadir a `corr_robustness.csv` y a las fichas de los relatos.
