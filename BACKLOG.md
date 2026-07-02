@@ -12,11 +12,12 @@
 
 ## Estado en una línea
 
-Pipeline + web + tests estables. **6 historias** publicadas en
-`output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-5 hechos.
-Documentación reorganizada (`output/`, `datos/`, `docs/intermedia/`,
-`docs/archive/`). Lo que queda es sobre todo **datos nuevos y refinamientos (Code)**
-e **iteración narrativa (Cowork)**.
+Pipeline + web + tests estables. **6 historias + sección de cierre** publicadas
+en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 hechos.
+**Revisión externa por 3 IAs consolidada** (jul-2026,
+`docs/intermedia/FEEDBACK-IAS-2026-07.md`) → alimenta AN-9…AN-20 y REC-12…REC-20.
+Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
+**iteración narrativa (Cowork)**.
 
 ---
 
@@ -36,6 +37,14 @@ e **iteración narrativa (Cowork)**.
 - **Reestructuración (jul-2026, Cowork):** `output/` (html + resumen),
   `datos/input` (MICE curado + `FUENTES.md` + `descargar_raw.sh`),
   `datos/procesado` (placeholder), `docs/intermedia/` y `docs/archive/`, este BACKLOG.
+- **Revisión externa (jul-2026, Cowork):** feedback de ChatGPT/DeepSeek/Gemini
+  consolidado con decisiones en `docs/intermedia/FEEDBACK-IAS-2026-07.md`.
+  Aplicado ya: **MET-6** (falacia ecológica), **MET-7** (sesgo de adopción del
+  proxy Airbnb), **MET-8** (estado ≠ cambio ≠ trayectoria) en
+  `NOTA-METODOLOGICA`; matices en `TESIS-CIUDAD` (tesis como lectura sugerida,
+  Gini inter-barrio, envejecimiento preexistente) y `resumen.md`; caveats en
+  `historias.html` (#1, #3, #5) + **sección de cierre** "Lo que los datos aún
+  no pueden responder".
 
 ---
 
@@ -47,6 +56,17 @@ e **iteración narrativa (Cowork)**.
 - ✅ **Auditoría de enlaces internos** tras mover docs — hecha (jul-2026): los docs
   activos apuntan a `intermedia/`, `archive/` o `BACKLOG.md`; README y `resumen.md`
   actualizados. Los docs de `intermedia/`/`archive/` se dejan congelados.
+- ⬜ **Reestructurar las 6 historias como capítulos de un solo relato** (feedback
+  ChatGPT): hoy son bastante paralelas; arco sugerido estado → cambio → dónde →
+  por qué → qué significa → futuro, con transiciones entre historias. La sección
+  de cierre nueva ya hace de final común; falta el hilo entre capítulos.
+- ⬜ **Dar protagonismo a las 3 líneas fuertes** (ChatGPT): (a) la tensión
+  residencial invertida, (b) transformación turística ≠ transformación social
+  como mensaje central (hoy vive dentro de #6), (c) velocidad vs. estado (MET-8).
+- ⬜ **Encuadrar el proyecto como generador de hipótesis** (ChatGPT §8): las 4
+  hipótesis empíricas que ya emergen (turismo anticipa alquiler; dos geografías;
+  brecha estable con accesibilidad cambiante; centro que se vacía sin dejar de
+  concentrar actividad) merecen ser explícitas en `TESIS-CIUDAD`/`resumen.md`.
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
@@ -171,7 +191,67 @@ e **iteración narrativa (Cowork)**.
     comercial→vivienda como alivio a la tensión habitacional) encaja con la
     tesis de transformación urbana ya desarrollada.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
-  independiente para triangular el lead/lag.
+  independiente para triangular el lead/lag. Ver AN-16 (estacionariedad +
+  control macro) y REC-12 (histórico VUT como 2ª señal).
+
+### Análisis inferencial (feedback IAs jul-2026 — detalle y origen en `docs/intermedia/FEEDBACK-IAS-2026-07.md`)
+
+Prioridad sugerida: **AN-9, AN-10 y AN-16 blindan lo ya publicado** (índice,
+correlaciones, lead/lag) y van antes que las ampliaciones.
+
+- ⬜ **AN-9 sensibilidad del índice AN-8** *(consenso 3 IAs — prioridad alta)*:
+  ~1000 permutaciones aleatorias de pesos + variantes 60/40 y 40/60; ¿Loiola y
+  Egia siguen arriba? PCA solo como contraste (frágil con N=13). Documentar en
+  `INDICE-TRANSFORMACION.md`; si el ranking aguanta, decirlo en historia #6.
+- ⬜ **AN-10 incertidumbre en correlaciones**: bootstrap IC95 % para las
+  correlaciones publicadas (p.ej. r=0,72 con IC 0,48–0,86 se lee distinto).
+  Añadir a `corr_robustness.csv` y a las fichas de los relatos.
+- ⬜ **AN-11 tipologías de barrio**: clustering jerárquico + silhouette +
+  dendrograma (refina el k-means k=4 de `barrio_profile`); extras: "barrio más
+  parecido" (matriz de distancias) y ranking multivariable de cambio desde 2016.
+- ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
+  saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
+  proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
+- ⬜ **AN-13 beta-convergencia**: `Δindicador ~ α + β·nivel_inicial` para renta,
+  alquiler, % universitarios; testea "brecha estable" con más rigor que el Gini.
+- ⬜ **AN-14 estacionalidad turística por barrio**: ratio verano/invierno o Gini
+  mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
+- ⬜ **AN-15 estadística espacial**: Moran's I global y local sobre las métricas
+  clave — ¿los barrios similares se agrupan?
+- ⬜ **AN-16 blindar el lead/lag AN-6** *(prioridad alta)*: test ADF/KPSS de
+  estacionariedad del panel en diferencias + control macro (IPC, tipos); sin
+  esto, r(+1)=0,27 podría ser artefacto.
+- ⬜ **AN-17 red de correlaciones**: grafo variable↔variable con aristas =
+  correlaciones robustas; identifica variables "centrales" (¿la renta conecta
+  todo?).
+- ⬜ **AN-18 trayectorias de barrio**: connected scatter 2000→2025 (p.ej.
+  envejecimiento × % universitarios); la lectura "trayectoria" de MET-8.
+- ⬜ **AN-19 regresión múltiple exploratoria**: alquiler ~ renta + universitarios
+  + Airbnb; ¿Airbnb aporta información controlando por renta? (N=13, nunca
+  publicable como modelo, sí como pregunta).
+- ⬜ **AN-20 efecto COVID en trayectorias**: ¿aceleró 2020 la turistificación o
+  solo la interrumpió? Comparar tendencias pre/post (idea RDD, con cautela por N).
+
+### Datos nuevos (feedback IAs jul-2026)
+
+- ⬜ **REC-12 histórico de licencias VUT** (Gob. Vasco, fecha de alta): curva de
+  oferta legal independiente del sesgo de adopción; 2ª señal para el lead/lag.
+- ⬜ **REC-13 anuncios activos Inside Airbnb** (serie de snapshots): contrastar
+  con reseñas; si divergen, cuantificar el sesgo de adopción (MET-7).
+- ⬜ **REC-14 isla de calor superficial** (Landsat/Copernicus): temperatura por
+  barrio; cruza con "la presión recae en el este" y da dimensión espacial al clima.
+- ⬜ **REC-15 vivienda protegida / VPO** (Observatorio Vasco de Vivienda): ¿la
+  VPO amortigua la tensión de alquiler?
+- ⬜ **REC-16 tipología comercial vía OSM** (histórico): ¿comercio de barrio →
+  servicios turísticos? Complementa REC-7 (que solo llega a ciudad).
+- ⬜ **REC-17 matrices origen-destino Eustat** (commuting trabajo/estudios):
+  reactiva el eje movilidad tras la baja de DBus (REC-6).
+- ⬜ **REC-18 equipamientos ampliados** (salud, bibliotecas, zonas verdes; Open
+  Data): índice de accesibilidad por barrio × renta/tensión.
+- ⬜ **REC-19 percepción ciudadana** (encuestas municipales de satisfacción):
+  la capa subjetiva que falta.
+- ⬜ **REC-20 cajón de ideas** (menor prioridad): licencias de obra y
+  rehabilitación, matrícula escolar por centro, vegetación/arbolado satelital.
 
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):
@@ -213,6 +293,10 @@ e **iteración narrativa (Cowork)**.
   scraping de Indomio/Idealista (ToS).
 - **"Índice de gentrificación" como caja negra** — se usa "Transformación Urbana",
   multi-definición y con componentes a la vista.
+- **PCA como método principal de pesos del AN-8** — frágil con N=13; solo como
+  contraste dentro de AN-9 (feedback jul-2026).
+- **"Índice de presión compuesta" adicional** (DeepSeek) — sería otra caja negra;
+  los componentes del AN-8 ya están a la vista.
 
 ---
 
@@ -222,5 +306,9 @@ e **iteración narrativa (Cowork)**.
 - **Correlación ≠ causalidad**; incluso el lead/lag es exploratorio.
 - **% de extranjeros no es proxy** de transformación; el **ruido es de tráfico**,
   no de turismo.
+- **Falacia ecológica** (MET-6): correlaciones entre barrios, nunca entre personas.
+- **Proxy Airbnb con sesgo de adopción** (MET-7); el **envejecimiento del centro
+  es anterior al turismo** — no se sugiere causalidad.
+- **Estado ≠ cambio ≠ trayectoria** (MET-8): cada afirmación dice de cuál habla.
 - Toda métrica lleva su **ficha de confianza** (observado / derivado / proxy).
 - **No versionar crudos grandes**; sí el input curado + `FUENTES.md` + script de descarga.
