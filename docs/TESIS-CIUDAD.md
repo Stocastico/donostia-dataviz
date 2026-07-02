@@ -21,7 +21,12 @@
 del centro, pérdida de población), no un hecho demostrado: sin microdatos de
 movilidad residencial no se puede afirmar desplazamiento (MET-2). El mejor
 proxy alcanzable — descomponer la pérdida de población del centro en saldo
-vegetativo vs migratorio y éxodo de 25–39 — está pendiente (AN-12).
+vegetativo vs migratorio y éxodo de 25–39 — **ya está hecho (AN-12)** y
+matiza la imagen: en 2000–2025 Erdialdea **atrae** migración neta (+2.162) y
+pierde población por puro déficit vegetativo (−3.435); la doble sangría
+(vegetativa y migratoria, con éxodo 25–39 sostenido en las cinco ventanas)
+es de **Gros**. El desplazamiento neto, si existe, es selectivo por edad y
+barrio, no un vaciado del centro (`ANALISIS-INFERENCIAL.md` §AN-12).
 
 ## Los eslabones (con su evidencia)
 
@@ -139,9 +144,14 @@ que este dato no ve: desigualdad intra-barrio y quien se marcha del municipio.
 
 **H4 — El centro pierde población sin dejar de concentrar actividad.** Lo
 sugieren la pérdida de población (Gros −0,60 %/año) simultánea al máximo de
-presión turística y actividad económica. La descompondría AN-12 (saldo
-vegetativo vs migratorio, éxodo 25–39) y la complementaría REC-17 (commuting:
-¿quién sostiene el centro sin vivir en él?).
+presión turística y actividad económica. ✅ **Descompuesta (jul-2026):** AN-12
+(residuo por cohortes) muestra que la pérdida es ante todo **vegetativa** —
+Erdialdea atrae migración neta (+2.162 en 2000–2025) y aun así pierde
+población (déficit nacimientos−defunciones de −3.435); Gros es el único
+barrio con saldo vegetativo Y migratorio negativos, con éxodo 25–39 en las
+cinco ventanas quinquenales (`ANALISIS-INFERENCIAL.md` §AN-12). El "sin
+dejar de concentrar actividad" sigue abierto: lo complementaría REC-17
+(commuting: ¿quién sostiene el centro sin vivir en él?).
 
 Ninguna es una conclusión: son las **preguntas de investigación** que este
 proyecto deja formuladas con datos abiertos, listas para datos mejores.

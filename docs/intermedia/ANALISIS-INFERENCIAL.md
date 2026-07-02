@@ -211,3 +211,73 @@ bajo-bajo en renta/universitarios/alquiler, y el **centro** (Erdialdea–Gros,
 con Aiete) como alto-alto en precio y turismo. Que la **tensión** no sea
 espacialmente significativa encaja con su definición (ratio alquiler/renta):
 mezcla las dos geografías y el patrón se difumina.
+
+---
+
+## AN-12 — La pérdida del centro es vegetativa, no de expulsión (y el éxodo joven es de Gros)
+
+> Reproducible: `python analysis/population_decomposition.py --save`
+> (tests en `analysis/tests/test_population_decomposition.py`). Requiere los
+> crudos (`bash datos/input/descargar_raw.sh`): pirámide quinquenal del padrón
+> (`edad_barrio.csv`) + tablas de mortalidad de Gipuzkoa del INE
+> (`ine_mortalidad_gipuzkoa.json`, nueva fuente registrada en FUENTES.md).
+
+**Método.** No existe dataset abierto de saldo vegetativo/migratorio por
+barrio (se agotaron CKAN Donostia, Eustat y datos.gob.es), así que se estima
+con el **residuo por cohortes**: en ventanas de 5 años cada grupo quinquenal
+envejece exactamente un grupo; las defunciones esperadas salen de las ₅qx
+provinciales (INE, promedio de la ventana) aplicadas a la pirámide inicial, y
+la migración neta es el residuo. La identidad ΔP = nacimientos_proxy −
+defunciones_esperadas + migración_neta es exacta por construcción.
+
+**Resultado (jul-2026), acumulado 2000→2025 (personas):**
+
+| Barrio | ΔP | Saldo vegetativo (est.) | Migración neta (est.) |
+|---|---|---|---|
+| **Gros** | **−3.369** | −2.807 | **−562** |
+| **Erdialdea** | **−1.273** | −3.435 | **+2.162** |
+| Antigua | −512 | −444 | −68 |
+| Amara Berri | +4.139 | −996 | +5.135 |
+| Aiete | +3.178 | +1.607 | +1.571 |
+| Ibaeta | +2.301 | +646 | +1.655 |
+| Loiola | +2.122 | +356 | +1.766 |
+
+(Barrios restantes en `analysis/output/population_decomposition.csv`; el
+padrón por edad no incluye Oarain.)
+
+- **La pérdida de población del centro es ante todo vegetativa.** Erdialdea
+  pierde 1.273 personas pese a **atraer** +2.162 por migración neta: su
+  déficit nacimientos−defunciones (−3.435) se lo come todo. La imagen de un
+  centro que "expulsa" residentes en términos netos **no se sostiene** en
+  2000–2025; lo que hay es un centro envejecido que no se repone y que
+  recambia población.
+- **Gros es el único barrio con las dos sangrías a la vez**: déficit
+  vegetativo (−2.807) **y** migración neta negativa (−562). Y en las
+  cohortes 25–39 es el único con tasa neta negativa en **las cinco
+  ventanas** (entre −4 % y −9 % por quinquenio, la peor 2020–2025). El
+  "éxodo joven" del relato del centro tiene nombre propio: Gros.
+- En Erdialdea el éxodo 25–39 existió en 2000–2015 (−4,5/−4,8/−6,5 %) pero
+  se frenó después (+0,6/−0,5 %); su migración neta positiva reciente entra
+  por otras cohortes (y muy probablemente por la inmigración extranjera que
+  ya recoge `pct_foreign`).
+- Los que más crecen lo hacen por migración (Amara Berri +5.135, Loiola,
+  Ibaeta, Miramón-Zorroaga) — desarrollos nuevos y recepción del recambio.
+
+**Lecturas honestas.** (1) `nacimientos_proxy` = población 00-04 al cierre:
+mezcla nacimientos con migración de menores de 5; el ΔP no se ve afectado,
+el reparto vegetativo/migratorio es aproximado. (2) ₅qx provinciales para
+todos los barrios: si el centro envejecido muere algo más/menos que la media
+provincial, parte del residuo se movería entre columnas — no hay mortalidad
+por barrio publicada. (3) El grupo abierto 95+ usa ₅q=1 (tabla INE):
+sobreestima defunciones e infla la migración estimada en esa cola; efecto
+de decenas de personas, no cambia ninguna lectura. (4) Exclaves con
+población mínima (Landerbaso, Zubieta) dan tasas jóvenes absurdas por
+denominador pequeño: no leerlas. (5) Chequeo de escala: los totales de
+ciudad implícitos (~1.400 nacimientos/año, ~1.600 defunciones/año) cuadran
+con las cifras municipales publicadas.
+
+**Consecuencia editorial.** Responde la pregunta abierta #2 del resumen
+(descomposición de la pérdida del centro) y matiza H4: la presión turística
+convive con un centro que **atrae** migración neta; el desplazamiento neto,
+si existe, es selectivo por edad (Gros 25–39) y no un vaciado. Pendiente de
+que Cowork lo integre en resumen/historias (#5/#6).

@@ -19,7 +19,9 @@ en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 h
 **Tanda inferencial hecha (jul-2026): AN-9, 10, 11, 13, 15, 16, 17, 19, 20**
 (`docs/intermedia/ANALISIS-INFERENCIAL.md` + docs propios; hallazgo mayor: el
 lead/lag AN-6 **no sobrevive** al blindaje AN-16 y se retiró de los relatos).
-Quedan AN-12/14/18 (necesitan datos nuevos o son viz) y los REC de datos nuevos.
+**AN-12 hecho (jul-2026)** (residuo por cohortes: la pérdida del centro es
+vegetativa; el éxodo joven es de Gros). Quedan AN-14/18 (desbloqueado/viz) y
+los REC de datos nuevos.
 
 ---
 
@@ -237,21 +239,19 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   renta/estudios, no turismo. Estructura moderada (~0,45): las tipologías
   siguen siendo perfiles descriptivos. Vecino más parecido: Egia↔Loiola
   (coherente con historia #6). Detalle en `ANALISIS-INFERENCIAL.md`.
-- ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
-  saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
-  proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
-  *Búsqueda de fuente (jul-2026): **no existe dataset abierto por barrio**.
-  CKAN de Donostia solo tiene población/pirámide/origen/estudios; Eustat baja
-  a distrito únicamente en migraciones intramunicipales 1991–2003
-  (`PX_010311_cemm_om07.px`) y el resto es municipio/comarca; el dataset
-  "índices demográficos" de datos.gob.es (l01200697) está retirado; el
-  "Análisis Demográfico" anual del Ayuntamiento tiene natalidad por barrio
-  pero es PDF y el enlace conocido (2022) está muerto. Vía propuesta:
-  **residuo por cohortes** con `edad_barrio.csv` (quinquenal por barrio y
-  sexo, 2000–2025): seguir cohortes en pasos de 5 años, restar mortalidad
-  esperada (defunciones por edad/sexo de Gipuzkoa, Eustat
-  `PX_010303_cmnp_edef01.px`, 1996–2024) → estimación de migración neta por
-  barrio y franja; entradas 00–04 como proxy de nacimientos.*
+- ✅ **AN-12 descomponer la pérdida de población del centro** — hecho (jul-2026):
+  `analysis/population_decomposition.py` (+ tests). No existe dataset abierto
+  de saldo vegetativo/migratorio por barrio (agotados CKAN Donostia, Eustat —
+  distrito solo 1991–2003 — y datos.gob.es), así que se estimó por **residuo
+  por cohortes** (pirámide del padrón + ₅qx de Gipuzkoa, INE tabla 67235,
+  nueva fuente en `FUENTES.md`/`descargar_raw.sh`; requiere crudos).
+  Resultado: **la pérdida del centro es vegetativa, no de expulsión** —
+  Erdialdea atrae migración neta (+2.162 en 2000–2025) y pierde población por
+  déficit nacimientos−defunciones (−3.435); **Gros** es el único barrio con
+  ambos saldos negativos y éxodo 25–39 en las cinco ventanas (−4 a −9 % por
+  quinquenio). Responde la pregunta abierta #2 y matiza H4 (TESIS-CIUDAD
+  actualizada). Detalle en `ANALISIS-INFERENCIAL.md` §AN-12. *Pendiente
+  Cowork: integrarlo en resumen/historias.*
 - ✅ **AN-13 beta-convergencia** — hecho (jul-2026):
   `analysis/beta_convergence.py` (+ tests), IC bootstrap para β. Resultado:
   **compatible con brecha estable en los tres indicadores** (renta, alquiler,
