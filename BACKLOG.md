@@ -240,6 +240,18 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
 - ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
   saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
   proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
+  *Búsqueda de fuente (jul-2026): **no existe dataset abierto por barrio**.
+  CKAN de Donostia solo tiene población/pirámide/origen/estudios; Eustat baja
+  a distrito únicamente en migraciones intramunicipales 1991–2003
+  (`PX_010311_cemm_om07.px`) y el resto es municipio/comarca; el dataset
+  "índices demográficos" de datos.gob.es (l01200697) está retirado; el
+  "Análisis Demográfico" anual del Ayuntamiento tiene natalidad por barrio
+  pero es PDF y el enlace conocido (2022) está muerto. Vía propuesta:
+  **residuo por cohortes** con `edad_barrio.csv` (quinquenal por barrio y
+  sexo, 2000–2025): seguir cohortes en pasos de 5 años, restar mortalidad
+  esperada (defunciones por edad/sexo de Gipuzkoa, Eustat
+  `PX_010303_cmnp_edef01.px`, 1996–2024) → estimación de migración neta por
+  barrio y franja; entradas 00–04 como proxy de nacimientos.*
 - ✅ **AN-13 beta-convergencia** — hecho (jul-2026):
   `analysis/beta_convergence.py` (+ tests), IC bootstrap para β. Resultado:
   **compatible con brecha estable en los tres indicadores** (renta, alquiler,
