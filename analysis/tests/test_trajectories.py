@@ -91,3 +91,38 @@ def test_dispersion_convergencia_detectada():
     disp = tj.dispersion_by_year(panel)
     assert disp.iloc[-1] < disp.iloc[0]
     assert tj.trend_slope(disp) < 0
+
+
+# ------------------------------------------------------------- SVG AN-18 ----
+def test_svg_escala_del_marco_canonico():
+    # marco publicado: x [40,400] → px [56,562]; y [0,40] → px [454,18]
+    assert round(tj._sx(40.0), 1) == 56.0
+    assert round(tj._sx(400.0), 1) == 562.0
+    assert round(tj._sx(50.0), 1) == 70.1
+    assert round(tj._sy(0.0), 1) == 454.0
+    assert round(tj._sy(10.0), 1) == 345.0
+    assert round(tj._sy(40.0), 1) == 18.0
+
+
+def test_svg_dibuja_grises_y_destacados_y_excluye_ruido():
+    rows = []
+    for barrio in ("egia", "aiete", "zubieta"):
+        for i in range(6):
+            rows.append((barrio, "mx", str(2000 + i), 100.0 + 10 * i))
+            rows.append((barrio, "my", str(2000 + i), 10.0 + i))
+    panel = tj.xy_panel(_long(rows), "mx", "my")
+    svg = tj.svg_connected_scatter(panel)
+    assert svg.startswith("<svg") and svg.rstrip().endswith("</svg>")
+    assert svg.count('stroke="#d1495b"') >= 1      # Egia destacado (coral)
+    assert svg.count('stroke="#c9d2de"') >= 1      # Aiete en gris
+    assert ">Egia<" in svg                          # etiqueta del destacado
+    assert "zubieta" not in svg.lower()             # excluido (ruido)
+    # los destacados llevan puntos intermedios (2005/10/15/20 si existen)
+    assert 'r="2.2"' in svg
+
+
+def test_svg_marcadores_inicio_hueco_y_fin_lleno():
+    panel = tj.xy_panel(_line(barrio="aiete", x0=100, y0=10), "mx", "my")
+    svg = tj.svg_connected_scatter(panel)
+    assert 'fill="#fff" stroke="#c9d2de"' in svg    # 2000: círculo hueco
+    assert 'r="2.8" fill="#c9d2de"' in svg          # 2025: punto lleno

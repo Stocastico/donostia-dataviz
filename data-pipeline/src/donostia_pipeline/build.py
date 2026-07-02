@@ -32,7 +32,9 @@ from .datasets import (
     ine_eoh,
     mice,
     modelos_linguisticos,
+    movilidad_laboral,
     paro,
+    reate_licencias,
     rent,
     renta,
     residuos,
@@ -112,6 +114,17 @@ RAW_DOWNLOADS: dict[str, str] = {
     ),
     "airbnb_reviews.csv.gz": (
         "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
+    ),
+    # Gobierno Vasco REATE registry — tourist homes (VUT) + rooms (HUT) with the
+    # original registration date. Living snapshot: bajas are not published, so
+    # the derived curves are of surviving licenses (see reate_licencias.py).
+    reate_licencias.RAW_VIVIENDAS: (
+        "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/"
+        "habitaciones_viviendas_turisti/opendata/viviendas.json"
+    ),
+    reate_licencias.RAW_HABITACIONES: (
+        "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/"
+        "habitaciones_viviendas_turisti/opendata/habitaciones.json"
     ),
 }
 
@@ -281,6 +294,43 @@ def ensure_eustat_comercio(offline: bool) -> bool:
     )
 
 
+# REC-17 — Eustat has no municipio×municipio OD matrix in PxWeb; we fetch the
+# categorical mobility tables (EMPA lugar de trabajo / EME lugar de estudios,
+# Donostia 20069, 2021–) plus DIRAE localized employment (est07, 1995–). See
+# datasets/movilidad_laboral.py for how they close H4's activity half.
+_MOVILIDAD_QUERY = {
+    "query": [
+        {"code": "ámbitos territoriales",
+         "selection": {"filter": "item", "values": ["20069"]}},
+    ],
+    "response": {"format": "json"},
+}
+EUSTAT_EMPA_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050407_cempa_empa_mt02.px"
+EUSTAT_EME_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040606_ceme_me02.px"
+EUSTAT_DIRAE_EMPLEO_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est07.px"
+
+
+def ensure_eustat_movilidad(offline: bool) -> bool:
+    """Fetch the Donostia work/study mobility tables into raw/ (once)."""
+    ok_empa = _ensure_pxweb_table(
+        offline, movilidad_laboral.RAW_EMPA, EUSTAT_EMPA_URL, _MOVILIDAD_QUERY,
+        "Eustat EMPA movilidad laboral",
+    )
+    ok_eme = _ensure_pxweb_table(
+        offline, movilidad_laboral.RAW_EME, EUSTAT_EME_URL, _MOVILIDAD_QUERY,
+        "Eustat EME movilidad de estudios",
+    )
+    return ok_empa and ok_eme
+
+
+def ensure_eustat_dirae_empleo(offline: bool) -> bool:
+    """Fetch the Donostia localized-employment series into raw/ (once)."""
+    return _ensure_pxweb_table(
+        offline, movilidad_laboral.RAW_DIRAE, EUSTAT_DIRAE_EMPLEO_URL,
+        _MOVILIDAD_QUERY, "Eustat DIRAE empleo localizado",
+    )
+
+
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
 # render disabled ("in arrivo") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
@@ -381,12 +431,16 @@ def run(offline: bool = False) -> dict:
     ensure_eustat_modelos(offline)
     ensure_eustat_paro(offline)
     ensure_eustat_comercio(offline)
+    ensure_eustat_movilidad(offline)
+    ensure_eustat_dirae_empleo(offline)
     indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
                   + fiscalidad.build_indicators(config.RAW_DIR)
                   + modelos_linguisticos.build_indicators(config.RAW_DIR)
                   + ibiltur.build_indicators()
                   + paro.build_indicators(config.RAW_DIR)
-                  + tejido_comercial.build_indicators(config.RAW_DIR))
+                  + tejido_comercial.build_indicators(config.RAW_DIR)
+                  + reate_licencias.build_indicators(config.RAW_DIR)
+                  + movilidad_laboral.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

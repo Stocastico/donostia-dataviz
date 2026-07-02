@@ -51,6 +51,12 @@ dl tasas_ciudad.csv           "https://www.donostia.eus/datosabiertos/dataset/7c
 dl airbnb_listings.csv.gz     "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz"
 dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
 
+# Gobierno Vasco REATE (REC-12): viviendas (VUT) y habitaciones (HUT) de uso
+# turístico con fecha de alta en el registro. Snapshot vivo: las bajas no se
+# publican (las curvas derivadas son de licencias supervivientes).
+dl reate_viviendas.json       "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/viviendas.json"
+dl reate_habitaciones.json    "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/habitaciones.json"
+
 # Eustat PxWeb (REC-9): modelo lingüístico A/B/D, Donostia (municipio 20069),
 # serie completa 1983/1984–. Filtro server-side vía POST (sin clave).
 dl_post eustat_modelos_linguisticos.json \
@@ -68,6 +74,26 @@ dl_post eustat_paro_donostia.json \
 dl_post eustat_comercio_donostia.json \
   "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est04b.px" \
   '{"query":[{"code":"municipio","selection":{"filter":"item","values":["20069"]}},{"code":"CNAE-2009","selection":{"filter":"all","values":["*"]}},{"code":"periodo","selection":{"filter":"all","values":["*"]}}],"response":{"format":"json"}}'
+
+# Eustat PxWeb (REC-17): movilidad laboral/estudios (categórica: lugar de
+# trabajo/estudio, 2021–) + empleo localizado DIRAE (1995–), Donostia (20069).
+# No existe matriz O-D municipio×municipio en el banco PxWeb.
+dl_post eustat_empa_movilidad.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050407_cempa_empa_mt02.px" \
+  '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
+dl_post eustat_eme_movilidad.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040606_ceme_me02.px" \
+  '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
+dl_post eustat_dirae_empleo.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est07.px" \
+  '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
+
+# Inside Airbnb snapshots trimestrales (REC-13): anuncios activos por fecha
+# (CSV resumen, uno por snapshot). Solo lo usa analysis/airbnb_snapshots.py.
+# Los snapshots 2021-12-30…2023-09-24 ya no se sirven (403; data request).
+for d in 2023-12-29 2024-03-31 2024-06-30 2024-09-29 2024-12-31 2025-03-27 2025-06-28 2025-09-29; do
+  dl "airbnb_snapshot_$d.csv" "https://data.insideairbnb.com/spain/pv/euskadi/$d/visualisations/listings.csv"
+done
 
 # INE Tablas de Mortalidad (AN-12): riesgo de muerte quinquenal (qx, ‰) de
 # Gipuzkoa por sexo y grupo de edad, 1991–. Solo lo usa analysis/ (no es un
