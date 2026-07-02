@@ -63,6 +63,32 @@ def spearman(x: pd.Series, y: pd.Series) -> float:
     return x.rank().corr(y.rank())
 
 
+def bootstrap_ci_pearson(x: pd.Series, y: pd.Series, n_boot: int = 2000,
+                         seed: int = 42, alpha: float = 0.05) -> tuple[float, float]:
+    """IC bootstrap percentil para la correlación de Pearson (AN-10).
+
+    Remuestrea pares (x, y) con reemplazo; los remuestreos degenerados
+    (varianza cero → r indefinido) se descartan. Con N pequeño (aquí 13–19
+    barrios) el intervalo sale ancho a propósito: esa es la información.
+    """
+    xa, ya = np.asarray(x, float), np.asarray(y, float)
+    n = len(xa)
+    if n < 3:
+        return float("nan"), float("nan")
+    rng = np.random.default_rng(seed)
+    rs = []
+    for _ in range(n_boot):
+        idx = rng.integers(0, n, n)
+        xb, yb = xa[idx], ya[idx]
+        if xb.std() == 0 or yb.std() == 0:
+            continue
+        rs.append(np.corrcoef(xb, yb)[0, 1])
+    if not rs:
+        return float("nan"), float("nan")
+    lo, hi = np.percentile(rs, [100 * alpha / 2, 100 * (1 - alpha / 2)])
+    return float(lo), float(hi)
+
+
 # ---------------------------------------------------------------------------
 # 1. Correlaciones robustas
 # ---------------------------------------------------------------------------
@@ -89,9 +115,12 @@ def correlations(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, list[dic
     robustness = []
     for a, b in key_pairs:
         j = pd.concat([cols[a], cols[b]], axis=1).dropna()
+        ci_lo, ci_hi = bootstrap_ci_pearson(j[a], j[b])
         row = {
             "pair": f"{a} ~ {b}", "n": len(j),
             "pearson": round(j[a].corr(j[b]), 3),
+            "pearson_ci95_lo": round(ci_lo, 3),
+            "pearson_ci95_hi": round(ci_hi, 3),
             "spearman": round(spearman(j[a], j[b]), 3),
         }
         jj = j.drop(index=OUTLIERS, errors="ignore")

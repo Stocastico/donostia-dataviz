@@ -81,18 +81,22 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
 
 ## 3. Insights y correlaciones (verificados)
 
-### Correlaciones entre barrios (Pearson; Spearman; sin outliers)
+### Correlaciones entre barrios (Pearson; IC95% bootstrap; Spearman; sin outliers)
 
-| Par | Pearson | Spearman | Sin outliers | Lectura |
-|---|---|---|---|---|
-| tensión de vivienda ↔ renta | **−0,81** | −0,86 | **−0,89** (n=11) | La más fuerte y robusta del sistema |
-| densidad VUT ↔ alquiler €/m² | 0,64 | 0,75 | 0,62 (n=11) | Turismo donde el alquiler es alto; aguanta sin Erdialdea/Gros |
-| % universitarios ↔ renta | 0,75 | 0,85 | 0,76 | Capital educativo ligado a renta |
-| % universitarios ↔ alquiler | 0,84 | 0,83 | — | — |
-| alquiler ↔ renta | 0,72 | 0,72 | 0,65 | — |
-| renta ↔ % extranjeros | −0,58 | −0,52 | −0,72 | Inmigración económica (no gentrificación) |
-| tensión ↔ % extranjeros | 0,74 | 0,64 | — | La presión recae donde crece la inmigración |
-| tensión ↔ escuelas/1000 | −0,63 | −0,39 | — | Más equipamiento donde menos presión |
+| Par | Pearson | IC95% (AN-10) | Spearman | Sin outliers | Lectura |
+|---|---|---|---|---|---|
+| tensión de vivienda ↔ renta | **−0,81** | −0,96 a −0,67 | −0,86 | **−0,89** (n=11) | La más fuerte y robusta del sistema |
+| densidad VUT ↔ alquiler €/m² | 0,64 | 0,42 a 0,87 | 0,75 | 0,62 (n=11) | Turismo donde el alquiler es alto; aguanta sin Erdialdea/Gros |
+| % universitarios ↔ renta | 0,75 | 0,58 a 0,93 | 0,85 | 0,76 | Capital educativo ligado a renta |
+| % universitarios ↔ alquiler | 0,84 | — | 0,83 | — | — |
+| alquiler ↔ renta | 0,72 | 0,24 a 0,96 | 0,72 | 0,65 | Intervalo ancho: compatible con asociación débil |
+| renta ↔ % extranjeros | −0,58 | −0,86 a −0,18 | −0,52 | −0,72 | Inmigración económica (no gentrificación) |
+| tensión ↔ % extranjeros | 0,74 | — | 0,64 | — | La presión recae donde crece la inmigración |
+| tensión ↔ escuelas/1000 | −0,63 | — | −0,39 | — | Más equipamiento donde menos presión |
+
+*IC95% = bootstrap percentil (2.000 remuestreos, `analysis/sprint_a.py`); solo
+para los pares del set de robustez. Con N=13–18 los intervalos son anchos a
+propósito: esa es la información.*
 
 > ⚠️ **Falacia ecológica (MET-6):** correlaciones a nivel de **barrio** (N=13),
 > no individual. P.ej. tensión↔extranjeros no dice nada de hogares concretos:

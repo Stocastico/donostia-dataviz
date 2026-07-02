@@ -220,9 +220,13 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   están anticorrelacionados y la PC1 sale como contraste, no como índice.
   Documentado en `INDICE-TRANSFORMACION.md` §"Sensibilidad de pesos" y una
   línea en la ficha de historia #6.
-- ⬜ **AN-10 incertidumbre en correlaciones**: bootstrap IC95 % para las
-  correlaciones publicadas (p.ej. r=0,72 con IC 0,48–0,86 se lee distinto).
-  Añadir a `corr_robustness.csv` y a las fichas de los relatos.
+- ✅ **AN-10 incertidumbre en correlaciones** — hecho (jul-2026):
+  `bootstrap_ci_pearson` en `sprint_a.py` (percentil, 2.000 remuestreos,
+  semilla fija) + tests; columnas `pearson_ci95_lo/hi` en
+  `corr_robustness.csv`. El caso estrella confirma la intuición del feedback:
+  alquiler↔renta r=0,72 con IC 0,24–0,96. Fichas actualizadas: tabla de
+  `resumen.md`, MET-3 en `metodologia.html`, ficha VUT↔alquiler en
+  `historias.html`.
 - ⬜ **AN-11 tipologías de barrio**: clustering jerárquico + silhouette +
   dendrograma (refina el k-means k=4 de `barrio_profile`); extras: "barrio más
   parecido" (matriz de distancias) y ranking multivariable de cambio desde 2016.
