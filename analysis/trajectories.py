@@ -19,7 +19,13 @@ centrada de 3 años, para que el ruido anual del padrón no infle el camino):
 
 Solo pandas + numpy; lee `datos/procesado/tablas/metrics_long.csv`
 (versionado — no requiere crudos). Uso:
-    python analysis/trajectories.py [--save]
+    python analysis/trajectories.py [--save] [--svg]
+
+`--svg` regenera el connected scatter estático de la historia #6
+(`analysis/output/trajectories_an18.svg`): mismo marco, paleta y marcadores
+que el SVG inline publicado en `output/historias.html` (jul-2026), con
+Egia/Antiguo/Loiola/Miramón destacados y Zubieta/Landerbaso fuera (ruido de
+denominador — "no leer sus trazas").
 """
 from __future__ import annotations
 
@@ -109,10 +115,135 @@ def trend_slope(series: pd.Series) -> float:
     return float(np.polyfit(x, series.to_numpy(float), 1)[0])
 
 
+# ------------------------------------------------------------- SVG AN-18 ----
+# Marco canónico del gráfico publicado (historias.html #6): viewBox 680×500,
+# área de trazado x∈[56,562] px ↔ envejecimiento [40,400], y∈[454,18] px ↔
+# % universitarios [0,40]. Si el padrón se sale del marco algún año, ampliar
+# aquí (y re-embeber el SVG en historias).
+VIEW_W, VIEW_H = 680, 500
+_PX = (56.0, 562.0)
+_PY = (454.0, 18.0)
+X_DOMAIN, X_STEP = (40.0, 400.0), 50
+Y_DOMAIN, Y_STEP = (0.0, 40.0), 10
+# Paleta de la página; el resto de trazas va en gris #c9d2de.
+HIGHLIGHTS = {
+    "egia": ("Egia", "#d1495b"),
+    "antigua": ("Antiguo", "#e0902f"),
+    "miramon-zorroaga": ("Miramón-Zorroaga", "#2a9d6f"),
+    "loiola": ("Loiola", "#1f6f8b"),
+}
+# Desplazamiento (dx, dy) de cada etiqueta respecto al punto final.
+_LABEL_OFFSET = {"egia": (8, 4), "antigua": (8, -6),
+                 "miramon-zorroaga": (8, 12), "loiola": (8, 4)}
+EXCLUDE = {"zubieta", "landerbaso"}   # ruido de denominador (AN-18)
+GRAY = "#c9d2de"
+MARKER_YEARS = (2005, 2010, 2015, 2020)
+
+
+def _sx(v: float) -> float:
+    d0, d1 = X_DOMAIN
+    return _PX[0] + (v - d0) / (d1 - d0) * (_PX[1] - _PX[0])
+
+
+def _sy(v: float) -> float:
+    d0, d1 = Y_DOMAIN
+    return _PY[0] + (v - d0) / (d1 - d0) * (_PY[1] - _PY[0])
+
+
+def _trace(g: pd.DataFrame, smooth: int) -> tuple[np.ndarray, np.ndarray, list[int]]:
+    g = g.droplevel(0).sort_index()
+    x = _smooth(g["x"], smooth).to_numpy(float)
+    y = _smooth(g["y"], smooth).to_numpy(float)
+    return x, y, list(g.index)
+
+
+def svg_connected_scatter(panel: pd.DataFrame, smooth: int = SMOOTH) -> str:
+    """El connected scatter de la historia #6 como SVG standalone."""
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {VIEW_W} {VIEW_H}" '
+        'role="img" aria-label="Trayectorias de los barrios 2000–2025 en el '
+        'plano envejecimiento × universitarios">'
+    ]
+    # rejilla + ejes
+    v = X_DOMAIN[0] + X_STEP
+    while v < X_DOMAIN[1] + 1e-9:
+        parts.append(f'<line x1="{_sx(v):.1f}" y1="{_PY[1]}" x2="{_sx(v):.1f}" '
+                     f'y2="{_PY[0]}" stroke="#eef1f6"/>')
+        parts.append(f'<text x="{_sx(v):.1f}" y="{_PY[0] + 16:.0f}" font-size="10.5" '
+                     f'fill="#6b7a90" text-anchor="middle">{v:.0f}</text>')
+        v += X_STEP
+    v = Y_DOMAIN[0]
+    while v < Y_DOMAIN[1] + 1e-9:
+        parts.append(f'<line x1="{_PX[0]}" y1="{_sy(v):.1f}" x2="{_PX[1]}" '
+                     f'y2="{_sy(v):.1f}" stroke="#eef1f6"/>')
+        parts.append(f'<text x="{_PX[0] - 8:.0f}" y="{_sy(v) + 3.5:.1f}" font-size="10.5" '
+                     f'fill="#6b7a90" text-anchor="end">{v:.0f}</text>')
+        v += Y_STEP
+    parts.append(f'<line x1="{_PX[0]}" y1="{_PY[0]}" x2="{_PX[1]}" y2="{_PY[0]}" '
+                 'stroke="#d7dde7"/>')
+    parts.append(f'<line x1="{_PX[0]}" y1="{_PY[1]}" x2="{_PX[0]}" y2="{_PY[0]}" '
+                 'stroke="#d7dde7"/>')
+    cx = (_PX[0] + _PX[1]) / 2
+    cy = (_PY[0] + _PY[1]) / 2
+    parts.append(f'<text x="{cx:.0f}" y="{VIEW_H - 8}" font-size="11.5" fill="#3a4a63" '
+                 'text-anchor="middle" font-weight="600">Índice de envejecimiento '
+                 '(≥65 / &lt;15 × 100) →</text>')
+    parts.append(f'<text x="14" y="{cy:.0f}" font-size="11.5" fill="#3a4a63" '
+                 'text-anchor="middle" font-weight="600" '
+                 f'transform="rotate(-90 14 {cy:.0f})">% universitarios →</text>')
+
+    barrios = [b for b in panel.index.get_level_values(0).unique()
+               if b not in EXCLUDE]
+    grays = sorted(b for b in barrios if b not in HIGHLIGHTS)
+    colored = [b for b in HIGHLIGHTS if b in barrios]
+    labels = []
+    for barrio in grays + colored:
+        x, y, years = _trace(panel.loc[[barrio]], smooth)
+        if len(x) < 2:
+            continue
+        color = HIGHLIGHTS.get(barrio, (None, GRAY))[1]
+        d = " L".join(f"{_sx(a):.1f},{_sy(b):.1f}" for a, b in zip(x, y))
+        hi = barrio in HIGHLIGHTS
+        width, opacity = ("2.4", "1") if hi else ("1.1", "0.75")
+        parts.append(f'<path d="M{d}" fill="none" stroke="{color}" '
+                     f'stroke-width="{width}" stroke-linejoin="round" '
+                     f'stroke-linecap="round" opacity="{opacity}"/>')
+        if hi:
+            for year in MARKER_YEARS:
+                if year in years:
+                    i = years.index(year)
+                    parts.append(f'<circle cx="{_sx(x[i]):.1f}" cy="{_sy(y[i]):.1f}" '
+                                 f'r="2.2" fill="{color}"/>')
+        r0, r1 = ("4.4", "4.6") if hi else ("2.6", "2.8")
+        w0 = "2" if hi else "1.4"
+        parts.append(f'<circle cx="{_sx(x[0]):.1f}" cy="{_sy(y[0]):.1f}" r="{r0}" '
+                     f'fill="#fff" stroke="{color}" stroke-width="{w0}"/>')
+        parts.append(f'<circle cx="{_sx(x[-1]):.1f}" cy="{_sy(y[-1]):.1f}" r="{r1}" '
+                     f'fill="{color}"/>')
+        if hi:
+            name = HIGHLIGHTS[barrio][0]
+            ox, oy = _LABEL_OFFSET.get(barrio, (8, 4))
+            labels.append(f'<text x="{_sx(x[-1]) + ox:.1f}" y="{_sy(y[-1]) + oy:.1f}" '
+                          f'font-size="11.5" font-weight="700" '
+                          f'fill="{color}">{name}</text>')
+    parts.extend(labels)
+    # leyenda: círculo hueco = 2000, lleno = 2025
+    parts.append('<circle cx="66" cy="28" r="4" fill="#fff" stroke="#6b7a90" '
+                 'stroke-width="1.6"/><text x="75" y="31.5" font-size="10.5" '
+                 'fill="#6b7a90">2000</text>')
+    parts.append('<circle cx="118" cy="28" r="4" fill="#6b7a90"/>'
+                 '<text x="127" y="31.5" font-size="10.5" fill="#6b7a90">2025 · '
+                 'puntos intermedios = 2005/10/15/20</text>')
+    parts.append("</svg>")
+    return "\n".join(parts) + "\n"
+
+
 # -------------------------------------------------------------- informe ----
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--save", action="store_true")
+    ap.add_argument("--svg", action="store_true",
+                    help="regenera analysis/output/trajectories_an18.svg")
     args = ap.parse_args()
 
     df = sprint_a.load()
@@ -150,6 +281,13 @@ def main() -> None:
               f"{len(FULL_SERIES)} métricas)")
         print(f"[guardado] {OUTDIR / 'trajectory_stats.csv'}")
         print(f"[guardado] {OUTDIR / 'trajectory_dispersion.csv'}")
+
+    if args.svg:
+        OUTDIR.mkdir(exist_ok=True)
+        svg = svg_connected_scatter(panel)
+        (OUTDIR / "trajectories_an18.svg").write_text(svg, encoding="utf-8")
+        print(f"[guardado] {OUTDIR / 'trajectories_an18.svg'} "
+              "(connected scatter de la historia #6)")
 
 
 if __name__ == "__main__":
