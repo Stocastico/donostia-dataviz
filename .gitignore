@@ -233,3 +233,6 @@ analysis/output/
 
 # backups temporales
 *.bak
+
+# uv local (CI usa pip; lockfile no versionado)
+data-pipeline/uv.lock
