@@ -148,8 +148,10 @@ contrastables con datos mejores (detalle y tests propuestos en
 (⚠️ *debilitada por AN-16: no sobrevive al control por shocks comunes de año*);
 **H2** transformación turística y social siguen geografías distintas (✅
 *reforzada por AN-9: el patrón no depende de los pesos del índice*); **H3** la
-desigualdad territorial permanece estable mientras cambia la accesibilidad;
-**H4** el centro pierde población sin dejar de concentrar actividad.
+desigualdad territorial permanece estable mientras cambia la accesibilidad (✅
+*reforzada por AN-13: ni convergencia ni divergencia — β≈0 en renta, alquiler y
+% universitarios*); **H4** el centro pierde población sin dejar de concentrar
+actividad.
 
 ---
 

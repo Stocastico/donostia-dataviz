@@ -233,8 +233,12 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
 - ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
   saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
   proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
-- ⬜ **AN-13 beta-convergencia**: `Δindicador ~ α + β·nivel_inicial` para renta,
-  alquiler, % universitarios; testea "brecha estable" con más rigor que el Gini.
+- ✅ **AN-13 beta-convergencia** — hecho (jul-2026):
+  `analysis/beta_convergence.py` (+ tests), IC bootstrap para β. Resultado:
+  **compatible con brecha estable en los tres indicadores** (renta, alquiler,
+  % universitarios: los IC95 de β cruzan el 0) → H3 reforzada por vía
+  independiente del Gini. Documentado en `ANALISIS-INFERENCIAL.md` (nuevo
+  cuaderno para AN-11…20), H3 en TESIS-CIUDAD, resumen y epílogo de historias.
 - ⬜ **AN-14 estacionalidad turística por barrio**: ratio verano/invierno o Gini
   mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
 - ⬜ **AN-15 estadística espacial**: Moran's I global y local sobre las métricas

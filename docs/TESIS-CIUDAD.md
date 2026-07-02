@@ -128,8 +128,11 @@ autocorrelación espacial real?).
 
 **H3 — La desigualdad territorial permanece estable mientras cambia la
 accesibilidad.** Lo sugieren el Gini plano (~0,10) junto a la tensión invertida
-respecto al precio. La contrastarían AN-13 (beta-convergencia) y, sobre todo,
-datos de desigualdad intra-barrio y de quien se marcha del municipio.
+respecto al precio. ✅ **Primer test superado a favor (jul-2026):** AN-13
+(beta-convergencia) no encuentra ni convergencia ni divergencia — el nivel de
+2016 no predice la tasa posterior en renta, alquiler ni % universitarios (los
+tres IC95 % de β cruzan el 0; `ANALISIS-INFERENCIAL.md`). Sigue pendiente lo
+que este dato no ve: desigualdad intra-barrio y quien se marcha del municipio.
 
 **H4 — El centro pierde población sin dejar de concentrar actividad.** Lo
 sugieren la pérdida de población (Gros −0,60 %/año) simultánea al máximo de
