@@ -210,7 +210,11 @@ __marimo__/
 
 # Python pipeline
 data-pipeline/.venv/
+data-pipeline/raw
 data-pipeline/raw/
+
+# Datos crudos descargados (ver datos/input/FUENTES.md; no se versionan)
+datos/input/raw/
 **/__pycache__/
 
 # Frontend

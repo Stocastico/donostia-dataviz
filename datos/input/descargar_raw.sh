@@ -69,6 +69,12 @@ dl_post eustat_comercio_donostia.json \
   "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est04b.px" \
   '{"query":[{"code":"municipio","selection":{"filter":"item","values":["20069"]}},{"code":"CNAE-2009","selection":{"filter":"all","values":["*"]}},{"code":"periodo","selection":{"filter":"all","values":["*"]}}],"response":{"format":"json"}}'
 
+# INE Tablas de Mortalidad (AN-12): riesgo de muerte quinquenal (qx, ‰) de
+# Gipuzkoa por sexo y grupo de edad, 1991–. Solo lo usa analysis/ (no es un
+# input del pipeline). Filtro server-side: tv=115:21 (prov. Gipuzkoa),
+# tv=260:311511 (función "Riesgo de muerte").
+dl ine_mortalidad_gipuzkoa.json "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/67235?tv=115:21&tv=260:311511&nult=600"
+
 if [ -n "${AEMET_API_KEY:-}" ]; then
   echo "· AEMET: usa el pipeline (ventanas de 3 años + backoff): cd data-pipeline && python -m donostia_pipeline.build"
 else

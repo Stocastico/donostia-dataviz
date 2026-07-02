@@ -19,7 +19,12 @@ en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 h
 **Tanda inferencial hecha (jul-2026): AN-9, 10, 11, 13, 15, 16, 17, 19, 20**
 (`docs/intermedia/ANALISIS-INFERENCIAL.md` + docs propios; hallazgo mayor: el
 lead/lag AN-6 **no sobrevive** al blindaje AN-16 y se retiró de los relatos).
-Quedan AN-12/14/18 (necesitan datos nuevos o son viz) y los REC de datos nuevos.
+**AN-12, AN-14 y AN-18 hechos (jul-2026)** — con esto la tanda AN-9…AN-20
+del feedback queda **completa**. Hallazgos: la pérdida del centro es
+vegetativa y el éxodo joven es de Gros (AN-12); la periferia turística vive
+del verano y el centro todo el año (AN-14); la universitarización es una
+marea común y Egia dibuja una V de rejuvenecimiento revertido (AN-18).
+Quedan los REC de datos nuevos y la integración narrativa (Cowork).
 
 ---
 
@@ -237,17 +242,35 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   renta/estudios, no turismo. Estructura moderada (~0,45): las tipologías
   siguen siendo perfiles descriptivos. Vecino más parecido: Egia↔Loiola
   (coherente con historia #6). Detalle en `ANALISIS-INFERENCIAL.md`.
-- ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
-  saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
-  proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
+- ✅ **AN-12 descomponer la pérdida de población del centro** — hecho (jul-2026):
+  `analysis/population_decomposition.py` (+ tests). No existe dataset abierto
+  de saldo vegetativo/migratorio por barrio (agotados CKAN Donostia, Eustat —
+  distrito solo 1991–2003 — y datos.gob.es), así que se estimó por **residuo
+  por cohortes** (pirámide del padrón + ₅qx de Gipuzkoa, INE tabla 67235,
+  nueva fuente en `FUENTES.md`/`descargar_raw.sh`; requiere crudos).
+  Resultado: **la pérdida del centro es vegetativa, no de expulsión** —
+  Erdialdea atrae migración neta (+2.162 en 2000–2025) y pierde población por
+  déficit nacimientos−defunciones (−3.435); **Gros** es el único barrio con
+  ambos saldos negativos y éxodo 25–39 en las cinco ventanas (−4 a −9 % por
+  quinquenio). Responde la pregunta abierta #2 y matiza H4 (TESIS-CIUDAD
+  actualizada). Detalle en `ANALISIS-INFERENCIAL.md` §AN-12. *Pendiente
+  Cowork: integrarlo en resumen/historias.*
 - ✅ **AN-13 beta-convergencia** — hecho (jul-2026):
   `analysis/beta_convergence.py` (+ tests), IC bootstrap para β. Resultado:
   **compatible con brecha estable en los tres indicadores** (renta, alquiler,
   % universitarios: los IC95 de β cruzan el 0) → H3 reforzada por vía
   independiente del Gini. Documentado en `ANALISIS-INFERENCIAL.md` (nuevo
   cuaderno para AN-11…20), H3 en TESIS-CIUDAD, resumen y epílogo de historias.
-- ⬜ **AN-14 estacionalidad turística por barrio**: ratio verano/invierno o Gini
-  mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
+- ✅ **AN-14 estacionalidad turística por barrio** — hecho (jul-2026):
+  `analysis/tourism_seasonality.py` (+ tests) sobre 116k reseñas de Donostia
+  (Inside Airbnb 2011–2024, listing→barrio por punto-en-polígono). Resultado
+  **al revés de la intuición**: dependen del verano los barrios periféricos
+  (Intxaurrondo/Igeldo ratio V/I ≈ 4,8; Antigua 4,3) y el **Erdialdea es el
+  menos estacional** (2,1; Gini 0,19) — su turismo es de todo el año y la
+  periferia funciona como desbordamiento estival. Validado contra las
+  pernoctaciones INE de ciudad (ratio 2,0 vs 2,5 del proxy). Detalle en
+  `ANALISIS-INFERENCIAL.md` §AN-14. *Pendiente Cowork: valorar hueco en
+  historia #5 (presión del centro = crónica, no pico de agosto).*
 - ✅ **AN-15 estadística espacial** — hecho (jul-2026):
   `analysis/spatial_autocorrelation.py` (+ tests; contigüidad queen desde
   `barrios.geojson` con shapely, p por permutación). Moran I significativo en
@@ -274,8 +297,17 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   **triángulo renta–universitarios–alquiler** como núcleo denso; el turismo
   (VUT↔Airbnb) es un módulo aparte conectado vía alquiler; el ruido,
   periférico (refuerza MET-5). Detalle en `ANALISIS-INFERENCIAL.md`.
-- ⬜ **AN-18 trayectorias de barrio**: connected scatter 2000→2025 (p.ej.
-  envejecimiento × % universitarios); la lectura "trayectoria" de MET-8.
+- ✅ **AN-18 trayectorias de barrio** — hecho (jul-2026), alcance script+CSV:
+  `analysis/trajectories.py` (+ tests) sobre el plano envejecimiento ×
+  % universitarios (las 5 métricas 2000–2025 van en `trajectories_long.csv`
+  para que la viz elija ejes). Resultado: la **universitarización es una
+  marea** (17/17 barrios suben); el relato está en el eje de edad — Antigua
+  (+197) envejece más que nadie, **Miramón-Zorroaga (−218) y Loiola (−20,
+  todo desde 2015) rejuvenecen**, y **Egia dibuja una V** (rejuveneció
+  2000→2010 y re-envejeció; tortuosidad 4,3). La dispersión de la nube es
+  plana (brecha estable también en trayectoria, coherente con H3/AN-13).
+  Detalle en `ANALISIS-INFERENCIAL.md` §AN-18. *Pendiente decidir con
+  Cowork: sección web (connected scatter interactivo) o gráfico estático.*
 - ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):
   `analysis/rent_drivers.py` (+ tests). Respuesta: **Airbnb no añade**
   (ΔR²=0,013, IC del coeficiente cruza 0); solo % universitarios sostiene IC

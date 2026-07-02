@@ -211,3 +211,182 @@ bajo-bajo en renta/universitarios/alquiler, y el **centro** (Erdialdea–Gros,
 con Aiete) como alto-alto en precio y turismo. Que la **tensión** no sea
 espacialmente significativa encaja con su definición (ratio alquiler/renta):
 mezcla las dos geografías y el patrón se difumina.
+
+---
+
+## AN-12 — La pérdida del centro es vegetativa, no de expulsión (y el éxodo joven es de Gros)
+
+> Reproducible: `python analysis/population_decomposition.py --save`
+> (tests en `analysis/tests/test_population_decomposition.py`). Requiere los
+> crudos (`bash datos/input/descargar_raw.sh`): pirámide quinquenal del padrón
+> (`edad_barrio.csv`) + tablas de mortalidad de Gipuzkoa del INE
+> (`ine_mortalidad_gipuzkoa.json`, nueva fuente registrada en FUENTES.md).
+
+**Método.** No existe dataset abierto de saldo vegetativo/migratorio por
+barrio (se agotaron CKAN Donostia, Eustat y datos.gob.es), así que se estima
+con el **residuo por cohortes**: en ventanas de 5 años cada grupo quinquenal
+envejece exactamente un grupo; las defunciones esperadas salen de las ₅qx
+provinciales (INE, promedio de la ventana) aplicadas a la pirámide inicial, y
+la migración neta es el residuo. La identidad ΔP = nacimientos_proxy −
+defunciones_esperadas + migración_neta es exacta por construcción.
+
+**Resultado (jul-2026), acumulado 2000→2025 (personas):**
+
+| Barrio | ΔP | Saldo vegetativo (est.) | Migración neta (est.) |
+|---|---|---|---|
+| **Gros** | **−3.369** | −2.807 | **−562** |
+| **Erdialdea** | **−1.273** | −3.435 | **+2.162** |
+| Antigua | −512 | −444 | −68 |
+| Amara Berri | +4.139 | −996 | +5.135 |
+| Aiete | +3.178 | +1.607 | +1.571 |
+| Ibaeta | +2.301 | +646 | +1.655 |
+| Loiola | +2.122 | +356 | +1.766 |
+
+(Barrios restantes en `analysis/output/population_decomposition.csv`; el
+padrón por edad no incluye Oarain.)
+
+- **La pérdida de población del centro es ante todo vegetativa.** Erdialdea
+  pierde 1.273 personas pese a **atraer** +2.162 por migración neta: su
+  déficit nacimientos−defunciones (−3.435) se lo come todo. La imagen de un
+  centro que "expulsa" residentes en términos netos **no se sostiene** en
+  2000–2025; lo que hay es un centro envejecido que no se repone y que
+  recambia población.
+- **Gros es el único barrio con las dos sangrías a la vez**: déficit
+  vegetativo (−2.807) **y** migración neta negativa (−562). Y en las
+  cohortes 25–39 es el único con tasa neta negativa en **las cinco
+  ventanas** (entre −4 % y −9 % por quinquenio, la peor 2020–2025). El
+  "éxodo joven" del relato del centro tiene nombre propio: Gros.
+- En Erdialdea el éxodo 25–39 existió en 2000–2015 (−4,5/−4,8/−6,5 %) pero
+  se frenó después (+0,6/−0,5 %); su migración neta positiva reciente entra
+  por otras cohortes (y muy probablemente por la inmigración extranjera que
+  ya recoge `pct_foreign`).
+- Los que más crecen lo hacen por migración (Amara Berri +5.135, Loiola,
+  Ibaeta, Miramón-Zorroaga) — desarrollos nuevos y recepción del recambio.
+
+**Lecturas honestas.** (1) `nacimientos_proxy` = población 00-04 al cierre:
+mezcla nacimientos con migración de menores de 5; el ΔP no se ve afectado,
+el reparto vegetativo/migratorio es aproximado. (2) ₅qx provinciales para
+todos los barrios: si el centro envejecido muere algo más/menos que la media
+provincial, parte del residuo se movería entre columnas — no hay mortalidad
+por barrio publicada. (3) El grupo abierto 95+ usa ₅q=1 (tabla INE):
+sobreestima defunciones e infla la migración estimada en esa cola; efecto
+de decenas de personas, no cambia ninguna lectura. (4) Exclaves con
+población mínima (Landerbaso, Zubieta) dan tasas jóvenes absurdas por
+denominador pequeño: no leerlas. (5) Chequeo de escala: los totales de
+ciudad implícitos (~1.400 nacimientos/año, ~1.600 defunciones/año) cuadran
+con las cifras municipales publicadas.
+
+**Consecuencia editorial.** Responde la pregunta abierta #2 del resumen
+(descomposición de la pérdida del centro) y matiza H4: la presión turística
+convive con un centro que **atrae** migración neta; el desplazamiento neto,
+si existe, es selectivo por edad (Gros 25–39) y no un vaciado. Pendiente de
+que Cowork lo integre en resumen/historias (#5/#6).
+
+---
+
+## AN-14 — Estacionalidad por barrio: la periferia turística vive del verano; el centro, todo el año
+
+> Reproducible: `python analysis/tourism_seasonality.py --save`
+> (tests en `analysis/tests/test_tourism_seasonality.py`). Requiere los crudos
+> (`bash datos/input/descargar_raw.sh`): 116.101 reseñas de Donostia
+> (Inside Airbnb, 2011–2024 — el 2025 parcial del snapshot se descarta),
+> asignadas a barrio por punto-en-polígono como en el pipeline (REC-4).
+
+**Método.** Perfil mensual de reseñas por barrio (reseña ≈ estancia
+reseñada, "modelo San Francisco") y tres índices: **ratio verano/invierno**
+(media mensual jun–sep / nov–feb), **Gini mensual** (0 = uniforme) y **%
+verano** (cuota jun–sep; uniforme = 33 %). Barrios con <300 reseñas fuera.
+
+**Resultado (jul-2026), 2011–2024:**
+
+| Barrio | n reseñas | ratio V/I | Gini | % verano |
+|---|---|---|---|---|
+| Intxaurrondo | 1.684 | **4,8** | 0,41 | 63 % |
+| Igeldo | 391 | 4,8 | 0,37 | 62 % |
+| Antigua | 7.331 | **4,3** | 0,35 | 59 % |
+| Ibaeta | 2.862 | 3,5 | 0,33 | 56 % |
+| Aiete | 4.844 | 3,3 | 0,29 | 53 % |
+| … | | | | |
+| Gros | 23.741 | 2,7 | 0,25 | 49 % |
+| Egia | 6.061 | 2,2 | 0,22 | 48 % |
+| **Erdialdea** | **54.109** | **2,1** | **0,19** | **45 %** |
+| *(ciudad)* | *116.101* | *2,5* | *0,23* | *48 %* |
+
+(Tabla completa y rosa mensual en `analysis/output/tourism_seasonality*.csv`
+y `seasonality_monthly.csv`.)
+
+- **El gradiente va al revés de la intuición**: los barrios que dependen del
+  verano no son los turísticos, sino la periferia con poca oferta —
+  Intxaurrondo, Igeldo y Antigua-Ibaeta casi quintuplican en verano su nivel
+  de invierno. El **Erdialdea es el barrio MENOS estacional** de la ciudad
+  (ratio 2,1, Gini 0,19): su turismo es de todo el año.
+- Lectura económica: el centro tiene demanda continua (city-break,
+  gastronomía, congresos — el récord MICE de `mice_donostia.csv` encaja
+  aquí) y la periferia funciona como **desbordamiento estival**: solo se
+  llena cuando el centro no da más de sí. La "dependencia del turismo
+  estival" es un rasgo de la periferia turística, no del núcleo.
+- La ventana **2022–2024** mantiene el orden (estabilidad del patrón):
+  Intxaurrondo 5,3 · Antigua 4,3 · … · Erdialdea 2,1; Egia es el que más se
+  aplana (2,2 → 1,8), coherente con su deriva "urbana" (historia #6).
+- **Validación externa**: las pernoctaciones hoteleras del INE (ciudad,
+  2011–2024) dan ratio 2,04 y 45 % de verano — el proxy de reseñas a nivel
+  ciudad (2,5 y 48 %) reproduce la magnitud, con Airbnb algo más estacional
+  que el hotel, como cabía esperar.
+
+**Lecturas honestas.** (1) Reseña ≈ estancia reseñada: proxy sesgado por la
+propensión a reseñar y el crecimiento de la plataforma; sirve para comparar
+**formas** de perfil entre barrios, no volúmenes absolutos. (2) El agregado
+2011–2024 pondera más los años recientes (hay más reseñas); la ventana
+2022–2024 hace de contraste y no cambia el orden. (3) Altza y Miramón rozan
+el umbral de 300–1.300 reseñas: leer con cautela. (4) Landerbaso, Martutene,
+Zubieta (y Oarain) quedan fuera por muestra insuficiente.
+
+**Consecuencia editorial.** Matiza la historia #5: la presión del centro es
+*crónica* (todo el año), no un pico de agosto; y da un dato nuevo para el
+relato de la periferia. Pendiente de que Cowork valore dónde encaja.
+
+---
+
+## AN-18 — Trayectorias 2000→2025: una marea universitaria, tres formas de envejecer
+
+> Reproducible: `python analysis/trajectories.py --save`
+> (tests en `analysis/tests/test_trajectories.py`). No requiere crudos: lee
+> `metrics_long.csv`. CSVs listos para viz en `analysis/output/`
+> (`trajectories_long.csv` con las 5 métricas de serie completa,
+> `trajectory_stats.csv`, `trajectory_dispersion.csv`).
+
+**Método.** La lectura "trayectoria" de MET-8: recorrido de cada barrio en
+el plano **envejecimiento (x) × % universitarios (y)**, 2000–2025, con el
+camino suavizado (media móvil centrada de 3 años). Por barrio: Δx, Δy,
+desplazamiento neto, **tortuosidad** (camino/desplazamiento; 1 = fue recto)
+y cuadrante. Más la dispersión anual de la nube (ejes en z): ¿convergen?
+
+**Resultado (jul-2026):**
+
+- **La universitarización es una marea**: dy>0 en los 17 barrios con serie.
+  No hay historia diferencial en el eje y — la hay en **cómo se envejece**.
+- Tres formas de moverse en x: (1) el grueso envejece, con **Antigua
+  (+197), Intxaurrondo (+163), Ibaeta (+124) y Gros (+115)** a la cabeza —
+  más que el propio Erdialdea (+55), que ya partía viejo (288→343);
+  (2) **Miramón-Zorroaga rejuvenece −218** (de 366 a 149: el desarrollo
+  nuevo trajo familias) y **Loiola −20**, todo su rejuvenecimiento desde
+  2015 (151→128) — cuadra con su migración joven de AN-12 (+45 % en
+  2015–2020); (3) **Egia dibuja una V** (tortuosidad 4,3, la mayor entre
+  barrios grandes): rejuveneció 2000→2010 (236→195) y re-envejeció hasta
+  256 — su "momento joven" de los 2000 ya revirtió, matiz relevante para la
+  historia #6.
+- **La nube ni converge ni se abre**: dispersión 1,36 (2000) → 1,28 (2025),
+  pendiente −0,002/año ≈ plana. La "brecha estable" de H3/AN-13 se ve
+  también en el plano trayectoria.
+
+**Lecturas honestas.** (1) El índice de envejecimiento es un ratio
+(>64/<15): los desarrollos nuevos lo desploman por el denominador (niños),
+no porque "se vayan los viejos". (2) Zubieta (tortuosidad 30) y los
+exclaves pequeños son ruido de denominador: no leer sus trazas. (3) El
+suavizado de 3 años está para la estadística; la viz puede usar la serie
+cruda de `trajectories_long.csv`.
+
+**Consecuencia editorial.** Es la pieza de viz de MET-8: el connected
+scatter está listo para decidir con Cowork si va como sección web o como
+gráfico en historias (los CSV ya dan los datos). El dato nuevo para el
+relato: la V de Egia y el contraste Antigua-envejece / Loiola-rejuvenece.
