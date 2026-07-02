@@ -183,6 +183,7 @@
     <a href="#s5">5 · Turística vs. vivida</a>
     <a href="#s6">6 · En transformación</a>
     <a href="#sx">+ · La ciudad de fondo</a>
+    <a href="#s7">? · Lo que no sabemos</a>
   </div>
 </nav>
 
@@ -275,7 +276,7 @@
       <h3>…pero la brecha de renta entre barrios no se ensancha</h3>
       <p class="cap">Índice de Gini de la renta por barrio (ponderado por población), 2016–2023. Más alto = más desigualdad territorial. La línea discontinua es el Gini sin ponderar.</p>
       <div class="mapwrap"><svg class="map" id="gini" style="max-width:680px;margin:0 auto"></svg></div>
-      <p class="src">analysis/an5_polarizacion.csv (Eustat, renta por barrio). El pico de 2022 sin ponderar es un outlier de un barrio pequeño y volátil (Miramón-Zorroaga); ponderado por población, la brecha es estable (~0,10).</p>
+      <p class="src">analysis/an5_polarizacion.csv (Eustat, renta por barrio). El pico de 2022 sin ponderar es un outlier de un barrio pequeño y volátil (Miramón-Zorroaga); ponderado por población, la brecha es estable (~0,10). Ojo: este índice mide la desigualdad <em>entre</em> los 13 barrios — no la desigualdad dentro de cada barrio ni la de quien se marcha del municipio. Si las rentas bajas salen de la ciudad, la brecha interna puede quedarse estable creando una ilusión de equidad.</p>
     </div>
 
     <div class="keynums">
@@ -290,7 +291,7 @@
         <p>El esfuerzo de vivienda <strong>se invierte</strong> respecto al precio: pesa más la renta baja
           que el alquiler bajo. La presión más dura recae sobre los barrios obreros del este, no sobre el centro caro.</p>
       </div>
-      <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Índice relativo, no % real de gasto familiar. Supuesto de m²/persona explícito y regulable arriba.</span>
+      <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Índice relativo, no % real de gasto familiar. Supuesto de m²/persona explícito y regulable arriba. Las correlaciones son a nivel de barrio, no de hogares (falacia ecológica).</span>
     </div>
   </div>
 </section>
@@ -429,7 +430,7 @@
       <div class="takeaway">
         <span class="t-lab">La conclusión</span>
         <p>El centro que pierde población (historia&nbsp;2) es además el que más envejece: una señal
-          <strong>indirecta</strong> de recambio. El este se mantiene joven vía inmigración.</p>
+          <strong>indirecta</strong> de recambio. El este se mantiene joven vía inmigración. Una cautela importante: el envejecimiento del centro <strong>es anterior al boom turístico</strong> de 2016 y común a muchas ciudades europeas — el turismo se implanta sobre una estructura demográfica preexistente, no la crea.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Sin datos de rotación de población no se demuestra desplazamiento; no se interpola edad mediana sobre datos en bandas.</span>
     </div>
@@ -541,7 +542,7 @@
 
     <div class="fig">
       <h3>Dos turismos: Airbnb crece mucho más rápido que el hotel</h3>
-      <p class="cap">Índice base 2016 = 100. Reseñas de Airbnb (proxy de estancias) frente a pernoctaciones hoteleras (INE). El bache de 2020 es la pandemia.</p>
+      <p class="cap">Índice base 2016 = 100. Reseñas de Airbnb (proxy de estancias) frente a pernoctaciones hoteleras (INE). El bache de 2020 es la pandemia. Parte del crecimiento de Airbnb es <em>adopción de la plataforma</em> (migración de canal y mayor propensión a reseñar), no solo turistas nuevos: el ×6 vale como orden de magnitud, no como cifra exacta.</p>
       <div class="mapwrap"><svg class="map" id="tourindex" style="max-width:720px;margin:0 auto"></svg></div>
       <p class="src">Inside Airbnb (reseñas/mes, «modelo San Francisco»: una reseña ≈ una estancia) · INE EOH tabla 2078 (pernoctaciones). Años completos 2013–2024.</p>
     </div>
@@ -751,6 +752,51 @@
   </div>
 </section>
 
+
+<!-- ====================== CIERRE: LO QUE NO SABEMOS ====================== -->
+<section class="story sx" id="s7">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="story-head">
+        <div class="badge-num">?</div>
+        <div><p class="eyebrow">El cierre honesto</p><h2 class="story-title">Lo que los datos aún no pueden responder</h2></div>
+      </div>
+      <p>Estas seis historias cuentan lo que los datos abiertos permiten contar — y se detienen exactamente donde
+        los datos se detienen. Estas son las preguntas que quedan abiertas, y qué haría falta para responderlas.</p>
+
+      <p><strong>¿Hay desplazamiento de residentes ("gentrificación")?</strong> No lo sabemos. Vemos señales
+        compatibles — el centro pierde población, envejece y se encarece — pero sin <em>microdatos de movilidad
+        residencial</em> (quién entra, quién sale y adónde va) no se puede afirmar sustitución. Por eso este
+        proyecto habla de <em>transformación</em>. El mejor proxy alcanzable sería descomponer la pérdida de
+        población del centro en saldo vegetativo y migratorio, y medir si los jóvenes de 25–39 se marchan.</p>
+
+      <p><strong>¿El turismo <em>causa</em> la subida del alquiler?</strong> Solo tenemos un indicio direccional
+        (el turismo precede al alquiler ~1 año, r≈0,27, exploratorio). Para hablar de causalidad harían falta
+        series más finas (alquiler mensual), una segunda señal turística independiente (histórico de licencias
+        VUT) y controlar los ciclos macro (inflación, tipos de interés).</p>
+
+      <p><strong>¿La desigualdad de verdad no crece?</strong> El Gini territorial estable solo mide la brecha
+        <em>entre</em> barrios. La desigualdad dentro de cada barrio, y la de quien ya no puede vivir en la ciudad
+        y se marcha, quedan fuera del radar: la estabilidad podría ser una ilusión de equidad.</p>
+
+      <p><strong>¿Cuánto del boom de Airbnb es real?</strong> El ×6 desde 2016 mezcla turistas nuevos con
+        <em>adopción de plataforma</em>: viajeros que antes usaban otros canales y una propensión a reseñar que
+        creció con los años. El orden de magnitud es fiable; la cifra exacta, no.</p>
+
+      <p><strong>¿Y las personas?</strong> Todo lo anterior describe <em>barrios</em>, no hogares. Ninguna
+        correlación de este proyecto autoriza conclusiones sobre individuos (falacia ecológica): decir que "los
+        barrios con más inmigración soportan más tensión de alquiler" no dice nada de ninguna familia concreta.</p>
+
+      <div class="takeaway">
+        <span class="t-lab">Por qué lo contamos</span>
+        <p>Un proyecto de datos gana credibilidad diciendo dónde termina. Estas preguntas no son fallos:
+          son las <strong>hipótesis</strong> que estos datos permiten formular y que datos mejores —
+          microdatos de movilidad, series finas de alquiler, histórico de licencias — podrían responder.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="foot">
@@ -769,6 +815,8 @@
           <li>No se demuestra <b>gentrificación</b> ni desplazamiento: falta rotación de población.</li>
           <li>No hay <b>causalidad</b> turismo→alquiler demostrada: solo un indicio direccional (lead/lag r≈0,27, exploratorio).</li>
           <li>El % de extranjeros <b>no</b> es un proxy de transformación.</li>
+          <li>Las correlaciones son <b>entre barrios</b>, no entre personas (falacia ecológica).</li>
+          <li>El envejecimiento del centro es <b>anterior</b> al boom turístico; el turismo no lo crea.</li>
         </ul>
       </div>
       <div>
