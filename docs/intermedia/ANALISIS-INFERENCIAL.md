@@ -344,3 +344,49 @@ Zubieta (y Oarain) quedan fuera por muestra insuficiente.
 **Consecuencia editorial.** Matiza la historia #5: la presión del centro es
 *crónica* (todo el año), no un pico de agosto; y da un dato nuevo para el
 relato de la periferia. Pendiente de que Cowork valore dónde encaja.
+
+---
+
+## AN-18 — Trayectorias 2000→2025: una marea universitaria, tres formas de envejecer
+
+> Reproducible: `python analysis/trajectories.py --save`
+> (tests en `analysis/tests/test_trajectories.py`). No requiere crudos: lee
+> `metrics_long.csv`. CSVs listos para viz en `analysis/output/`
+> (`trajectories_long.csv` con las 5 métricas de serie completa,
+> `trajectory_stats.csv`, `trajectory_dispersion.csv`).
+
+**Método.** La lectura "trayectoria" de MET-8: recorrido de cada barrio en
+el plano **envejecimiento (x) × % universitarios (y)**, 2000–2025, con el
+camino suavizado (media móvil centrada de 3 años). Por barrio: Δx, Δy,
+desplazamiento neto, **tortuosidad** (camino/desplazamiento; 1 = fue recto)
+y cuadrante. Más la dispersión anual de la nube (ejes en z): ¿convergen?
+
+**Resultado (jul-2026):**
+
+- **La universitarización es una marea**: dy>0 en los 17 barrios con serie.
+  No hay historia diferencial en el eje y — la hay en **cómo se envejece**.
+- Tres formas de moverse en x: (1) el grueso envejece, con **Antigua
+  (+197), Intxaurrondo (+163), Ibaeta (+124) y Gros (+115)** a la cabeza —
+  más que el propio Erdialdea (+55), que ya partía viejo (288→343);
+  (2) **Miramón-Zorroaga rejuvenece −218** (de 366 a 149: el desarrollo
+  nuevo trajo familias) y **Loiola −20**, todo su rejuvenecimiento desde
+  2015 (151→128) — cuadra con su migración joven de AN-12 (+45 % en
+  2015–2020); (3) **Egia dibuja una V** (tortuosidad 4,3, la mayor entre
+  barrios grandes): rejuveneció 2000→2010 (236→195) y re-envejeció hasta
+  256 — su "momento joven" de los 2000 ya revirtió, matiz relevante para la
+  historia #6.
+- **La nube ni converge ni se abre**: dispersión 1,36 (2000) → 1,28 (2025),
+  pendiente −0,002/año ≈ plana. La "brecha estable" de H3/AN-13 se ve
+  también en el plano trayectoria.
+
+**Lecturas honestas.** (1) El índice de envejecimiento es un ratio
+(>64/<15): los desarrollos nuevos lo desploman por el denominador (niños),
+no porque "se vayan los viejos". (2) Zubieta (tortuosidad 30) y los
+exclaves pequeños son ruido de denominador: no leer sus trazas. (3) El
+suavizado de 3 años está para la estadística; la viz puede usar la serie
+cruda de `trajectories_long.csv`.
+
+**Consecuencia editorial.** Es la pieza de viz de MET-8: el connected
+scatter está listo para decidir con Cowork si va como sección web o como
+gráfico en historias (los CSV ya dan los datos). El dato nuevo para el
+relato: la V de Egia y el contraste Antigua-envejece / Loiola-rejuvenece.

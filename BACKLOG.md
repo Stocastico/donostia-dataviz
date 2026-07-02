@@ -19,10 +19,12 @@ en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 h
 **Tanda inferencial hecha (jul-2026): AN-9, 10, 11, 13, 15, 16, 17, 19, 20**
 (`docs/intermedia/ANALISIS-INFERENCIAL.md` + docs propios; hallazgo mayor: el
 lead/lag AN-6 **no sobrevive** al blindaje AN-16 y se retiró de los relatos).
-**AN-12 y AN-14 hechos (jul-2026)** (residuo por cohortes: la pérdida del
-centro es vegetativa y el éxodo joven es de Gros; estacionalidad: la
-periferia turística vive del verano, el centro todo el año). Queda AN-18
-(viz) y los REC de datos nuevos.
+**AN-12, AN-14 y AN-18 hechos (jul-2026)** — con esto la tanda AN-9…AN-20
+del feedback queda **completa**. Hallazgos: la pérdida del centro es
+vegetativa y el éxodo joven es de Gros (AN-12); la periferia turística vive
+del verano y el centro todo el año (AN-14); la universitarización es una
+marea común y Egia dibuja una V de rejuvenecimiento revertido (AN-18).
+Quedan los REC de datos nuevos y la integración narrativa (Cowork).
 
 ---
 
@@ -295,8 +297,17 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   **triángulo renta–universitarios–alquiler** como núcleo denso; el turismo
   (VUT↔Airbnb) es un módulo aparte conectado vía alquiler; el ruido,
   periférico (refuerza MET-5). Detalle en `ANALISIS-INFERENCIAL.md`.
-- ⬜ **AN-18 trayectorias de barrio**: connected scatter 2000→2025 (p.ej.
-  envejecimiento × % universitarios); la lectura "trayectoria" de MET-8.
+- ✅ **AN-18 trayectorias de barrio** — hecho (jul-2026), alcance script+CSV:
+  `analysis/trajectories.py` (+ tests) sobre el plano envejecimiento ×
+  % universitarios (las 5 métricas 2000–2025 van en `trajectories_long.csv`
+  para que la viz elija ejes). Resultado: la **universitarización es una
+  marea** (17/17 barrios suben); el relato está en el eje de edad — Antigua
+  (+197) envejece más que nadie, **Miramón-Zorroaga (−218) y Loiola (−20,
+  todo desde 2015) rejuvenecen**, y **Egia dibuja una V** (rejuveneció
+  2000→2010 y re-envejeció; tortuosidad 4,3). La dispersión de la nube es
+  plana (brecha estable también en trayectoria, coherente con H3/AN-13).
+  Detalle en `ANALISIS-INFERENCIAL.md` §AN-18. *Pendiente decidir con
+  Cowork: sección web (connected scatter interactivo) o gráfico estático.*
 - ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):
   `analysis/rent_drivers.py` (+ tests). Respuesta: **Airbnb no añade**
   (ΔR²=0,013, IC del coeficiente cruza 0); solo % universitarios sostiene IC
