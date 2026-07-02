@@ -9,6 +9,44 @@
 
 ---
 
+## AN-11 — Tipologías de barrio: el jerárquico sostiene 3 grupos (no 4)
+
+> Reproducible: `python analysis/barrio_typology.py --save`
+> (tests en `analysis/tests/test_barrio_typology.py`).
+
+**Método.** Clustering jerárquico aglomerativo (enlace promedio, euclídea,
+Lance-Williams en numpy puro) sobre las mismas 4 variables estandarizadas del
+Sprint A (renta, % universitarios, densidad VUT, alquiler; N=13), con
+silhouette por k y dendrograma.
+
+**Resultado (jul-2026).**
+
+| k | 2 | **3** | 4 | 5 | 6 |
+|---|---|---|---|---|---|
+| silhouette | 0,447 | **0,455** | 0,416 | 0,383 | 0,322 |
+
+- La partición mejor sostenida es **k=3**, no el k=4 del k-means: (1) la
+  **periferia popular** (Loiola, Mirakruz-Bidebieta, Intxaurrondo, Altza,
+  Martutene), (2) el **centro turístico** (Erdialdea + Gros), (3) el
+  **residencial acomodado** (Aiete, Antigua, Egia, Amara Berri, Ibaeta,
+  Ategorrieta-Ulia). Coincide con la geografía de los relatos (este obrero /
+  centro turístico / oeste-alto acomodado).
+- Silhouettes ~0,45 = estructura **moderada**, no clusters nítidos: las
+  tipologías (k-means k=4 incluido) deben seguir leyéndose como perfiles
+  descriptivos, no como clases naturales.
+- **Barrio más parecido** (matriz de distancias): Erdialdea↔Gros (el "centro"
+  es un par real), Mirakruz↔Intxaurrondo, Altza↔Martutene, y — coherente con
+  la historia #6 — el vecino más parecido de **Egia es Loiola** (0,75).
+- En el dendrograma, la última fusión (h=3,23) separa exactamente la
+  periferia popular del resto de la ciudad: la línea divisoria más profunda
+  de Donostia en estas 4 variables es **renta/estudios**, no turismo.
+
+**Ranking multivariable de cambio** (speed_index del Sprint A, ya publicado):
+encabezan los periféricos diminutos (Landerbaso, Añorga — poblaciones mínimas,
+tasas ruidosas); entre los urbanos, Intxaurrondo (0,91) y Loiola (0,89).
+
+---
+
 ## AN-13 — Beta-convergencia: la brecha estable, testeada
 
 > Reproducible: `python analysis/beta_convergence.py --save`

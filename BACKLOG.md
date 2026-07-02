@@ -227,9 +227,14 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   alquiler↔renta r=0,72 con IC 0,24–0,96. Fichas actualizadas: tabla de
   `resumen.md`, MET-3 en `metodologia.html`, ficha VUT↔alquiler en
   `historias.html`.
-- ⬜ **AN-11 tipologías de barrio**: clustering jerárquico + silhouette +
-  dendrograma (refina el k-means k=4 de `barrio_profile`); extras: "barrio más
-  parecido" (matriz de distancias) y ranking multivariable de cambio desde 2016.
+- ✅ **AN-11 tipologías de barrio** — hecho (jul-2026):
+  `analysis/barrio_typology.py` (+ tests; jerárquico average-linkage y
+  silhouette en numpy puro). Resultado: la partición mejor sostenida es
+  **k=3** (silhouette 0,455 vs 0,416 de k=4): periferia popular /
+  Erdialdea+Gros / residencial acomodado — la división más profunda es
+  renta/estudios, no turismo. Estructura moderada (~0,45): las tipologías
+  siguen siendo perfiles descriptivos. Vecino más parecido: Egia↔Loiola
+  (coherente con historia #6). Detalle en `ANALISIS-INFERENCIAL.md`.
 - ⬜ **AN-12 descomponer la pérdida de población del centro** *(prioridad alta)*:
   saldo vegetativo vs migratorio + cruce con Δ% 25–39 (¿éxodo joven?). El mejor
   proxy de desplazamiento sin microdatos; responde la pregunta abierta #2.
