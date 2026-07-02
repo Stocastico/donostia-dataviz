@@ -15,9 +15,11 @@
 Pipeline + web + tests estables. **6 historias + sección de cierre** publicadas
 en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 hechos.
 **Revisión externa por 3 IAs consolidada** (jul-2026,
-`docs/intermedia/FEEDBACK-IAS-2026-07.md`) → alimenta AN-9…AN-20 y REC-12…REC-20.
-Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
-**iteración narrativa (Cowork)**.
+`docs/intermedia/FEEDBACK-IAS-2026-07.md`) → alimentó AN-9…AN-20 y REC-12…REC-20.
+**Tanda inferencial hecha (jul-2026): AN-9, 10, 11, 13, 15, 16, 17, 19, 20**
+(`docs/intermedia/ANALISIS-INFERENCIAL.md` + docs propios; hallazgo mayor: el
+lead/lag AN-6 **no sobrevive** al blindaje AN-16 y se retiró de los relatos).
+Quedan AN-12/14/18 (necesitan datos nuevos o son viz) y los REC de datos nuevos.
 
 ---
 
