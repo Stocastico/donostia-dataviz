@@ -148,6 +148,9 @@ desigualdad territorial permanece estable mientras cambia la accesibilidad;
 
 Cada relato: pregunta → 2–3 números con fuente → conclusión causal *cauta* → aviso
 de confianza → vista interactiva.
+Desde jul-2026 se presentan como **capítulos de un solo relato** (estado → cambio
+→ personas → telón de fondo → dos ciudades → síntesis → epílogo), con
+transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
 
 1. **La ciudad que se encarece.** ¿Dónde es insostenible vivir? El esfuerzo
    alquiler/renta **se invierte** respecto al precio: máximo en el este obrero

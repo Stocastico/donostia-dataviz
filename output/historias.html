@@ -59,6 +59,9 @@
   .s3 .question{border-color:var(--green)} .s4 .question{border-color:var(--amber)}
   p{margin:1.05em 0;color:var(--ink2)}
   p strong,li strong{color:var(--ink)}
+  .nextcap{margin:30px 0 10px;font-size:.98rem;color:var(--muted);font-style:italic;
+    border-top:1px dashed var(--line);padding-top:16px}
+  .nextcap a{font-style:normal;font-weight:700;text-decoration:none}
 
   /* CARDS / FIGURES */
   .fig{background:var(--card);border:1px solid var(--line);border-radius:16px;
@@ -164,9 +167,13 @@
   <div class="wrap">
     <p class="eyebrow">Donostia / San Sebastián · datos abiertos</p>
     <h1>Seis historias de una ciudad que cambia</h1>
-    <p class="lede">Una lectura, con datos verificados y reproducibles, de cómo se transforma Donostia:
-      qué barrios se encarecen, cuáles cambian más rápido, quién los habita, cómo se calienta su clima,
-      dónde presiona el turismo y qué barrios se están transformando de verdad.</p>
+    <p class="lede">Un relato en seis capítulos, con datos verificados y reproducibles, de cómo se
+      transforma Donostia: el <strong style="color:#fff">estado</strong> (dónde aprieta la vivienda), el
+      <strong style="color:#fff">cambio</strong> (qué barrios se mueven), las
+      <strong style="color:#fff">personas</strong> (quién los habita), el
+      <strong style="color:#fff">telón de fondo</strong> (un clima que se calienta), las
+      <strong style="color:#fff">dos ciudades</strong> (la turística y la vivida) y la
+      <strong style="color:#fff">síntesis</strong> — más un epílogo con lo que los datos aún no pueden responder.</p>
     <p class="lede" style="font-size:1rem;color:#bfe3ef">Cada gráfico se construye a partir de las tablas del
       proyecto. Algunos son <strong style="color:#fff">interactivos</strong>: muévelos para poner a prueba los supuestos.</p>
     <p class="meta">Fuentes: Donostia Open Data · Eustat · Gobierno Vasco (EMA) · INE · AEMET (Igeldo) · Inside Airbnb · 19 barrios oficiales</p>
@@ -184,6 +191,8 @@
     <a href="#s6">6 · En transformación</a>
     <a href="#sx">+ · La ciudad de fondo</a>
     <a href="#s7">? · Lo que no sabemos</a>
+    <a href="metodologia.html" style="color:var(--sea-d)">Metodología</a>
+    <a href="datos.html" style="color:var(--sea-d)">Datos</a>
   </div>
 </nav>
 
@@ -196,7 +205,7 @@
       <div class="story-head">
         <div class="badge-num">1</div>
         <div>
-          <p class="eyebrow">La pregunta</p>
+          <p class="eyebrow">Capítulo 1 · El estado: dónde aprieta</p>
           <h2 class="story-title">La ciudad que se encarece</h2>
         </div>
       </div>
@@ -292,6 +301,8 @@
           que el alquiler bajo. La presión más dura recae sobre los barrios obreros del este, no sobre el centro caro.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Índice relativo, no % real de gasto familiar. Supuesto de m²/persona explícito y regulable arriba. Las correlaciones son a nivel de barrio, no de hogares (falacia ecológica).</span>
+      <p class="nextcap">La foto fija dice dónde aprieta hoy. Pero una foto no dice hacia dónde va la ciudad:
+        para eso hay que medir velocidades. <a href="#s2">Capítulo 2 — qué barrios se mueven →</a></p>
     </div>
   </div>
 </section>
@@ -302,7 +313,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">2</div>
-        <div><p class="eyebrow">La pregunta</p><h2 class="story-title">Qué barrios cambian más rápido</h2></div>
+        <div><p class="eyebrow">Capítulo 2 · El cambio: qué se mueve</p><h2 class="story-title">Qué barrios cambian más rápido</h2></div>
       </div>
       <p class="question">¿Qué barrios se están moviendo, y hacia qué perfil?</p>
       <p>No todos los barrios cambian al mismo ritmo ni en la misma dirección. En lugar de mirar el valor de
@@ -380,6 +391,8 @@
           social. Turismo y cambio social ocurren en <strong>barrios distintos</strong>.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Clusters con N=13 → perfiles descriptivos, no clasificación dura.</span>
+      <p class="nextcap">Los barrios cambian de precio y de composición. La siguiente pregunta es quién vive
+        ese cambio: la edad, el recambio. <a href="#s3">Capítulo 3 — quién vive Donostia →</a></p>
     </div>
   </div>
 </section>
@@ -390,7 +403,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">3</div>
-        <div><p class="eyebrow">La pregunta</p><h2 class="story-title">Quién vive Donostia</h2></div>
+        <div><p class="eyebrow">Capítulo 3 · Las personas: quién lo habita</p><h2 class="story-title">Quién vive Donostia</h2></div>
       </div>
       <p class="question">¿Está cambiando <em>quién</em> vive en cada barrio: su edad, su recambio?</p>
       <p>El índice de vejez compara mayores de 65 con menores de 15: cuanto más alto, más envejecido el barrio.
@@ -433,6 +446,8 @@
           <strong>indirecta</strong> de recambio. El este se mantiene joven vía inmigración. Una cautela importante: el envejecimiento del centro <strong>es anterior al boom turístico</strong> de 2016 y común a muchas ciudades europeas — el turismo se implanta sobre una estructura demográfica preexistente, no la crea.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Sin datos de rotación de población no se demuestra desplazamiento; no se interpola edad mediana sobre datos en bandas.</span>
+      <p class="nextcap">Precios, velocidades y personas se mueven sobre un escenario que también se mueve.
+        <a href="#s4">Capítulo 4 — el clima que lo enmarca →</a></p>
     </div>
   </div>
 </section>
@@ -443,7 +458,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">4</div>
-        <div><p class="eyebrow">La pregunta</p><h2 class="story-title">El clima cambia</h2></div>
+        <div><p class="eyebrow">Capítulo 4 · El telón de fondo</p><h2 class="story-title">El clima cambia</h2></div>
       </div>
       <p class="question">¿Cómo ha cambiado el clima de Donostia en 45 años?</p>
       <p>La estación de Igeldo lleva registrando desde 1981. Cada franja vertical es un año, coloreada por su
@@ -490,6 +505,8 @@
           La precipitación, en cambio, no muestra tendencia clara.</p>
       </div>
       <span class="conf"><span class="dot observed"></span><b>Observado.</b>&nbsp;Una sola estación (Igeldo): relato temporal de ciudad, no espacial por barrio.</span>
+      <p class="nextcap">Con el telón de fondo puesto, queda la fuerza que más presiona el suelo urbano.
+        <a href="#s5">Capítulo 5 — la ciudad turística y la vivida →</a></p>
     </div>
   </div>
 </section>
@@ -501,7 +518,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">5</div>
-        <div><p class="eyebrow">La pregunta</p><h2 class="story-title">La ciudad turística vs. la ciudad vivida</h2></div>
+        <div><p class="eyebrow">Capítulo 5 · Las dos ciudades</p><h2 class="story-title">La ciudad turística vs. la ciudad vivida</h2></div>
       </div>
       <p class="question">¿Conviven dos ciudades superpuestas — la del visitante y la del residente?</p>
       <p>Donostia recibe cada verano muchos más visitantes que habitantes. Pero el turismo no ocupa la ciudad
@@ -610,6 +627,8 @@
           arrastra al alquiler con un año de retardo.</p>
       </div>
       <span class="conf"><span class="dot proxy"></span><b>Derivado / proxy.</b>&nbsp;La densidad Airbnb es derivada (join espacial + per cápita); las reseñas son un <em>proxy</em> de ocupación que infraestima las estancias reales y crece con la adopción de la plataforma.</span>
+      <p class="nextcap">Precio, velocidad, edad y turismo son piezas del mismo puzle. El último capítulo
+        las encaja. <a href="#s6">Capítulo 6 — Donostia en transformación →</a></p>
     </div>
   </div>
 </section>
@@ -620,7 +639,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">6</div>
-        <div><p class="eyebrow">La síntesis</p><h2 class="story-title">Donostia en transformación</h2></div>
+        <div><p class="eyebrow">Capítulo 6 · La síntesis: qué se transforma</p><h2 class="story-title">Donostia en transformación</h2></div>
       </div>
       <p class="question">Reuniéndolo todo, ¿qué barrios se transforman, y de qué manera?</p>
       <p>Las cinco historias anteriores describen fuerzas distintas: precio, velocidad, edad, turismo. El Índice de
@@ -694,6 +713,8 @@
           ocultado justo este contraste.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;«Transformación», no «gentrificación» (falta rotación de residentes). N=13 barrios; pesos iguales y umbrales = medianas de la ciudad, todo a la vista.</span>
+      <p class="nextcap">Y como todo relato con datos, este termina diciendo exactamente dónde acaba lo que
+        sabe. <a href="#s7">Epílogo — lo que aún no podemos responder →</a></p>
     </div>
   </div>
 </section>
@@ -704,7 +725,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">+</div>
-        <div><p class="eyebrow">El telón de fondo · apéndice</p><h2 class="story-title">La ciudad de fondo: turismo, residuos, fiscalidad</h2></div>
+        <div><p class="eyebrow">Apéndice · el contexto de ciudad</p><h2 class="story-title">La ciudad de fondo: turismo, residuos, fiscalidad</h2></div>
       </div>
       <p>Más allá de los barrios, algunos indicadores de ciudad enmarcan las cuatro historias: la
         estacionalidad turística que presiona el alquiler, y la evolución de los servicios y los ingresos
@@ -759,7 +780,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">?</div>
-        <div><p class="eyebrow">El cierre honesto</p><h2 class="story-title">Lo que los datos aún no pueden responder</h2></div>
+        <div><p class="eyebrow">Epílogo · Los límites</p><h2 class="story-title">Lo que los datos aún no pueden responder</h2></div>
       </div>
       <p>Estas seis historias cuentan lo que los datos abiertos permiten contar — y se detienen exactamente donde
         los datos se detienen. Estas son las preguntas que quedan abiertas, y qué haría falta para responderlas.</p>
@@ -787,6 +808,13 @@
         correlación de este proyecto autoriza conclusiones sobre individuos (falacia ecológica): decir que "los
         barrios con más inmigración soportan más tensión de alquiler" no dice nada de ninguna familia concreta.</p>
 
+      <p><strong>De estas preguntas salen cuatro hipótesis</strong> que datos mejores podrían poner a
+        prueba: <strong>(1)</strong> la presión turística <em>anticipa</em> el alquiler en torno a un año;
+        <strong>(2)</strong> la transformación turística y la social siguen geografías distintas;
+        <strong>(3)</strong> la desigualdad entre barrios permanece estable mientras cambia quién puede
+        permitirse cada barrio; <strong>(4)</strong> el centro pierde población sin dejar de concentrar la
+        actividad económica y turística.</p>
+
       <div class="takeaway">
         <span class="t-lab">Por qué lo contamos</span>
         <p>Un proyecto de datos gana credibilidad diciendo dónde termina. Estas preguntas no son fallos:
@@ -808,6 +836,8 @@
           reproducibles desde el pipeline del proyecto y los scripts de análisis; cada métrica lleva su nivel
           de confianza (observado / derivado / proxy).</p>
         <p><b>Cómo leer los avisos:</b> <span class="dot observed"></span> observado · <span class="dot derived"></span> derivado · <span class="dot proxy"></span> proxy.</p>
+        <p>Acompañan a este documento la <a href="metodologia.html">metodología completa</a> (MET-1…MET-8)
+          y el <a href="datos.html">catálogo de datos y fuentes</a>.</p>
       </div>
       <div>
         <h3>Lo que no se afirma</h3>
