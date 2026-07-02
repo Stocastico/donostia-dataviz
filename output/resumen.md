@@ -76,6 +76,12 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
 - **Velocidad de cambio** (`velocity.csv`) — pendiente anualizada 2016→último de
   cada métrica por barrio, y un `speed_index` compuesto.
 - **Índice de vejez / estructura de edad** — series 2000–2025 por barrio.
+- **Tanda inferencial AN-9…AN-20 (jul-2026)** — bootstrap, permutaciones, efectos
+  fijos, Moran's I, β-convergencia (`analysis/*.py`, uno por análisis) y, en la
+  última tanda: descomposición por cohortes (`population_decomposition.py`),
+  estacionalidad por barrio (`tourism_seasonality.py`), ruptura COVID
+  (`covid_break.py`) y trayectorias (`trajectories.py`). Resultados en
+  `docs/intermedia/ANALISIS-INFERENCIAL.md`.
 
 ---
 
@@ -116,6 +122,26 @@ propósito: esa es la información.*
   año (que absorben IPC, tipos, COVID) r(+1) cae a **0,10** y la permutación da
   **p≈0,30** — la mayor parte era covariación macro común. El indicio
   direccional **no se sostiene**; pregunta abierta a la espera de REC-12.
+- **La pérdida de población del centro es vegetativa, no de expulsión (AN-12,
+  residuo por cohortes):** Erdialdea **atrae** migración neta (+2.162 en
+  2000–2025) y aun así pierde población — su déficit nacimientos−defunciones
+  (−3.435) se lo come todo. **Gros** es el único barrio con las dos sangrías
+  (vegetativa −2.807 y migratoria −562) y el único con éxodo 25–39 en las cinco
+  ventanas quinquenales (−4 % a −9 %). El desplazamiento neto, si existe, es
+  **selectivo (Gros joven)**, no un vaciado del centro.
+- **La dependencia del verano es de la periferia, no del centro (AN-14):**
+  ratio verano/invierno ≈4,8 en Intxaurrondo/Igeldo y 4,3 en Antiguo frente a
+  **2,1 en Erdialdea, el barrio menos estacional** — su presión turística es
+  crónica, no un pico de agosto (validado con pernoctaciones INE de ciudad: 2,0).
+- **El COVID no interrumpió la turistificación: la aceleró (AN-20):** todas las
+  series recuperan el nivel 2019 en 2021–22 y salen con más pendiente (alquiler
+  ×2,4, Airbnb ×1,9); el mapa de la presión no cambia (ρ=0,67 pre/post) pero se
+  **difunde** hacia barrios antes poco turísticos (Ibaeta ×7,5).
+- **Trayectorias 2000→2025 (AN-18):** la universitarización sube en **17/17
+  barrios** (una marea, sin historia diferencial); el relato está en la edad —
+  Antiguo +197 puntos, Miramón-Zorroaga −218, Loiola −20 (todo desde 2015) y la
+  **V de Egia** (rejuveneció 2000→2010, re-envejeció después; tortuosidad 4,3).
+  La dispersión de la nube es plana (1,36→1,28): coherente con H3.
 - **Dos transformaciones, dos geografías:** correlación entre el score
   socioeconómico y el turístico ≈ **0,25** (débil, N=13) → **no coinciden**.
   Turismo en el centro acomodado (Erdialdea +2,40, Gros +1,37); cambio social en la
@@ -150,8 +176,9 @@ contrastables con datos mejores (detalle y tests propuestos en
 *reforzada por AN-9: el patrón no depende de los pesos del índice*); **H3** la
 desigualdad territorial permanece estable mientras cambia la accesibilidad (✅
 *reforzada por AN-13: ni convergencia ni divergencia — β≈0 en renta, alquiler y
-% universitarios*); **H4** el centro pierde población sin dejar de concentrar
-actividad.
+% universitarios*); **H4** el centro pierde población sin dejar de concentrar actividad (✅
+*descompuesta por AN-12: la pérdida es vegetativa — el centro atrae migración
+neta y el éxodo joven es de Gros; la mitad "actividad" queda abierta, REC-17*).
 
 ---
 
@@ -172,7 +199,10 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    movimiento" (universitarios al alza). *Perfiles descriptivos, N=13.*
 3. **Quién vive Donostia.** El centro turístico es el más envejecido (Gros índice
    370, Erdialdea 350) y el este el más joven (Intxaurrondo 21 % de 25–39). Antiguo
-   envejece rápido (+203 puntos 2000→2025); Miramón rejuvenece. *Sin rotación no
+   envejece rápido (+203 puntos 2000→2025); Miramón rejuvenece. La
+   descomposición por cohortes (AN-12) precisa el porqué de la pérdida del
+   centro: **vegetativa, no de expulsión** — Erdialdea atrae migración; Gros es
+   el único con éxodo joven sostenido. *Sin rotación no
    hay prueba de desplazamiento; el envejecimiento del centro es anterior al boom
    turístico.*
 4. **El clima cambia.** +0,31 °C/década, más días de calor, picos de 39,7 °C; la
@@ -182,11 +212,18 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    parte es adopción de plataforma, MET-7). El indicio de que precedía al
    alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,
    r≈0,10, p≈0,30). El ruido nocturno es de **tráfico**, no de turismo (capa
-   ambiental). *Densidad derivada; reseñas = proxy.*
+   ambiental). La estacionalidad por barrio (AN-14) invierte la intuición: la
+   periferia depende del verano (ratio ~4,8) y **Erdialdea es el menos
+   estacional (2,1)** — presión crónica; y el COVID no interrumpió la
+   turistificación, la aceleró y difundió (AN-20). *Densidad derivada;
+   reseñas = proxy.*
 6. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
    **no coinciden** (r≈0,25). Con Airbnb integrado, Aiete baja de 0,37 a 0,07: caro
-   pero no turístico. *"Transformación", no "gentrificación"; N=13, pesos iguales.*
+   pero no turístico. Las trayectorias 2000→2025 (AN-18, connected scatter
+   estático nuevo) añaden la lectura MET-8: universitarización como marea
+   (17/17), tres formas de envejecer y la **V de Egia** (su momento joven ya
+   revirtió). *"Transformación", no "gentrificación"; N=13, pesos iguales.*
 
 > **Apéndice del HTML — "La ciudad de fondo":** estacionalidad hotelera,
 > reciclaje, fiscalidad municipal y MICE, como contexto de ciudad.
@@ -223,8 +260,9 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
   plataforma (mitigado con primeras diferencias, no eliminado).
 - **Renta en bandas / sin edad mediana interpolada**; sin microdatos de rotación.
 - **Índice AN-8:** combina *niveles* (foto actual), pesos iguales; no mide la
-  velocidad de la presión turística (eso vive en el lead/lag). Sensibilidad a
-  los pesos sin testear aún (AN-9 pendiente); renta y % universitarios están
+  velocidad de la presión turística (eso vive en el lead/lag). La sensibilidad
+  a los pesos ya está testeada (AN-9: en 1.000 combinaciones aleatorias el
+  podio no cambia); renta y % universitarios están
   correlacionados (0,75) → posible doble conteo del capital socioeconómico.
 - **Gini territorial:** mide desigualdad *entre* los 13 barrios; ciego a la
   desigualdad intra-barrio y a quien se marcha del municipio (posible "ilusión
@@ -246,8 +284,10 @@ Pensado para que otra IA proponga mejoras. Candidatos:
 
 1. **Serie temporal de presión turística por barrio** (plazas VUT históricas, o
    Airbnb longitudinal) para triangular el proxy de reseñas y reforzar el AN-6.
-2. **Estructura de edad como señal de sustitución residencial**: cruzar la pérdida
-   de población del centro (#2) con su cambio de perfil de edad (#3).
+2. ~~Estructura de edad como señal de sustitución residencial~~ ✅
+   **Respondida (jul-2026, AN-12)**: la pérdida del centro es vegetativa
+   (Erdialdea atrae migración neta); el éxodo 25–39 es de Gros. Queda el salto
+   de barrio a hogar: microdatos de movilidad residencial.
 3. **Alquiler mensual/trimestral** (si apareciera) → desfases finos en el lead/lag.
 4. **Consolidar el modo turístico** del índice con más señales independientes.
 5. **Revisar el encuadre y las cautelas**: ¿alguna afirmación excede lo que

@@ -24,7 +24,10 @@ del feedback queda **completa**. Hallazgos: la pérdida del centro es
 vegetativa y el éxodo joven es de Gros (AN-12); la periferia turística vive
 del verano y el centro todo el año (AN-14); la universitarización es una
 marea común y Egia dibuja una V de rejuvenecimiento revertido (AN-18).
-Quedan los REC de datos nuevos y la integración narrativa (Cowork).
+**Integración narrativa hecha (jul-2026, Cowork):** AN-12/14/18/20 en
+`resumen.md` + `historias.html` (#3, #5, #6, epílogo), connected scatter
+estático de AN-18 en la historia #6, y huérfano del lead/lag corregido en el
+takeaway de #5. Quedan los REC de datos nuevos.
 
 ---
 
@@ -62,6 +65,15 @@ Quedan los REC de datos nuevos y la integración narrativa (Cowork).
 
 ## Pendiente — Cowork ⬜
 
+- ✅ **Integración narrativa AN-12/14/18/20** — hecha (jul-2026):
+  `resumen.md` (§2 scripts, §3 señales nuevas, H4 descompuesta, §4 historias,
+  pregunta abierta #2 respondida) y `historias.html` (#3 AN-12 + takeaway y
+  ficha de confianza; #5 AN-20 y AN-14 + takeaway sin el huérfano del
+  lead/lag; #6 AN-18 con connected scatter estático + takeaway; epílogo e
+  hipótesis 4). De paso: la limitación "sensibilidad AN-9 pendiente" estaba
+  rancia en `resumen.md` §6 y `metodologia.html` (AN-9 se hizo) — corregida.
+  Revisión en navegador pendiente de validación del usuario (sin Chrome
+  conectado en la sesión); estructura HTML y SVG validados por parser.
 - ✅ **Revisar el render de los HTML de `output/`** — hecho (jul-2026): el usuario
   validó en navegador `historias.html` (con capítulos y epílogo), `metodologia.html`
   y `datos.html`. La iteración de contenido de #5/#6 quedó cubierta por la ronda
@@ -89,7 +101,12 @@ Quedan los REC de datos nuevos y la integración narrativa (Cowork).
   resúmenes manuales, no generados).
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
-- ⬜ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin color).
+- ⬜ **Pasada de coherencia de la historia #5** tras la integración de jul-2026:
+  el capítulo encadena densidad → dos turismos → COVID (AN-20) → estacionalidad
+  → AN-14 → lead/lag → escuelas; leerlo de corrido y reordenar/podar si se
+  hace largo.
+- ⬜ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin
+  color) — incluido el connected scatter estático de AN-18 (historia #6).
 - ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
 - ⬜ **Explorar granularidad calle/punto (no barrio) para REC-8**: el fichero
   `locales` del catastro foral (REC-8, ver sección Code) trae calle + portal
@@ -253,8 +270,9 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   déficit nacimientos−defunciones (−3.435); **Gros** es el único barrio con
   ambos saldos negativos y éxodo 25–39 en las cinco ventanas (−4 a −9 % por
   quinquenio). Responde la pregunta abierta #2 y matiza H4 (TESIS-CIUDAD
-  actualizada). Detalle en `ANALISIS-INFERENCIAL.md` §AN-12. *Pendiente
-  Cowork: integrarlo en resumen/historias.*
+  actualizada). Detalle en `ANALISIS-INFERENCIAL.md` §AN-12. ✅ *Integrado
+  (jul-2026, Cowork) en `resumen.md` (§3, H4, historias, pregunta abierta #2
+  respondida) y en `historias.html` (#3 + takeaway, epílogo, hipótesis 4).*
 - ✅ **AN-13 beta-convergencia** — hecho (jul-2026):
   `analysis/beta_convergence.py` (+ tests), IC bootstrap para β. Resultado:
   **compatible con brecha estable en los tres indicadores** (renta, alquiler,
@@ -269,8 +287,9 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   menos estacional** (2,1; Gini 0,19) — su turismo es de todo el año y la
   periferia funciona como desbordamiento estival. Validado contra las
   pernoctaciones INE de ciudad (ratio 2,0 vs 2,5 del proxy). Detalle en
-  `ANALISIS-INFERENCIAL.md` §AN-14. *Pendiente Cowork: valorar hueco en
-  historia #5 (presión del centro = crónica, no pico de agosto).*
+  `ANALISIS-INFERENCIAL.md` §AN-14. ✅ *Integrado (jul-2026, Cowork) en la
+  historia #5 (párrafo tras el heatmap de estacionalidad + takeaway: presión
+  crónica del centro, periferia = desbordamiento) y en `resumen.md`.*
 - ✅ **AN-15 estadística espacial** — hecho (jul-2026):
   `analysis/spatial_autocorrelation.py` (+ tests; contigüidad queen desde
   `barrios.geojson` con shapely, p por permutación). Moran I significativo en
@@ -306,8 +325,11 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   todo desde 2015) rejuvenecen**, y **Egia dibuja una V** (rejuveneció
   2000→2010 y re-envejeció; tortuosidad 4,3). La dispersión de la nube es
   plana (brecha estable también en trayectoria, coherente con H3/AN-13).
-  Detalle en `ANALISIS-INFERENCIAL.md` §AN-18. *Pendiente decidir con
-  Cowork: sección web (connected scatter interactivo) o gráfico estático.*
+  Detalle en `ANALISIS-INFERENCIAL.md` §AN-18. ✅ *Decidido con el usuario
+  (jul-2026): **gráfico estático** — SVG inline en la historia #6 generado
+  desde `trajectories_long.csv` (suavizado 3 años; Egia/Antiguo/Loiola/Miramón
+  destacados; Zubieta y Landerbaso fuera por ruido). La sección web
+  interactiva queda descartada por ahora.*
 - ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):
   `analysis/rent_drivers.py` (+ tests). Respuesta: **Airbnb no añade**
   (ΔR²=0,013, IC del coeficiente cruza 0); solo % universitarios sostiene IC
@@ -320,6 +342,8 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   hotel rebota y supera 2019 en 2022. El mapa por barrio se mantiene
   (Spearman pre/post 0,67) con difusión hacia barrios antes poco turísticos
   (Ibaeta ×7,5, Mirakruz ×3,8). Detalle en `ANALISIS-INFERENCIAL.md`.
+  ✅ *Integrado (jul-2026, Cowork) en la historia #5 (párrafo "cráter, no
+  cambio de régimen" tras el gráfico de dos turismos) y en `resumen.md`.*
 
 ### Datos nuevos (feedback IAs jul-2026)
 
