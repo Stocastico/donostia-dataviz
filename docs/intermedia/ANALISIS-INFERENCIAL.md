@@ -281,3 +281,66 @@ con las cifras municipales publicadas.
 convive con un centro que **atrae** migración neta; el desplazamiento neto,
 si existe, es selectivo por edad (Gros 25–39) y no un vaciado. Pendiente de
 que Cowork lo integre en resumen/historias (#5/#6).
+
+---
+
+## AN-14 — Estacionalidad por barrio: la periferia turística vive del verano; el centro, todo el año
+
+> Reproducible: `python analysis/tourism_seasonality.py --save`
+> (tests en `analysis/tests/test_tourism_seasonality.py`). Requiere los crudos
+> (`bash datos/input/descargar_raw.sh`): 116.101 reseñas de Donostia
+> (Inside Airbnb, 2011–2024 — el 2025 parcial del snapshot se descarta),
+> asignadas a barrio por punto-en-polígono como en el pipeline (REC-4).
+
+**Método.** Perfil mensual de reseñas por barrio (reseña ≈ estancia
+reseñada, "modelo San Francisco") y tres índices: **ratio verano/invierno**
+(media mensual jun–sep / nov–feb), **Gini mensual** (0 = uniforme) y **%
+verano** (cuota jun–sep; uniforme = 33 %). Barrios con <300 reseñas fuera.
+
+**Resultado (jul-2026), 2011–2024:**
+
+| Barrio | n reseñas | ratio V/I | Gini | % verano |
+|---|---|---|---|---|
+| Intxaurrondo | 1.684 | **4,8** | 0,41 | 63 % |
+| Igeldo | 391 | 4,8 | 0,37 | 62 % |
+| Antigua | 7.331 | **4,3** | 0,35 | 59 % |
+| Ibaeta | 2.862 | 3,5 | 0,33 | 56 % |
+| Aiete | 4.844 | 3,3 | 0,29 | 53 % |
+| … | | | | |
+| Gros | 23.741 | 2,7 | 0,25 | 49 % |
+| Egia | 6.061 | 2,2 | 0,22 | 48 % |
+| **Erdialdea** | **54.109** | **2,1** | **0,19** | **45 %** |
+| *(ciudad)* | *116.101* | *2,5* | *0,23* | *48 %* |
+
+(Tabla completa y rosa mensual en `analysis/output/tourism_seasonality*.csv`
+y `seasonality_monthly.csv`.)
+
+- **El gradiente va al revés de la intuición**: los barrios que dependen del
+  verano no son los turísticos, sino la periferia con poca oferta —
+  Intxaurrondo, Igeldo y Antigua-Ibaeta casi quintuplican en verano su nivel
+  de invierno. El **Erdialdea es el barrio MENOS estacional** de la ciudad
+  (ratio 2,1, Gini 0,19): su turismo es de todo el año.
+- Lectura económica: el centro tiene demanda continua (city-break,
+  gastronomía, congresos — el récord MICE de `mice_donostia.csv` encaja
+  aquí) y la periferia funciona como **desbordamiento estival**: solo se
+  llena cuando el centro no da más de sí. La "dependencia del turismo
+  estival" es un rasgo de la periferia turística, no del núcleo.
+- La ventana **2022–2024** mantiene el orden (estabilidad del patrón):
+  Intxaurrondo 5,3 · Antigua 4,3 · … · Erdialdea 2,1; Egia es el que más se
+  aplana (2,2 → 1,8), coherente con su deriva "urbana" (historia #6).
+- **Validación externa**: las pernoctaciones hoteleras del INE (ciudad,
+  2011–2024) dan ratio 2,04 y 45 % de verano — el proxy de reseñas a nivel
+  ciudad (2,5 y 48 %) reproduce la magnitud, con Airbnb algo más estacional
+  que el hotel, como cabía esperar.
+
+**Lecturas honestas.** (1) Reseña ≈ estancia reseñada: proxy sesgado por la
+propensión a reseñar y el crecimiento de la plataforma; sirve para comparar
+**formas** de perfil entre barrios, no volúmenes absolutos. (2) El agregado
+2011–2024 pondera más los años recientes (hay más reseñas); la ventana
+2022–2024 hace de contraste y no cambia el orden. (3) Altza y Miramón rozan
+el umbral de 300–1.300 reseñas: leer con cautela. (4) Landerbaso, Martutene,
+Zubieta (y Oarain) quedan fuera por muestra insuficiente.
+
+**Consecuencia editorial.** Matiza la historia #5: la presión del centro es
+*crónica* (todo el año), no un pico de agosto; y da un dato nuevo para el
+relato de la periferia. Pendiente de que Cowork valore dónde encaja.

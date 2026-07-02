@@ -19,9 +19,10 @@ en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 h
 **Tanda inferencial hecha (jul-2026): AN-9, 10, 11, 13, 15, 16, 17, 19, 20**
 (`docs/intermedia/ANALISIS-INFERENCIAL.md` + docs propios; hallazgo mayor: el
 lead/lag AN-6 **no sobrevive** al blindaje AN-16 y se retiró de los relatos).
-**AN-12 hecho (jul-2026)** (residuo por cohortes: la pérdida del centro es
-vegetativa; el éxodo joven es de Gros). Quedan AN-14/18 (desbloqueado/viz) y
-los REC de datos nuevos.
+**AN-12 y AN-14 hechos (jul-2026)** (residuo por cohortes: la pérdida del
+centro es vegetativa y el éxodo joven es de Gros; estacionalidad: la
+periferia turística vive del verano, el centro todo el año). Queda AN-18
+(viz) y los REC de datos nuevos.
 
 ---
 
@@ -258,8 +259,16 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   % universitarios: los IC95 de β cruzan el 0) → H3 reforzada por vía
   independiente del Gini. Documentado en `ANALISIS-INFERENCIAL.md` (nuevo
   cuaderno para AN-11…20), H3 en TESIS-CIUDAD, resumen y epílogo de historias.
-- ⬜ **AN-14 estacionalidad turística por barrio**: ratio verano/invierno o Gini
-  mensual sobre reseñas 2011–2025; ¿qué barrios dependen del turismo estival?
+- ✅ **AN-14 estacionalidad turística por barrio** — hecho (jul-2026):
+  `analysis/tourism_seasonality.py` (+ tests) sobre 116k reseñas de Donostia
+  (Inside Airbnb 2011–2024, listing→barrio por punto-en-polígono). Resultado
+  **al revés de la intuición**: dependen del verano los barrios periféricos
+  (Intxaurrondo/Igeldo ratio V/I ≈ 4,8; Antigua 4,3) y el **Erdialdea es el
+  menos estacional** (2,1; Gini 0,19) — su turismo es de todo el año y la
+  periferia funciona como desbordamiento estival. Validado contra las
+  pernoctaciones INE de ciudad (ratio 2,0 vs 2,5 del proxy). Detalle en
+  `ANALISIS-INFERENCIAL.md` §AN-14. *Pendiente Cowork: valorar hueco en
+  historia #5 (presión del centro = crónica, no pico de agosto).*
 - ✅ **AN-15 estadística espacial** — hecho (jul-2026):
   `analysis/spatial_autocorrelation.py` (+ tests; contigüidad queen desde
   `barrios.geojson` con shapely, p por permutación). Moran I significativo en
