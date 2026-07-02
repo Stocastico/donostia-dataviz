@@ -75,6 +75,19 @@ dl_post eustat_comercio_donostia.json \
   "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est04b.px" \
   '{"query":[{"code":"municipio","selection":{"filter":"item","values":["20069"]}},{"code":"CNAE-2009","selection":{"filter":"all","values":["*"]}},{"code":"periodo","selection":{"filter":"all","values":["*"]}}],"response":{"format":"json"}}'
 
+# Eustat PxWeb (REC-17): movilidad laboral/estudios (categórica: lugar de
+# trabajo/estudio, 2021–) + empleo localizado DIRAE (1995–), Donostia (20069).
+# No existe matriz O-D municipio×municipio en el banco PxWeb.
+dl_post eustat_empa_movilidad.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050407_cempa_empa_mt02.px" \
+  '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
+dl_post eustat_eme_movilidad.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_040606_ceme_me02.px" \
+  '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
+dl_post eustat_dirae_empleo.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est07.px" \
+  '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
+
 # INE Tablas de Mortalidad (AN-12): riesgo de muerte quinquenal (qx, ‰) de
 # Gipuzkoa por sexo y grupo de edad, 1991–. Solo lo usa analysis/ (no es un
 # input del pipeline). Filtro server-side: tv=115:21 (prov. Gipuzkoa),
