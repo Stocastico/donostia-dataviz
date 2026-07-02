@@ -117,3 +117,36 @@ coeficiente cuyo IC no cruza el 0 es **% universitarios**: en el corte
 transversal, el capital educativo absorbe la señal (y nota bene: renta y
 universitarios correlacionan 0,75 entre sí → colinealidad, coeficientes
 individuales inestables, IC anchísimos — la respuesta honesta con N=13).
+
+---
+
+## AN-20 — Ruptura COVID: 2020 no interrumpió la turistificación, la aceleró
+
+> Reproducible: `python analysis/covid_break.py --save`
+> (tests en `analysis/tests/test_covid_break.py`). Descriptivo (idea RDD con
+> tramos de 4–9 puntos): pendientes pre (≤2019) vs post (≥2021), 2020 excluido.
+
+**Ciudad:**
+
+| Serie | pendiente pre | pendiente post | ×acel. | recupera nivel 2019 |
+|---|---|---|---|---|
+| Actividad Airbnb (suma barrios) | +125/año | +231/año | **×1,9** | 2022 |
+| Alquiler medio €/m² | +0,35/año | +0,83/año | **×2,4** | 2021 |
+| Pernoctaciones hotel | +42k/año | +279k/año | ×6,7 * | 2022 |
+
+\* la ×6,7 del hotel está inflada por el rebote desde la base hundida de
+2021; aun así, el nivel 2019 se supera ya en 2022 y sigue subiendo.
+
+**Por barrio (actividad Airbnb):** el ranking de crecimiento pre y post
+correlaciona 0,67 (Spearman) — **el mapa de la presión turística no cambió,
+solo su ritmo**. Erdialdea y Gros duplican su pendiente (×2,0 / ×2,1), pero
+las mayores aceleraciones relativas están en barrios antes poco turísticos:
+Ibaeta ×7,5, Mirakruz-Bidebieta ×3,8, Loiola ×2,2 — señal de **difusión**
+desde el centro saturado. (Zubieta ×60 es un artefacto per cápita de
+población diminuta; Miramón e Igeldo desaceleran.)
+
+**Lectura.** El COVID fue un cráter de un año, no un cambio de régimen: todas
+las series recuperan el nivel 2019 en 2021–2022 y salen con **más** pendiente
+de la que traían. La hipótesis "la pandemia enfrió la turistificación" queda
+descartada con estos datos; la contraria ("la aceleró y la difundió hacia
+barrios nuevos") es la lectura compatible.
