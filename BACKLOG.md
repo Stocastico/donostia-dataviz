@@ -260,9 +260,12 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   TESIS-CIUDAD debilitada). Matiz documentado en ANALISIS-LEADLAG.md: el FE de
   año no puede ver un efecto uniforme en toda la ciudad → REC-12 sigue siendo
   la vía para reabrir la pregunta.
-- ⬜ **AN-17 red de correlaciones**: grafo variable↔variable con aristas =
-  correlaciones robustas; identifica variables "centrales" (¿la renta conecta
-  todo?).
+- ✅ **AN-17 red de correlaciones** — hecho (jul-2026):
+  `analysis/correlation_network.py` (+ tests; doble umbral Pearson+Spearman
+  ≥0,5, n≥10). 12 aristas robustas. Respuesta: no es "la renta" — es el
+  **triángulo renta–universitarios–alquiler** como núcleo denso; el turismo
+  (VUT↔Airbnb) es un módulo aparte conectado vía alquiler; el ruido,
+  periférico (refuerza MET-5). Detalle en `ANALISIS-INFERENCIAL.md`.
 - ⬜ **AN-18 trayectorias de barrio**: connected scatter 2000→2025 (p.ej.
   envejecimiento × % universitarios); la lectura "trayectoria" de MET-8.
 - ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):

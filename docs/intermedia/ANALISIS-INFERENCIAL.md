@@ -150,3 +150,32 @@ las series recuperan el nivel 2019 en 2021–2022 y salen con **más** pendiente
 de la que traían. La hipótesis "la pandemia enfrió la turistificación" queda
 descartada con estos datos; la contraria ("la aceleró y la difundió hacia
 barrios nuevos") es la lectura compatible.
+
+---
+
+## AN-17 — Red de correlaciones: un núcleo socioeconómico y un módulo turístico
+
+> Reproducible: `python analysis/correlation_network.py --save`
+> (tests en `analysis/tests/test_correlation_network.py`). Arista solo si
+> |Pearson| **y** |Spearman| ≥ 0,5 con n ≥ 10 — el doble umbral impide que un
+> outlier fabrique una conexión.
+
+**Resultado (jul-2026): 12 aristas robustas.** Centralidad (fuerza = Σ|r|):
+renta 2,86 · % universitarios 2,82 · alquiler 2,76 · tensión 2,21 · VUT 1,98
+· % extranjeros 1,94 · Airbnb 1,35 · ruido 0,62.
+
+**Lectura.**
+
+- El corazón de la red es el **triángulo renta–universitarios–alquiler**
+  (aristas 0,72–0,84 entre sí): a la pregunta del feedback ("¿la renta conecta
+  todo?") la respuesta es que no es la renta sola — es un **núcleo
+  socioeconómico denso** de tres variables casi intercambiables (la
+  colinealidad que AN-19 señala).
+- La **tensión de vivienda** cuelga de ese núcleo con signo negativo (−0,81
+  con renta) y positivo con % extranjeros (0,74): la geografía del esfuerzo.
+- El **turismo forma un módulo aparte** (VUT↔Airbnb 0,78) que se conecta al
+  núcleo casi solo a través del alquiler (0,64/0,57) — otra vez las "dos
+  geografías".
+- El **ruido nocturno es periférico** (una única arista, con % extranjeros
+  0,62 — ambos siguen los grandes ejes viarios/vivienda más barata), y no
+  conecta con el turismo: refuerza MET-5.
