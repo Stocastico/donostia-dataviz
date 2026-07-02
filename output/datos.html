@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donostia en datos · Datos y fuentes</title>
+<style>
+  :root{
+    --ink:#14233a; --ink2:#3a4a63; --muted:#6b7a90; --line:#e2e7ef;
+    --bg:#fbfcfe; --card:#ffffff; --sea:#1f6f8b; --sea-d:#0f4c5c;
+    --coral:#d1495b; --amber:#e0902f; --green:#2a9d6f;
+    --shadow:0 1px 2px rgba(20,35,58,.06),0 8px 28px rgba(20,35,58,.07);
+    --maxw:1040px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+  h1,h2,h3{line-height:1.18;letter-spacing:-.01em;color:var(--ink)}
+  a{color:var(--sea)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  header.hero{background:linear-gradient(160deg,#0f4c5c 0%,#1f6f8b 55%,#2a8aa8 100%);color:#eaf6fb;padding:56px 0 44px}
+  .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.74rem;font-weight:700;color:#bfe3ef;margin:0 0 12px}
+  .hero h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:0 0 14px;color:#fff}
+  .hero p.lede{font-size:1.08rem;max-width:62ch;color:#dcf0f6;margin:0}
+  nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
+  nav.toc .brand{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}
+  nav.toc a{color:var(--ink2);text-decoration:none;font-size:.85rem;font-weight:600;padding:7px 12px;border-radius:999px}
+  nav.toc a:hover{background:#eef4f8;color:var(--sea-d)}
+  main{padding:40px 0 60px}
+  p{color:var(--ink2)}
+  p strong,li strong{color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 26px;margin:22px 0;overflow-x:auto}
+  .card h2{font-size:1.15rem;margin:0 0 4px}
+  .card .cap{font-size:.85rem;color:var(--muted);margin:0 0 14px}
+  table{border-collapse:collapse;width:100%;font-size:.86rem}
+  th{text-align:left;color:var(--sea-d);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
+    border-bottom:2px solid var(--line);padding:8px 10px}
+  td{border-bottom:1px solid var(--line);padding:8px 10px;color:var(--ink2);vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  code{background:#f0f4f9;border-radius:6px;padding:1px 6px;font-size:.85em}
+  .badge{display:inline-block;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .b-obs{background:#e2f4ec;color:#177a52} .b-der{background:#faeedd;color:#a5661a} .b-pro{background:#f9e3e6;color:#a63446}
+  ul{padding-left:1.2em}
+  li{margin:.4em 0;color:var(--ink2);font-size:.95rem}
+  .fine{font-size:.8rem;color:#7d93a8;margin-top:36px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Donostia / San Sebastián · datos abiertos</p>
+    <h1>Los datos: qué se usa y de dónde sale</h1>
+    <p class="lede">Catálogo completo de las métricas, series e indicadores que alimentan
+      <a href="historias.html" style="color:#bfe3ef">las historias</a>, con su cobertura, su nivel de
+      confianza y su fuente original — incluidas las fuentes que se cayeron o se descartaron.</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <span class="brand">Donostia en datos</span>
+    <a href="historias.html">← Historias</a>
+    <a href="metodologia.html">Metodología</a>
+    <a href="#barrio">Por barrio</a>
+    <a href="#series">Series</a>
+    <a href="#fuentes">Fuentes</a>
+    <a href="#caidas">Caídas / descartadas</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <div class="card" id="barrio">
+    <h2>Métricas por barrio (mapas coropléticos)</h2>
+    <p class="cap">19 barrios oficiales; muchas métricas solo cubren los 13 urbanos con datos de renta/alquiler.
+      Niveles de confianza: <span class="badge b-obs">observado</span> dato directo ·
+      <span class="badge b-der">derivado</span> calculado · <span class="badge b-pro">proxy</span> aproximación.</p>
+    <table>
+      <thead><tr><th>Métrica</th><th>Unidad</th><th>Cobertura</th><th>Confianza</th><th>Fuente</th></tr></thead>
+      <tbody>
+        <tr><td><code>housing_tension</code></td><td>esfuerzo alquiler/renta (%)</td><td>13 barrios, 2023</td><td><span class="badge b-der">derivado</span></td><td>EMA + Eustat (supuesto 30 m²/persona, regulable)</td></tr>
+        <tr><td><code>rent_eur_m2</code></td><td>€/m² construido</td><td>13 barrios, 2016–2024</td><td><span class="badge b-obs">observado</span></td><td>Gobierno Vasco — EMA/EMAL (T8.3)</td></tr>
+        <tr><td><code>income_total</code></td><td>renta per cápita €</td><td>17 barrios, 2016–2023</td><td><span class="badge b-obs">observado</span></td><td>Eustat (vía Donostia Open Data)</td></tr>
+        <tr><td><code>pct_university</code> / <code>pct_foreign</code></td><td>%</td><td>por barrio, serie 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — Donostia Open Data</td></tr>
+        <tr><td><code>ageing_index</code></td><td>≥65 / &lt;15 × 100</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
+        <tr><td><code>pct_youth_adults</code></td><td>% de 25–39 años</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
+        <tr><td><code>vut_density</code> / <code>vut_count</code> / <code>vut_plazas</code></td><td>VUT /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Censo VUT — Donostia Open Data</td></tr>
+        <tr><td><code>airbnb_density</code></td><td>anuncios /1.000 hab.</td><td>19 barrios, snapshot 2025-09</td><td><span class="badge b-der">derivado</span></td><td>Inside Airbnb (Euskadi), join espacial</td></tr>
+        <tr><td><code>schools_per_1000</code></td><td>centros /1.000 hab.</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos educativos — Open Data (GeoJSON)</td></tr>
+        <tr><td><code>noise_night_pct55</code></td><td>% área ≥55 dB (Lnight)</td><td>por barrio, 2022</td><td><span class="badge b-pro">proxy</span></td><td>Mapa estratégico de ruido (SHP, ruido de transporte)</td></tr>
+        <tr><td><code>transform_class</code> + scores/componentes</td><td>clase / z-score</td><td>13 barrios, base 2016</td><td><span class="badge b-der">derivado</span></td><td>Índice de Transformación (AN-8), componentes a la vista</td></tr>
+        <tr><td><code>velocity_*</code></td><td>Δ/año desde 2016</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Pendiente anualizada de las métricas anteriores</td></tr>
+        <tr><td><code>barrio_profile</code></td><td>4 perfiles (k-means)</td><td>13 barrios</td><td><span class="badge b-der">derivado</span></td><td>Renta + universitarios + VUT + alquiler</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" id="series">
+    <h2>Series temporales (grano ciudad)</h2>
+    <table>
+      <thead><tr><th>Serie</th><th>Cobertura</th><th>Confianza</th><th>Fuente</th></tr></thead>
+      <tbody>
+        <tr><td><code>temp_avg</code> / <code>temp_max</code> / <code>precip</code> / <code>hot_days_30</code></td><td>1981–2025, mensual y anual</td><td><span class="badge b-obs">observado</span></td><td>AEMET OpenData — estación Igeldo (1024E)</td></tr>
+        <tr><td><code>overnight_stays</code> (pernoctaciones hoteleras)</td><td>2005–2026, mensual</td><td><span class="badge b-obs">observado</span></td><td>INE — EOH, tabla 2078</td></tr>
+        <tr><td><code>airbnb_reviews</code> (reseñas/mes)</td><td>2011–2025</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — proxy de estancias, con sesgo de adopción (MET-7)</td></tr>
+        <tr><td><code>airbnb_activity</code> (panel barrio×año)</td><td>2011–2025</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — reseñas/año/1.000 hab.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Indicadores anuales de ciudad</h2>
+    <table>
+      <thead><tr><th>Indicador</th><th>Cobertura</th><th>Confianza</th><th>Fuente</th></tr></thead>
+      <tbody>
+        <tr><td><code>tax_revenue</code> / <code>fee_revenue</code> (impuestos y tasas municipales)</td><td>2011–2025</td><td><span class="badge b-obs">observado</span></td><td>Donostia Open Data — presupuestos</td></tr>
+        <tr><td><code>recycling_rate</code> (recogida selectiva)</td><td>2010–2024</td><td><span class="badge b-obs">observado</span></td><td>Donostia Open Data — residuos (ámbito urbano)</td></tr>
+        <tr><td><code>unemployment_rate</code> (total / hombres / mujeres)</td><td>2015–2025</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — PRA, capital Donostia</td></tr>
+        <tr><td><code>total_establishments</code> + cuotas comercio/hostelería</td><td>2008–2025</td><td><span class="badge b-der">derivado</span></td><td>Eustat — directorio CDIRAE (CNAE agregado en pipeline)</td></tr>
+        <tr><td><code>pct_language_model_a/b/d</code> (modelos lingüísticos)</td><td>1983–2025</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — enseñanza, municipio Donostia</td></tr>
+        <tr><td><code>mice_*</code> (congresos, eventos, asistentes)</td><td>2018–2025 (parcial)</td><td><span class="badge b-der">curado</span></td><td>DSS Convention Bureau / ICCA (notas de prensa citadas)</td></tr>
+        <tr><td><code>ibiltur_ocio_*</code> (gasto del turista de ocio)</td><td>2023</td><td><span class="badge b-der">curado</span></td><td>Basquetour — Ibiltur Ocio, ficha de destino Donostia</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" id="fuentes">
+    <h2>Fuentes originales</h2>
+    <p class="cap">Todas abiertas y citadas; los crudos no se versionan (se descargan con
+      <code>datos/input/descargar_raw.sh</code>; manifiesto en <code>datos/input/FUENTES.md</code>).</p>
+    <ul>
+      <li><a href="https://www.donostia.eus/datosabiertos">Donostia Open Data</a> — geometría de barrios
+        (<code>mapa_auzoak</code>, la referencia única de joins), padrón (nacionalidad, edad, estudios),
+        censo VUT, equipamientos educativos, residuos, fiscalidad, mapa de ruido.</li>
+      <li><a href="https://www.eustat.eus">Eustat</a> — renta por barrio; y vía PxWeb: tasa de paro (PRA),
+        directorio de actividades económicas (CDIRAE) y modelos lingüísticos escolares.</li>
+      <li><a href="https://www.euskadi.eus">Gobierno Vasco — EMA/EMAL</a> — alquiler medio €/m² por barrio,
+        2016–2024 (fianzas registradas).</li>
+      <li><a href="https://opendata.aemet.es">AEMET OpenData</a> — climatologías mensuales de la estación
+        Igeldo (1024E), 1981–2025.</li>
+      <li><a href="https://www.ine.es">INE</a> — Encuesta de Ocupación Hotelera (tabla 2078), pernoctaciones.</li>
+      <li><a href="https://insideairbnb.com/get-the-data/">Inside Airbnb</a> — snapshot Euskadi (anuncios
+        geolocalizados + reseñas), 2025-09.</li>
+      <li><a href="https://www.basquetour.eus">Basquetour</a> — Ibiltur Ocio (ficha de destino, curado).</li>
+      <li>DSS Convention Bureau / ICCA — indicadores MICE (curado de notas de prensa citadas).</li>
+    </ul>
+  </div>
+
+  <div class="card" id="caidas">
+    <h2>Fuentes caídas, aparcadas o descartadas</h2>
+    <ul>
+      <li><strong>Utilización de DBus</strong> (movilidad) — el dataset desapareció del catálogo municipal;
+        sin URL viva. Alternativa en estudio: matrices origen-destino de Eustat.</li>
+      <li><strong>Criminalidad por barrio</strong> — fuente eliminada del catálogo y escala sub-municipal
+        protegida. Descartada formalmente, sin sustituto.</li>
+      <li><strong>Catastro foral de Gipuzkoa</strong> — descargable, pero sin coordenadas ni barrio en los
+        ficheros; aparcado hasta decidir geocodificación.</li>
+      <li><strong>Precios de venta €/m² (portales inmobiliarios)</strong> — descartado el scraping por
+        condiciones de uso; solo entraría vía catastro.</li>
+    </ul>
+  </div>
+
+  <p class="fine">Donostia Dataviz · catálogo de datos y fuentes. Acompaña a <a href="historias.html">las historias</a>
+    y a la <a href="metodologia.html">metodología</a>. Cada portal tiene sus propias condiciones de reutilización.</p>
+</div>
+</main>
+
+</body>
+</html>

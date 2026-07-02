@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donostia en datos · Metodología</title>
+<style>
+  :root{
+    --ink:#14233a; --ink2:#3a4a63; --muted:#6b7a90; --line:#e2e7ef;
+    --bg:#fbfcfe; --card:#ffffff; --sea:#1f6f8b; --sea-d:#0f4c5c;
+    --coral:#d1495b; --amber:#e0902f; --green:#2a9d6f;
+    --shadow:0 1px 2px rgba(20,35,58,.06),0 8px 28px rgba(20,35,58,.07);
+    --maxw:900px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;font-size:17px}
+  h1,h2,h3{line-height:1.18;letter-spacing:-.01em;color:var(--ink)}
+  a{color:var(--sea)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  header.hero{background:linear-gradient(160deg,#0f4c5c 0%,#1f6f8b 55%,#2a8aa8 100%);color:#eaf6fb;padding:56px 0 44px}
+  .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.74rem;font-weight:700;color:#bfe3ef;margin:0 0 12px}
+  .hero h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:0 0 14px;color:#fff}
+  .hero p.lede{font-size:1.08rem;max-width:62ch;color:#dcf0f6;margin:0}
+  nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
+  nav.toc .brand{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}
+  nav.toc a{color:var(--ink2);text-decoration:none;font-size:.85rem;font-weight:600;padding:7px 12px;border-radius:999px}
+  nav.toc a:hover{background:#eef4f8;color:var(--sea-d)}
+  main{padding:40px 0 60px}
+  p{color:var(--ink2)}
+  p strong,li strong{color:var(--ink)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 26px;margin:22px 0}
+  .card h2{font-size:1.15rem;margin:0 0 10px}
+  .card h2 .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    background:#eef4f8;color:var(--sea-d);border-radius:999px;padding:3px 10px;margin-right:10px;vertical-align:middle}
+  .card p,.card li{font-size:.95rem}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:baseline}
+  .dot.observed{background:var(--green)} .dot.derived{background:var(--amber)} .dot.proxy{background:var(--coral)}
+  ul{padding-left:1.2em}
+  li{margin:.4em 0;color:var(--ink2)}
+  code{background:#f0f4f9;border-radius:6px;padding:1px 6px;font-size:.85em}
+  .fine{font-size:.8rem;color:#7d93a8;margin-top:36px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Donostia / San Sebastián · datos abiertos</p>
+    <h1>Metodología: cómo medimos, y por qué así</h1>
+    <p class="lede">Las ocho decisiones metodológicas (MET-1…MET-8) que rigen todo lo que se publica en
+      las <a href="historias.html" style="color:#bfe3ef">historias</a>, las reglas de encuadre no negociables
+      y las limitaciones conocidas. Cualquier afirmación del proyecto debe ser coherente con esta página.</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <span class="brand">Donostia en datos</span>
+    <a href="historias.html">← Historias</a>
+    <a href="datos.html">Datos y fuentes</a>
+    <a href="#fichas">Fichas de confianza</a>
+    <a href="#met">MET-1…8</a>
+    <a href="#limites">Limitaciones</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <div class="card" id="fichas">
+    <h2>Cómo leer las fichas de confianza</h2>
+    <p>Cada métrica del proyecto lleva una etiqueta que dice qué tan lejos está del dato bruto,
+      junto a sus supuestos (MET-4). El reparto actual es de 8 observadas, 11 derivadas y 1 proxy.</p>
+    <ul>
+      <li><span class="dot observed"></span><strong>Observado</strong> — dato medido directamente
+        (alquiler registrado EMA, padrón municipal, temperaturas AEMET).</li>
+      <li><span class="dot derived"></span><strong>Derivado</strong> — calculado a partir de observados
+        (tensión de vivienda, densidades por 1.000 hab., Índice de Transformación).</li>
+      <li><span class="dot proxy"></span><strong>Proxy</strong> — aproximación de algo que no se mide
+        directamente (reseñas de Airbnb como estancias, ruido por punto medio de rango).</li>
+    </ul>
+  </div>
+
+  <h2 id="met" style="margin:36px 0 6px;font-size:1.5rem">Las ocho decisiones (MET-1…MET-8)</h2>
+  <p style="font-size:.95rem">Resumen de <code>docs/NOTA-METODOLOGICA.md</code>, acordado con cuatro revisiones
+    externas (2026) y la ronda de tres IAs de julio de 2026.</p>
+
+  <div class="card">
+    <h2><span class="tag">MET-1</span>La tensión de vivienda es un índice relativo, no un % real de gasto</h2>
+    <p>El indicador (<code>alquiler €/m² × 12 × m²/persona ÷ renta per cápita</code>) mide la <strong>presión
+      teórica sobre el residente medio</strong>, comparable entre barrios y años — no lo que gasta una familia
+      concreta. El supuesto de m²/persona es explícito y regulable (20/30/40) en las visualizaciones, y el
+      ranking apenas cambia al moverlo. Cautela añadida en 2026: el tamaño medio del hogar varía con la
+      demografía del barrio (hogares de 1–2 personas en el centro envejecido), así que un m²/persona uniforme
+      puede sesgar la comparación; la corrección de fondo espera al catastro foral.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-2</span>"Transformación", nunca "gentrificación"</h2>
+    <p>Con estos datos no se puede demostrar gentrificación: faltan la rotación de población y la sustitución
+      social (quién entra y quién sale). Lo que sí se puede medir es <strong>transformación observable</strong>.
+      El índice compuesto se llama Índice de Transformación Urbana, tiene definición explícita y seleccionable
+      (modo socioeconómico estilo Freeman y modo presión turística) y enseña siempre sus componentes — nunca
+      es una caja negra.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-3</span>Correlaciones robustas o nada</h2>
+    <p>Con 13–19 barrios, una sola r de Pearson es frágil. Toda correlación publicada se reporta con
+      <strong>Pearson + Spearman + leave-one-out</strong> de los outliers del centro (Erdialdea, Gros): si el
+      coeficiente se desploma al quitarlos, el mensaje cambia y se dice. Y siempre: correlación ≠ causalidad —
+      incluso el análisis lead/lag turismo→alquiler es exploratorio.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-4</span>Toda métrica lleva su ficha de confianza</h2>
+    <p>Cada valor arrastra su nivel (observado/derivado/proxy), sus supuestos y su fuente, definidos en un
+      único lugar del pipeline y mostrados en la interfaz. Es poco habitual en dashboards públicos y es la
+      base de la credibilidad del proyecto.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-5</span>Invariantes fijadas</h2>
+    <ul>
+      <li>Se normaliza por población (tasa/1.000) antes de mapear cualquier conteo; nunca absolutos en mapa.</li>
+      <li>El <strong>% de extranjeros no es proxy de transformación</strong>: en Donostia se asocia a menor
+        renta fuera del centro (r=−0,58, −0,72 sin el centro) — es inmigración económica.</li>
+      <li>El <strong>ruido nocturno es de tráfico</strong>, no de turismo: sus correlaciones con VUT/Airbnb
+        colapsan o se invierten al quitar el centro. Entra como capa ambiental.</li>
+      <li>Una sola geometría de referencia (19 barrios oficiales); cada join espacial se hace una vez, en ingestión.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-6</span>Falacia ecológica: barrios, no personas</h2>
+    <p>Todas las correlaciones usan el barrio como unidad. Describen patrones espaciales y <strong>no
+      autorizan conclusiones sobre individuos</strong>. Que los barrios con más inmigración económica sean
+      también los de alquiler proporcionalmente más gravoso (r=0,74) no dice nada de ningún hogar concreto,
+      ni sugiere causalidad. Cuando el riesgo de mala lectura es alto, el aviso va en el texto del relato,
+      no solo en la ficha.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-7</span>El proxy de Airbnb arrastra sesgo de adopción</h2>
+    <p>Las reseñas/mes aproximan estancias, pero la propensión a reseñar creció con la adopción de la
+      plataforma. En la comparación "Airbnb ×6 vs hotel ×1,6 desde 2016", parte del ×6 es <strong>migración
+      de canal</strong>, no turistas nuevos: el contraste vale como orden de magnitud, no como cifra exacta.
+      Mitigación pendiente: triangular con el histórico de licencias VUT y con la serie de anuncios activos.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="tag">MET-8</span>Estado ≠ cambio ≠ trayectoria</h2>
+    <p>Cada afirmación habla de una de tres cosas y debe decir cuál: el <strong>estado</strong> (la foto
+      actual), el <strong>cambio</strong> (la velocidad anual desde 2016) o la <strong>trayectoria</strong>
+      (el recorrido 2000–2025). Un barrio "muy transformado" no es un barrio "transformándose": Erdialdea
+      encabeza el estado turístico mientras Loiola y Egia encabezan el cambio social.</p>
+  </div>
+
+  <div class="card" id="limites">
+    <h2>Limitaciones conocidas</h2>
+    <ul>
+      <li><strong>N=13 barrios</strong> clasificables en los análisis de renta/alquiler/transformación
+        (los periféricos rurales no tienen renta/alquiler y se excluyen de densidades per cápita).</li>
+      <li><strong>Alquiler anual</strong> → el lead/lag solo puede trabajar en pasos de un año.</li>
+      <li><strong>Reseñas Airbnb</strong> infraestiman estancias y crecen con la adopción (MET-7).</li>
+      <li><strong>Renta en bandas</strong>, sin microdatos de rotación residencial.</li>
+      <li><strong>Índice AN-8</strong> con pesos iguales: análisis de sensibilidad pendiente; renta y
+        % universitarios correlacionan (0,75) → posible doble conteo del capital socioeconómico.</li>
+      <li><strong>Gini territorial</strong> solo entre barrios: ciego a la desigualdad intra-barrio y a
+        quien se marcha del municipio (posible ilusión de equidad).</li>
+      <li><strong>Clima de una sola estación</strong> (Igeldo): relato temporal de ciudad, no espacial.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Reproducibilidad</h2>
+    <p>Todos los números salen del pipeline (<code>python -m donostia_pipeline.build</code>) y de los
+      scripts de análisis (<code>analysis/sprint_a.py</code>, <code>distribucion_barrios.py</code>,
+      <code>transformation_index.py</code>, <code>lead_lag.py</code>), solo con pandas y numpy. Las fuentes
+      y su estado están en la página de <a href="datos.html">datos</a>; la versión completa de esta
+      metodología, en <code>docs/NOTA-METODOLOGICA.md</code> del repositorio.</p>
+  </div>
+
+  <p class="fine">Donostia Dataviz · metodología (MET-1…MET-8). Acompaña a <a href="historias.html">las historias</a>
+    y al <a href="datos.html">catálogo de datos</a>. Correlación ≠ causalidad.</p>
+</div>
+</main>
+
+</body>
+</html>
