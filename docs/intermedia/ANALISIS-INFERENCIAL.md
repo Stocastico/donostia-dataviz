@@ -390,3 +390,55 @@ cruda de `trajectories_long.csv`.
 scatter está listo para decidir con Cowork si va como sección web o como
 gráfico en historias (los CSV ya dan los datos). El dato nuevo para el
 relato: la V de Egia y el contraste Antigua-envejece / Loiola-rejuvenece.
+
+---
+
+## REC-13 — Snapshots de anuncios activos: la oferta se estanca, la actividad crece (MET-7 cuantificado)
+
+> Reproducible: `python analysis/airbnb_snapshots.py --save`
+> (tests en `analysis/tests/test_airbnb_snapshots.py`). Requiere los crudos
+> (`bash datos/input/descargar_raw.sh`): 8 snapshots trimestrales de Inside
+> Airbnb Euskadi (2023-12-29 → 2025-09-29, CSV resumen) + las reseñas del
+> snapshot 2025-09-29. Salidas en `analysis/output/airbnb_snapshots_*.csv`.
+
+**Método.** Cada snapshot lista los anuncios *activos* en esa fecha (con
+lat/lon → barrio por punto-en-polígono, como el pipeline). Serie ciudad de
+activos, % entire-home y % con licencia declarada, contrastada con las
+**reseñas de los 12 meses previos a cada fecha** sobre el mismo universo de
+listings (el proxy del proyecto). La divergencia de crecimientos cuantifica
+el sesgo de adopción/actividad de MET-7. Contexto de fuente (investigado
+jul-2026): Euskadi tiene snapshots desde 2021-12-30, pero el servidor solo
+mantiene los 8 últimos (los 8 anteriores dan 403 y requieren *data request*
+a Inside Airbnb; las fechas quedan listadas en el script por si se piden).
+
+**Resultado (jul-2026), ventana 2023-12-29 → 2025-09-29:**
+
+- **La oferta activa está plana: +2,0 %** (1.585 → 1.617 anuncios en
+  Donostia, con pico de 1.790 en jun-2025); **las reseñas-12m crecen
+  +20,2 %** (22.250 → 26.752). El proxy de reseñas, leído como oferta,
+  **exagera el crecimiento ×1,18** en esta ventana: lo que crece es la
+  actividad por anuncio (ocupación/propensión a reseñar), no el parque.
+- **El % con licencia declarada salta de 58,5 % a 84,5 %**, casi todo el
+  salto en 2025 (58 % dic-2024 → 63 % mar → 65 % jun → 85 % sep), y la
+  caída de activos jun→sep 2025 (1.790 → 1.617, −10 %) es simultánea —
+  consistente con una purga/regularización de anuncios sin licencia, no con
+  demanda. (Campo autodeclarado: leer como señal, no como censo.)
+- Por barrio, el mapa apenas se mueve (Erdialdea 715→745, Gros 305→331,
+  Antigua 121→110): la estabilidad del reparto espacial post-COVID que
+  AN-20 veía con reseñas (Spearman 0,67) se confirma con oferta activa.
+- Encaja con REC-12 (registro REATE): las altas nuevas de licencias caen de
+  300/año (2017) a 18 (2025) — oferta legal madura, parque estable.
+
+**Lecturas honestas.** (1) "Activo" = presente en el scrape de Inside
+Airbnb en esa fecha; no distingue anuncio pausado de operativo. (2) La
+ventana comparable es corta (7 trimestres) y no cubre la era de crecimiento
+(2016–2019), donde el sesgo pudo ir en el otro sentido. (3) Las
+reseñas-12m del universo de los 8 snapshots infravaloran ligeramente las
+primeras ventanas (listings muertos antes de 2023-12 no entran); el sesgo
+va *en contra* de la conclusión, que por tanto es conservadora.
+
+**Consecuencia editorial.** MET-7 deja de ser solo una advertencia y pasa a
+tener número: en 2024–2025 el crecimiento de reseñas NO es crecimiento de
+oferta (×1,18 de exageración). La ficha de confianza del proxy Airbnb puede
+citarlo, y la purga de 2025 (licencias 58→85 %, −10 % de activos) es un
+dato nuevo para la historia #5 — pendiente de que Cowork valore dónde encaja.

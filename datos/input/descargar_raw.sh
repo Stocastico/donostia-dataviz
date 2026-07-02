@@ -88,6 +88,13 @@ dl_post eustat_dirae_empleo.json \
   "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est07.px" \
   '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
 
+# Inside Airbnb snapshots trimestrales (REC-13): anuncios activos por fecha
+# (CSV resumen, uno por snapshot). Solo lo usa analysis/airbnb_snapshots.py.
+# Los snapshots 2021-12-30…2023-09-24 ya no se sirven (403; data request).
+for d in 2023-12-29 2024-03-31 2024-06-30 2024-09-29 2024-12-31 2025-03-27 2025-06-28 2025-09-29; do
+  dl "airbnb_snapshot_$d.csv" "https://data.insideairbnb.com/spain/pv/euskadi/$d/visualisations/listings.csv"
+done
+
 # INE Tablas de Mortalidad (AN-12): riesgo de muerte quinquenal (qx, ‰) de
 # Gipuzkoa por sexo y grupo de edad, 1991–. Solo lo usa analysis/ (no es un
 # input del pipeline). Filtro server-side: tv=115:21 (prov. Gipuzkoa),
