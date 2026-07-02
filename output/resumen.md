@@ -94,11 +94,18 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
 | tensión ↔ % extranjeros | 0,74 | 0,64 | — | La presión recae donde crece la inmigración |
 | tensión ↔ escuelas/1000 | −0,63 | −0,39 | — | Más equipamiento donde menos presión |
 
+> ⚠️ **Falacia ecológica (MET-6):** correlaciones a nivel de **barrio** (N=13),
+> no individual. P.ej. tensión↔extranjeros no dice nada de hogares concretos:
+> los barrios de alquiler proporcionalmente más gravoso son también los de más
+> inmigración económica, nada más.
+
 ### Otras señales cuantificadas
 
 - **Turismo vs. hotel (índice base 2016=100):** la actividad Airbnb pasa de 100 a
   **599** en 2024 (×6); las pernoctaciones hoteleras, de 100 a **162** (×1,6). El
   turismo reglado crece, el de plataforma se dispara. Bache visible en 2020 (COVID).
+  ⚠️ Parte del ×6 es **adopción de plataforma** (migración de canal, mayor tasa de
+  reseña), no turistas nuevos (MET-7); orden de magnitud válido, cifra exacta no.
 - **Lead/lag turismo→alquiler (AN-6, panel n=90, primeras diferencias):**
   r(−1)=−0,10 · r(0)=0,19 · **r(+1)=0,27** · r(+2)=0,09. Máximo a +1 año: el
   turismo *precede* al alquiler. Débil pero asimétrico y direccional. **No** causal.
@@ -123,7 +130,8 @@ La touristificación se concentra en el centro acomodado y se asocia a alquilere
 altos, pero la **presión de vivienda más dura recae en el este obrero**, donde la
 renta no acompaña. La brecha de renta *entre* barrios no se ensancha: lo que cambia
 no es tanto cuánto gana cada zona como **quién puede permitirse vivir dónde** — con
-el clima calentándose de fondo.
+el clima calentándose de fondo. *(Lectura sugerida por señales convergentes, no
+hecho demostrado: sin microdatos de movilidad no se puede afirmar desplazamiento.)*
 
 ---
 
@@ -142,13 +150,15 @@ de confianza → vista interactiva.
 3. **Quién vive Donostia.** El centro turístico es el más envejecido (Gros índice
    370, Erdialdea 350) y el este el más joven (Intxaurrondo 21 % de 25–39). Antiguo
    envejece rápido (+203 puntos 2000→2025); Miramón rejuvenece. *Sin rotación no
-   hay prueba de desplazamiento.*
+   hay prueba de desplazamiento; el envejecimiento del centro es anterior al boom
+   turístico.*
 4. **El clima cambia.** +0,31 °C/década, más días de calor, picos de 39,7 °C; la
    lluvia sin señal. *Observado; una sola estación (relato temporal, no espacial).*
 5. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
-   centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel);
-   indicio de que precede al alquiler ~1 año (r≈0,27). El ruido nocturno es de
-   **tráfico**, no de turismo (capa ambiental). *Densidad derivada; reseñas = proxy.*
+   centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel;
+   parte es adopción de plataforma, MET-7); indicio de que precede al alquiler
+   ~1 año (r≈0,27). El ruido nocturno es de **tráfico**, no de turismo (capa
+   ambiental). *Densidad derivada; reseñas = proxy.*
 6. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
    **no coinciden** (r≈0,25). Con Airbnb integrado, Aiete baja de 0,37 a 0,07: caro
@@ -156,6 +166,8 @@ de confianza → vista interactiva.
 
 > **Apéndice del HTML — "La ciudad de fondo":** estacionalidad hotelera,
 > reciclaje, fiscalidad municipal y MICE, como contexto de ciudad.
+> **Cierre del HTML — "Lo que los datos aún no pueden responder":** los límites
+> del proyecto, en primera plana (jul-2026).
 
 ---
 
@@ -166,6 +178,13 @@ de confianza → vista interactiva.
 - **Correlación ≠ causalidad** (MET-3): incluso el lead/lag es exploratorio.
 - **El ruido nocturno es de tráfico**, no proxy de turismo (corrección de #5).
 - **% de extranjeros no es proxy de transformación** (inmigración económica).
+- **Falacia ecológica** (MET-6): correlaciones entre barrios, nunca leídas a
+  nivel individual.
+- **El turismo no crea el envejecimiento del centro**: la estructura demográfica
+  es anterior al boom de 2016; se implanta sobre ella.
+- **El proxy Airbnb arrastra sesgo de adopción** (MET-7): el ×6 mezcla
+  crecimiento real y migración de canal.
+- **Estado ≠ cambio ≠ trayectoria** (MET-8): cada afirmación dice de cuál habla.
 - Cada métrica lleva su ficha de confianza (observado/derivado/proxy).
 
 ---
@@ -180,11 +199,24 @@ de confianza → vista interactiva.
   plataforma (mitigado con primeras diferencias, no eliminado).
 - **Renta en bandas / sin edad mediana interpolada**; sin microdatos de rotación.
 - **Índice AN-8:** combina *niveles* (foto actual), pesos iguales; no mide la
-  velocidad de la presión turística (eso vive en el lead/lag).
+  velocidad de la presión turística (eso vive en el lead/lag). Sensibilidad a
+  los pesos sin testear aún (AN-9 pendiente); renta y % universitarios están
+  correlacionados (0,75) → posible doble conteo del capital socioeconómico.
+- **Gini territorial:** mide desigualdad *entre* los 13 barrios; ciego a la
+  desigualdad intra-barrio y a quien se marcha del municipio (posible "ilusión
+  de equidad").
+- **Supuesto 30 m²/persona:** uniforme entre barrios pese a que el tamaño del
+  hogar varía con la demografía (hogares pequeños en el centro envejecido);
+  regulable en la UI, corrección de fondo pendiente de REC-8.
 
 ---
 
 ## 7. Preguntas abiertas para la revisión (dónde ampliar)
+
+> **Nota (jul-2026):** este documento ya pasó una ronda de revisión externa por
+> tres IAs. La consolidación y las decisiones están en
+> `docs/intermedia/FEEDBACK-IAS-2026-07.md`; las tareas resultantes, en
+> `BACKLOG.md` (AN-9…AN-20, REC-12…REC-20).
 
 Pensado para que otra IA proponga mejoras. Candidatos:
 

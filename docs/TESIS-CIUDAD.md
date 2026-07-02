@@ -16,6 +16,13 @@
 > zona" como **quién puede permitirse vivir dónde** — con el clima calentándose
 > de fondo.
 
+*Matiz (jul-2026):* la parte de "quién puede permitirse vivir dónde" es una
+**lectura sugerida por señales convergentes** (tensión invertida, envejecimiento
+del centro, pérdida de población), no un hecho demostrado: sin microdatos de
+movilidad residencial no se puede afirmar desplazamiento (MET-2). El mejor
+proxy alcanzable — descomponer la pérdida de población del centro en saldo
+vegetativo vs migratorio y éxodo de 25–39 — está pendiente (AN-12).
+
 ## Los eslabones (con su evidencia)
 
 **1. El turismo está concentrado, no repartido.** Erdialdea (29,9 VUT/1000 ab.)
@@ -48,6 +55,11 @@ el P90/P10 ronda 1,5 todo el periodo. *(El pico de 2022 sin ponderar es un
 outlier de Miramón-Zorroaga, barrio pequeño y volátil.)* Conclusión importante:
 **el relato no es "los ricos se separan de los pobres"**; las posiciones relativas
 de los barrios son estables. Lo que cambia es la *asequibilidad* y la composición.
+*Cautela (jul-2026):* este Gini mide desigualdad **entre** los 13 barrios, no la
+desigualdad *dentro* de cada barrio ni la de quien se marcha del municipio — si
+las rentas bajas salen de la ciudad, el Gini interno puede quedarse estable
+creando una **ilusión de equidad**. La beta-convergencia (AN-13) lo testearía
+con más rigor.
 
 **6. El alquiler sube en todas partes, pero el este es "barato y calentándose".**
 Las tasas de subida 2016–2024 son parecidas (~3–4 %/año). En la matriz
@@ -83,6 +95,12 @@ la presión turística (centro) son geografías distintas; que el clima se calie
   estricto): falta rotación de población. Por eso hablamos de *transformación*.
 - **Causalidad turismo → alquiler**: necesita una serie temporal de presión
   turística por barrio (VUT es un *snapshot*).
+- **Que el turismo cause el envejecimiento del centro**: el centro ya estaba
+  envejecido antes del boom turístico de 2016 (la serie 2000–2025 lo muestra), y
+  es un patrón común a muchas ciudades europeas. El turismo se implanta sobre
+  una estructura demográfica preexistente, no la crea.
+- **Nada a nivel individual**: todas las correlaciones son entre barrios
+  (falacia ecológica, MET-6) — describen geografía, no comportamiento de hogares.
 - Nada a escala fina sobre **trabajo, comercio o movilidad** (no integrados).
 
 ## Lo que falta para cerrar la tesis

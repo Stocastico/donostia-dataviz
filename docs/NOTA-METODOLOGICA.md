@@ -1,9 +1,10 @@
-# Nota metodológica (MET-1…MET-5)
+# Nota metodológica (MET-1…MET-8)
 
 > **Qué es.** Las decisiones metodológicas que rigen el proyecto, acordadas con
-> las cuatro revisiones externas (`FEEDBACK-CONSOLIDADO.md`). Documenta *por qué*
-> medimos como medimos. Es la base de credibilidad: cualquier output debe ser
-> coherente con esto.
+> las cuatro revisiones externas (`FEEDBACK-CONSOLIDADO.md`) y la ronda de
+> jul-2026 (`intermedia/FEEDBACK-IAS-2026-07.md`, que añadió MET-6…MET-8).
+> Documenta *por qué* medimos como medimos. Es la base de credibilidad:
+> cualquier output debe ser coherente con esto.
 
 ## MET-1 — `housing_tension` se reformula como índice relativo
 
@@ -22,6 +23,12 @@ Cambios acordados (no requieren datos nuevos):
   percentil(renta)`. Cuando todas coinciden, el mensaje gana solidez.
 - Cuando llegue el catastro foral (REC-8), sustituir el 30 fijo por la
   **superficie construida real por barrio**.
+- **Caveat adicional (jul-2026, Gemini):** el tamaño medio del hogar varía con
+  la demografía del barrio — hogares de 1–2 personas en el centro envejecido
+  (Gros, Erdialdea) frente a posible mayor ocupación en el este obrero — así que
+  un m²/persona uniforme puede exagerar o atenuar la tensión *relativa* entre
+  barrios. El selector 20/30/40 mitiga (el ranking apenas se mueve), pero la
+  corrección de fondo sigue siendo REC-8.
 
 **Implementado (junio 2026).** El metric de mapa se reetiqueta a *"Pressione
 dell'affitto sul residente medio (30 m²)"* y hay una sección dedicada
@@ -104,3 +111,43 @@ de gentrificación".
 - **Provenance explícita**: cada valor arrastra su fuente (`source`).
 - **Una sola geometría de referencia** (19 barrios `mapa_auzoak`); todo join se
   hace una vez, en ingestión.
+
+## MET-6 — Falacia ecológica: las correlaciones son entre barrios, no entre personas
+
+*(jul-2026, feedback DeepSeek.)* Toda correlación del proyecto usa el **barrio
+como unidad** (N=13–19). Describe patrones espaciales; **no** permite inferir
+relaciones a nivel individual. El caso más delicado es
+`tensión ↔ % extranjeros` (r = 0,74): significa que los barrios con más
+inmigración económica son también los de alquiler proporcionalmente más gravoso
+— **no** que los hogares extranjeros soporten esa tensión ni, menos aún, que la
+causen. Regla: cualquier output que publique una correlación de barrio debe
+poder leerse sin saltar al nivel individual; cuando el riesgo de mala lectura
+sea alto (extranjeros, edad), el aviso va **en el texto**, no solo en la ficha.
+
+## MET-7 — El proxy de reseñas Airbnb arrastra sesgo de adopción
+
+*(jul-2026, consenso de las tres revisiones.)* Las reseñas/mes son un proxy de
+estancias con dos sesgos: la **tasa de reseña cambió en el tiempo** (creció con
+la adopción de la plataforma) y varía por tipo de viajero. Consecuencia
+directa: en la comparación "Airbnb ×6 vs hotel ×1,6 desde 2016", **parte del ×6
+es migración de canal y captura de cuota de la plataforma, no turistas nuevos**.
+El contraste sigue siendo válido como orden de magnitud (y el bache de 2020 lo
+ancla a la realidad), pero no se publica sin este aviso. Mitigación pendiente:
+triangular con el histórico de licencias VUT (REC-12) y con la serie de
+anuncios activos de Inside Airbnb (REC-13); si divergen de las reseñas,
+cuantificar el sesgo.
+
+## MET-8 — Estado, cambio y trayectoria son tres lecturas distintas
+
+*(jul-2026, feedback ChatGPT.)* Cada afirmación del proyecto habla de una de
+estas tres cosas, y debe decir cuál:
+
+- **Estado** — la foto actual (p.ej. densidad Airbnb 2025, tensión 2023, índice
+  AN-8, que combina *niveles*).
+- **Cambio** — la velocidad (`velocity_*`, pp/año, %/año desde 2016).
+- **Trayectoria** — el recorrido completo (series 2000–2025; pendiente AN-18).
+
+Un barrio "muy transformado" (estado) no es lo mismo que un barrio
+"transformándose" (cambio): Erdialdea encabeza el estado turístico mientras
+Loiola/Egia encabezan el cambio social. Mezclarlos en una misma frase sin
+marcar la diferencia es el error de encuadre más fácil de cometer.
