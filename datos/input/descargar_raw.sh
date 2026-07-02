@@ -51,6 +51,12 @@ dl tasas_ciudad.csv           "https://www.donostia.eus/datosabiertos/dataset/7c
 dl airbnb_listings.csv.gz     "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz"
 dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
 
+# Gobierno Vasco REATE (REC-12): viviendas (VUT) y habitaciones (HUT) de uso
+# turístico con fecha de alta en el registro. Snapshot vivo: las bajas no se
+# publican (las curvas derivadas son de licencias supervivientes).
+dl reate_viviendas.json       "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/viviendas.json"
+dl reate_habitaciones.json    "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/habitaciones.json"
+
 # Eustat PxWeb (REC-9): modelo lingüístico A/B/D, Donostia (municipio 20069),
 # serie completa 1983/1984–. Filtro server-side vía POST (sin clave).
 dl_post eustat_modelos_linguisticos.json \

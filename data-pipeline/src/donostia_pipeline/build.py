@@ -33,6 +33,7 @@ from .datasets import (
     mice,
     modelos_linguisticos,
     paro,
+    reate_licencias,
     rent,
     renta,
     residuos,
@@ -112,6 +113,17 @@ RAW_DOWNLOADS: dict[str, str] = {
     ),
     "airbnb_reviews.csv.gz": (
         "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
+    ),
+    # Gobierno Vasco REATE registry — tourist homes (VUT) + rooms (HUT) with the
+    # original registration date. Living snapshot: bajas are not published, so
+    # the derived curves are of surviving licenses (see reate_licencias.py).
+    reate_licencias.RAW_VIVIENDAS: (
+        "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/"
+        "habitaciones_viviendas_turisti/opendata/viviendas.json"
+    ),
+    reate_licencias.RAW_HABITACIONES: (
+        "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/"
+        "habitaciones_viviendas_turisti/opendata/habitaciones.json"
     ),
 }
 
@@ -386,7 +398,8 @@ def run(offline: bool = False) -> dict:
                   + modelos_linguisticos.build_indicators(config.RAW_DIR)
                   + ibiltur.build_indicators()
                   + paro.build_indicators(config.RAW_DIR)
-                  + tejido_comercial.build_indicators(config.RAW_DIR))
+                  + tejido_comercial.build_indicators(config.RAW_DIR)
+                  + reate_licencias.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 
