@@ -45,6 +45,12 @@ existe dataset abierto estructurado.
 | `airbnb_snapshot_<fecha>.csv` (×8) | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/<fecha>/visualisations/listings.csv` | solo `analysis/` (REC-13: serie de anuncios activos vs. reseñas, MET-7; **no** alimenta el pipeline) | trimestral **2023-12-29 → 2025-09-29** (los snapshots 2021-12-30…2023-09-24 existieron pero dan 403; solo vía data request) | CC BY 4.0 |
 | `ine_mortalidad_gipuzkoa.json` | INE Tablas de Mortalidad | tabla Tempus **67235**, filtro server-side prov. Gipuzkoa + función "Riesgo de muerte" (qx quinquenal, ‰, por sexo) | solo `analysis/` (AN-12: supervivencia esperada por cohorte; **no** alimenta el pipeline) | anual 1991–2024 | INE (open) |
 
+### Fuentes analysis-only con descarga propia
+
+| Origen | Vía | Alimenta | Notas |
+|---|---|---|---|
+| Landsat 8/9 Collection 2 Level-2 (banda térmica `lwir11` + `qa_pixel`) | STAC de Microsoft Planetary Computer (acceso anónimo, firma SAS) — descarga el propio `analysis/heat_island.py`, recortes cacheados en `raw/heat_island/` | REC-14 isla de calor (`analysis/output/heat_island_barrio.csv`) | requiere `pip install rasterio pyproj` (solo ese script); USGS M2M y Copernicus Data Space se descartaron por pedir cuenta |
+
 ## Inputs curados (versionados en el repo)
 
 | Fichero | Contenido | Origen |

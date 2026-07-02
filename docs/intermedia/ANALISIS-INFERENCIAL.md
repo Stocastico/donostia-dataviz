@@ -442,3 +442,59 @@ tener número: en 2024–2025 el crecimiento de reseñas NO es crecimiento de
 oferta (×1,18 de exageración). La ficha de confianza del proxy Airbnb puede
 citarlo, y la purga de 2025 (licencias 58→85 %, −10 % de activos) es un
 dato nuevo para la historia #5 — pendiente de que Cowork valore dónde encaja.
+
+---
+
+## REC-14 — Isla de calor superficial: el calor urbano vive en el este denso
+
+> Reproducible: `python analysis/heat_island.py --save`
+> (tests en `analysis/tests/test_heat_island.py`; requiere `pip install
+> rasterio pyproj`, dependencias solo de este script). 45 escenas de verano
+> Landsat 8/9 C2 L2 (2015–2025, jun–sep, nubes <10 % y máscara por píxel
+> `qa_pixel`) vía el STAC de Microsoft Planetary Computer (acceso anónimo;
+> única vía verificada sin cuenta — USGS M2M y Copernicus piden credenciales).
+> Recortes cacheados en `datos/input/raw/heat_island/`. Salida en
+> `analysis/output/heat_island_barrio.csv`.
+
+**Método.** Temperatura superficial (LST, banda térmica de 30 m) media por
+barrio (centros de píxel en el polígono, CRS UTM de la escena) y, por
+escena, **anomalía respecto a la media de ciudad**; se promedian anomalías
+entre las 45 escenas para que días más o menos cálidos no pesen distinto.
+
+**Resultado (jul-2026), verano 2015–2025 (anomalía °C vs. media Donostia):**
+
+| Barrio | Δ°C | | Barrio | Δ°C |
+|---|---|---|---|---|
+| **Gros** | **+4,8** | | Altza | +0,4 |
+| **Amara Berri** | **+4,3** | | Zubieta | −0,4 |
+| **Egia** | **+4,1** | | Mirakruz-Bidebieta | −1,9 |
+| Intxaurrondo | +3,6 | | Ategorrieta-Ulia | −2,7 |
+| Erdialdea | +3,0 | | Igeldo | −3,1 |
+| Aiete | +2,7 | | Oarain | −4,3 |
+| Loiola | +2,5 | | **Landerbaso** | **−4,6** |
+
+(sd entre escenas ~0,5–1,1 °C; tabla completa en el CSV.)
+
+- **La isla de calor es la ciudad densa del este**: Gros, Amara Berri y
+  Egia superan a la media en más de 4 °C de superficie en verano — más que
+  el propio Erdialdea (+3,0), al que el parque de Cristina Enea y la
+  desembocadura del Urumea no le tocan. El gradiente térmico **coincide con
+  la geografía de "la presión recae en el este"** (AN-15, historias #2/#6):
+  los barrios que absorben la transformación son también los que acumulan
+  el calor.
+- El anillo verde (Landerbaso, Oarain, Igeldo, Ategorrieta-Ulia) queda
+  3–5 °C por debajo: es cubierta vegetal, no microclima urbano.
+
+**Lecturas honestas.** (1) LST es temperatura *de la superficie* (tejados,
+asfalto) a ~10:50 UTC, no la del aire ni la noche tropical de la historia
+#4: complementa las series de Igeldo, no las sustituye. (2) La anomalía
+media 2015–2025 es un rasgo estructural (morfología urbana), no una
+tendencia — con 45 escenas se podría mirar deriva temporal, pero el ruido
+escena-a-escena (sd ~1 °C) pide cautela. (3) Los exclaves rurales salen
+fríos por vegetación; leerlos como "no urbanos", no como "frescos para
+vivir".
+
+**Consecuencia editorial.** La historia #4 (clima) gana su dimensión
+espacial: el calentamiento que las series de Igeldo documentan en el tiempo
+tiene un mapa, y ese mapa es el mismo este denso de las historias #2 y #6.
+Métrica candidata a coropleta (`lst_anomaly`) si Cowork la quiere en la app.
