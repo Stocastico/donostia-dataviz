@@ -55,9 +55,10 @@ Lo que queda es sobre todo **análisis inferencial y datos nuevos (Code)** e
 
 ## Pendiente — Cowork ⬜
 
-- ⬜ **Revisar el render de `output/historias.html`** e iterar #5 y #6 según feedback.
-  Pendiente de abrirlo en navegador (la extensión de Chrome estuvo desconectada en
-  las sesiones anteriores); la validación hasta ahora es estática (JSON, sintaxis JS, IDs).
+- ✅ **Revisar el render de los HTML de `output/`** — hecho (jul-2026): el usuario
+  validó en navegador `historias.html` (con capítulos y epílogo), `metodologia.html`
+  y `datos.html`. La iteración de contenido de #5/#6 quedó cubierta por la ronda
+  de feedback de las 3 IAs.
 - ✅ **Auditoría de enlaces internos** tras mover docs — hecha (jul-2026): los docs
   activos apuntan a `intermedia/`, `archive/` o `BACKLOG.md`; README y `resumen.md`
   actualizados. Los docs de `intermedia/`/`archive/` se dejan congelados.
