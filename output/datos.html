@@ -125,6 +125,10 @@
         <tr><td><code>pct_language_model_a/b/d</code> (modelos lingüísticos)</td><td>1983–2025</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — enseñanza, municipio Donostia</td></tr>
         <tr><td><code>mice_*</code> (congresos, eventos, asistentes)</td><td>2018–2025 (parcial)</td><td><span class="badge b-der">curado</span></td><td>DSS Convention Bureau / ICCA (notas de prensa citadas)</td></tr>
         <tr><td><code>ibiltur_ocio_*</code> (gasto del turista de ocio)</td><td>2023</td><td><span class="badge b-der">curado</span></td><td>Basquetour — Ibiltur Ocio, ficha de destino Donostia</td></tr>
+        <tr><td><code>vut_licenses_new/cumulative</code> + <code>vut_plazas_cumulative</code> (licencias VUT/HUT)</td><td>2016–2025</td><td><span class="badge b-obs">observado</span></td><td>Gob. Vasco — registro REATE (snapshot vivo: solo altas supervivientes, las bajas no se publican)</td></tr>
+        <tr><td><code>jobs_located</code> (empleo localizado en la ciudad)</td><td>1995–2025</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — DIRAE, establecimientos de Donostia</td></tr>
+        <tr><td><code>residents_work_in_city_pct</code> / <code>residents_study_in_city_pct</code></td><td>2021–2024</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — EMPA/EME, lugar de trabajo/estudio (categórico, no matriz O-D)</td></tr>
+        <tr><td><code>job_concentration_ratio</code> (empleos / ocupados residentes)</td><td>2021–2024</td><td><span class="badge b-der">derivado</span></td><td>Eustat — DIRAE ÷ EMPA (&gt;1 = la ciudad importa trabajadores)</td></tr>
       </tbody>
     </table>
   </div>
@@ -138,7 +142,10 @@
         (<code>mapa_auzoak</code>, la referencia única de joins), padrón (nacionalidad, edad, estudios),
         censo VUT, equipamientos educativos, residuos, fiscalidad, mapa de ruido.</li>
       <li><a href="https://www.eustat.eus">Eustat</a> — renta por barrio; y vía PxWeb: tasa de paro (PRA),
-        directorio de actividades económicas (CDIRAE) y modelos lingüísticos escolares.</li>
+        directorio de actividades económicas (CDIRAE, establecimientos y empleo localizado), movilidad
+        laboral y de estudios (EMPA/EME) y modelos lingüísticos escolares.</li>
+      <li><a href="https://opendata.euskadi.eus">Open Data Euskadi — registro REATE</a> — viviendas y
+        habitaciones de uso turístico con fecha de alta (histórico de licencias VUT/HUT).</li>
       <li><a href="https://www.euskadi.eus">Gobierno Vasco — EMA/EMAL</a> — alquiler medio €/m² por barrio,
         2016–2024 (fianzas registradas).</li>
       <li><a href="https://opendata.aemet.es">AEMET OpenData</a> — climatologías mensuales de la estación
@@ -147,7 +154,11 @@
         y Tablas de Mortalidad de Gipuzkoa (tabla 67235, riesgo de muerte ₅qx quinquenal) — solo alimenta el
         análisis AN-12 (descomposición por cohortes), no el pipeline.</li>
       <li><a href="https://insideairbnb.com/get-the-data/">Inside Airbnb</a> — snapshot Euskadi (anuncios
-        geolocalizados + reseñas), 2025-09.</li>
+        geolocalizados + reseñas), 2025-09; y la serie de 8 snapshots trimestrales 2023-12→2025-09
+        (anuncios activos, solo análisis REC-13).</li>
+      <li><a href="https://planetarycomputer.microsoft.com">Microsoft Planetary Computer</a> — Landsat 8/9
+        Collection 2 Level-2 (banda térmica, 45 escenas de verano 2015–2025) — solo alimenta el análisis
+        REC-14 (isla de calor por barrio), no el pipeline.</li>
       <li><a href="https://www.basquetour.eus">Basquetour</a> — Ibiltur Ocio (ficha de destino, curado).</li>
       <li>DSS Convention Bureau / ICCA — indicadores MICE (curado de notas de prensa citadas).</li>
     </ul>
@@ -157,7 +168,8 @@
     <h2>Fuentes caídas, aparcadas o descartadas</h2>
     <ul>
       <li><strong>Utilización de DBus</strong> (movilidad) — el dataset desapareció del catálogo municipal;
-        sin URL viva. Alternativa en estudio: matrices origen-destino de Eustat.</li>
+        sin URL viva. La alternativa Eustat ya está cableada (EMPA/EME + DIRAE, ver indicadores), aunque
+        la matriz origen-destino municipio×municipio no existe en su banco PxWeb.</li>
       <li><strong>Criminalidad por barrio</strong> — fuente eliminada del catálogo y escala sub-municipal
         protegida. Descartada formalmente, sin sustituto.</li>
       <li><strong>Catastro foral de Gipuzkoa</strong> — descargable, pero sin coordenadas ni barrio en los

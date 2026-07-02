@@ -27,7 +27,12 @@ marea común y Egia dibuja una V de rejuvenecimiento revertido (AN-18).
 **Integración narrativa hecha (jul-2026, Cowork):** AN-12/14/18/20 en
 `resumen.md` + `historias.html` (#3, #5, #6, epílogo), connected scatter
 estático de AN-18 en la historia #6, y huérfano del lead/lag corregido en el
-takeaway de #5. Quedan los REC de datos nuevos.
+takeaway de #5. **REC de datos nuevos hechos (jul-2026, Code): REC-12
+(licencias REATE, 3 indicadores), REC-17 (movilidad Eustat + empleo
+localizado, 4 indicadores — H4 completada), REC-13 (snapshots Airbnb:
+oferta +2 % vs reseñas +20 %, MET-7 cuantificado ×1,18) y REC-14 (isla de
+calor Landsat: Gros +4,8 °C, el mapa térmico coincide con el este denso).**
+Queda su integración narrativa (Cowork).
 
 ---
 
@@ -101,6 +106,13 @@ takeaway de #5. Quedan los REC de datos nuevos.
   resúmenes manuales, no generados).
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
+- ⬜ **Integración narrativa de REC-12/13/14/17** (datos nuevos de jul-2026,
+  Code): la purga VUT de 2025 y el "MET-7 con número" (REC-12+13) para la
+  historia #5 y la ficha del proxy Airbnb; el ratio de concentración de
+  empleo 1,20 (REC-17) cierra la mitad de H4 en el epílogo; la isla de calor
+  (REC-14, Gros +4,8 °C) da la dimensión espacial a la historia #4 y rima
+  con "la presión recae en el este". Detalle en `ANALISIS-INFERENCIAL.md`
+  §REC-13/§REC-14 y en las entradas ✅ de la sección Code.
 - ⬜ **Pasada de coherencia de la historia #5** tras la integración de jul-2026:
   el capítulo encadena densidad → dos turismos → COVID (AN-20) → estacionalidad
   → AN-14 → lead/lag → escuelas; leerlo de corrido y reordenar/podar si se
@@ -228,7 +240,10 @@ takeaway de #5. Quedan los REC de datos nuevos.
     tesis de transformación urbana ya desarrollada.
 - ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
   independiente para triangular el lead/lag. Ver AN-16 (estacionariedad +
-  control macro) y REC-12 (histórico VUT como 2ª señal).
+  control macro). **La 2ª señal ya existe (jul-2026): la curva REATE de
+  REC-12** (`vut_licenses_cumulative`, 2016–2025, ciudad) — queda el análisis
+  que reabra H1 con ella (T≈9 anual: esperar más serie o buscar grano
+  trimestral en el registro).
 
 ### Análisis inferencial (feedback IAs jul-2026 — detalle y origen en `docs/intermedia/FEEDBACK-IAS-2026-07.md`)
 
@@ -329,7 +344,9 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (jul-2026): **gráfico estático** — SVG inline en la historia #6 generado
   desde `trajectories_long.csv` (suavizado 3 años; Egia/Antiguo/Loiola/Miramón
   destacados; Zubieta y Landerbaso fuera por ruido). La sección web
-  interactiva queda descartada por ahora.*
+  interactiva queda descartada por ahora.* El generador del SVG, que vivía
+  en un script ad hoc efímero, está portado (jul-2026) como
+  `trajectories.py --svg` (reproduce el SVG publicado byte a byte).
 - ✅ **AN-19 regresión múltiple exploratoria** — hecho (jul-2026):
   `analysis/rent_drivers.py` (+ tests). Respuesta: **Airbnb no añade**
   (ΔR²=0,013, IC del coeficiente cruza 0); solo % universitarios sostiene IC
@@ -347,18 +364,46 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
 
 ### Datos nuevos (feedback IAs jul-2026)
 
-- ⬜ **REC-12 histórico de licencias VUT** (Gob. Vasco, fecha de alta): curva de
-  oferta legal independiente del sesgo de adopción; 2ª señal para el lead/lag.
-- ⬜ **REC-13 anuncios activos Inside Airbnb** (serie de snapshots): contrastar
-  con reseñas; si divergen, cuantificar el sesgo de adopción (MET-7).
-- ⬜ **REC-14 isla de calor superficial** (Landsat/Copernicus): temperatura por
-  barrio; cruza con "la presión recae en el este" y da dimensión espacial al clima.
+- ✅ **REC-12 histórico de licencias VUT** — hecho (jul-2026): 3 indicadores
+  ciudad `vut_licenses_new/cumulative` + `vut_plazas_cumulative` (2016–2025)
+  desde el registro REATE de Open Data Euskadi (viviendas + habitaciones,
+  fecha de alta `FechainscripcionREATE`). ⚠️ Snapshot vivo: las bajas no se
+  publican → curvas de licencias *supervivientes* (suelo de la oferta legal);
+  solo ciudad (dirección postal sin barrio ni coordenadas, mismo límite que
+  REC-8). Señal: las altas caen de 300/año (2017) a 18 (2025). Módulo
+  `datasets/reate_licencias.py` + tests. **Sigue pendiente el uso analítico**
+  (reabrir H1: lead/lag licencias→alquiler con la curva REATE, ver AN-6).
+- ✅ **REC-13 anuncios activos Inside Airbnb** — hecho (jul-2026):
+  `analysis/airbnb_snapshots.py` (+ tests) sobre los 8 snapshots trimestrales
+  accesibles (2023-12-29 → 2025-09-29; los 8 anteriores hasta 2021-12-30
+  dan 403, solo vía data request — fechas listadas en el script). **MET-7 con
+  número**: oferta activa +2,0 % vs reseñas-12m +20,2 % (el proxy exagera
+  ×1,18 en la ventana); % con licencia declarada 58,5→84,5 % con caída de
+  activos −10 % en 2025 (huella de purga); reparto espacial estable
+  (confirma AN-20 con oferta). Detalle en `ANALISIS-INFERENCIAL.md` §REC-13.
+- ✅ **REC-14 isla de calor superficial** — hecho (jul-2026):
+  `analysis/heat_island.py` (+ tests; rasterio/pyproj solo para ese script)
+  con 45 escenas de verano Landsat 8/9 C2 L2 (2015–2025, máscara qa_pixel)
+  vía el STAC de Planetary Computer (anónimo; USGS/Copernicus piden cuenta).
+  Anomalía LST vs media de ciudad: **Gros +4,8 °C, Amara Berri +4,3, Egia
+  +4,1** — el mapa térmico coincide con el este denso de "la presión recae
+  en el este"; anillo verde −3…−5 °C. La historia #4 gana dimensión espacial;
+  `lst_anomaly` es candidata a coropleta. Detalle en
+  `ANALISIS-INFERENCIAL.md` §REC-14.
 - ⬜ **REC-15 vivienda protegida / VPO** (Observatorio Vasco de Vivienda): ¿la
   VPO amortigua la tensión de alquiler?
 - ⬜ **REC-16 tipología comercial vía OSM** (histórico): ¿comercio de barrio →
   servicios turísticos? Complementa REC-7 (que solo llega a ciudad).
-- ⬜ **REC-17 matrices origen-destino Eustat** (commuting trabajo/estudios):
-  reactiva el eje movilidad tras la baja de DBus (REC-6).
+- ✅ **REC-17 matrices origen-destino Eustat** — hecho (jul-2026) con matiz:
+  **la matriz municipio×municipio no existe en el banco PxWeb** (catálogo
+  completo revisado, 2.321 tablas); se cablea lo que hay: EMPA mt02 (lugar
+  de trabajo categórico, 2021–2024 → `residents_work_in_city_pct`, 66 %
+  trabaja en el propio municipio), EME me02 (estudios →
+  `residents_study_in_city_pct`), DIRAE est07 (empleo localizado 1995–2025 →
+  `jobs_located`, 65.962→103.446) y el derivado `job_concentration_ratio`
+  (**1,20 en 2024**: la ciudad importa trabajadores). **Con esto la mitad
+  coja de H4 ("sin dejar de concentrar actividad") tiene dato.** Módulo
+  `datasets/movilidad_laboral.py` + tests.
 - ⬜ **REC-18 equipamientos ampliados** (salud, bibliotecas, zonas verdes; Open
   Data): índice de accesibilidad por barrio × renta/tensión.
 - ⬜ **REC-19 percepción ciudadana** (encuestas municipales de satisfacción):
