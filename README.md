@@ -1,140 +1,199 @@
-# Claude Code Experiments
+# Donostia Dataviz
 
-This repository contains various coding experiments and projects created with the assistance of Claude AI. Each branch represents a different experiment or project, showcasing different technologies, frameworks, and use cases.
+Análisis y narrativa de datos sobre la evolución de **Donostia / San Sebastián**,
+barrio a barrio: turismo, vivienda, renta, demografía, educación, medio ambiente y
+clima. El proyecto combina un **pipeline de datos** reproducible, un **dashboard
+interactivo** y, sobre todo, un cuerpo de **documentación y relatos** que convierte
+los datos en historias sobre cómo cambia la ciudad.
 
-## Branches
+> **Naturaleza del proyecto.** Hoy es un proyecto **de documentación y análisis**:
+> el pipeline y el frontend ya existen y funcionan; el trabajo actual es *definir,
+> analizar y narrar* — no modificar el código. La documentación define qué se
+> analiza, qué se concluye y qué quedaría por desarrollar.
 
-### Claude Experiments
+---
 
-#### `claude/basketball-shot-chart-BvXWV`
+## 🚀 Empieza aquí
 
-A Python package for generating NBA-style hexbin shot charts, similar to those popularized by Kirk Goldsberry. Features include:
+1. **[`output/historias.html`](output/historias.html)** — el documento narrativo:
+   **seis historias** (la ciudad que se encarece · qué barrios cambian más rápido ·
+   quién vive Donostia · el clima cambia · turística vs. vivida · en transformación)
+   con texto y **visualizaciones interactivas** (mueve el supuesto de m²/persona,
+   recorre los años, cambia de indicador). Ábrelo en cualquier navegador; es
+   autocontenido, sin dependencias.
+2. **[`output/resumen.md`](output/resumen.md)** — síntesis del proyecto (datos,
+   análisis, correlaciones e historias) pensada para revisión externa.
+3. **[`docs/GUION-OUTPUTS.md`](docs/GUION-OUTPUTS.md)** — el plan de los relatos:
+   para cada historia, la pregunta de partida, las cifras verificadas, dónde vive
+   en la app y los avisos de confianza.
+4. **[`docs/TESIS-CIUDAD.md`](docs/TESIS-CIUDAD.md)** — la lectura integrada: qué
+   dicen en conjunto los datos sobre la transformación de Donostia, y qué **no** se
+   puede afirmar todavía.
+5. **[`BACKLOG.md`](BACKLOG.md)** — qué está hecho y qué falta, separado en tareas
+   de **Cowork** (documentación/relatos) y **Code** (pipeline/web/datos).
 
-- Hexbin visualization of shot data
-- Support for NBA API data fetching or synthetic demo data
-- Customizable gridsize, color modes, and minimum shots per hex
-- Output to PNG files
+---
 
-**Tech Stack:** Python, Matplotlib, NumPy, Pandas, NBA API (optional)
+## 🗺️ Cómo navegar el repositorio
 
-#### `claude/expense-tracker-app-H7R8o`
+```
+.
+├── README.md             ← este fichero
+├── BACKLOG.md            ← backlog (hecho + pendiente), secciones Cowork / Code
+├── output/               ← entregables: historias.html (6 historias) + resumen.md
+├── datos/                ← input/ (crudos + curados + FUENTES.md) · procesado/tablas/ (tablas tidy CSV)
+├── docs/                 ← documentación activa (fuentes, metodología, relatos)
+│   ├── intermedia/       ← análisis ya volcados en los outputs (congelados)
+│   └── archive/          ← documentos históricos / superados (no borrados)
+├── data-pipeline/        ← Python: fuentes públicas → JSON/CSV limpios
+├── analysis/             ← scripts de análisis (correlaciones, velocidades, clusters, índice)
+└── web/                  ← app React + Vite (dashboard coroplético); web/src/data/ * es su JSON estático
 
-A modern, responsive Progressive Web App for personal finance tracking. Built as a PWA with offline-first architecture.
+* Vite carga estos JSON con `import.meta.glob` desde dentro de `web/src/`, así
+  que se quedan en su sitio (a diferencia de `data/`, ya movido a
+  `datos/procesado/tablas/`; ver BACKLOG).
+```
 
-- Manual transaction entry and receipt scanning with OCR
-- Smart category detection and multi-currency support
-- Analytics dashboard with charts and spending predictions
-- Budget setting with progress tracking
-- Export/import functionality
-- Dark mode and PWA installation support
+### Mapa de documentos (`docs/`)
 
-**Tech Stack:** React, TypeScript, Vite, Tailwind CSS, Tesseract.js, Recharts, Workbox
+Agrupados por para qué sirven. Toda la documentación activa está en español.
 
-#### `claude/file-conversion-cli-DczKJ`
+**Visión y plan**
 
-A fast, zero-configuration CLI tool for converting files between various formats. Supports images, documents, data files, and videos.
+| Documento | Qué es | Idioma |
+|---|---|---|
+| `../BACKLOG.md` | **El backlog** (canónico): hecho + pendiente, secciones Cowork / Code. | es |
+| `PROJECT-BRIEF-v2.md` | Brief del proyecto: objetivo, dimensiones de datos, ideas. La visión. | es |
 
-- Single file and batch directory conversions
-- Image formats: PNG, JPG, WebP, BMP, GIF, TIFF, ICO, HEIC/HEIF
-- Document formats: Markdown to HTML/PDF/DocX, HTML to PDF
-- Data formats: CSV, JSON, YAML, XLSX, TSV conversions
-- Video formats: MP4, AVI, MKV, MOV, WebM, FLV, WMV, M4V, TS
-- Quality and resize options
+**Fuentes y datos (técnico)**
 
-**Tech Stack:** Python, Click, Pillow, Pandoc, OpenPyXL, PyYAML, ffmpeg
+| Documento | Qué es | Idioma |
+|---|---|---|
+| `SOURCES.md` | Registro de fuentes verificadas + estado de acceso de cada dataset. | en |
+| `../datos/input/FUENTES.md` | Manifiesto de los datos de entrada: origen, URL y qué alimenta cada uno. | es |
+| `DATA-CONTRACT.md` | Contrato pipeline ↔ frontend (forma estable de cada métrica). | en |
+| `../datos/procesado/tablas/README.md` | Diccionario de las tablas CSV (`metrics_long`, `series_long`, …). | en |
 
-#### `claude/flight-price-monitor-b4vhp`
+**Metodología y relatos (activos)**
 
-A comprehensive flight price monitoring system focused on routes from Basque Country airports (BIO, EAS, VIT) to European and transatlantic destinations.
+| Documento | Qué es | Idioma |
+|---|---|---|
+| `NOTA-METODOLOGICA.md` | Decisiones metodológicas (MET-1…5): por qué medimos como medimos. | es |
+| `TESIS-CIUDAD.md` | Lectura integrada y *cauta* de la transformación + anexo de hallazgos por eje. | es |
+| `GUION-OUTPUTS.md` | **Plan de los relatos finales** (empieza por aquí para narrar). | es |
 
-- Multi-provider support: Kiwi Tequila API, Amadeus, Google Flights via SerpAPI
-- Smart deal detection comparing current prices to historical averages
-- Flexible date searches and cabin bag filtering
-- Watch mode for specific routes with price drop alerts
-- Web dashboard with price trend charts
-- Telegram notifications and email reports
-- SQLite database for historical price tracking
+**Análisis intermedio (`docs/intermedia/`)**
 
-**Tech Stack:** Python, Flask, Chart.js, SQLite, Telegram Bot API, SMTP
+Análisis ya volcados en los outputs (`historias.html`, `resumen.md`, `TESIS-CIUDAD`);
+se conservan como referencia reproducible y, en principio, no se vuelven a tocar.
 
-#### `claude/holiday-blog-2pgUJ`
+| Documento | Qué es |
+|---|---|
+| `intermedia/ANALISIS-SPRINT-A.md` | Correlaciones robustas, velocidades, perfiles. |
+| `intermedia/ANALISIS-LEADLAG.md` | Lead/lag turismo→alquiler (AN-6, exploratorio). |
+| `intermedia/INDICE-TRANSFORMACION.md` | Índice de Transformación Urbana (multi-definición). |
 
-A full-stack personal travel blog application with AI-powered insights and optional Office 365 integration.
+**Histórico / superado (`docs/archive/`)**
 
-- Travel documentation with photo galleries and interactive maps
-- AI analysis for restaurants, recommendations, and highlights extraction
-- Search and filtering by destination, favorites, timeline view
-- OneNote and OneDrive integration for importing content
-- JWT-based admin authentication
-- Responsive design with Docker deployment options
+Conservados como referencia, no borrados. No forman parte del camino activo.
 
-**Tech Stack:** Node.js, Express, React, TypeScript, MongoDB, OpenAI API, Microsoft Graph API, Leaflet, Docker
+| Documento | Qué es |
+|---|---|
+| `archive/GAP-ANALYSIS.md` | Backlog técnico detallado previo; sustituido por `BACKLOG.md`. |
+| `archive/PLAN-RECOLECCION.md` | Especificación de adquisición de fuentes (trabajo ya ejecutado). |
+| `archive/IMPLEMENTACION-INGESTA.md` | Guía de ingesta (pipeline ya construido). |
+| `archive/FEEDBACK-CONSOLIDADO.md` | Síntesis de revisiones externas; sus acciones ya están aplicadas. |
+| `archive/INSIGHTS.md` | Digest por eje; su contenido vive en el anexo de `TESIS-CIUDAD.md`. |
+| `archive/DATA-HANDOFF.md` | Resumen para revisión externa. En italiano. |
+| `archive/PROJECT-BRIEF.md` | Brief original (v1). Superado por v2. En italiano. |
 
-#### `claude/personal-website-design-utqZY`
+---
 
-A modern, responsive personal website for Stefano Masneri, Senior AI Engineer. Features include:
+## 📊 Los datos
 
-- Interactive neural network visualization with Three.js
-- Sections for about, research, publications, skills, blog, and contact
-- Responsive design with smooth scrolling navigation
-- Auto-geocoding and globe visualization
-- Test suite for functionality
+El pipeline escribe JSON limpio en `web/src/data/` (versionado), de modo que **la
+web se construye sin Python ni red**: carga JSON/GeoJSON estáticos. Los mismos
+números se exportan como **tablas tidy CSV** en `datos/procesado/tablas/` (ver
+[`datos/procesado/tablas/README.md`](datos/procesado/tablas/README.md)),
+reutilizables en cualquier stack. La carpeta [`datos/`](datos/README.md)
+documenta y organiza entrada (`datos/input`, con `FUENTES.md`) y salida
+(`datos/procesado`).
 
-**Tech Stack:** HTML, CSS, JavaScript, Three.js, Leaflet
+Estado actual: métricas coropléticas por barrio (población, origen, estudios,
+renta, alquiler, tensión, VUT, **densidad Airbnb**, escuelas) + **velocidad de
+cambio** (`velocity_*`) + **perfiles** (categórica) + **estructura por edad** +
+**ruido nocturno** (GIS) + el **Índice de Transformación** (`transform_*`); **series
+mensuales** de ciudad (clima + pernoctaciones + reseñas Airbnb); **indicadores
+anuales** (MICE, reciclaje, fiscalidad). Cada métrica lleva su **ficha de confianza**
+(observado / derivado / proxy + supuestos). Geometría única de referencia: 19 barrios
+oficiales (`mapa_auzoak`), con `barrio_id` estable como clave de join.
 
-#### `claude/serie-a-predictor-nZVj4`
+> **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
+> usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).
 
-A football match prediction engine for Serie A, Premier League, La Liga, and Bundesliga using statistical modeling.
+Todas las cifras citadas en la documentación y en `output/historias.html` son
+**reproducibles** desde `analysis/*.py` o desde las métricas del pipeline.
 
-- Poisson distribution model with Dixon-Coles correction
-- Expected Goals (xG) data integration from Understat
-- Live bookmaker odds integration via The Odds API
-- Value bet detection using expected value calculations
-- Kelly Criterion stake sizing
-- Multi-league support with team form and head-to-head statistics
-- Web interface with best bets panel
+---
 
-**Tech Stack:** Python, Flask, HTML, CSS, JavaScript, football-data.org API, The Odds API, Understat
+## ⚙️ Ejecutar
 
-### Codex Experiments
+### Frontend (dashboard)
 
-#### `codex/create-image-classifications-branch-and-scripts`
+```bash
+cd web
+npm install
+npm run dev        # http://localhost:5173
+npm test           # vitest
+npm run build      # type-check + build de producción
+```
 
-Image classification and face recognition pipelines using machine learning.
+### Pipeline de datos (solo para refrescar datos)
 
-- Image classification into categories: food, landscapes, people
-- Multi-label face recognition (identifying multiple people in one image)
-- Training scripts for custom classifiers
-- Zero-shot classification using CLIP
-- FastAPI web API for inference
-- Face embedding enrollment and prediction
+```bash
+cd data-pipeline
+python3 -m venv .venv && . .venv/bin/activate
+pip install -e ".[dev]"
+python -m donostia_pipeline.build            # descarga + reconstruye web/src/data
+python -m donostia_pipeline.build --offline  # reconstruye desde raw/ cacheado
+pytest                                        # tests de contrato e integridad de joins
+```
 
-**Tech Stack:** Python, FastAPI, scikit-learn, CLIP, face_recognition, Uvicorn
+Añadir una métrica = añadir un módulo en
+`data-pipeline/src/donostia_pipeline/datasets/` que exponga `build(ctx) -> list[Metric]`,
+registrarlo en `build.DATASETS` y reejecutar. El frontend la recoge vía
+`metrics.json` sin cambios. El dataset AEMET necesita una API key gratuita en
+`AEMET_API_KEY` (se solicita en <https://opendata.aemet.es>).
 
-## Getting Started
+### Análisis
 
-Each experiment is contained in its own branch. To explore a specific project:
+```bash
+python analysis/sprint_a.py --save             # correlaciones, velocidades, clusters
+python analysis/distribucion_barrios.py --save # niveles×variaciones, polarización
+python analysis/transformation_index.py --save # índice de transformación urbana
+python analysis/lead_lag.py --save             # lead/lag turismo→alquiler (AN-6)
+```
 
-1. Clone the repository:
+### Regenerar `output/historias.html`
 
-   ```bash
-   git clone https://github.com/Stocastico/Claude-code-experiments.git
-   cd Claude-code-experiments
-   ```
+El documento narrativo embebe sus datos en una única línea `<script>window.DONO =
+{…}` y dibuja los mapas/gráficos en SVG en el navegador. Para actualizar los datos
+tras refrescar el pipeline: parsea esa línea, funde las métricas desde
+`web/src/data/metric_*.json` / `series_*.json` (y `barrios.geojson` para la
+geometría) y reescríbela. Es autocontenido: no depende de ficheros externos en runtime.
 
-2. Switch to the desired branch:
+---
 
-   ```bash
-   git checkout <branch-name>
-   ```
+## 🧭 Principios
 
-3. Follow the setup instructions in the branch's README.md file.
+- **Una sola geometría de referencia** y join único en ingestión.
+- **Provenance explícita**: cada valor arrastra su fuente.
+- **Honestidad metodológica**: correlación ≠ causalidad; fichas de confianza;
+  "transformación", nunca "gentrificación" (no se puede demostrar con estos datos).
+- **Reproducibilidad**: todo número tiene un script o una métrica detrás.
 
-## Contributing
-
-This repository serves as a collection of experimental projects. Each branch is self-contained and may have its own contribution guidelines.
+---
 
 ## License
 
-See LICENSE file for details.</content>
-<parameter name="filePath">/Users/fasteno/Documents/CODE/Claude-code-experiments/README.md
+See LICENSE file for details.
