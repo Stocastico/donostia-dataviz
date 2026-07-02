@@ -103,6 +103,38 @@ la presión turística (centro) son geografías distintas; que el clima se calie
   (falacia ecológica, MET-6) — describen geografía, no comportamiento de hogares.
 - Nada a escala fina sobre **trabajo, comercio o movilidad** (no integrados).
 
+## Las hipótesis que estos datos generan
+
+*(jul-2026, del feedback ChatGPT §8: el proyecto ya no solo responde preguntas —
+empieza a generar hipótesis empíricas contrastables. Hacerlas explícitas es parte
+del encuadre.)*
+
+**H1 — La presión turística anticipa el alquiler (~1 año).** Lo sugiere el
+lead/lag AN-6 (r(+1)=0,27, mayor que la contemporánea y que el sentido inverso).
+La confirmaría o refutaría: alquiler mensual/trimestral, el histórico de
+licencias VUT (REC-12) como segunda señal, y el blindaje AN-16 (estacionariedad
++ control macro).
+
+**H2 — La transformación turística y la social siguen geografías distintas.**
+Lo sugiere la correlación débil entre ambos scores (≈0,25) y el mapa: turismo en
+el centro acomodado, cambio social en la periferia interior. La pondría a prueba
+AN-9 (¿sobrevive el patrón a otros pesos del índice?) y AN-15 (¿hay
+autocorrelación espacial real?).
+
+**H3 — La desigualdad territorial permanece estable mientras cambia la
+accesibilidad.** Lo sugieren el Gini plano (~0,10) junto a la tensión invertida
+respecto al precio. La contrastarían AN-13 (beta-convergencia) y, sobre todo,
+datos de desigualdad intra-barrio y de quien se marcha del municipio.
+
+**H4 — El centro pierde población sin dejar de concentrar actividad.** Lo
+sugieren la pérdida de población (Gros −0,60 %/año) simultánea al máximo de
+presión turística y actividad económica. La descompondría AN-12 (saldo
+vegetativo vs migratorio, éxodo 25–39) y la complementaría REC-17 (commuting:
+¿quién sostiene el centro sin vivir en él?).
+
+Ninguna es una conclusión: son las **preguntas de investigación** que este
+proyecto deja formuladas con datos abiertos, listas para datos mejores.
+
 ## Lo que falta para cerrar la tesis
 
 - **Edad por barrio (REC-1)** → ¿el centro que pierde población gana qué perfil?

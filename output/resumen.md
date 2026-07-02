@@ -133,6 +133,15 @@ no es tanto cuánto gana cada zona como **quién puede permitirse vivir dónde**
 el clima calentándose de fondo. *(Lectura sugerida por señales convergentes, no
 hecho demostrado: sin microdatos de movilidad no se puede afirmar desplazamiento.)*
 
+### El proyecto como generador de hipótesis
+
+Más que respuestas cerradas, el análisis deja **cuatro hipótesis empíricas**
+contrastables con datos mejores (detalle y tests propuestos en
+`docs/TESIS-CIUDAD.md`): **H1** la presión turística anticipa el alquiler ~1 año;
+**H2** transformación turística y social siguen geografías distintas; **H3** la
+desigualdad territorial permanece estable mientras cambia la accesibilidad;
+**H4** el centro pierde población sin dejar de concentrar actividad.
+
 ---
 
 ## 4. Las seis historias (entregable `historias.html`)
