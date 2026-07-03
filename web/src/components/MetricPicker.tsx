@@ -11,6 +11,7 @@ const THEME_LABELS: Record<string, string> = {
   demography: "Demografia",
   economy: "Economia",
   education: "Istruzione",
+  health: "Sanità",
   housing: "Abitazioni",
   climate: "Clima",
   change: "Velocità di cambiamento",

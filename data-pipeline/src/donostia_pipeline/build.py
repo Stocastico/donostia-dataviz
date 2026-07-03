@@ -42,6 +42,7 @@ from .datasets import (
     renta,
     residuos,
     ruido_gis,
+    salud_gis,
     tejido_comercial,
     transformation,
     vpo_etxebide,
@@ -89,6 +90,11 @@ RAW_DOWNLOADS: dict[str, str] = {
     "educativos.json": (
         "https://www.donostia.eus/datosabiertos/recursos/"
         "servicios-educativos/hezkuntzaekipamenduak.json"
+    ),
+    # Health facilities (GeoJSON points, WGS84) — REC-18, joined to barrios.
+    salud_gis.GEOJSON_NAME: (
+        "https://www.donostia.eus/datosabiertos/recursos/"
+        "servicios-salud/osasunekipamenduak.json"
     ),
     # Waste collection (annual, city) → recycling-rate indicator.
     "residuos.csv": (
@@ -142,8 +148,8 @@ RAW_DOWNLOADS: dict[str, str] = {
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
-            estudios, vut_density, rent, educacion_gis, ruido_gis, airbnb,
-            vpo_etxebide]
+            estudios, vut_density, rent, educacion_gis, salud_gis, ruido_gis,
+            airbnb, vpo_etxebide]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
