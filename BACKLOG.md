@@ -7,6 +7,11 @@
 >
 > Reemplaza a `docs/archive/GAP-ANALYSIS.md` (el backlog técnico detallado e
 > histórico queda archivado ahí). Convención: ✅ hecho · ⬜ pendiente · 🔷 en curso.
+>
+> **Regla de parada (jul-2026):** el proyecto cierra tras *una última tanda
+> dirigida* de datos (REC-15 VPO + REC-18 accesibilidad) y la publicación. Qué
+> falta para dar por «hecho» y qué queda congelado: **`docs/PLAN-CIERRE.md`**.
+> Criterio: un dato entra solo si prueba/matiza/refuta H1–H4, no porque exista.
 
 ---
 
