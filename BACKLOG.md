@@ -120,10 +120,20 @@ Queda su integración narrativa (Cowork).
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
-  resúmenes manuales, no generados). *`datos.html` al día con REC-21 (jul-2026,
-  Cowork): `pct_origin_*` + paro por nacionalidad + I+D. Pendiente: revisar el
-  recuento de métricas "8 obs./11 der./1 proxy" de `metodologia.html`, rancio
-  tras las 8 métricas `pct_origin_*` nuevas.*
+  resúmenes manuales, no generados). *Al día (jul-2026, Code): el recuento de
+  confianza corregido a **16 obs./18 der./3 proxy (37 métricas)** en
+  `metodologia.html` y `NOTA-METODOLOGICA.md`; `datos.html` con `vpo_dwellings_per_1000`
+  (REC-15) y `health_per_1000` (REC-18) en la tabla y en Fuentes (Etxebide, salud).*
+- ⬜ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)**
+  (Cowork): el mapa `vpo_dwellings_per_1000` **junto al de tensión MET-1** cuenta
+  el contrapeso —la vivienda protegida aterrizó en el este obrero (Loiola 22,3‰),
+  cero en el centro caro— para la espina «tensión residencial» (cap. 7 / síntesis).
+  `health_per_1000` + `schools_per_1000` = la cara «ciudad vivida» de las dos
+  ciudades (cap. 6 / H4), con el caveat del artefacto per cápita de
+  Miramón-Zorroaga. Digest en `resumen.md`/`TESIS-CIUDAD.md`.
+- ⬜ **Ficha de país en el relato (opcional)**: enlazar la nueva sección del app
+  «Chi vive nel barrio · origini» (REC-21-web) desde la historia #4 si se quiere
+  puente app↔narrativa.
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
 - ✅ **Integración narrativa de REC-12/13/14/17** — hecha (jul-2026, Cowork):
