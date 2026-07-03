@@ -510,10 +510,12 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   del mapa un `role=img`+`aria-label` descriptivo — el dato deja de ser
   solo-color. Lógica en `lib/mapTable.ts` + 4 tests; utilidad `.sr-only`.
   Contraste de texto verificado: `--muted` 4,60:1, `--accent` 4,82:1, `--fg`
-  16:1 sobre blanco → **todos pasan AA** (no requiere cambio). **Pendiente:**
-  replicar la tabla-espejo en los mapas de sección (dos ciudades, tensión,
-  bivariado — necesitan adaptar el shape computado a `MapDataTable`) y auditar el
-  foco de teclado del resto de controles.
+  16:1 sobre blanco → **todos pasan AA** (no requiere cambio). La tabla-espejo se
+  extendió también a los **dos mapas de «città turistica vs. vissuta»** (usan
+  `MetricData` real → `MapDataTable` directo) con sus `aria-label`. **Pendiente:**
+  los mapas de sección con shape *computado* (tensión MET-1, bivariado) —
+  necesitan adaptar `MapDataTable` a filas genéricas— y auditar el foco de
+  teclado del resto de controles.
 - ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
   nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
   lado (cada uno con su propio selector de métrica y escala de color, no

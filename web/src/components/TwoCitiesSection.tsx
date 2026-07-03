@@ -4,6 +4,7 @@ import { buildColorScale } from "../lib/colorScale";
 import type { MetricData, MetricInfo } from "../lib/types";
 import { ChoroplethMap } from "./ChoroplethMap";
 import { Legend } from "./Legend";
+import { MapDataTable } from "./MapDataTable";
 import { MetricPicker } from "./MetricPicker";
 
 const TOURISM_IDS = ["airbnb_density", "vut_density", "vut_count"];
@@ -96,7 +97,15 @@ function TwoCitiesPanel({
     <div className="two-cities-panel">
       <h3>{title}</h3>
       <MetricPicker metrics={metrics} selectedId={panel.id} onSelect={panel.setId} />
-      <div className="map-area two-cities-map">
+      <div
+        className="map-area two-cities-map"
+        role="img"
+        aria-label={
+          panel.metric
+            ? `Mappa coropletica: ${panel.metric.label}, ${period}. Dati nella tabella qui sotto.`
+            : "Mappa in caricamento"
+        }
+      >
         {panel.metric && scale ? (
           <>
             <ChoroplethMap geojson={barriosGeoJSON} metric={panel.metric} period={period} scale={scale} />
@@ -106,6 +115,9 @@ function TwoCitiesPanel({
           <div className="map-placeholder">Caricamento dati…</div>
         )}
       </div>
+      {panel.metric && (
+        <MapDataTable geojson={barriosGeoJSON} metric={panel.metric} period={period} />
+      )}
       {panel.metric && <p className="source-note">Fonte: {panel.metric.source}</p>}
     </div>
   );
