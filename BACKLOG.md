@@ -410,6 +410,26 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   la capa subjetiva que falta.
 - ⬜ **REC-20 cajón de ideas** (menor prioridad): licencias de obra y
   rehabilitación, matrícula escolar por centro, vegetación/arbolado satelital.
+- ✅ **REC-21 perfil migratorio y de empleo** — hecho y **cableado al pipeline**
+  (jul-2026), petición de usuario: país de origen por barrio (57 países,
+  2000–2025, único dato a grano barrio) cruzado con renta/estudios (r=−0,69
+  renta↔% América Latina, +0,59 % univ.↔% Europa occidental); actividad
+  laboral por continente y ocupación/renta/I+D generales (grano Gipuzkoa/C.A.
+  de Euskadi — Eustat no cruza nacionalidad×ocupación×salario a ningún grano
+  español, catálogo completo revisado). Confirma la intensidad investigadora
+  de Gipuzkoa (31 ‰ ocupados vs. 13,6 ‰ España, INE 2024). Análisis
+  exploratorio en `analysis/perfil_extranjeros_empleo.py` + tests; detalle en
+  `docs/intermedia/ANALISIS-EXTRANJEROS-EMPLEO.md`. **Implementación en el
+  pipeline**: `datasets/demografia_origen_region.py` → 8 métricas coropléticas
+  nuevas `pct_origin_*` (barrio×año, mismo `demo_barrio.csv` que `pct_foreign`)
+  + `datasets/empleo_nacionalidad_gipuzkoa.py` → 3 indicadores de ciudad
+  (`unemployment_rate_spanish/foreign_gipuzkoa`, `randd_personnel_per_1000_employed_gipuzkoa`);
+  35 métricas y 28 indicadores en total tras el build, verificado en el
+  dashboard (mapa + panel de indicadores). Quedan **analysis-only** por no
+  encajar en el modelo Metric/Indicator (desglose multi-categoría, no un
+  valor por año): ocupación CNO-11, establecimientos por sector A10 en
+  Donostia, renta por profesión. Pendiente (Cowork): integración narrativa en
+  `historias.html`/`resumen.md`.
 
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):

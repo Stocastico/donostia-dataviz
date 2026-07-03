@@ -88,6 +88,18 @@ dl_post eustat_dirae_empleo.json \
   "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_200163_cdirae_est07.px" \
   '{"query":[{"code":"ámbitos territoriales","selection":{"filter":"item","values":["20069"]}}],"response":{"format":"json"}}'
 
+# Eustat PxWeb (REC-21): paro por nacionalidad + personal I+D + población
+# ocupada, Gipuzkoa (sin grano municipio — ver datasets/empleo_nacionalidad_gipuzkoa.py).
+dl_post eustat_tasas_nacionalidad_gipuzkoa.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050403_cpra_tab17.px" \
+  '{"query":[{"code":"tasa (%)","selection":{"filter":"item","values":["10","20","30"]}},{"code":"territorio histórico","selection":{"filter":"item","values":["20"]}},{"code":"nacionalidad","selection":{"filter":"item","values":["10","20","30"]}},{"code":"trimestre","selection":{"filter":"item","values":["10"]}}],"response":{"format":"json"}}'
+dl_post eustat_id_personal_gipuzkoa.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_043201_cid_res08c.px" \
+  '{"query":[{"code":"territorio histórico","selection":{"filter":"item","values":["20"]}},{"code":"sector de ejecución","selection":{"filter":"item","values":["00","10","20","30"]}},{"code":"ocupación","selection":{"filter":"item","values":["100","200","300","400"]}},{"code":"sexo","selection":{"filter":"item","values":["10"]}}],"response":{"format":"json"}}'
+dl_post eustat_poblacion_ocupada_total.json \
+  "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050403_cpra_tab04.px" \
+  '{"query":[{"code":"relación con la actividad (OIT)","selection":{"filter":"item","values":["30"]}},{"code":"territorio histórico","selection":{"filter":"item","values":["00","20"]}},{"code":"sexo","selection":{"filter":"item","values":["10"]}},{"code":"trimestre","selection":{"filter":"item","values":["10"]}}],"response":{"format":"json"}}'
+
 # Inside Airbnb snapshots trimestrales (REC-13): anuncios activos por fecha
 # (CSV resumen, uno por snapshot). Solo lo usa analysis/airbnb_snapshots.py.
 # Los snapshots 2021-12-30…2023-09-24 ya no se sirven (403; data request).

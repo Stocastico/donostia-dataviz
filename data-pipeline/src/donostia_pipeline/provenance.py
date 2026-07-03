@@ -84,6 +84,39 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
     "transform_rent_excess": ("derived", [
         "Crescita annua dell'affitto meno la mediana della città (shift-share).",
     ]),
+    # --- origine per regione (REC-21) ---
+    "pct_origin_latam": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (18 paesi). "
+        "Correla negativamente col reddito di barrio (r=-0.69): migrazione economica, "
+        "non un proxy di gentrificazione.",
+    ]),
+    "pct_origin_norte_africa": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (Marocco, Algeria). "
+        "Tasso di disoccupazione quasi 3x quello europeo a livello Gipuzkoa (EPA vasca).",
+    ]),
+    "pct_origin_africa_subsahariana": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (7 paesi); popolazione minima "
+        "in valore assoluto — letture per barrio poco robuste sotto pochi individui.",
+    ]),
+    "pct_origin_europa_occidental": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (9 paesi UE-15/nordici). "
+        "Correla positivamente con reddito e % universitari — profilo opposto a America "
+        "Latina e Nordafrica nello stesso aggregato pct_foreign.",
+    ]),
+    "pct_origin_europa_este": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (8 paesi, ex blocco sovietico).",
+    ]),
+    "pct_origin_oriente_medio": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (Iran, Siria); popolazione "
+        "minima — componente di asilo non distinguibile con questi dati.",
+    ]),
+    "pct_origin_asia": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (9 paesi, Asia orientale/meridionale).",
+    ]),
+    "pct_origin_norteamerica_oceania": ("observed", [
+        "Sottoinsieme di pct_foreign per regione di origine (Stati Uniti, Australia); "
+        "popolazione minima in valore assoluto.",
+    ]),
     # --- proxy (approximation) ---
     "noise_night_pct55": ("proxy", [
         "I mappe strategiche sono dominate dal rumore di TRASPORTO, non isolano la vita notturna.",
