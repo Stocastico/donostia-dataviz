@@ -79,6 +79,39 @@ loading every metric file up front:
 `status: "planned"` metrics appear in the UI disabled with a "data coming soon"
 note (for manual/PDF sources not yet extracted — MICE, Ibiltur, Indomio).
 
+### `origen_paises_barrio.json` — per-barrio country card (REC-21-web)
+
+A bespoke shape (not a `Metric`: a *list of countries per barrio*, not one
+scalar per cell) feeding the "Chi vive nel barrio · origini" section. Built by
+`datasets/origen_paises_barrio.py` from the same `demo_barrio.csv` as the
+`pct_origin_*` choropleths.
+
+```jsonc
+{
+  "latestYear": "2025",
+  "pastYear": "2015",              // latest − 10y, or earliest year if missing
+  "source": "Donostia Open Data — …",
+  "barrios": {
+    "loiola": {
+      "name": "Loiola",
+      "foreignLatest": 812,        // total foreign residents, latest year
+      "top": [                     // top-5 foreign countries by latest headcount
+        {
+          "country": "Marruecos",  // España excluded
+          "region": "norte_africa",// same grouping as pct_origin_* (a11y colour)
+          "peopleLatest": 149,
+          "peoplePast": 36,        // a decade earlier (0 = absent then → "nuovo")
+          "pctOfBarrio": 2.27      // share of total barrio population, latest
+        }
+      ]
+    }
+  }
+}
+```
+
+> ⚠️ MET-5: country of origin is **not** a proxy for income/tourism/
+> transformation. The card is descriptive and the UI copy states it.
+
 ## Invariants (enforced by pipeline tests)
 
 1. Every `barrio_id` used in any `metric_*.json` exists in `barrios.geojson`.

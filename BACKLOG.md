@@ -460,12 +460,19 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
   instancia maplibre real.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
-- ⬜ **REC-21-web — ficha de país en el detalle de barrio** (Code, `web/`):
-  top-5 países de origen por barrio con su evolución a 10 años, usando
-  `analysis/output/extranjeros_top_paises.csv` (regenerable con
-  `python analysis/perfil_extranjeros_empleo.py --save`). Decidir si vive en el
-  panel de detalle de barrio del app o solo en el relato. Las 8 métricas
-  `pct_origin_*` ya están cableadas y son seleccionables en el picker.
+- ✅ **REC-21-web — ficha de país en el detalle de barrio** (Code, `web/`) —
+  hecho (jul-2026): sección **«Chi vive nel barrio · origini»** en el app con
+  selector de barrio → top-5 nacionalidades extranjeras del barrio, cada una con
+  barra (cuota del barrio), nº de personas y variación a 10 años (▲/▼/nuovo).
+  Decidido: **vive en el app** (no solo en el relato). No es un `Metric` (lista
+  de países por barrio); export propio `web/src/data/origen_paises_barrio.json`
+  vía nuevo `datasets/origen_paises_barrio.py` desde el mismo `demo_barrio.csv`
+  que `pct_origin_*`, cableado en `build.run()`. Color por región reutiliza la
+  agrupación del choropleth pero **legible sin color** (dot + nombre + flechas +
+  cifras, a11y). Aviso MET-5 explícito en la copy. 9 tests pipeline + 7 web
+  (TDD); verificado en navegador. Contrato en `docs/DATA-CONTRACT.md`. **Pendiente
+  (Cowork, opcional):** mencionar la ficha en el relato de la historia #4 si se
+  quiere enlazar app↔narrativa.
 - ⬜ **A11y del app React** (Code, `web/`): contraste, foco de teclado, texto
   alternativo/tabla-espejo de los mapas y leyendas legibles sin color, en
   paralelo a la pasada hecha en `historias.html`.
