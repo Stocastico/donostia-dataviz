@@ -52,7 +52,11 @@ robusta de todo el sistema. La tensión es, ante todo, un problema de renta baja
 `renta ↔ % extranjeros` es −0,58 (−0,72 sin el centro): salvo en el centro
 turístico (expatriados acomodados), la población extranjera se asienta donde la
 renta es menor. Es inmigración económica, **no** una señal de gentrificación
-(ver `NOTA-METODOLOGICA.md`, MET-5).
+(ver `NOTA-METODOLOGICA.md`, MET-5). El desglose por región de origen (REC-21, jul-2026)
+lo afina: dentro de ese −0,58 conviven una correlación de **−0,69** (América Latina) y
+**−0,48** (Norte de África) con la renta del barrio, frente a **+0,24** de Europa occidental
+(y +0,59 con % universitarios). No hay "un" extranjero: hay al menos dos poblaciones con
+relación **opuesta** con la renta, que el agregado «% extranjeros» funde en una sola cifra.
 
 **5. Pero la brecha de renta ENTRE barrios no se ensancha.** El Gini territorial
 de la renta (ponderado por población) es estable: ~0,10 en 2016 y ~0,10 en 2023;
@@ -150,8 +154,10 @@ Erdialdea atrae migración neta (+2.162 en 2000–2025) y aun así pierde
 población (déficit nacimientos−defunciones de −3.435); Gros es el único
 barrio con saldo vegetativo Y migratorio negativos, con éxodo 25–39 en las
 cinco ventanas quinquenales (`ANALISIS-INFERENCIAL.md` §AN-12). El "sin
-dejar de concentrar actividad" sigue abierto: lo complementaría REC-17
-(commuting: ¿quién sostiene el centro sin vivir en él?).
+dejar de concentrar actividad" **ya tiene dato (REC-17, jul-2026)**: Donostia cuenta
+**1,20 empleos localizados por residente ocupado** (2024) — la ciudad *importa* trabajadores
+cada día. Las dos mitades de H4 quedan cerradas: la pérdida de población es vegetativa y la
+concentración de actividad, real.
 
 Ninguna es una conclusión: son las **preguntas de investigación** que este
 proyecto deja formuladas con datos abiertos, listas para datos mejores.
@@ -181,7 +187,9 @@ proyecto deja formuladas con datos abiertos, listas para datos mejores.
 y Gros **359** (de ~1.490 en la ciudad); densidad Erdialdea **29,9**/1000 hab.,
 Gros **20,7**, Antiguo 8,5. Estacionalidad hotelera (INE EOH 2005–2026): pico
 jul/ago ~245k, mínimo ene ~116k; desplome 2020 (COVID) y recuperación + ligera
-**desestacionalización** desde 2021; total 2025 ≈ **2,2 M** de pernoctaciones.
+**desestacionalización** desde 2021; total 2025 ≈ **2,2 M** de pernoctaciones. Proxy de reseñas: exagera
+el crecimiento de oferta **×1,18** (2023–2025: oferta activa +2,0 % vs reseñas +20,2 %) y las altas nuevas de
+licencias VUT del registro REATE caen de **300/año (2017) a 18 (2025)** (REC-13/REC-12).
 
 **🏠 Vivienda.** Alquiler €/m² (EMA 2024): Erdialdea **16,6**, Aiete 16,2, Gros
 15,9; este más barato; Erdialdea **+29 %** desde 2016. Esfuerzo alquiler/renta
@@ -190,13 +198,16 @@ en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %.
 
 **💶 Economía.** Renta per cápita 2023: Aiete ~30.440 € vs. Altza ~18.371 €
 (~1,7×). Brecha de género marcada (Aiete ~29,9 %). Gini territorial **estable**
-(~0,10 en 2016 y 2023): la brecha *entre* barrios no se ensancha.
+(~0,10 en 2016 y 2023): la brecha *entre* barrios no se ensancha. Intensidad investigadora Gipuzkoa
+**31,0‰** de ocupados en I+D vs. **13,6‰** España (REC-21); abanico salarial ancho: dirección 65.657 € vs. servicios 18.044 € (×3,6).
 
 **👥 Demografía.** % extranjeros al alza en todas partes (Gros 1,3 %→9,9 %,
 2000→2025), más rápido en el este (Intxaurrondo +0,92 pp/año). Edad: centro
 envejecido (índice de vejez Gros **370**, Erdialdea **350**), este joven
 (Intxaurrondo 21 % de 25–39); Antiguo +203 puntos de índice en 25 años;
-Miramón-Zorroaga rejuvenece (387→151).
+Miramón-Zorroaga rejuvenece (387→151). Origen (REC-21): la cuota latinoamericana crece **×19** desde 2000
+(0,25 %→4,81 %, >½ de la población extranjera), concentrada en el este de renta baja (r=−0,69); Europa occidental,
+en el centro (+0,24 con renta). Paro extranjero en Gipuzkoa **9,4 %** vs **4,3 %** español; africano **18,4 %**.
 
 **🏫 Educación.** Universitarios al alza (Aiete 25,3 %→35,0 %). Centros educativos
 per cápita: la normalización cambia el ranking (Ibaeta 1ª en absoluto, 3ª per
@@ -204,7 +215,8 @@ cápita; Zubieta 1ª per cápita por población baja).
 
 **🌡️ Clima (AEMET Igeldo, 1981–2025).** +0,31 °C/década (R²=0,39), media 13,1→14,7 °C;
 días ≥30 °C **+0,81/década** (15 en 2022); máx absoluta **39,7 °C (2022)**, 38,6 °C
-(2003); precipitación sin tendencia clara (R²=0,06).
+(2003); precipitación sin tendencia clara (R²=0,06). Isla de calor superficial (Landsat 2015–2025, REC-14):
+**Gros +4,8 °C**, Amara Berri +4,3, Egia +4,1 sobre la media de ciudad; anillo verde −3…−5 °C (el calor urbano vive en el este denso).
 
 **♻️ Medio ambiente.** Recogida selectiva del 28,8 % (2010) al **41,0 % (2023)**;
 tendencia clara de mejora, aún bajo el objetivo UE (55 %).
@@ -214,4 +226,4 @@ internacionales. Congresos ICCA: 16 (2018) → 12 (2019) → 15 (2023) → 13 (2
 
 **🔗 Correlaciones clave.** Densidad VUT ↔ alquiler **r = 0,64** (0,62 sin el
 centro; Spearman 0,75); esfuerzo ↔ renta **r = −0,81** (−0,89 sin el centro), la
-más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (−0,72 sin el centro).
+más fuerte del sistema; renta ↔ % extranjeros **r = −0,58** (−0,72 sin el centro); por origen (REC-21) renta ↔ Latinoamérica **−0,69**, ↔ Europa occidental **+0,24** (y +0,59 con % universitarios).

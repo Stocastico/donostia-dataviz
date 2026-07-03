@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Donostia en datos · Seis historias de una ciudad que cambia</title>
+<title>Donostia en datos · Siete historias de una ciudad que cambia</title>
 <style>
   :root{
     --ink:#14233a; --ink2:#3a4a63; --muted:#6b7a90; --line:#e2e7ef;
@@ -132,6 +132,9 @@
   .s5 .question{border-color:#8e7cc3} .s6 .question{border-color:#0f4c5c}
   .s5 .takeaway{border-left-color:#8e7cc3} .s6 .takeaway{border-left-color:#0f4c5c}
   .s5 .kn .big{color:#6a53a8} .s6 .kn .big{color:#0f4c5c}
+  /* story «quién trabaja» (indigo) */
+  .sw .badge-num{background:#4a5fa5} .sw .question{border-color:#4a5fa5}
+  .sw .takeaway{border-left-color:#4a5fa5} .sw .kn .big{color:#3a4d8f}
   /* transform dashboard */
   .dash3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:10px 0}
   @media(max-width:900px){.dash3{grid-template-columns:1fr}}
@@ -166,11 +169,11 @@
 <header class="hero">
   <div class="wrap">
     <p class="eyebrow">Donostia / San Sebastián · datos abiertos</p>
-    <h1>Seis historias de una ciudad que cambia</h1>
-    <p class="lede">Un relato en seis capítulos, con datos verificados y reproducibles, de cómo se
+    <h1>Siete historias de una ciudad que cambia</h1>
+    <p class="lede">Un relato en siete capítulos, con datos verificados y reproducibles, de cómo se
       transforma Donostia: el <strong style="color:#fff">estado</strong> (dónde aprieta la vivienda), el
       <strong style="color:#fff">cambio</strong> (qué barrios se mueven), las
-      <strong style="color:#fff">personas</strong> (quién los habita), el
+      <strong style="color:#fff">personas</strong> (quién los habita), quién <strong style="color:#fff">trabaja</strong> la ciudad, el
       <strong style="color:#fff">telón de fondo</strong> (un clima que se calienta), las
       <strong style="color:#fff">dos ciudades</strong> (la turística y la vivida) y la
       <strong style="color:#fff">síntesis</strong> — más un epílogo con lo que los datos aún no pueden responder.</p>
@@ -186,9 +189,10 @@
     <a href="#s1">1 · La ciudad que se encarece</a>
     <a href="#s2">2 · Qué barrios cambian más rápido</a>
     <a href="#s3">3 · Quién vive Donostia</a>
-    <a href="#s4">4 · El clima cambia</a>
-    <a href="#s5">5 · Turística vs. vivida</a>
-    <a href="#s6">6 · En transformación</a>
+    <a href="#sw">4 · Quién trabaja Donostia</a>
+    <a href="#s4">5 · El clima cambia</a>
+    <a href="#s5">6 · Turística vs. vivida</a>
+    <a href="#s6">7 · En transformación</a>
     <a href="#sx">+ · La ciudad de fondo</a>
     <a href="#s7">? · Lo que no sabemos</a>
     <a href="metodologia.html" style="color:var(--sea-d)">Metodología</a>
@@ -460,8 +464,90 @@
           inmigración. La cautela sigue en pie: el envejecimiento del centro <strong>es anterior al boom turístico</strong> de 2016 y común a muchas ciudades europeas — el turismo se implanta sobre una estructura demográfica preexistente, no la crea.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;El saldo vegetativo/migratorio por barrio es una <em>estimación por residuo</em> (pirámide del padrón + mortalidad provincial, AN-12): reparte con supuestos, no observa mudanzas. Sin microdatos de rotación sigue sin demostrarse desplazamiento individual; no se interpola edad mediana sobre datos en bandas.</span>
-      <p class="nextcap">Precios, velocidades y personas se mueven sobre un escenario que también se mueve.
-        <a href="#s4">Capítulo 4 — el clima que lo enmarca →</a></p>
+      <p class="nextcap">Ya sabemos quién <em>vive</em> en cada barrio. Falta de dónde viene y en qué trabaja.
+        <a href="#sw">Capítulo 4 — quién trabaja Donostia →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== STORY: QUIÉN TRABAJA (REC-21) ====================== -->
+<section class="story sw" id="sw">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="story-head">
+        <div class="badge-num">4</div>
+        <div><p class="eyebrow">Capítulo 4 · Las personas: quién trabaja</p><h2 class="story-title">Quién trabaja Donostia</h2></div>
+      </div>
+      <p class="question">Si el capítulo anterior contó quién <em>vive</em> en cada barrio, este pregunta de dónde viene esa población y en qué trabaja la ciudad &mdash; sin reducir «lo extranjero» a un solo perfil.</p>
+      <p>La cifra de «% de población extranjera» es cómoda pero engañosa: mete en el mismo saco a poblaciones que se mueven en sentido <strong>opuesto</strong> respecto a la renta del barrio. En 2025 el <strong>9,4 %</strong> de Donostia había nacido fuera de España (era el 5,2 % en 2015 y menos del 1 % en 2000), pero ese agregado esconde ritmos y perfiles muy distintos. Este capítulo separa el origen por regiones y lo cruza con la renta y los estudios; luego mira en qué trabaja la ciudad &mdash;mucha investigación, y un abanico salarial ancho&mdash; y termina con un aviso: <strong>no existe</strong> ninguna estadística pública que cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a este grano, así que todo lo que sigue es <em>triangulación</em>, nunca una foto individual.</p>
+    </div>
+
+    <div class="fig">
+      <h3>De dónde viene la población extranjera, por barrio (2025)</h3>
+      <p class="cap">Elige la región de origen. Cuota sobre la población total del barrio; cuanto más oscuro, mayor presencia. Mismo padrón que alimenta «% extranjeros», aquí desglosado por origen. Oarain (exclave rural) sin dato.</p>
+      <div class="controls">
+        <div class="control" style="min-width:auto">
+          <label>Región de origen</label>
+          <div class="segmented" id="orgsel">
+            <button data-k="latam" class="active">América Latina</button>
+            <button data-k="norte_africa">Norte de África</button>
+            <button data-k="europa_occidental">Europa occidental</button>
+            <button data-k="asia">Asia</button>
+            <button data-k="europa_este">Europa del Este</button>
+          </div>
+          <span class="hint" id="orghint">Más de la mitad de toda la población extranjera; se concentra en el este de renta baja.</span>
+        </div>
+      </div>
+      <div class="grid2">
+        <div><div class="mapwrap"><svg class="map" id="map_org"></svg></div><div class="legend" id="leg_org"></div></div>
+        <div><table class="rank" id="rank_org"><thead><tr><th>Barrio</th><th style="text-align:right">% del barrio</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <p class="src">Donostia Open Data &mdash; padrón por país de nacimiento (57 países agrupados en 8 regiones de origen), 2000&ndash;2025. Grano barrio.</p>
+    </div>
+
+    <div class="narrow">
+      <p>El mapa cambia de golpe al pasar de una región a otra, y ahí está el hallazgo central. La población de origen <strong>latinoamericano</strong> (el grupo mayor, y el que más crece: ×19 desde 2000) y la <strong>magrebí</strong> se concentran en los barrios de <strong>menor renta</strong> &mdash;Martutene, Altza, el este obrero, Intxaurrondo&mdash;: su cuota correlaciona <strong>−0,69</strong> (Latinoamérica) y −0,48 (Norte de África) con la renta per cápita del barrio. La población de <strong>Europa occidental</strong> hace justo lo contrario: correlaciona <strong>+0,24</strong> con la renta y <strong>+0,59</strong> con el porcentaje de universitarios, y se asienta en el centro, Ategorrieta-Ulia y Gros &mdash;los barrios más caros y turísticos&mdash;, un perfil de expatriado acomodado, jubilado o teletrabajador, no de migración económica. Dentro de «extranjero» conviven, literalmente, dos ciudades.</p>
+    </div>
+
+    <div class="fig">
+      <h3>Cada origen tira de la renta del barrio en sentido distinto</h3>
+      <p class="cap">Correlación de Pearson entre barrios (n=17) entre la cuota de cada región de origen y la renta per cápita del barrio. A la derecha (verde): se asienta donde la renta es mayor; a la izquierda (coral): donde es menor. Entre paréntesis, la correlación con el % de universitarios.</p>
+      <div class="mapwrap"><svg class="map" id="orgcorr" style="max-width:640px;margin:0 auto"></svg></div>
+      <p class="src">analysis/perfil_extranjeros_empleo.py · docs/intermedia/ANALISIS-EXTRANJEROS-EMPLEO.md §1.3. Correlación entre barrios (falacia ecológica, MET-6): describe geografía, no hogares.</p>
+    </div>
+
+    <div class="keynums">
+      <div class="kn"><div class="big">×19</div><div class="lbl">Crecimiento de la cuota latinoamericana desde 2000 (0,25 %→4,81 % de la población). El Magreb crece ×27 desde una base casi nula; Europa occidental solo ×2,6.</div></div>
+      <div class="kn"><div class="big">−0,69 / +0,59</div><div class="lbl">América Latina correlaciona −0,69 con la renta del barrio; Europa occidental, +0,59 con el % de universitarios. La misma cifra de «extranjeros» esconde relaciones opuestas.</div></div>
+      <div class="kn"><div class="big">18,4 %</div><div class="lbl">Paro de la población africana en Gipuzkoa (2024), casi 3× la europea (6,7 %) y 6× la americana (3,2 %). La población extranjera dobla en paro a la española (9,4 % vs 4,3 %).</div></div>
+    </div>
+
+    <div class="narrow">
+      <p>La estabilidad laboral también se reparte de forma desigual por origen. Con la EPA vasca desagregada por continente (Gipuzkoa, 2024), la tasa de paro de la población <strong>africana (18,4 %)</strong> casi triplica la europea (6,7 %); la población de nacionalidad extranjera tiene, en conjunto, más del doble de paro que la española (9,4 % vs 4,3 %) pese a una tasa de actividad más alta &mdash;busca empleo con más intensidad y lo encuentra menos&mdash;. Lo que estos datos <strong>no</strong> ven, y por eso no se afirma: el sinhogarismo y la economía informal, que ninguna encuesta de actividad capta por diseño. Se deja como vacío declarado, no se rellena con un proxy.</p>
+    </div>
+
+    <div class="fig">
+      <h3>En qué trabaja la ciudad: mucha investigación, y un abanico salarial ancho</h3>
+      <p class="cap">Izquierda: personal en I+D por cada 1.000 ocupados (Gipuzkoa vs España, 2024). Derecha: renta media anual del trabajo por gran grupo de ocupación (C.A. de Euskadi, 2023). Grano Gipuzkoa/Euskadi &mdash;Donostia concentra buena parte de los centros de investigación del territorio, pero no es un dato exclusivo de la ciudad&mdash;.</p>
+      <div class="grid2">
+        <div><div class="mapwrap"><svg class="map" id="randd" style="max-width:360px;margin:0 auto"></svg></div></div>
+        <div><div class="mapwrap"><svg class="map" id="salary"></svg></div></div>
+      </div>
+      <p class="src">Eustat &mdash; personal I+D (EDP) y renta media del trabajo por ocupación; INE (España, I+D 2024). ANALISIS-EXTRANJEROS-EMPLEO §2.1&ndash;2.3.</p>
+    </div>
+
+    <div class="narrow">
+      <p>Gipuzkoa <strong>más que duplica</strong> la intensidad investigadora de España (31,0 frente a 13,6 personas en I+D por cada 1.000 ocupados; en investigadores, 21,0 vs 8,5), y no es un pico reciente: el personal en I+D casi se ha triplicado desde 2001. Pero esa ciudad de la investigación convive con otra: los dos grupos de ocupación más numerosos siguen siendo las «ocupaciones elementales» y los «servicios de restauración, personales y ventas» (el <strong>41 %</strong> del empleo conjuntamente), que son también los <strong>peor pagados</strong> &mdash;18.044 €/año los servicios, <strong>3,6 veces menos</strong> que los 65.657 € de dirección&mdash;. Combinando las tres piezas &mdash;dónde vive cada origen (mapa), qué ocupaciones dominan y cuánto pagan&mdash; la intuición de que «los trabajos de la migración económica pagan sensiblemente menos» es <strong>consistente</strong> con los números, aunque el cruce exacto por persona no exista en ninguna estadística pública.</p>
+    </div>
+
+    <div class="narrow">
+      <div class="takeaway">
+        <span class="t-lab">La conclusión</span>
+        <p>Donostia no atrae «un» perfil de extranjero, sino al menos <strong>dos</strong> que ni viven en los mismos barrios ni tienen la misma renta: una migración económica &mdash;sobre todo latinoamericana, y magrebí&mdash; asentada en el este de renta baja, y un goteo europeo-occidental cualificado en el centro caro. La ciudad, a la vez, tiene una intensidad investigadora que dobla la media española <em>y</em> una base amplia de empleo de servicios mal pagado. Leer «% de extranjeros» como una sola cosa &mdash;o como señal de gentrificación&mdash; borra justamente esta doble estructura.</p>
+      </div>
+      <span class="conf"><span class="dot observed"></span><b>Observado + derivado.</b>&nbsp;El origen por barrio es padrón (observado); las correlaciones y el empleo por continente/ocupación son agregados de barrio o de Gipuzkoa (falacia ecológica, MET-6), <strong>nunca</strong> lecturas individuales. No existe cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a grano municipal ni provincial (MET-5); todo el vínculo origen↔trabajo es triangulación, no medición.</span>
+      <p class="nextcap">Precios, personas y trabajo se mueven sobre un escenario que también se mueve.
+        <a href="#s4">Capítulo 5 — el clima que lo enmarca →</a></p>
     </div>
   </div>
 </section>
@@ -471,8 +557,8 @@
   <div class="wrap">
     <div class="narrow">
       <div class="story-head">
-        <div class="badge-num">4</div>
-        <div><p class="eyebrow">Capítulo 4 · El telón de fondo</p><h2 class="story-title">El clima cambia</h2></div>
+        <div class="badge-num">5</div>
+        <div><p class="eyebrow">Capítulo 5 · El telón de fondo</p><h2 class="story-title">El clima cambia</h2></div>
       </div>
       <p class="question">¿Cómo ha cambiado el clima de Donostia en 45 años?</p>
       <p>La estación de Igeldo lleva registrando desde 1981. Cada franja vertical es un año, coloreada por su
@@ -506,6 +592,17 @@
       <div class="legend" id="leg_heat"></div>
     </div>
 
+    <div class="narrow">
+      <p>La estación de Igeldo cuenta el clima en el tiempo, pero no en el espacio. Para eso hacen falta imágenes de satélite: 45 escenas de verano de Landsat (2015&ndash;2025) miden la temperatura de la <strong>superficie</strong> barrio a barrio. Y el calor urbano no está repartido &mdash;tiene casi el mismo mapa que la presión de vivienda&mdash;.</p>
+    </div>
+
+    <div class="fig">
+      <h3>El calor tiene un mapa: la isla de calor vive en el este denso</h3>
+      <p class="cap">Anomalía de temperatura superficial (LST) de cada barrio respecto a la media de la ciudad, promedio de 45 escenas de verano 2015&ndash;2025. En rojo, por encima de la media; en azul, por debajo. Es temperatura de superficie (tejados, asfalto) al mediodía, no del aire.</p>
+      <div class="mapwrap"><svg class="map" id="heat_bars" style="max-width:640px;margin:0 auto"></svg></div>
+      <p class="src">Landsat 8/9 C2 L2 (banda térmica 30 m) vía Microsoft Planetary Computer · analysis/heat_island.py · ANALISIS-INFERENCIAL §REC-14.</p>
+    </div>
+
     <div class="keynums">
       <div class="kn"><div class="big">+0,31 °C</div><div class="lbl">Por década (R²=0,39). La media anual pasó de 13,1 °C (1981–85) a 14,7 °C (2021–25).</div></div>
       <div class="kn"><div class="big">39,7 °C</div><div class="lbl">Máxima absoluta registrada, en 2022. En 2003 se llegó a 38,6 °C.</div></div>
@@ -515,12 +612,14 @@
     <div class="narrow">
       <div class="takeaway">
         <span class="t-lab">La conclusión</span>
-        <p>Calentamiento sostenido y más extremos de calor &mdash; el patrón típico del cambio climático.
-          La precipitación, en cambio, no muestra tendencia clara.</p>
+        <p>Calentamiento sostenido y más extremos de calor &mdash; el patrón típico del cambio climático;
+          la precipitación, en cambio, no muestra tendencia clara. Y ese calentamiento tiene un mapa: <strong>Gros,
+          Amara Berri y Egia</strong> superan en más de <strong>4 °C</strong> la temperatura de superficie media de
+          la ciudad &mdash;el mismo este denso donde aprieta la vivienda&mdash;, mientras el anillo verde queda 3&ndash;5 °C por debajo.</p>
       </div>
-      <span class="conf"><span class="dot observed"></span><b>Observado.</b>&nbsp;Una sola estación (Igeldo): relato temporal de ciudad, no espacial por barrio.</span>
+      <span class="conf"><span class="dot observed"></span><b>Observado.</b>&nbsp;La serie temporal es de una sola estación (Igeldo). La capa espacial (isla de calor) es temperatura de <em>superficie</em> por satélite &mdash;no del aire ni nocturna&mdash;: un rasgo estructural de la morfología urbana, no una tendencia.</span>
       <p class="nextcap">Con el telón de fondo puesto, queda la fuerza que más presiona el suelo urbano.
-        <a href="#s5">Capítulo 5 — la ciudad turística y la vivida →</a></p>
+        <a href="#s5">Capítulo 6 — la ciudad turística y la vivida →</a></p>
     </div>
   </div>
 </section>
@@ -531,8 +630,8 @@
   <div class="wrap">
     <div class="narrow">
       <div class="story-head">
-        <div class="badge-num">5</div>
-        <div><p class="eyebrow">Capítulo 5 · Las dos ciudades</p><h2 class="story-title">La ciudad turística vs. la ciudad vivida</h2></div>
+        <div class="badge-num">6</div>
+        <div><p class="eyebrow">Capítulo 6 · Las dos ciudades</p><h2 class="story-title">La ciudad turística vs. la ciudad vivida</h2></div>
       </div>
       <p class="question">¿Conviven dos ciudades superpuestas — la del visitante y la del residente?</p>
       <p>Donostia recibe cada verano muchos más visitantes que habitantes. Pero el turismo no ocupa la ciudad
@@ -586,6 +685,16 @@
         crecimiento pre y post correlacionan 0,67), pero las mayores aceleraciones relativas caen en barrios antes
         poco turísticos &mdash;Ibaeta ×7,5, Mirakruz-Bidebieta ×3,8&mdash;: la pandemia no enfrió la
         turistificación; la aceleró y la <strong>difundió</strong> desde el centro saturado.</p>
+    </div>
+
+    <div class="narrow">
+      <p>Con datos de oferta <em>real</em> &mdash;no reseñas&mdash; el sesgo de MET-7 deja de ser una advertencia y tiene número. Ocho fotos trimestrales de anuncios activos de Inside Airbnb (dic-2023 → sep-2025, REC-13) muestran que entre esas fechas la <strong>oferta activa quedó plana (+2,0 %)</strong> mientras las reseñas de los 12 meses previos crecían <strong>+20,2 %</strong>: leer las reseñas como oferta <strong>exagera el crecimiento ×1,18</strong>. Lo que crece no es el parque, es la actividad por anuncio. Y asoma una purga: el % de anuncios con licencia declarada saltó de 58,5 % a <strong>84,5 %</strong> justo cuando los activos caían un −10 % en 2025 &mdash;regularización, no demanda&mdash;. Encaja con el registro REATE, donde las altas nuevas de licencias caen de <strong>300 al año (2017) a 18 (2025)</strong>: la oferta legal ya maduró. El ×6 de la gráfica anterior sigue valiendo como orden de magnitud del interés turístico, pero no como recuento de camas nuevas.</p>
+    </div>
+
+    <div class="keynums">
+      <div class="kn"><div class="big">×1,18</div><div class="lbl">Cuánto exagera el crecimiento de oferta el proxy de reseñas (2023&ndash;2025): oferta activa +2,0 % frente a reseñas +20,2 %. MET-7, ahora con número.</div></div>
+      <div class="kn"><div class="big">84,5 %</div><div class="lbl">Anuncios con licencia declarada en sep-2025 (era 58,5 % en dic-2023), con −10 % de activos: huella de una purga de anuncios sin licencia.</div></div>
+      <div class="kn"><div class="big">300 → 18</div><div class="lbl">Altas nuevas de licencias VUT al año, de 2017 a 2025 (registro REATE): un cráter de altas, oferta legal ya madura.</div></div>
     </div>
 
     <div class="fig">
@@ -666,9 +775,9 @@
           periferia&mdash;. Que además empuje al alquiler no quedó demostrado: el indicio direccional no superó el
           control por shocks comunes de año (AN-16).</p>
       </div>
-      <span class="conf"><span class="dot proxy"></span><b>Derivado / proxy.</b>&nbsp;La densidad Airbnb es derivada (join espacial + per cápita); las reseñas son un <em>proxy</em> de ocupación que infraestima las estancias reales y crece con la adopción de la plataforma.</span>
-      <p class="nextcap">Precio, velocidad, edad y turismo son piezas del mismo puzle. El último capítulo
-        las encaja. <a href="#s6">Capítulo 6 — Donostia en transformación →</a></p>
+      <span class="conf"><span class="dot proxy"></span><b>Derivado / proxy.</b>&nbsp;La densidad Airbnb es derivada (join espacial + per cápita); las reseñas son un <em>proxy</em> de ocupación que infraestima las estancias reales y crece con la adopción de la plataforma (en 2023&ndash;2025 exageran el crecimiento de oferta ×1,18, REC-13).</span>
+      <p class="nextcap">Precio, velocidad, edad, trabajo y turismo son piezas del mismo puzle. El último capítulo
+        las encaja. <a href="#s6">Capítulo 7 — Donostia en transformación →</a></p>
     </div>
   </div>
 </section>
@@ -678,8 +787,8 @@
   <div class="wrap">
     <div class="narrow">
       <div class="story-head">
-        <div class="badge-num">6</div>
-        <div><p class="eyebrow">Capítulo 6 · La síntesis: qué se transforma</p><h2 class="story-title">Donostia en transformación</h2></div>
+        <div class="badge-num">7</div>
+        <div><p class="eyebrow">Capítulo 7 · La síntesis: qué se transforma</p><h2 class="story-title">Donostia en transformación</h2></div>
       </div>
       <p class="question">Reuniéndolo todo, ¿qué barrios se transforman, y de qué manera?</p>
       <p>Las cinco historias anteriores describen fuerzas distintas: precio, velocidad, edad, turismo. El Índice de
@@ -949,7 +1058,7 @@
         <div class="badge-num">?</div>
         <div><p class="eyebrow">Epílogo · Los límites</p><h2 class="story-title">Lo que los datos aún no pueden responder</h2></div>
       </div>
-      <p>Estas seis historias cuentan lo que los datos abiertos permiten contar — y se detienen exactamente donde
+      <p>Estas siete historias cuentan lo que los datos abiertos permiten contar — y se detienen exactamente donde
         los datos se detienen. Estas son las preguntas que quedan abiertas, y qué haría falta para responderlas.</p>
 
       <p><strong>¿Hay desplazamiento de residentes ("gentrificación")?</strong> No lo sabemos — pero el proxy
@@ -964,7 +1073,8 @@
         indicio direccional (el turismo precede al alquiler ~1 año, r≈0,27) <em>no sobrevivió</em> al control por
         shocks comunes de año (AN-16): descontada la marea macro que mueve a toda la ciudad a la vez, la
         correlación cae a ≈0,10 (p≈0,30). Para reabrir la pregunta harían falta series más finas (alquiler
-        mensual) y una segunda señal turística independiente (histórico de licencias VUT).</p>
+        mensual) y una segunda señal turística independiente. El histórico de licencias VUT ya existe
+        (registro REATE, REC-12), aunque su grano anual todavía limita el desfase fino.</p>
 
       <p><strong>¿La desigualdad de verdad no crece?</strong> El Gini territorial estable solo mide la brecha
         <em>entre</em> barrios, y un segundo test independiente apunta igual: la beta-convergencia (AN-13) no
@@ -985,8 +1095,9 @@
         <strong>(2)</strong> la transformación turística y la social siguen geografías distintas;
         <strong>(3)</strong> la desigualdad entre barrios permanece estable mientras cambia quién puede
         permitirse cada barrio; <strong>(4)</strong> el centro pierde población &mdash;ya sabemos que por déficit
-        vegetativo, no por expulsión (AN-12)&mdash; sin dejar de concentrar la
-        actividad económica y turística.</p>
+        vegetativo, no por expulsión (AN-12)&mdash; sin dejar de concentrar la actividad económica: y esa
+        segunda mitad ya tiene dato &mdash;Donostia cuenta <strong>1,20 empleos por residente ocupado</strong> (2024),
+        es decir, <em>importa</em> trabajadores cada mañana (REC-17)&mdash;.</p>
 
       <div class="takeaway">
         <span class="t-lab">Por qué lo contamos</span>
@@ -1035,7 +1146,7 @@
       </div>
     </div>
     <p class="fine">Donostia Dataviz · documento narrativo generado a partir de las tablas del proyecto.
-      Seis historias completas más un apéndice de contexto de ciudad. Correlación ≠ causalidad.</p>
+      Siete historias completas más un apéndice de contexto de ciudad. Correlación ≠ causalidad.</p>
   </div>
 </footer>
 
@@ -1586,9 +1697,94 @@ document.querySelectorAll('#compsel button').forEach(b=>b.addEventListener('clic
   add('text',{x:W-m.r-6,y:m.t+16,'text-anchor':'end',fill:'#6a53a8','font-size':13,'font-weight':700}).textContent='r ≈ 0,25 (débil)';
 })();
 
+
+/* ============ STORY: QUIÉN TRABAJA (REC-21) ============ */
+function mkSvg(id,w,h){const s=document.getElementById(id);if(!s)return null;s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.innerHTML='';return s;}
+function mk(svg,tag,attrs,txt){const n=el(tag,attrs);if(txt!=null)n.textContent=txt;svg.appendChild(n);return n;}
+const numES=(v,d=1)=>v.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
+const ORG_DATA={"latam":{"aiete":1.77,"altza":6.26,"amaraberri":5.96,"anorga":0.96,"antigua":3.32,"ategorrieta-ulia":2.32,"egia":5.93,"erdialdea":5.83,"gros":5.08,"ibaeta":3.11,"igeldo":1.64,"intxaurrondo":4.39,"landerbaso":0.0,"loiola":4.46,"martutene":6.83,"mirakruz-bidebieta":6.35,"miramon-zorroaga":0.0,"zubieta":0.0},"norte_africa":{"aiete":0.3,"altza":1.81,"amaraberri":0.49,"anorga":0.0,"antigua":0.22,"ategorrieta-ulia":0.0,"egia":0.47,"erdialdea":0.65,"gros":0.29,"ibaeta":0.51,"igeldo":0.0,"intxaurrondo":5.76,"landerbaso":0.0,"loiola":2.27,"martutene":0.0,"mirakruz-bidebieta":0.9,"miramon-zorroaga":0.0,"zubieta":0.0},"europa_occidental":{"aiete":2.01,"altza":0.82,"amaraberri":1.07,"anorga":0.0,"antigua":1.94,"ategorrieta-ulia":2.37,"egia":1.2,"erdialdea":2.71,"gros":2.2,"ibaeta":1.3,"igeldo":1.73,"intxaurrondo":1.15,"landerbaso":0.0,"loiola":0.9,"martutene":0.79,"mirakruz-bidebieta":0.98,"miramon-zorroaga":0.51,"zubieta":0.0},"asia":{"aiete":0.28,"altza":1.09,"amaraberri":1.41,"anorga":0.0,"antigua":0.37,"ategorrieta-ulia":0.0,"egia":0.6,"erdialdea":0.88,"gros":1.26,"ibaeta":0.6,"igeldo":0.0,"intxaurrondo":0.36,"landerbaso":0.0,"loiola":0.29,"martutene":0.0,"mirakruz-bidebieta":0.64,"miramon-zorroaga":0.0,"zubieta":0.0},"europa_este":{"aiete":0.85,"altza":1.17,"amaraberri":0.85,"anorga":0.0,"antigua":0.89,"ategorrieta-ulia":0.26,"egia":0.51,"erdialdea":1.2,"gros":0.61,"ibaeta":0.81,"igeldo":1.35,"intxaurrondo":0.57,"landerbaso":0.0,"loiola":0.78,"martutene":1.25,"mirakruz-bidebieta":1.42,"miramon-zorroaga":0.81,"zubieta":0.0}};
+const ORG_LABELS={latam:'América Latina',norte_africa:'Norte de África',europa_occidental:'Europa occidental',asia:'Asia',europa_este:'Europa del Este'};
+const ORG_HINTS={latam:'Más de la mitad de toda la población extranjera; se concentra en el este de renta baja.',norte_africa:'Base pequeña pero ×27 desde 2000; su máximo está en Intxaurrondo.',europa_occidental:'Crece despacio; se asienta en el centro y Gros, y correlaciona con renta y estudios altos.',asia:'China sobre todo; presencia difusa, sin patrón fuerte de renta.',europa_este:'Ucrania y Rumanía; Rumanía es la única del top-15 que baja desde 2015.'};
+const ORG_SEQ=['#f2f4fb','#c7cfe9','#8f9dd0','#5a6db5','#33468f'];
+let ORGK='latam';
+const mapOrg=buildMap('map_org');
+function renderOrigin(){
+  const S=ORG_DATA[ORGK];
+  const entries=Object.keys(S).map(k=>[k,S[k]]).filter(e=>e[1]!=null);
+  const vals=entries.map(e=>e[1]);
+  const dmax=Math.max(...vals)||1;
+  const sc=seqScale(ORG_SEQ,0,dmax);
+  paintMap(mapOrg,bid=>{const v=S[bid];return v!=null?sc(v):null;},
+    bid=>{const v=S[bid];return v!=null?`<b>${D.barrios[bid].name}</b><br><span class="t-val">${fmt(v,1)} %</span> de origen ${ORG_LABELS[ORGK]}`:`<b>${D.barrios[bid].name}</b><br>sin dato`;});
+  legendSeq('leg_org',ORG_SEQ,0,dmax,'% de la población del barrio');
+  const sorted=entries.sort((a,b)=>b[1]-a[1]);const max=Math.max(...vals)||1;
+  const tb=document.querySelector('#rank_org tbody');tb.innerHTML='';
+  sorted.slice(0,12).forEach(e=>{const k=e[0],v=e[1],w=v/max*100;
+    tb.innerHTML+=`<tr><td class="bar-cell"><span class="bar" style="width:${w}%;background:#4a5fa5"></span>${D.barrios[k].name}</td><td class="num">${fmt(v,1)}</td></tr>`;});
+}
+document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#orgsel button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  ORGK=b.dataset.k;document.getElementById('orghint').textContent=ORG_HINTS[ORGK];renderOrigin();}));
+
+/* origin <-> income correlation (diverging bars) */
+(function orgCorr(){
+  const rows=[['Europa occidental',0.24,0.59],['Europa del Este',-0.13,-0.12],['Asia',-0.28,0.16],['Norte de África',-0.48,-0.37],['América Latina',-0.69,-0.29]];
+  const W=680,H=250,padT=30,padB=26,namesR=150,x0=168,x1=498,gut=512;const svg=mkSvg('orgcorr',W,H);if(!svg)return;
+  const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=0.8,sx=r=>cx+(r/SS)*plotW;
+  const n=rows.length,bandH=(H-padT-padB)/n;
+  mk(svg,'line',{x1:cx,y1:padT-8,x2:cx,y2:H-padB,stroke:'#c8d0dc','stroke-width':1});
+  mk(svg,'text',{x:cx,y:16,'text-anchor':'middle',fill:'#6b7a90','font-size':11},'correlación con la renta del barrio');
+  [[-0.5,'−0,5'],[0,'0'],[0.5,'+0,5']].forEach(t=>mk(svg,'text',{x:sx(t[0]),y:H-8,'text-anchor':'middle',fill:'#9aa7ba','font-size':9},t[1]));
+  rows.forEach((r,i)=>{const name=r[0],ri=r[1],ru=r[2],cyb=padT+bandH*i+bandH/2,col=ri>=0?'#2a9d6f':'#d1495b',xr=sx(ri);
+    mk(svg,'rect',{x:Math.min(cx,xr),y:cyb-9,width:Math.abs(xr-cx),height:18,rx:3,fill:col,'fill-opacity':.85});
+    mk(svg,'text',{x:namesR,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':11,'font-weight':600},name);
+    const lab=(ri>=0?'+':'−')+numES(Math.abs(ri),2)+'  (univ '+(ru>=0?'+':'−')+numES(Math.abs(ru),2)+')';
+    mk(svg,'text',{x:gut,y:cyb+4,'text-anchor':'start',fill:'#6b7a90','font-size':10},lab);});
+})();
+
+/* salary gradient (horizontal bars) */
+(function salaryChart(){
+  const rows=[['Directores y gerentes',65657],['Téc. y prof. científicos',39359],['Téc. y prof. de apoyo',32512],['Administrativos / oficina',30054],['Operadores de instalaciones',28815],['Artesanos y cualificados',27333],['Agrario / pesquero',24781],['Ocupaciones elementales',21488],['Servicios, ventas',18044]];
+  const W=560,H=280,padT=8,padB=14,x0=155,x1=W-52;const svg=mkSvg('salary',W,H);if(!svg)return;
+  const max=70000,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;
+  rows.forEach((r,i)=>{const name=r[0],v=r[1],cyb=padT+bandH*i+bandH/2,t=(v-18000)/48000;
+    mk(svg,'rect',{x:x0,y:cyb-9,width:sx(v)-x0,height:18,rx:3,fill:rampColor(['#cdd6ea','#5a6db5','#33468f'],t)});
+    mk(svg,'text',{x:x0-8,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':10.5,'font-weight':600},name);
+    mk(svg,'text',{x:sx(v)+6,y:cyb+4,fill:'#6b7a90','font-size':10},numES(v/1000,1)+' k€');});
+})();
+
+/* R&D intensity (Gipuzkoa vs Spain) */
+(function randdChart(){
+  const rows=[['Gipuzkoa',31.0,'#33468f'],['España',13.6,'#b3bdd6']];
+  const W=360,H=200,padT=30,padB=42,x0=88,x1=W-46;const svg=mkSvg('randd',W,H);if(!svg)return;
+  const max=36,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;
+  mk(svg,'text',{x:W/2,y:16,'text-anchor':'middle',fill:'#6b7a90','font-size':11},'Personal I+D por 1.000 ocupados');
+  rows.forEach((r,i)=>{const name=r[0],v=r[1],c=r[2],cyb=padT+bandH*i+bandH/2;
+    mk(svg,'rect',{x:x0,y:cyb-13,width:sx(v)-x0,height:26,rx:3,fill:c});
+    mk(svg,'text',{x:x0-8,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':11,'font-weight':600},name);
+    mk(svg,'text',{x:sx(v)+6,y:cyb+4,fill:'#3a4a63','font-size':11,'font-weight':700},numES(v,1));});
+  mk(svg,'text',{x:W/2,y:H-10,'text-anchor':'middle',fill:'#9aa7ba','font-size':9.5},'‰ · investigadores: 21,0 vs 8,5');
+})();
+
+/* heat island anomaly by barrio (REC-14, diverging bars) */
+(function heatBars(){
+  const rows=[['Gros',4.8],['Amara Berri',4.3],['Egia',4.1],['Intxaurrondo',3.6],['Erdialdea (Centro)',3.0],['Aiete',2.7],['Loiola',2.5],['Altza',0.4],['Zubieta',-0.4],['Mirakruz-Bidebieta',-1.9],['Ategorrieta-Ulia',-2.7],['Igeldo',-3.1],['Oarain',-4.3],['Landerbaso',-4.6]];
+  const W=640,H=380,padT=28,padB=22,x0=160,x1=W-52;const svg=mkSvg('heat_bars',W,H);if(!svg)return;
+  const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=5,sx=v=>cx+(v/SS)*plotW,n=rows.length,bandH=(H-padT-padB)/n;
+  mk(svg,'line',{x1:cx,y1:padT-8,x2:cx,y2:H-padB,stroke:'#c8d0dc','stroke-width':1});
+  mk(svg,'text',{x:cx,y:15,'text-anchor':'middle',fill:'#6b7a90','font-size':11},'Δ °C vs. media de la ciudad');
+  [[-4,'−4'],[-2,'−2'],[0,'0'],[2,'+2'],[4,'+4']].forEach(t=>mk(svg,'text',{x:sx(t[0]),y:H-7,'text-anchor':'middle',fill:'#9aa7ba','font-size':9},t[1]));
+  rows.forEach((r,i)=>{const name=r[0],v=r[1],cyb=padT+bandH*i+bandH/2,xr=sx(v);
+    const col=v>=0?rampColor(['#f6b48f','#e34a33','#a63446'],Math.min(1,v/5)):rampColor(['#a6d4e6','#2c7bb6'],Math.min(1,-v/5));
+    mk(svg,'rect',{x:Math.min(cx,xr),y:cyb-7,width:Math.abs(xr-cx),height:14,rx:2,fill:col});
+    mk(svg,'text',{x:x0-10,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':10,'font-weight':600},name);
+    mk(svg,'text',{x:xr+(v>=0?6:-6),y:cyb+4,'text-anchor':v>=0?'start':'end',fill:'#6b7a90','font-size':9},(v>=0?'+':'−')+numES(Math.abs(v),1));});
+})();
+
+
 /* init */
-renderPress();renderVel();renderAge();renderTour();renderLived();renderComp();
+renderPress();renderVel();renderAge();renderTour();renderLived();renderComp();renderOrigin();
 </script>
-<!-- Donostia Dataviz · 6 historias -->
+<!-- Donostia Dataviz · 7 historias -->
 </body>
 </html>

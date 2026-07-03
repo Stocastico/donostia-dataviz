@@ -3,11 +3,11 @@
 > **Propósito.** Documento de síntesis del proyecto para que otra IA (u otra persona)
 > pueda revisar el trabajo hecho y **sugerir ampliaciones y mejoras**. Recoge los
 > datos disponibles, el análisis realizado, los insights y correlaciones verificados,
-> y las seis historias que salen de todo ello.
+> y las siete historias que salen de todo ello.
 >
 > **Naturaleza del proyecto.** Análisis y visualización de datos abiertos sobre
 > Donostia / San Sebastián (19 barrios oficiales) para *contar la evolución de la
-> ciudad* en varios ejes: vivienda, demografía, turismo, clima, transformación.
+> ciudad* en varios ejes: vivienda, demografía, origen migratorio y empleo, turismo, clima, transformación.
 > Todos los números son reproducibles desde el pipeline (`data-pipeline/`) y los
 > scripts de `analysis/*.py`. El entregable narrativo es `historias.html`
 > (autocontenido, con mapas y gráficos interactivos generados en el navegador).
@@ -32,6 +32,7 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 | `rent_eur_m2` | €/m² | 13 barrios, 2023–2024 | observado | Gob. Vasco EMA |
 | `income_total` | renta per cápita € | 17 barrios | observado | Eustat |
 | `pct_university` / `pct_foreign` | % | por barrio, serie | observado | Padrón |
+| `pct_origin_*` (8 regiones de origen) | % del barrio | por barrio, 2000–2025 | observado | Padrón (país de nacimiento) |
 | `ageing_index` | ≥65/<15 ×100 | 18 barrios, 2000–2025 | observado | Padrón |
 | `pct_youth_adults` | % 25–39 | 18 barrios, 2000–2025 | observado | Padrón |
 | `vut_density` / `vut_count` / `vut_plazas` | VUT /1000 ab. | por barrio | derivado | Donostia Open Data |
@@ -57,6 +58,13 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 `tax_revenue` (impuestos, 73→106 M€ 2011–2025), `fee_revenue` (tasas, 35→63 M€),
 `recycling_rate` (recogida selectiva %), `mice_icca_congresses`,
 `mice_events_total` (188 eventos en 2024, récord), `mice_attendees` (259.000).
+
+Nuevos (jul-2026): `unemployment_rate_spanish_gipuzkoa` / `unemployment_rate_foreign_gipuzkoa`
+(paro por nacionalidad, Gipuzkoa 2015–2026: 4,3 % vs 9,4 %),
+`randd_personnel_per_1000_employed_gipuzkoa` (I+D, 31,0‰ en 2024; España 13,6‰),
+`vut_licenses_new` / `vut_licenses_cumulative` / `vut_plazas_cumulative` (registro REATE,
+ciudad 2016–2025), `residents_work_in_city_pct` / `residents_study_in_city_pct` / `jobs_located`
++ derivado `job_concentration_ratio` (1,20 en 2024: la ciudad importa trabajadores, cierra H4).
 
 ---
 
@@ -176,18 +184,19 @@ contrastables con datos mejores (detalle y tests propuestos en
 *reforzada por AN-9: el patrón no depende de los pesos del índice*); **H3** la
 desigualdad territorial permanece estable mientras cambia la accesibilidad (✅
 *reforzada por AN-13: ni convergencia ni divergencia — β≈0 en renta, alquiler y
-% universitarios*); **H4** el centro pierde población sin dejar de concentrar actividad (✅
-*descompuesta por AN-12: la pérdida es vegetativa — el centro atrae migración
-neta y el éxodo joven es de Gros; la mitad "actividad" queda abierta, REC-17*).
+% universitarios*); **H4** el centro pierde población sin dejar de concentrar actividad (✅ *cerrada
+jul-2026: la pérdida es vegetativa (AN-12, el centro atrae migración neta y el éxodo joven es
+de Gros) y la concentración de actividad es real — Donostia cuenta 1,20 empleos localizados por
+residente ocupado en 2024, REC-17: importa trabajadores*).
 
 ---
 
-## 4. Las seis historias (entregable `historias.html`)
+## 4. Las siete historias (entregable `historias.html`)
 
 Cada relato: pregunta → 2–3 números con fuente → conclusión causal *cauta* → aviso
 de confianza → vista interactiva.
 Desde jul-2026 se presentan como **capítulos de un solo relato** (estado → cambio
-→ personas → telón de fondo → dos ciudades → síntesis → epílogo), con
+→ personas → trabajo/origen → telón de fondo → dos ciudades → síntesis → epílogo), con
 transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
 
 1. **La ciudad que se encarece.** ¿Dónde es insostenible vivir? El esfuerzo
@@ -205,11 +214,22 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    el único con éxodo joven sostenido. *Sin rotación no
    hay prueba de desplazamiento; el envejecimiento del centro es anterior al boom
    turístico.*
-4. **El clima cambia.** +0,31 °C/década, más días de calor, picos de 39,7 °C; la
-   lluvia sin señal. *Observado; una sola estación (relato temporal, no espacial).*
-5. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
+4. **Quién trabaja Donostia.** *(nueva, REC-21)* «% extranjeros» esconde dos poblaciones
+   opuestas: la de origen latinoamericano (×19 desde 2000, >½ del total) y magrebí se concentra
+   en el este de renta baja (r=−0,69 y −0,48 con la renta del barrio); la europeo-occidental, en
+   el centro caro (+0,24 con renta, +0,59 con % universitarios). El paro extranjero en Gipuzkoa
+   dobla al español (9,4 % vs 4,3 %; africano 18,4 %). La ciudad tiene intensidad investigadora
+   doble que España (31,0‰ vs 13,6‰) y a la vez una base ancha de servicios mal pagados
+   (dirección 65.657 € vs servicios 18.044 €, ×3,6). *No existe cruce nacionalidad×ocupación×salario
+   a este grano (MET-5): todo es triangulación entre barrios, nunca lectura individual (MET-6).*
+5. **El clima cambia.** +0,31 °C/década, más días de calor, picos de 39,7 °C; la
+   lluvia sin señal. Con satélite (Landsat, REC-14) el calentamiento gana mapa: Gros +4,8 °C,
+   Amara Berri +4,3, Egia +4,1 de temperatura de superficie sobre la media de ciudad — el este denso.
+   *Serie temporal de una sola estación; la isla de calor es LST de superficie, rasgo estructural.*
+6. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
    centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel;
-   parte es adopción de plataforma, MET-7). El indicio de que precedía al
+   parte es adopción de plataforma, MET-7 — cuantificado en REC-13: la oferta activa real solo sube
+   +2,0 % en 2023–2025 frente a +20,2 % de reseñas, ×1,18 de exageración; altas VUT del REATE 300/año→18). El indicio de que precedía al
    alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,
    r≈0,10, p≈0,30). El ruido nocturno es de **tráfico**, no de turismo (capa
    ambiental). La estacionalidad por barrio (AN-14) invierte la intuición: la
@@ -217,7 +237,7 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    estacional (2,1)** — presión crónica; y el COVID no interrumpió la
    turistificación, la aceleró y difundió (AN-20). *Densidad derivada;
    reseñas = proxy.*
-6. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
+7. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
    **no coinciden** (r≈0,25). Con Airbnb integrado, Aiete baja de 0,37 a 0,07: caro
    pero no turístico. Las trayectorias 2000→2025 (AN-18, connected scatter
