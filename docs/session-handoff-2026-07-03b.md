@@ -83,20 +83,28 @@ eligió **«una última tanda dirigida»**. Ejecutado:
 - **«% hogares >30 % esfuerzo» → laguna declarada** (decisión del usuario): no se
   fabrica la distribución de renta intra-barrio (MET-6). El alivio ya está a la
   vista con REC-15 vs. la presión de MET-1.
-- **A11y (primer corte) ✅.** El mapa coroplético principal (WebGL, opaco a AT,
-  tooltip solo-ratón) gana **tabla-espejo accesible** (`MapDataTable`:
+- **A11y ✅ (completa).** Los mapas son canvas WebGL (opacos a AT, tooltip
+  solo-ratón); cada uno gana **tabla-espejo accesible** (`MapDataTable`:
   `<details>` con teclado + `<table>` de todos los barrios) y `role=img`+
-  `aria-label`. `lib/mapTable.ts` + 4 tests, `.sr-only`. Contraste verificado:
-  todo pasa AA (no requiere cambio). **Pendiente:** tabla-espejo en los mapas de
-  sección.
+  `aria-label`. Cobertura de **todos los mapas del app**: principal, 2 de dos
+  ciudades, 3 de Transformación, tensión (MET-1) y bivariado (X×Y en texto
+  plano). `MapDataTable` presentacional; `lib/mapTable.ts` (`barrioRows` +
+  `rowsFromDecorated`) + 5 tests, `.sr-only`. Contraste AA verificado.
+- **Pasada de documentación ✅** (a petición del usuario): recuento de confianza
+  16/18/3 (37 métricas) en `NOTA-METODOLOGICA.md`+`metodologia.html`;
+  `datos.html` con VPO/salud en tabla y fuentes; README al día; tareas de Cowork
+  (narrativa REC-15/18) registradas en BACKLOG. HTML narrativos **no tocados**
+  (el usuario los revisará).
 - **Tanda de datos CONGELADA** (PLAN-CIERRE §3 al día). Cada REC nuevo con sus
   docs (FUENTES, SOURCES, descargar_raw, BACKLOG, PLAN-CIERRE).
 
-## Lo que queda para el cierre (Code)
-1. Extender la tabla-espejo A11y a los mapas de sección (dos ciudades, tensión).
-2. **Publicar** (deploy + README) — **decisión del usuario**: dónde (GitHub
-   Pages / Netlify). Es outward-facing, no autónomo. Es el último paso de «hecho».
-3. (Cowork) narrativa de REC-15/18 y la ficha de país.
+## Lo que queda para el cierre
+1. **Publicar** (deploy + README) — **decisión del usuario**: dónde (GitHub
+   Pages / Netlify). Outward-facing, no autónomo. En espera: el usuario revisará
+   antes el texto de los HTML. Es el último paso Code de «hecho».
+2. (Cowork) narrativa de REC-15 (VPO junto a MET-1) / REC-18 (salud+escuelas) y
+   la ficha de país; digest en `resumen.md`/`TESIS-CIUDAD.md`.
+3. (Menor) auditar el foco de teclado del resto de controles del app.
 
 ## Estado git
 Rama `claude/claude-code-remaining-r56ol3`, sobre `main`. Commits clave: REC-21-web

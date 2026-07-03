@@ -87,8 +87,9 @@ jul-2026 anotado.
 **Frontend (`web/`)**
 - [x] Mapa coroplético + slider + play + small multiples + dos-ciudades.
 - [x] Ficha de país por barrio (REC-21-web).
-- [ ] **A11y del app React**: foco de teclado, texto alternativo / tabla-espejo de
-  los mapas, leyendas legibles sin color (paralelo a la pasada de `historias.html`).
+- [x] **A11y del app React** ✅ (jul-2026): tabla-espejo accesible (`MapDataTable`,
+  teclado + lector de pantalla) en **todos** los mapas + `role=img`/`aria-label`;
+  contraste verificado AA. Queda solo auditar el foco del resto de controles (menor).
 - [ ] Métrica(s) de la última tanda seleccionables en el picker (si son coropléticas).
 
 **Narrativa (`output/`)**
@@ -135,10 +136,10 @@ pipeline. Esto evita que el proyecto crezca sin cerrarse.
 1. ~~**REC-15 VPO**~~ ✅ hecho (grano barrio).
 2. ~~**REC-18 accesibilidad**~~ ✅ hecho (`health_per_1000`).
 3. **Indicador de accesibilidad residencial** (% >30 % esfuerzo) — sin dato nuevo.
-4. **A11y del app React** — cierra el frente de accesibilidad *(dejado para el
-   final por decisión del usuario)*.
-5. **Integración narrativa** de 1–3 (Cowork) + `resumen`/`TESIS` al día.
-6. **Publicar** (deploy + README) → **cierre**.
+4. ~~**A11y del app React**~~ ✅ hecho (tabla-espejo en todos los mapas).
+5. **Integración narrativa** de REC-15/18 (Cowork) + `resumen`/`TESIS` al día.
+6. **Publicar** (deploy + README) → **cierre**. *(En espera: el usuario revisará
+   antes el texto de los HTML. Falta decidir destino de despliegue.)*
 
-Pasos 1–4 son Code; 5 es Cowork; 6 es conjunto. Con esto la casilla «Publicación»
-del §3 se completa y el proyecto queda **terminado, no abandonado**.
+Pasos 1–4 (Code) **completos**; 5 es Cowork; 6 es conjunto y el único paso Code
+que queda para «Publicación». Con eso el proyecto queda **terminado, no abandonado**.
