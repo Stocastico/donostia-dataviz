@@ -64,8 +64,42 @@
 - El script Playwright debe vivir **dentro de `web/`** para resolver
   `node_modules`, no en el scratchpad.
 
+## Continuación (misma sesión) — última tanda de datos + A11y
+
+Tras el plan, el usuario pidió seguir con el resto de Code (**A11y al final**) y
+eligió **«una última tanda dirigida»**. Ejecutado:
+
+- **REC-15 VPO ✅ (mejor de lo esperado: grano barrio).** Fuente viva:
+  *Promociones de Etxebide* (Open Data Euskadi, CSV con UTM + nº viviendas).
+  `datasets/vpo_etxebide.py` → `vpo_dwellings_per_1000` (proxy, snapshot), join
+  punto→barrio. **Hallazgo:** huella protegida en el este obrero (Loiola 22,3‰,
+  Amara Berri, Intxaurrondo, Ibaeta), **0 en 14 barrios** incl. centro y Gros —
+  contrapeso H2/H3. Gotcha: el CSV tiene la **cabecera desplazada** (nº viviendas
+  en la columna «Tipologia», «NumViviendas» vacía) → parseado por posición. 4 tests.
+- **REC-18 accesibilidad ✅ (primer corte).** `datasets/salud_gis.py` →
+  `health_per_1000` (29 equipamientos de salud, join punto→barrio), lado «ciudad
+  vivida». Nuevo tema **«Sanità»** en el picker. Densidad, **no** isócrona (fuera
+  de presupuesto). 2 tests. Bibliotecas/verde/socio-asistencial no añadidos.
+- **«% hogares >30 % esfuerzo» → laguna declarada** (decisión del usuario): no se
+  fabrica la distribución de renta intra-barrio (MET-6). El alivio ya está a la
+  vista con REC-15 vs. la presión de MET-1.
+- **A11y (primer corte) ✅.** El mapa coroplético principal (WebGL, opaco a AT,
+  tooltip solo-ratón) gana **tabla-espejo accesible** (`MapDataTable`:
+  `<details>` con teclado + `<table>` de todos los barrios) y `role=img`+
+  `aria-label`. `lib/mapTable.ts` + 4 tests, `.sr-only`. Contraste verificado:
+  todo pasa AA (no requiere cambio). **Pendiente:** tabla-espejo en los mapas de
+  sección.
+- **Tanda de datos CONGELADA** (PLAN-CIERRE §3 al día). Cada REC nuevo con sus
+  docs (FUENTES, SOURCES, descargar_raw, BACKLOG, PLAN-CIERRE).
+
+## Lo que queda para el cierre (Code)
+1. Extender la tabla-espejo A11y a los mapas de sección (dos ciudades, tensión).
+2. **Publicar** (deploy + README) — **decisión del usuario**: dónde (GitHub
+   Pages / Netlify). Es outward-facing, no autónomo. Es el último paso de «hecho».
+3. (Cowork) narrativa de REC-15/18 y la ficha de país.
+
 ## Estado git
-Rama `claude/claude-code-remaining-r56ol3`, 4 commits sobre `main`:
-`6306b99` pipeline export · `75ca822` web card · `f8689ef` docs REC-21-web ·
-`32fe3b9` plan de cierre. Tests: pipeline **167**, web **54**, todos en verde.
-Build de producción OK. Pusheada, sin PR.
+Rama `claude/claude-code-remaining-r56ol3`, sobre `main`. Commits clave: REC-21-web
+(`6306b99`/`75ca822`), plan (`32fe3b9`), REC-15 (`9806097`), REC-18 (`91e9590`),
+A11y (`219e1ab`) + sus docs. Tests: pipeline **173**, web **58**, todos en verde.
+Build de producción OK; cada métrica verificada en navegador. Pusheada, sin PR.

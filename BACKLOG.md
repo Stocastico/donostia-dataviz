@@ -503,9 +503,17 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (TDD); verificado en navegador. Contrato en `docs/DATA-CONTRACT.md`. **Pendiente
   (Cowork, opcional):** mencionar la ficha en el relato de la historia #4 si se
   quiere enlazar app↔narrativa.
-- ⬜ **A11y del app React** (Code, `web/`): contraste, foco de teclado, texto
-  alternativo/tabla-espejo de los mapas y leyendas legibles sin color, en
-  paralelo a la pasada hecha en `historias.html`.
+- 🔷 **A11y del app React** (Code, `web/`) — primer corte hecho (jul-2026): el
+  mapa coroplético principal (WebGL, opaco a AT, tooltip solo-ratón) gana una
+  **tabla-espejo accesible** (`MapDataTable`: `<details>` en el orden de
+  tabulación, teclado, `<table>` de todos los barrios con valor+Δ) y la región
+  del mapa un `role=img`+`aria-label` descriptivo — el dato deja de ser
+  solo-color. Lógica en `lib/mapTable.ts` + 4 tests; utilidad `.sr-only`.
+  Contraste de texto verificado: `--muted` 4,60:1, `--accent` 4,82:1, `--fg`
+  16:1 sobre blanco → **todos pasan AA** (no requiere cambio). **Pendiente:**
+  replicar la tabla-espejo en los mapas de sección (dos ciudades, tensión,
+  bivariado — necesitan adaptar el shape computado a `MapDataTable`) y auditar el
+  foco de teclado del resto de controles.
 - ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
   nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
   lado (cada uno con su propio selector de métrica y escala de color, no
