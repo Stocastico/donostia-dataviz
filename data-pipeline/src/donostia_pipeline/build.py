@@ -35,6 +35,7 @@ from .datasets import (
     mice,
     modelos_linguisticos,
     movilidad_laboral,
+    origen_paises_barrio,
     paro,
     reate_licencias,
     rent,
@@ -504,9 +505,20 @@ def run(offline: bool = False) -> dict:
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 
-    # 6. Tidy CSV export (language-agnostic tables under data/).
     barrio_names = {f["properties"]["barrio_id"]: f["properties"]["name"]
                     for f in geojson["features"]}
+
+    # 5b. Per-barrio top countries of origin (REC-21-web). Not a Metric — its own
+    #     JSON export from the same demo_barrio.csv (see the module docstring).
+    origen = origen_paises_barrio.write_json(
+        config.RAW_DIR / origen_paises_barrio.CSV_NAME,
+        out_dir / "origen_paises_barrio.json",
+        code_to_id,
+        barrio_names,
+    )
+    print(f"  ✓ origen_paises_barrio.json ({len(origen['barrios'])} barrios)")
+
+    # 6. Tidy CSV export (language-agnostic tables under data/).
     tables = config.TABLES_DIR
     export_tables.write_csv(
         tables / "barrios.csv", export_tables.BARRIO_FIELDS,
