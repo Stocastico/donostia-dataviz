@@ -37,6 +37,7 @@ dl renta_barrio.csv           "$BASE/eustat_renta/eustatrentabarrio.csv"
 dl estudios_barrio.csv        "$BASE/demografia-nivelestudios/demografianivelestudiosbarrio.csv"
 dl residuos.csv              "$BASE/residuos/datos-residuos.csv"
 dl educativos.json            "$BASE/servicios-educativos/hezkuntzaekipamenduak.json"
+dl salud.json                 "$BASE/servicios-salud/osasunekipamenduak.json"
 
 dl ine_pernoct_esp.json       "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2721?nult=600"
 dl ine_pernoct_ext.json       "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2722?nult=600"
@@ -56,6 +57,10 @@ dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/20
 # publican (las curvas derivadas son de licencias supervivientes).
 dl reate_viviendas.json       "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/viviendas.json"
 dl reate_habitaciones.json    "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/habitaciones.json"
+
+# Open Data Euskadi (REC-15): promociones de Etxebide (vivienda protegida) con
+# coords UTM y nº de viviendas. Se geocodifica punto→barrio (solo Donostia).
+dl promociones_etxebide.csv   "https://opendata.euskadi.eus/contenidos/ds_localizaciones/promociones_etxebide/opendata/promociones.csv"
 
 # Eustat PxWeb (REC-9): modelo lingüístico A/B/D, Donostia (municipio 20069),
 # serie completa 1983/1984–. Filtro server-side vía POST (sin clave).

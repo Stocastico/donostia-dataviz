@@ -119,14 +119,19 @@ reutilizables en cualquier stack. La carpeta [`datos/`](datos/README.md)
 documenta y organiza entrada (`datos/input`, con `FUENTES.md`) y salida
 (`datos/procesado`).
 
-Estado actual: métricas coropléticas por barrio (población, origen, estudios,
-renta, alquiler, tensión, VUT, **densidad Airbnb**, escuelas) + **velocidad de
-cambio** (`velocity_*`) + **perfiles** (categórica) + **estructura por edad** +
-**ruido nocturno** (GIS) + el **Índice de Transformación** (`transform_*`); **series
-mensuales** de ciudad (clima + pernoctaciones + reseñas Airbnb); **indicadores
-anuales** (MICE, reciclaje, fiscalidad). Cada métrica lleva su **ficha de confianza**
-(observado / derivado / proxy + supuestos). Geometría única de referencia: 19 barrios
-oficiales (`mapa_auzoak`), con `barrio_id` estable como clave de join.
+Estado actual (**37 métricas coropléticas** por barrio, jul-2026): población,
+origen (incl. **8 regiones de origen** `pct_origin_*` + **ficha de países** por
+barrio), estudios, renta, alquiler, tensión, VUT, **densidad Airbnb**, escuelas y
+**servicios de salud** (accesibilidad, REC-18), **vivienda protegida** (Etxebide,
+REC-15) + **velocidad de cambio** (`velocity_*`) + **perfiles** (categórica) +
+**estructura por edad** + **ruido nocturno** (GIS) + el **Índice de
+Transformación** (`transform_*`); **series mensuales** de ciudad (clima +
+pernoctaciones + reseñas Airbnb); **28 indicadores anuales** (MICE, reciclaje,
+fiscalidad, paro, comercio, movilidad laboral, modelos lingüísticos…). Cada
+métrica lleva su **ficha de confianza** (observado / derivado / proxy +
+supuestos) y el mapa tiene **tabla-espejo accesible** (teclado / lector de
+pantalla). Geometría única de referencia: 19 barrios oficiales (`mapa_auzoak`),
+con `barrio_id` estable como clave de join.
 
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
 > usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).

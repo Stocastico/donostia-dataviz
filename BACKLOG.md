@@ -7,6 +7,11 @@
 >
 > Reemplaza a `docs/archive/GAP-ANALYSIS.md` (el backlog técnico detallado e
 > histórico queda archivado ahí). Convención: ✅ hecho · ⬜ pendiente · 🔷 en curso.
+>
+> **Regla de parada (jul-2026):** el proyecto cierra tras *una última tanda
+> dirigida* de datos (REC-15 VPO + REC-18 accesibilidad) y la publicación. Qué
+> falta para dar por «hecho» y qué queda congelado: **`docs/PLAN-CIERRE.md`**.
+> Criterio: un dato entra solo si prueba/matiza/refuta H1–H4, no porque exista.
 
 ---
 
@@ -102,16 +107,33 @@ Queda su integración narrativa (Cowork).
   (jul-2026, Cowork):* la síntesis (cap. 7) y su takeaway hacen explícita la
   **convergencia de presiones sobre el este obrero** &mdash;tensión alquiler/renta +
   migración económica (cap. 4) + isla de calor (cap. 5) sobre la misma geografía&mdash;,
-  con el caveat de la posible «ilusión de equidad» del Gini. **Pendiente (Code):**
-  (a) un indicador de accesibilidad residencial más completo (la familia ya existe
-  en MET-1; ampliarla p.ej. con % de hogares que superarían el 30 % de esfuerzo).
+  con el caveat de la posible «ilusión de equidad» del Gini. **Alivio ahora a la
+  vista (jul-2026, Code):** REC-15 `vpo_dwellings_per_1000` mapea dónde aterrizó
+  la vivienda protegida (este obrero) frente a dónde está la presión (centro
+  caro) — el contrapeso que faltaba. **Cerrado como laguna declarada (jul-2026,
+  decisión del usuario):** el indicador «% de hogares que superarían el 30 % de
+  esfuerzo» **no se implementa** — exigiría inventar la distribución de renta
+  *dentro* del barrio (solo hay media por barrio), justo la inferencia intra-grupo
+  que el proyecto rechaza (MET-6, falacia ecológica; mismo criterio que REC-8/11).
+  `housing_tension` ya da el esfuerzo teórico medio; el % de hogares necesitaría
+  microdatos de hogar que no son públicos a grano barrio.
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
-  resúmenes manuales, no generados). *`datos.html` al día con REC-21 (jul-2026,
-  Cowork): `pct_origin_*` + paro por nacionalidad + I+D. Pendiente: revisar el
-  recuento de métricas "8 obs./11 der./1 proxy" de `metodologia.html`, rancio
-  tras las 8 métricas `pct_origin_*` nuevas.*
+  resúmenes manuales, no generados). *Al día (jul-2026, Code): el recuento de
+  confianza corregido a **16 obs./18 der./3 proxy (37 métricas)** en
+  `metodologia.html` y `NOTA-METODOLOGICA.md`; `datos.html` con `vpo_dwellings_per_1000`
+  (REC-15) y `health_per_1000` (REC-18) en la tabla y en Fuentes (Etxebide, salud).*
+- ⬜ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)**
+  (Cowork): el mapa `vpo_dwellings_per_1000` **junto al de tensión MET-1** cuenta
+  el contrapeso —la vivienda protegida aterrizó en el este obrero (Loiola 22,3‰),
+  cero en el centro caro— para la espina «tensión residencial» (cap. 7 / síntesis).
+  `health_per_1000` + `schools_per_1000` = la cara «ciudad vivida» de las dos
+  ciudades (cap. 6 / H4), con el caveat del artefacto per cápita de
+  Miramón-Zorroaga. Digest en `resumen.md`/`TESIS-CIUDAD.md`.
+- ⬜ **Ficha de país en el relato (opcional)**: enlazar la nueva sección del app
+  «Chi vive nel barrio · origini» (REC-21-web) desde la historia #4 si se quiere
+  puente app↔narrativa.
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
 - ✅ **Integración narrativa de REC-12/13/14/17** — hecha (jul-2026, Cowork):
@@ -406,8 +428,18 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   en el este"; anillo verde −3…−5 °C. La historia #4 gana dimensión espacial;
   `lst_anomaly` es candidata a coropleta. Detalle en
   `ANALISIS-INFERENCIAL.md` §REC-14.
-- ⬜ **REC-15 vivienda protegida / VPO** (Observatorio Vasco de Vivienda): ¿la
-  VPO amortigua la tensión de alquiler?
+- ✅ **REC-15 vivienda protegida / VPO** — hecho (jul-2026): métrica coroplética
+  `vpo_dwellings_per_1000` (proxy, snapshot) desde las **promociones de Etxebide**
+  (Open Data Euskadi): coords UTM + nº de viviendas, geocodificadas punto→barrio
+  y normalizadas por 1000 hab. Cierra la laguna «tensión residencial» del
+  `PLAN-CIERRE.md`: **dónde aterrizó la vivienda protegida vs. dónde está la
+  presión**. Hallazgo: la huella se concentra en el este obrero/periférico
+  (Loiola 22,3‰, Amara Berri, Intxaurrondo, Ibaeta) y es **cero en 14 barrios**,
+  incluido el centro caro (Erdialdea) y Gros — el contrapeso H2/H3 que faltaba.
+  Solo promociones Etxebide (VISESA/Alokabide/Gob. Vasco), no todo el parque VPO
+  ni el patronato municipal → suelo del parque, no censo. Módulo
+  `datasets/vpo_etxebide.py` + 4 tests. **Pendiente (Cowork):** integración
+  narrativa (el mapa VPO junto al de tensión MET-1 = la historia del contrapeso).
 - ⬜ **REC-16 tipología comercial vía OSM** (histórico): ¿comercio de barrio →
   servicios turísticos? Complementa REC-7 (que solo llega a ciudad).
 - ✅ **REC-17 matrices origen-destino Eustat** — hecho (jul-2026) con matiz:
@@ -420,8 +452,16 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (**1,20 en 2024**: la ciudad importa trabajadores). **Con esto la mitad
   coja de H4 ("sin dejar de concentrar actividad") tiene dato.** Módulo
   `datasets/movilidad_laboral.py` + tests.
-- ⬜ **REC-18 equipamientos ampliados** (salud, bibliotecas, zonas verdes; Open
-  Data): índice de accesibilidad por barrio × renta/tensión.
+- ✅ **REC-18 equipamientos ampliados** — hecho (jul-2026, primer corte):
+  `health_per_1000` (equipamientos de salud, 29 puntos, join punto→barrio,
+  normalizado por 1000 hab.) — el lado «ciudad vivida» de la accesibilidad,
+  junto a `schools_per_1000`. Nuevo tema «Sanità» en el picker. Se deja como
+  **densidad de servicios**, no isócrona/tiempo de trayecto (fuera de
+  presupuesto, ver `PLAN-CIERRE.md`); Miramón-Zorroaga sale alto por el hospital
+  con poca población (artefacto per cápita conocido, documentado). Bibliotecas /
+  zonas verdes / socio-asistencial no añadidos en este corte (un recurso dio 500;
+  se pueden sumar con el mismo patrón si se retoma). Módulo `datasets/salud_gis.py`
+  + 2 tests. **Pendiente (Cowork):** narrar salud+escuelas vs. tensión/renta.
 - ⬜ **REC-19 percepción ciudadana** (encuestas municipales de satisfacción):
   la capa subjetiva que falta.
 - ⬜ **REC-20 cajón de ideas** (menor prioridad): licencias de obra y
@@ -460,15 +500,33 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
   instancia maplibre real.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
-- ⬜ **REC-21-web — ficha de país en el detalle de barrio** (Code, `web/`):
-  top-5 países de origen por barrio con su evolución a 10 años, usando
-  `analysis/output/extranjeros_top_paises.csv` (regenerable con
-  `python analysis/perfil_extranjeros_empleo.py --save`). Decidir si vive en el
-  panel de detalle de barrio del app o solo en el relato. Las 8 métricas
-  `pct_origin_*` ya están cableadas y son seleccionables en el picker.
-- ⬜ **A11y del app React** (Code, `web/`): contraste, foco de teclado, texto
-  alternativo/tabla-espejo de los mapas y leyendas legibles sin color, en
-  paralelo a la pasada hecha en `historias.html`.
+- ✅ **REC-21-web — ficha de país en el detalle de barrio** (Code, `web/`) —
+  hecho (jul-2026): sección **«Chi vive nel barrio · origini»** en el app con
+  selector de barrio → top-5 nacionalidades extranjeras del barrio, cada una con
+  barra (cuota del barrio), nº de personas y variación a 10 años (▲/▼/nuovo).
+  Decidido: **vive en el app** (no solo en el relato). No es un `Metric` (lista
+  de países por barrio); export propio `web/src/data/origen_paises_barrio.json`
+  vía nuevo `datasets/origen_paises_barrio.py` desde el mismo `demo_barrio.csv`
+  que `pct_origin_*`, cableado en `build.run()`. Color por región reutiliza la
+  agrupación del choropleth pero **legible sin color** (dot + nombre + flechas +
+  cifras, a11y). Aviso MET-5 explícito en la copy. 9 tests pipeline + 7 web
+  (TDD); verificado en navegador. Contrato en `docs/DATA-CONTRACT.md`. **Pendiente
+  (Cowork, opcional):** mencionar la ficha en el relato de la historia #4 si se
+  quiere enlazar app↔narrativa.
+- ✅ **A11y del app React** (Code, `web/`) — hecho (jul-2026): los mapas del app
+  son canvas WebGL (opacos a AT, tooltip solo-ratón); cada uno gana una
+  **tabla-espejo accesible** (`MapDataTable`: `<details>` en el orden de
+  tabulación, teclado, `<table>` de todos los barrios con valor+Δ) y su
+  `map-area` un `role=img`+`aria-label` descriptivo — el dato deja de ser
+  solo-color. Cobertura **completa**: mapa principal, los 2 de «città turistica
+  vs. vissuta», los **3 de Transformación**, el de **tensión residencial**
+  (MET-1) y el **bivariado** (X×Y con clases, en texto plano). `MapDataTable` es
+  presentacional: `barrioRows` (mapas de `MetricData`), `rowsFromDecorated`
+  (shape computado) y filas a medida (bivariado); lógica en `lib/mapTable.ts` +
+  5 tests; utilidad `.sr-only`. Contraste verificado: `--muted` 4,60:1,
+  `--accent` 4,82:1, `--fg` 16:1 → **todos pasan AA**. **Pendiente (menor):**
+  auditar el foco de teclado del resto de controles (selects/sliders son nativos
+  → ya accesibles).
 - ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
   nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
   lado (cada uno con su propio selector de métrica y escala de color, no

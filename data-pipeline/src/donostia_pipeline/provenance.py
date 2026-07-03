@@ -53,6 +53,18 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Denominatore: popolazione dell'ultimo anno (semplificazione a denominatore fisso).",
     ]),
     "schools_per_1000": ("derived", ["Join spaziale punto→barrio.", _PER_1000]),
+    "health_per_1000": ("derived", [
+        "Join spaziale punto→barrio (ospedali, ambulatori, centri di salute).",
+        _PER_1000,
+        "Accessibilità come densità di servizi, non tempo di percorrenza reale.",
+    ]),
+    "vpo_dwellings_per_1000": ("proxy", [
+        "Solo promozioni gestite da Etxebide (VISESA/Alokabide/Governo Basco): "
+        "un pavimento del parco protetto, non il censimento di tutta la VPO né il "
+        "patronato municipale.",
+        "Snapshot cumulativo (per lo più «Terminada»), non una serie storica.",
+        "Join spaziale punto→barrio.", _PER_1000,
+    ]),
     "housing_tension": ("derived", [
         "Assunzione esplicita: 30 m²/persona (regolabile nella sezione dedicata).",
         "Affitto di nuovi contratti vs reddito pro capite di tutti i residenti → "

@@ -35,14 +35,17 @@ from .datasets import (
     mice,
     modelos_linguisticos,
     movilidad_laboral,
+    origen_paises_barrio,
     paro,
     reate_licencias,
     rent,
     renta,
     residuos,
     ruido_gis,
+    salud_gis,
     tejido_comercial,
     transformation,
+    vpo_etxebide,
     vut,
     vut_density,
 )
@@ -88,6 +91,11 @@ RAW_DOWNLOADS: dict[str, str] = {
         "https://www.donostia.eus/datosabiertos/recursos/"
         "servicios-educativos/hezkuntzaekipamenduak.json"
     ),
+    # Health facilities (GeoJSON points, WGS84) — REC-18, joined to barrios.
+    salud_gis.GEOJSON_NAME: (
+        "https://www.donostia.eus/datosabiertos/recursos/"
+        "servicios-salud/osasunekipamenduak.json"
+    ),
     # Waste collection (annual, city) → recycling-rate indicator.
     "residuos.csv": (
         "https://www.donostia.eus/datosabiertos/recursos/residuos/datos-residuos.csv"
@@ -128,13 +136,20 @@ RAW_DOWNLOADS: dict[str, str] = {
         "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/"
         "habitaciones_viviendas_turisti/opendata/habitaciones.json"
     ),
+    # Etxebide protected-housing promotions (REC-15): UTM points + dwelling
+    # counts, joined to barrios. Whole Basque Country; geometry keeps Donostia.
+    vpo_etxebide.CSV_NAME: (
+        "https://opendata.euskadi.eus/contenidos/ds_localizaciones/"
+        "promociones_etxebide/opendata/promociones.csv"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
-            estudios, vut_density, rent, educacion_gis, ruido_gis, airbnb]
+            estudios, vut_density, rent, educacion_gis, salud_gis, ruido_gis,
+            airbnb, vpo_etxebide]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
@@ -504,9 +519,20 @@ def run(offline: bool = False) -> dict:
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 
-    # 6. Tidy CSV export (language-agnostic tables under data/).
     barrio_names = {f["properties"]["barrio_id"]: f["properties"]["name"]
                     for f in geojson["features"]}
+
+    # 5b. Per-barrio top countries of origin (REC-21-web). Not a Metric — its own
+    #     JSON export from the same demo_barrio.csv (see the module docstring).
+    origen = origen_paises_barrio.write_json(
+        config.RAW_DIR / origen_paises_barrio.CSV_NAME,
+        out_dir / "origen_paises_barrio.json",
+        code_to_id,
+        barrio_names,
+    )
+    print(f"  ✓ origen_paises_barrio.json ({len(origen['barrios'])} barrios)")
+
+    # 6. Tidy CSV export (language-agnostic tables under data/).
     tables = config.TABLES_DIR
     export_tables.write_csv(
         tables / "barrios.csv", export_tables.BARRIO_FIELDS,

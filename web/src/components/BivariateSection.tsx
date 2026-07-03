@@ -11,8 +11,10 @@ import {
 } from "../lib/bivariate";
 import { NO_DATA_COLOR } from "../lib/colorScale";
 import { formatValue } from "../lib/format";
+import type { BarrioRow } from "../lib/mapTable";
 import type { BarriosGeoJSON, MetricData, MetricInfo } from "../lib/types";
 import { BarrioMap } from "./BarrioMap";
+import { MapDataTable } from "./MapDataTable";
 
 const DEFAULT_X = "income_total";
 const DEFAULT_Y = "housing_tension";
@@ -37,8 +39,12 @@ export function BivariateSection() {
   const xInfo = barrioMetrics.find((m) => m.id === xId) ?? null;
   const yInfo = barrioMetrics.find((m) => m.id === yId) ?? null;
 
-  const { data, mapped } = useMemo<{ data: BarriosGeoJSON; mapped: number }>(() => {
-    if (!x || !y) return { data: barriosGeoJSON, mapped: 0 };
+  const { data, mapped, rows } = useMemo<{
+    data: BarriosGeoJSON;
+    mapped: number;
+    rows: BarrioRow[];
+  }>(() => {
+    if (!x || !y) return { data: barriosGeoJSON, mapped: 0, rows: [] };
     const xv = valuesAtLatest(x);
     const yv = valuesAtLatest(y);
     // Joint sample: barrios with a value on both axes → terciles over those.
@@ -50,6 +56,7 @@ export function BivariateSection() {
 
     const xUnit = xInfo?.unit ?? "";
     const yUnit = yInfo?.unit ?? "";
+    const rows: BarrioRow[] = [];
     const features = barriosGeoJSON.features.map((f) => {
       const id = f.properties.barrio_id;
       const xVal = xv[id];
@@ -57,6 +64,7 @@ export function BivariateSection() {
       const both = xVal != null && yVal != null;
       let color = NO_DATA_COLOR;
       let valueLabel = "n/d";
+      let plain = "n/d";
       if (both) {
         const xc = classify(xVal as number, xBreaks);
         const yc = classify(yVal as number, yBreaks);
@@ -64,13 +72,19 @@ export function BivariateSection() {
         valueLabel =
           `${xInfo?.label}: ${formatValue(xVal as number, xUnit)} (${CLASS_LABELS[xc]})` +
           `<br/>${yInfo?.label}: ${formatValue(yVal as number, yUnit)} (${CLASS_LABELS[yc]})`;
+        // Plain-text twin (no HTML) for the accessible mirror table.
+        plain =
+          `${formatValue(xVal as number, xUnit)} (${CLASS_LABELS[xc]}) · ` +
+          `${formatValue(yVal as number, yUnit)} (${CLASS_LABELS[yc]})`;
       }
+      rows.push({ id, name: f.properties.name, value: null, valueLabel: plain, deltaLabel: "" });
       return {
         ...f,
         properties: { ...f.properties, __color: color, __valueLabel: valueLabel, __deltaLabel: "" },
       };
     });
-    return { data: { ...barriosGeoJSON, features } as BarriosGeoJSON, mapped: joint.length };
+    rows.sort((a, b) => a.name.localeCompare(b.name, "it"));
+    return { data: { ...barriosGeoJSON, features } as BarriosGeoJSON, mapped: joint.length, rows };
   }, [x, y, xInfo, yInfo]);
 
   return (
@@ -97,11 +111,20 @@ export function BivariateSection() {
       </p>
 
       <div className="bivariate-body">
-        <div className="map-area">
+        <div
+          className="map-area"
+          role="img"
+          aria-label={`Mappa bivariata: ${xInfo?.label ?? "X"} × ${yInfo?.label ?? "Y"}, ultimo anno. Dati nella tabella qui sotto.`}
+        >
           <BarrioMap data={data} />
         </div>
         <BivariateLegend xLabel={xInfo?.label ?? "X"} yLabel={yInfo?.label ?? "Y"} />
       </div>
+      <MapDataTable
+        rows={rows}
+        label={`${xInfo?.label ?? "X"} × ${yInfo?.label ?? "Y"}`}
+        period="ultimo anno"
+      />
 
       <p className="source-note">
         Fonti: {xInfo?.source}

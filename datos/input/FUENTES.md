@@ -19,7 +19,7 @@ existe dataset abierto estructurado.
 |---|---|---|---|---|---|
 | `auzoak.json` | Donostia Open Data | `.../recursos/mapa_auzoak/auzoak.json` | geometría de referencia (barrios) | actual | Open Data DSS |
 | `vtur_censo.csv` | Donostia Open Data | `.../recursos/censo-viviendas-turisticas/urb_ckan_vtur_censo.csv` | `vut_count`, `vut_density`, `vut_plazas` | snapshot actual | Open Data DSS |
-| `demo_barrio.csv` | Donostia Open Data | `.../recursos/demografia-origen/demografianacionalidadbarrio.csv` | `pct_foreign`, `population`, `pct_origin_*` (8 métricas por región de origen, REC-21) | anual 2000–2025 | Open Data DSS |
+| `demo_barrio.csv` | Donostia Open Data | `.../recursos/demografia-origen/demografianacionalidadbarrio.csv` | `pct_foreign`, `population`, `pct_origin_*` (8 métricas por región de origen, REC-21) y `origen_paises_barrio.json` (ficha top-5 países por barrio, REC-21-web) | anual 2000–2025 | Open Data DSS |
 | `edad_barrio.csv` | Donostia Open Data | `.../recursos/demografia-piramideedad/demografiapiramideedadbarrio.csv` | `ageing_index`, `pct_youth_adults` | anual 2000–2025 | Open Data DSS |
 | `renta_barrio.csv` | Donostia Open Data (Eustat) | `.../recursos/eustat_renta/eustatrentabarrio.csv` | `income_total`, `income_gender_gap` | anual 2016–2023 | Open Data DSS / Eustat |
 | `estudios_barrio.csv` | Donostia Open Data | `.../recursos/demografia-nivelestudios/demografianivelestudiosbarrio.csv` | `pct_university` | anual 2000–2025 | Open Data DSS |
@@ -27,8 +27,10 @@ existe dataset abierto estructurado.
 | `ine_pernoct_ext.json` | INE EOH | `servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2722?nult=600` | `overnight_stays` (extranjero) | mensual 2005–2026 | INE (open) |
 | `emal_barrios.xlsx` | Gobierno Vasco — EMA/EMAL | `euskadi.eus/.../opendata/EMAL.-Barrios-Municipios.-2016-2025_es.xlsx` (hoja **T8.3**) | `rent_eur_m2` | anual 2016–2024 | Gob. Vasco (open) |
 | `educativos.json` | Donostia Open Data | `.../recursos/servicios-educativos/hezkuntzaekipamenduak.json` | `schools_per_1000` | actual (157 puntos) | Open Data DSS |
+| `salud.json` | Donostia Open Data | `.../recursos/servicios-salud/osasunekipamenduak.json` | `health_per_1000` (REC-18, join punto→barrio) | actual (29 puntos) | Open Data DSS |
 | `residuos.csv` | Donostia Open Data | `.../recursos/residuos/datos-residuos.csv` | `recycling_rate` | anual 2010–2024 | Open Data DSS |
 | `ruido_noche_2022.zip` | Donostia Open Data (ruido-noche) | `.../ide/INGURUMENA-MEDIO_AMBIENTE/shp/Zarata_Ruido/2022_DSS_IZT_totala_gau.zip` (SHP, EPSG:25830) | `noise_night_pct55` | 2022 | Open Data DSS |
+| `promociones_etxebide.csv` | Open Data Euskadi | `opendata.euskadi.eus/contenidos/ds_localizaciones/promociones_etxebide/opendata/promociones.csv` (CSV `;`, latin-1, coords UTM EPSG:25830) | `vpo_dwellings_per_1000` (REC-15, join punto→barrio) | snapshot cumulativo | Gob. Vasco / Etxebide |
 | `impuestos_ciudad.csv` | Donostia Open Data | `.../dataset/36ef69b9…/download/pfi_impuestos_tipo_ciudad_ckan.csv` | `tax_revenue` | anual 2011–2025 | Open Data DSS |
 | `tasas_ciudad.csv` | Donostia Open Data | `.../dataset/7c0f2bf4…/download/pfi_tasas_tipo_ciudad_ckan.csv` | `fee_revenue` | anual 2011–2025 | Open Data DSS |
 | `airbnb_listings.csv.gz` | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz` | `airbnb_density` | **2025-09-29** | CC BY 4.0 |

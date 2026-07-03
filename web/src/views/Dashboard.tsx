@@ -15,6 +15,9 @@ import { LeadLagSection } from "../components/LeadLagSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
+import { MapDataTable } from "../components/MapDataTable";
+import { barrioRows } from "../lib/mapTable";
+import { BarrioOriginsSection } from "../components/BarrioOriginsSection";
 import { ConfidenceCard } from "../components/ConfidenceCard";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
@@ -101,7 +104,15 @@ export function Dashboard() {
         )}
       </div>
 
-      <div className="map-area">
+      <div
+        className="map-area"
+        role="img"
+        aria-label={
+          metric
+            ? `Mappa coropletica: ${metric.label}, ${period}. Dati completi nella tabella qui sotto.`
+            : "Mappa in caricamento"
+        }
+      >
         {metric && scale ? (
           <>
             <ChoroplethMap geojson={barriosGeoJSON} metric={metric} period={period} scale={scale} />
@@ -111,6 +122,15 @@ export function Dashboard() {
           <div className="map-placeholder">Caricamento dati…</div>
         )}
       </div>
+
+      {metric && (
+        <MapDataTable
+          rows={barrioRows(barriosGeoJSON, metric, period)}
+          label={metric.label}
+          period={period}
+          unit={metric.unit}
+        />
+      )}
 
       {selectedInfo && (
         <div className="metric-meta">
@@ -171,6 +191,7 @@ export function Dashboard() {
       <HousingPressureSection />
       <MiceSection />
       <IndicatorsSection />
+      <BarrioOriginsSection />
     </div>
   );
 }
