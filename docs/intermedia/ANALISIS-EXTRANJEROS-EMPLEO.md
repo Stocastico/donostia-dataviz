@@ -1,5 +1,11 @@
 # Perfil migratorio y de empleo en Donostia (AN-21) — exploratorio
 
+> **Estado (jul-2026): implementado en el pipeline.** Las 8 métricas de
+> región de origen y los 3 indicadores de empleo/I+D de este análisis ya son
+> parte del dashboard en vivo (§4 detalla qué se cableó y qué se quedó
+> analysis-only por no encajar en el modelo Metric/Indicator). El resto del
+> documento —metodología, hallazgos y límites— sigue siendo la referencia.
+
 > **Qué es.** Respuesta a una pregunta de usuario (jul-2026): ¿la población
 > extranjera de Donostia se reparte en los perfiles que la intuición cotidiana
 > sugiere (economía de servicios latinoamericana, europeos cualificados/pareja,
@@ -319,27 +325,54 @@ más gente (para eso, ver §2.2).
 
 ---
 
-## 4. Propuesta para el dashboard (siguientes pasos, sin implementar)
+## 4. Del análisis al dashboard — qué se implementó
 
-Consistente con el estado actual del proyecto ("documentación y análisis", no
-tocar código — ver `README.md`), esto queda como propuesta, no como
-implementación:
+Implementado en el pipeline (jul-2026):
 
-- **Nuevo choropleth barrio-año**: cuota de cada región de origen (los 8
-  grupos de `COUNTRY_TO_REGION`) en vez del `pct_foreign` agregado actual —
-  reutiliza exactamente el dato que ya alimenta el pipeline
-  (`demografia-origen`), solo cambia la agregación. Candidato natural a
-  nueva métrica en `data-pipeline/datasets/demografia.py` si se decide
-  wirearlo (hoy vive solo en `analysis/`).
+- **8 choropletas nuevas barrio-año** (`pct_origin_latam`,
+  `pct_origin_norte_africa`, `pct_origin_africa_subsahariana`,
+  `pct_origin_europa_occidental`, `pct_origin_europa_este`,
+  `pct_origin_oriente_medio`, `pct_origin_asia`,
+  `pct_origin_norteamerica_oceania`) — mismo `demo_barrio.csv` que ya
+  alimentaba `pct_foreign`, agregado por región en vez de extranjero sí/no.
+  Módulo `data-pipeline/src/donostia_pipeline/datasets/demografia_origen_region.py`,
+  registrado en `build.DATASETS`, sin descarga adicional (reutiliza la fuente
+  de `pct_foreign`). Seleccionables ya en el picker de métricas del dashboard.
+- **3 indicadores de ciudad** — `unemployment_rate_spanish_gipuzkoa` /
+  `unemployment_rate_foreign_gipuzkoa` (tasa de paro por nacionalidad,
+  Gipuzkoa, 2015–2026) y `randd_personnel_per_1000_employed_gipuzkoa`
+  (intensidad investigadora, Gipuzkoa, 2001–2024). Módulo
+  `datasets/empleo_nacionalidad_gipuzkoa.py`, tres nuevas queries Eustat
+  PxWeb en `build.py` (`ensure_eustat_empleo_nacionalidad`). Visibles en el
+  panel "Altri indicatori cittadini" del dashboard.
+- Confianza y supuestos registrados en `provenance.py` para las 8 métricas
+  (incluida la advertencia de que `pct_origin_latam`/`_norte_africa`
+  correlacionan con renta en sentido opuesto a `_europa_occidental` — la
+  razón por la que se desglosó el agregado).
+- 21 tests nuevos (`data-pipeline/tests/test_demografia_origen_region.py`,
+  `test_empleo_nacionalidad_gipuzkoa.py`); pipeline completo verificado
+  end-to-end (`python -m donostia_pipeline.build`, 35 métricas + 28
+  indicadores) y dashboard comprobado en navegador (choropleta + panel de
+  indicadores renderizando con los valores esperados).
+
+**Se quedan analysis-only**, porque no encajan en el modelo `Metric`
+(coroplético barrio×año, un valor numérico) ni `Indicator` (un valor por
+año, ciudad): la ocupación por CNO-11 (§2.2, 10 categorías por año), los
+establecimientos por sector A10 en Donostia (§2.4, 9 categorías por año) y la
+renta por profesión (§2.3, 9 categorías, sin serie anual larga). Encajarían
+mejor como un gráfico de barras/tabla dedicado que como una entrada más del
+picker de choropletas — candidato a componente propio si se narra una
+séptima historia (ver más abajo), no a una nueva métrica del contrato de
+datos.
+
+**Pendiente (Cowork, no código)**:
+
 - **Ficha de país** en el detalle de barrio: top-5 países de origen con su
   evolución a 10 años, usando `extranjeros_top_paises.csv`.
-- **Panel de contexto ciudad** (no coroplético, indicador de ciudad):
-  gradiente salarial por ocupación (§2.3) + intensidad investigadora
-  Gipuzkoa vs. España (§2.1), ambos con su ficha de confianza marcando
-  grano C.A. de Euskadi/Gipuzkoa explícitamente (no Donostia).
 - **Séptima historia** para `output/historias.html`: "quién trabaja Donostia"
-  — combinaría el mapa de origen por región (nuevo) con el ya existente de
-  renta/estudios, con el aviso metodológico de §3 en el texto, no solo en la
+  — combinaría el mapa de origen por región (ya wireado) con el ya existente
+  de renta/estudios, más el gradiente ocupación→salario (§2.2–2.3, vía
+  gráfico propio), con el aviso metodológico de §3 en el texto, no solo en la
   ficha (mismo criterio que ya aplica el proyecto al `% extranjeros`
   agregado).
 
@@ -348,8 +381,14 @@ implementación:
 ## Reproducibilidad
 
 ```bash
+# Análisis exploratorio (este documento)
 python analysis/perfil_extranjeros_empleo.py --save
 pytest analysis/tests/test_perfil_extranjeros_empleo.py
+
+# Pipeline (métricas/indicadores en vivo del dashboard)
+cd data-pipeline && python -m donostia_pipeline.build
+pytest data-pipeline/tests/test_demografia_origen_region.py \
+       data-pipeline/tests/test_empleo_nacionalidad_gipuzkoa.py
 ```
 
 Fuentes crudas en `datos/input/raw/` (no versionadas; se descargan con las

@@ -24,7 +24,9 @@ from .datasets import (
     change_velocity,
     demografia,
     demografia_edad,
+    demografia_origen_region,
     educacion_gis,
+    empleo_nacionalidad_gipuzkoa,
     fiscalidad,
     estudios,
     housing_tension,
@@ -131,8 +133,8 @@ RAW_DOWNLOADS: dict[str, str] = {
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
-DATASETS = [vut, demografia, demografia_edad, renta, estudios, vut_density, rent,
-            educacion_gis, ruido_gis, airbnb]
+DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
+            estudios, vut_density, rent, educacion_gis, ruido_gis, airbnb]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
@@ -331,6 +333,62 @@ def ensure_eustat_dirae_empleo(offline: bool) -> bool:
     )
 
 
+# REC-21 — unemployment by nationality + R&D-personnel intensity, Gipuzkoa
+# (no barrio grain exists for either; see datasets/empleo_nacionalidad_gipuzkoa.py).
+EUSTAT_TASAS_NAC_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050403_cpra_tab17.px"
+EUSTAT_TASAS_NAC_QUERY = {
+    "query": [
+        {"code": "tasa (%)", "selection": {"filter": "item", "values": ["10", "20", "30"]}},
+        {"code": "territorio histórico", "selection": {"filter": "item", "values": ["20"]}},
+        {"code": "nacionalidad", "selection": {"filter": "item", "values": ["10", "20", "30"]}},
+        {"code": "trimestre", "selection": {"filter": "item", "values": ["10"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+EUSTAT_ID_PERSONAL_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_043201_cid_res08c.px"
+EUSTAT_ID_PERSONAL_QUERY = {
+    "query": [
+        {"code": "territorio histórico", "selection": {"filter": "item", "values": ["20"]}},
+        {"code": "sector de ejecución",
+         "selection": {"filter": "item", "values": ["00", "10", "20", "30"]}},
+        {"code": "ocupación",
+         "selection": {"filter": "item", "values": ["100", "200", "300", "400"]}},
+        {"code": "sexo", "selection": {"filter": "item", "values": ["10"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+EUSTAT_OCUPADOS_URL = "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_050403_cpra_tab04.px"
+EUSTAT_OCUPADOS_QUERY = {
+    "query": [
+        {"code": "relación con la actividad (OIT)",
+         "selection": {"filter": "item", "values": ["30"]}},
+        {"code": "territorio histórico", "selection": {"filter": "item", "values": ["00", "20"]}},
+        {"code": "sexo", "selection": {"filter": "item", "values": ["10"]}},
+        {"code": "trimestre", "selection": {"filter": "item", "values": ["10"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def ensure_eustat_empleo_nacionalidad(offline: bool) -> bool:
+    """Fetch the three Gipuzkoa employment tables for REC-21 into raw/ (once)."""
+    ok_tasas = _ensure_pxweb_table(
+        offline, empleo_nacionalidad_gipuzkoa.RAW_TASAS, EUSTAT_TASAS_NAC_URL,
+        EUSTAT_TASAS_NAC_QUERY, "Eustat tasas por nacionalidad",
+    )
+    ok_id = _ensure_pxweb_table(
+        offline, empleo_nacionalidad_gipuzkoa.RAW_ID_PERSONAL, EUSTAT_ID_PERSONAL_URL,
+        EUSTAT_ID_PERSONAL_QUERY, "Eustat personal I+D",
+    )
+    ok_ocup = _ensure_pxweb_table(
+        offline, empleo_nacionalidad_gipuzkoa.RAW_OCUPADOS, EUSTAT_OCUPADOS_URL,
+        EUSTAT_OCUPADOS_QUERY, "Eustat población ocupada",
+    )
+    return ok_tasas and ok_id and ok_ocup
+
+
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
 # render disabled ("in arrivo") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
@@ -433,6 +491,7 @@ def run(offline: bool = False) -> dict:
     ensure_eustat_comercio(offline)
     ensure_eustat_movilidad(offline)
     ensure_eustat_dirae_empleo(offline)
+    ensure_eustat_empleo_nacionalidad(offline)
     indicators = (mice.build_indicators() + residuos.build_indicators(config.RAW_DIR)
                   + fiscalidad.build_indicators(config.RAW_DIR)
                   + modelos_linguisticos.build_indicators(config.RAW_DIR)
@@ -440,7 +499,8 @@ def run(offline: bool = False) -> dict:
                   + paro.build_indicators(config.RAW_DIR)
                   + tejido_comercial.build_indicators(config.RAW_DIR)
                   + reate_licencias.build_indicators(config.RAW_DIR)
-                  + movilidad_laboral.build_indicators(config.RAW_DIR))
+                  + movilidad_laboral.build_indicators(config.RAW_DIR)
+                  + empleo_nacionalidad_gipuzkoa.build_indicators(config.RAW_DIR))
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 
