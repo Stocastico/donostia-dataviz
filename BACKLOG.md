@@ -411,8 +411,18 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   en el este"; anillo verde −3…−5 °C. La historia #4 gana dimensión espacial;
   `lst_anomaly` es candidata a coropleta. Detalle en
   `ANALISIS-INFERENCIAL.md` §REC-14.
-- ⬜ **REC-15 vivienda protegida / VPO** (Observatorio Vasco de Vivienda): ¿la
-  VPO amortigua la tensión de alquiler?
+- ✅ **REC-15 vivienda protegida / VPO** — hecho (jul-2026): métrica coroplética
+  `vpo_dwellings_per_1000` (proxy, snapshot) desde las **promociones de Etxebide**
+  (Open Data Euskadi): coords UTM + nº de viviendas, geocodificadas punto→barrio
+  y normalizadas por 1000 hab. Cierra la laguna «tensión residencial» del
+  `PLAN-CIERRE.md`: **dónde aterrizó la vivienda protegida vs. dónde está la
+  presión**. Hallazgo: la huella se concentra en el este obrero/periférico
+  (Loiola 22,3‰, Amara Berri, Intxaurrondo, Ibaeta) y es **cero en 14 barrios**,
+  incluido el centro caro (Erdialdea) y Gros — el contrapeso H2/H3 que faltaba.
+  Solo promociones Etxebide (VISESA/Alokabide/Gob. Vasco), no todo el parque VPO
+  ni el patronato municipal → suelo del parque, no censo. Módulo
+  `datasets/vpo_etxebide.py` + 4 tests. **Pendiente (Cowork):** integración
+  narrativa (el mapa VPO junto al de tensión MET-1 = la historia del contrapeso).
 - ⬜ **REC-16 tipología comercial vía OSM** (histórico): ¿comercio de barrio →
   servicios turísticos? Complementa REC-7 (que solo llega a ciudad).
 - ✅ **REC-17 matrices origen-destino Eustat** — hecho (jul-2026) con matiz:

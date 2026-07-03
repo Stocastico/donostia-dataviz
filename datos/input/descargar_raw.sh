@@ -57,6 +57,10 @@ dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/20
 dl reate_viviendas.json       "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/viviendas.json"
 dl reate_habitaciones.json    "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/habitaciones_viviendas_turisti/opendata/habitaciones.json"
 
+# Open Data Euskadi (REC-15): promociones de Etxebide (vivienda protegida) con
+# coords UTM y nº de viviendas. Se geocodifica punto→barrio (solo Donostia).
+dl promociones_etxebide.csv   "https://opendata.euskadi.eus/contenidos/ds_localizaciones/promociones_etxebide/opendata/promociones.csv"
+
 # Eustat PxWeb (REC-9): modelo lingüístico A/B/D, Donostia (municipio 20069),
 # serie completa 1983/1984–. Filtro server-side vía POST (sin clave).
 dl_post eustat_modelos_linguisticos.json \

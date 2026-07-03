@@ -38,19 +38,15 @@ fuente no rinde un indicador con grano útil en ~½ jornada de trabajo, se aparc
 se documenta como laguna declarada** — no se fuerza un proxy (misma disciplina
 que ya aplicó REC-8/REC-11).
 
-### 2.1 REC-15 · Vivienda protegida (VPO) — *prioridad 1*
-- **Qué hipótesis toca:** H2/H3 y la espina «tensión residencial». Pregunta:
-  ¿amortigua la VPO la presión de alquiler, y dónde? Es el contrapeso que hoy
-  falta al relato de accesibilidad (MET-1 mide la presión; nada mide el alivio).
-- **Fuente candidata:** Observatorio Vasco de la Vivienda (Etxebide / Gobierno
-  Vasco) y Open Data Euskadi. **Primer paso del sprint = localizar el recurso
-  vivo** (el endpoint CKAN estándar de `opendata.euskadi.eus` no respondió en la
-  probe de jul-2026; usar el buscador del portal o el Observatorio directamente).
-- **Grano esperado:** probablemente municipio, no barrio (como REC-5/7/9). Aun a
-  grano ciudad cierra la laguna: serie de VPO / adjudicaciones / demanda
-  registrada. Si hubiera grano barrio, es coroplética.
-- **Riesgo:** que solo exista a grano C.A. de Euskadi → seguiría valiendo como
-  indicador de ciudad, con el caveat de grano documentado.
+### 2.1 REC-15 · Vivienda protegida (VPO) — ✅ hecho (jul-2026)
+- **Resuelto mejor de lo esperado: grano barrio, no municipio.** La fuente viva
+  es **Promociones de Etxebide** (Open Data Euskadi, CSV con coords UTM + nº de
+  viviendas), geocodificable punto→barrio. Métrica `vpo_dwellings_per_1000`
+  (proxy, snapshot). **Hallazgo:** la huella protegida se concentra en el este
+  obrero/periférico (Loiola 22,3‰, Amara Berri, Intxaurrondo, Ibaeta) y es cero
+  en 14 barrios, incluido el centro caro y Gros → el contrapeso H2/H3 que faltaba.
+- Caveat: solo promociones Etxebide (no todo el parque VPO ni el patronato
+  municipal) → suelo del parque, no censo. Documentado como proxy (MET-4).
 
 ### 2.2 REC-18 · Equipamientos y accesibilidad — *prioridad 2*
 - **Qué hipótesis toca:** el lado «ciudad vivida» de H4 / de las dos ciudades
@@ -79,8 +75,8 @@ jul-2026 anotado.
 
 **Datos**
 - [x] Cuatro hipótesis H1–H4 con ≥1 fuente que las interroga.
-- [ ] Última tanda dirigida cerrada (REC-15 + REC-18) **o** cada una aparcada con
-  laguna declarada (§2).
+- [~] Última tanda dirigida: **REC-15 ✅ hecho** (grano barrio); **REC-18
+  pendiente** (o cada una aparcada con laguna declarada, §2).
 - [x] Toda métrica con ficha de confianza (observado/derivado/proxy, MET-4).
 - [x] Crudos no versionados; input curado + `FUENTES.md` + `descargar_raw.sh`.
 

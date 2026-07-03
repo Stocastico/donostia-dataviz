@@ -29,6 +29,7 @@ existe dataset abierto estructurado.
 | `educativos.json` | Donostia Open Data | `.../recursos/servicios-educativos/hezkuntzaekipamenduak.json` | `schools_per_1000` | actual (157 puntos) | Open Data DSS |
 | `residuos.csv` | Donostia Open Data | `.../recursos/residuos/datos-residuos.csv` | `recycling_rate` | anual 2010–2024 | Open Data DSS |
 | `ruido_noche_2022.zip` | Donostia Open Data (ruido-noche) | `.../ide/INGURUMENA-MEDIO_AMBIENTE/shp/Zarata_Ruido/2022_DSS_IZT_totala_gau.zip` (SHP, EPSG:25830) | `noise_night_pct55` | 2022 | Open Data DSS |
+| `promociones_etxebide.csv` | Open Data Euskadi | `opendata.euskadi.eus/contenidos/ds_localizaciones/promociones_etxebide/opendata/promociones.csv` (CSV `;`, latin-1, coords UTM EPSG:25830) | `vpo_dwellings_per_1000` (REC-15, join punto→barrio) | snapshot cumulativo | Gob. Vasco / Etxebide |
 | `impuestos_ciudad.csv` | Donostia Open Data | `.../dataset/36ef69b9…/download/pfi_impuestos_tipo_ciudad_ckan.csv` | `tax_revenue` | anual 2011–2025 | Open Data DSS |
 | `tasas_ciudad.csv` | Donostia Open Data | `.../dataset/7c0f2bf4…/download/pfi_tasas_tipo_ciudad_ckan.csv` | `fee_revenue` | anual 2011–2025 | Open Data DSS |
 | `airbnb_listings.csv.gz` | Inside Airbnb | `data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz` | `airbnb_density` | **2025-09-29** | CC BY 4.0 |
