@@ -48,20 +48,15 @@ que ya aplicó REC-8/REC-11).
 - Caveat: solo promociones Etxebide (no todo el parque VPO ni el patronato
   municipal) → suelo del parque, no censo. Documentado como proxy (MET-4).
 
-### 2.2 REC-18 · Equipamientos y accesibilidad — *prioridad 2*
-- **Qué hipótesis toca:** el lado «ciudad vivida» de H4 / de las dos ciudades
-  (VIZ-10). Un **índice de accesibilidad por barrio** (distancia/# de
-  equipamientos esenciales) cruzable con renta/tensión da la cara de servicios
-  que hoy solo está insinuada (`schools_per_1000`).
-- **Fuente:** Donostia Open Data — equipamientos GIS. **Verificado vivo
-  (jul-2026):** `servicios-salud/osasunekipamenduak.json` responde 200. Faltan por
-  confirmar los recursos de socio-asistencial / bibliotecas / zonas verdes (un
-  URL probado dio 500 → localizar el nombre correcto en el catálogo).
-- **Método:** ya existe el join espacial punto→barrio en el pipeline
-  (`spatial.BarrioIndex`, usado por `educacion_gis`, `ruido_gis`). Un
-  «# equipamientos / 1000 hab.» por barrio es coroplético y de bajo riesgo; una
-  isócrona a pie real (15-min city) es mayor esfuerzo y **queda fuera del
-  presupuesto** salvo que sobre tiempo.
+### 2.2 REC-18 · Equipamientos y accesibilidad — ✅ hecho (jul-2026, primer corte)
+- **Entregado:** `health_per_1000` (equipamientos de salud, 29 puntos, join
+  punto→barrio, por 1000 hab.), el lado «ciudad vivida» de H4 junto a
+  `schools_per_1000`. Nuevo tema «Sanità» en el picker.
+- **Alcance acotado por el presupuesto:** densidad de servicios, **no** isócrona
+  a pie (15-min city queda fuera). Bibliotecas / zonas verdes / socio-asistencial
+  no añadidas (un URL dio 500); se suman con el mismo patrón `salud_gis.py` si se
+  retoma. Miramón-Zorroaga alto por el hospital con poca población (artefacto
+  per cápita, documentado).
 
 > Si el usuario quiere cambiar el par (p. ej. REC-16 comercio-OSM en vez de
 > REC-18), la regla §1 sigue mandando: se elige lo que interrogue una hipótesis.
@@ -75,8 +70,8 @@ jul-2026 anotado.
 
 **Datos**
 - [x] Cuatro hipótesis H1–H4 con ≥1 fuente que las interroga.
-- [~] Última tanda dirigida: **REC-15 ✅ hecho** (grano barrio); **REC-18
-  pendiente** (o cada una aparcada con laguna declarada, §2).
+- [x] Última tanda dirigida **cerrada**: REC-15 ✅ (VPO por barrio) + REC-18 ✅
+  (salud por barrio). **Puerta a datos nuevos congelada** salvo regla §1/§4.
 - [x] Toda métrica con ficha de confianza (observado/derivado/proxy, MET-4).
 - [x] Crudos no versionados; input curado + `FUENTES.md` + `descargar_raw.sh`.
 
@@ -135,10 +130,11 @@ pipeline. Esto evita que el proyecto crezca sin cerrarse.
 
 ## 5. Secuencia sugerida hasta el cierre
 
-1. **REC-15 VPO** — localizar fuente viva → 1 indicador ciudad (o barrio) + tests.
-2. **REC-18 accesibilidad** — # equipamientos/1000 hab. por barrio (join ya existe).
+1. ~~**REC-15 VPO**~~ ✅ hecho (grano barrio).
+2. ~~**REC-18 accesibilidad**~~ ✅ hecho (`health_per_1000`).
 3. **Indicador de accesibilidad residencial** (% >30 % esfuerzo) — sin dato nuevo.
-4. **A11y del app React** — cierra el frente de accesibilidad.
+4. **A11y del app React** — cierra el frente de accesibilidad *(dejado para el
+   final por decisión del usuario)*.
 5. **Integración narrativa** de 1–3 (Cowork) + `resumen`/`TESIS` al día.
 6. **Publicar** (deploy + README) → **cierre**.
 

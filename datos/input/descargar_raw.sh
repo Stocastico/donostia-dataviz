@@ -37,6 +37,7 @@ dl renta_barrio.csv           "$BASE/eustat_renta/eustatrentabarrio.csv"
 dl estudios_barrio.csv        "$BASE/demografia-nivelestudios/demografianivelestudiosbarrio.csv"
 dl residuos.csv              "$BASE/residuos/datos-residuos.csv"
 dl educativos.json            "$BASE/servicios-educativos/hezkuntzaekipamenduak.json"
+dl salud.json                 "$BASE/servicios-salud/osasunekipamenduak.json"
 
 dl ine_pernoct_esp.json       "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2721?nult=600"
 dl ine_pernoct_ext.json       "https://servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2722?nult=600"

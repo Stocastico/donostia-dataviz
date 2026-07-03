@@ -27,6 +27,7 @@ existe dataset abierto estructurado.
 | `ine_pernoct_ext.json` | INE EOH | `servicios.ine.es/wstempus/js/ES/DATOS_SERIE/EOT2722?nult=600` | `overnight_stays` (extranjero) | mensual 2005–2026 | INE (open) |
 | `emal_barrios.xlsx` | Gobierno Vasco — EMA/EMAL | `euskadi.eus/.../opendata/EMAL.-Barrios-Municipios.-2016-2025_es.xlsx` (hoja **T8.3**) | `rent_eur_m2` | anual 2016–2024 | Gob. Vasco (open) |
 | `educativos.json` | Donostia Open Data | `.../recursos/servicios-educativos/hezkuntzaekipamenduak.json` | `schools_per_1000` | actual (157 puntos) | Open Data DSS |
+| `salud.json` | Donostia Open Data | `.../recursos/servicios-salud/osasunekipamenduak.json` | `health_per_1000` (REC-18, join punto→barrio) | actual (29 puntos) | Open Data DSS |
 | `residuos.csv` | Donostia Open Data | `.../recursos/residuos/datos-residuos.csv` | `recycling_rate` | anual 2010–2024 | Open Data DSS |
 | `ruido_noche_2022.zip` | Donostia Open Data (ruido-noche) | `.../ide/INGURUMENA-MEDIO_AMBIENTE/shp/Zarata_Ruido/2022_DSS_IZT_totala_gau.zip` (SHP, EPSG:25830) | `noise_night_pct55` | 2022 | Open Data DSS |
 | `promociones_etxebide.csv` | Open Data Euskadi | `opendata.euskadi.eus/contenidos/ds_localizaciones/promociones_etxebide/opendata/promociones.csv` (CSV `;`, latin-1, coords UTM EPSG:25830) | `vpo_dwellings_per_1000` (REC-15, join punto→barrio) | snapshot cumulativo | Gob. Vasco / Etxebide |

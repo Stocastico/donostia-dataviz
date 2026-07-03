@@ -435,8 +435,16 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (**1,20 en 2024**: la ciudad importa trabajadores). **Con esto la mitad
   coja de H4 ("sin dejar de concentrar actividad") tiene dato.** Módulo
   `datasets/movilidad_laboral.py` + tests.
-- ⬜ **REC-18 equipamientos ampliados** (salud, bibliotecas, zonas verdes; Open
-  Data): índice de accesibilidad por barrio × renta/tensión.
+- ✅ **REC-18 equipamientos ampliados** — hecho (jul-2026, primer corte):
+  `health_per_1000` (equipamientos de salud, 29 puntos, join punto→barrio,
+  normalizado por 1000 hab.) — el lado «ciudad vivida» de la accesibilidad,
+  junto a `schools_per_1000`. Nuevo tema «Sanità» en el picker. Se deja como
+  **densidad de servicios**, no isócrona/tiempo de trayecto (fuera de
+  presupuesto, ver `PLAN-CIERRE.md`); Miramón-Zorroaga sale alto por el hospital
+  con poca población (artefacto per cápita conocido, documentado). Bibliotecas /
+  zonas verdes / socio-asistencial no añadidos en este corte (un recurso dio 500;
+  se pueden sumar con el mismo patrón si se retoma). Módulo `datasets/salud_gis.py`
+  + 2 tests. **Pendiente (Cowork):** narrar salud+escuelas vs. tensión/renta.
 - ⬜ **REC-19 percepción ciudadana** (encuestas municipales de satisfacción):
   la capa subjetiva que falta.
 - ⬜ **REC-20 cajón de ideas** (menor prioridad): licencias de obra y
