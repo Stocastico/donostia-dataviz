@@ -44,6 +44,7 @@ from .datasets import (
     ruido_gis,
     tejido_comercial,
     transformation,
+    vpo_etxebide,
     vut,
     vut_density,
 )
@@ -129,13 +130,20 @@ RAW_DOWNLOADS: dict[str, str] = {
         "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/"
         "habitaciones_viviendas_turisti/opendata/habitaciones.json"
     ),
+    # Etxebide protected-housing promotions (REC-15): UTM points + dwelling
+    # counts, joined to barrios. Whole Basque Country; geometry keeps Donostia.
+    vpo_etxebide.CSV_NAME: (
+        "https://opendata.euskadi.eus/contenidos/ds_localizaciones/"
+        "promociones_etxebide/opendata/promociones.csv"
+    ),
 }
 
 # Dataset modules to run (each exposes build(ctx) -> list[Metric]).
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
-            estudios, vut_density, rent, educacion_gis, ruido_gis, airbnb]
+            estudios, vut_density, rent, educacion_gis, ruido_gis, airbnb,
+            vpo_etxebide]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
