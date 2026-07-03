@@ -12,7 +12,7 @@
 
 ## Estado en una línea
 
-Pipeline + web + tests estables. **6 historias + sección de cierre** publicadas
+Pipeline + web + tests estables. **7 historias + sección de cierre** publicadas
 en `output/historias.html`; análisis AN-1…AN-8 y correcciones MET-1…MET-8 hechos.
 **Revisión externa por 3 IAs consolidada** (jul-2026,
 `docs/intermedia/FEEDBACK-IAS-2026-07.md`) → alimentó AN-9…AN-20 y REC-12…REC-20.
@@ -45,8 +45,9 @@ Queda su integración narrativa (Cowork).
 - **Análisis:** correlaciones robustas (Pearson/Spearman/leave-one-out), velocidad,
   perfiles, matriz nivel×variación (AN-4), Gini territorial (AN-5), lead/lag AN-6
   exploratorio, Índice de Transformación AN-8.
-- **Relatos:** las **6 historias** en `output/historias.html` (#5 turística vs.
-  vivida y #6 en transformación añadidas jul-2026) + apéndice de contexto.
+- **Relatos:** las **7 historias** en `output/historias.html` (cap. 4 «Quién
+  trabaja Donostia» añadido jul-2026 con REC-21; turística y transformación
+  desde jul-2026) + apéndice de contexto y epílogo.
 - **Documentos:** `TESIS-CIUDAD`, `GUION-OUTPUTS`, `NOTA-METODOLOGICA`, `SOURCES`,
   `output/resumen.md` (síntesis para revisión externa).
 - **Reestructuración (jul-2026, Cowork):** `output/` (html + resumen),
@@ -86,20 +87,24 @@ Queda su integración narrativa (Cowork).
 - ✅ **Auditoría de enlaces internos** tras mover docs — hecha (jul-2026): los docs
   activos apuntan a `intermedia/`, `archive/` o `BACKLOG.md`; README y `resumen.md`
   actualizados. Los docs de `intermedia/`/`archive/` se dejan congelados.
-- ✅ **Reestructurar las 6 historias como capítulos** — hecho (jul-2026): arco
+- ✅ **Reestructurar las historias como capítulos** — hecho (jul-2026): arco
   estado → cambio → personas → telón de fondo → dos ciudades → síntesis →
   epílogo; eyebrows "Capítulo N · etapa", transiciones `nextcap` entre
-  capítulos, hero reescrito. Sin reordenar secciones ni renumerar (los IDs
-  #1…#6 de los docs siguen valiendo).
+  capítulos, hero reescrito. *(Ampliado a 7 capítulos jul-2026 con «Quién trabaja
+  Donostia»; renumerados clima→5, turística→6, síntesis→7 en el HTML — los IDs de
+  sección `#s4…#s6` se mantienen como anclas.)*
 - ✅ **Encuadrar el proyecto como generador de hipótesis** — hecho (jul-2026):
   H1–H4 explícitas con sus tests propuestos en `TESIS-CIUDAD` (§"Las hipótesis
   que estos datos generan"), síntesis en `resumen.md` y en el epílogo del HTML.
-- ⬜ **Dar más protagonismo a la línea "tensión residencial"** (resto del punto
+- 🔷 **Dar más protagonismo a la línea "tensión residencial"** (resto del punto
   de ChatGPT): las líneas (b) dos-transformaciones y (c) velocidad-vs-estado ya
-  quedaron elevadas con los capítulos e hipótesis; queda (a) — un indicador de
-  accesibilidad residencial más completo, que es trabajo de Code (familia de
-  medidas ya existe en MET-1; ampliarla p.ej. con % de hogares que superarían
-  el 30 % de esfuerzo).
+  quedaron elevadas con los capítulos e hipótesis. *Reforzada narrativamente
+  (jul-2026, Cowork):* la síntesis (cap. 7) y su takeaway hacen explícita la
+  **convergencia de presiones sobre el este obrero** &mdash;tensión alquiler/renta +
+  migración económica (cap. 4) + isla de calor (cap. 5) sobre la misma geografía&mdash;,
+  con el caveat de la posible «ilusión de equidad» del Gini. **Pendiente (Code):**
+  (a) un indicador de accesibilidad residencial más completo (la familia ya existe
+  en MET-1; ampliarla p.ej. con % de hogares que superarían el 30 % de esfuerzo).
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
@@ -116,10 +121,12 @@ Queda su integración narrativa (Cowork).
   (REC-14, Gros +4,8 °C, barras divergentes por barrio) da la dimensión espacial
   a la historia del clima. En `historias.html`; digest en `resumen.md`/`TESIS-CIUDAD.md`.
   Verificado con jsdom (0 errores JS) y SVG rasterizados. Commit `3a2d78b`.
-- ⬜ **Pasada de coherencia de la historia #5** tras la integración de jul-2026:
-  el capítulo encadena densidad → dos turismos → COVID (AN-20) → estacionalidad
-  → AN-14 → lead/lag → escuelas; leerlo de corrido y reordenar/podar si se
-  hace largo.
+- ✅ **Pasada de coherencia de la historia turística** (cap. 6) — hecha (jul-2026,
+  Cowork): releída de corrido tras insertar REC-13; el «×6» dejaba de cuadrar con la
+  corrección del proxy, así que el keynum de cierre y el takeaway ahora aclaran que es
+  actividad/interés, no oferta (parque real +2 %), y el bloque REC-13 se partió en dos
+  párrafos más legibles. Encadena densidad → dos turismos → COVID → proxy REC-13 →
+  estacionalidad → AN-14 → lead/lag → escuelas; largo pero cada pieza se sostiene.
 - 🔷 **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin
   color) — incluido el connected scatter estático de AN-18 (historia #6).
   *Parcial (jul-2026, Cowork):* pasada en `historias.html` sobre las gráficas
