@@ -101,24 +101,33 @@ Queda su integración narrativa (Cowork).
   medidas ya existe en MET-1; ampliarla p.ej. con % de hogares que superarían
   el 30 % de esfuerzo).
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
-- ⬜ **Mantener `metodologia.html` y `datos.html`** sincronizados con
+- 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
-  resúmenes manuales, no generados).
+  resúmenes manuales, no generados). *`datos.html` al día con REC-21 (jul-2026,
+  Cowork): `pct_origin_*` + paro por nacionalidad + I+D. Pendiente: revisar el
+  recuento de métricas "8 obs./11 der./1 proxy" de `metodologia.html`, rancio
+  tras las 8 métricas `pct_origin_*` nuevas.*
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
-- ⬜ **Integración narrativa de REC-12/13/14/17** (datos nuevos de jul-2026,
-  Code): la purga VUT de 2025 y el "MET-7 con número" (REC-12+13) para la
-  historia #5 y la ficha del proxy Airbnb; el ratio de concentración de
-  empleo 1,20 (REC-17) cierra la mitad de H4 en el epílogo; la isla de calor
-  (REC-14, Gros +4,8 °C) da la dimensión espacial a la historia #4 y rima
-  con "la presión recae en el este". Detalle en `ANALISIS-INFERENCIAL.md`
-  §REC-13/§REC-14 y en las entradas ✅ de la sección Code.
+- ✅ **Integración narrativa de REC-12/13/14/17** — hecha (jul-2026, Cowork):
+  la purga VUT de 2025 y el "MET-7 con número" (×1,18) + altas REATE 300→18
+  en la historia turística y su ficha de proxy; el ratio de concentración de
+  empleo **1,20** (REC-17) cierra la mitad de H4 en el epílogo; la isla de calor
+  (REC-14, Gros +4,8 °C, barras divergentes por barrio) da la dimensión espacial
+  a la historia del clima. En `historias.html`; digest en `resumen.md`/`TESIS-CIUDAD.md`.
+  Verificado con jsdom (0 errores JS) y SVG rasterizados. Commit `3a2d78b`.
 - ⬜ **Pasada de coherencia de la historia #5** tras la integración de jul-2026:
   el capítulo encadena densidad → dos turismos → COVID (AN-20) → estacionalidad
   → AN-14 → lead/lag → escuelas; leerlo de corrido y reordenar/podar si se
   hace largo.
-- ⬜ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin
+- 🔷 **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin
   color) — incluido el connected scatter estático de AN-18 (historia #6).
+  *Parcial (jul-2026, Cowork):* pasada en `historias.html` sobre las gráficas
+  nuevas — correlación origen↔renta pasada a azul/coral (no rojo/verde) y con
+  cifras redundantes, `role="img"`+`aria-label` en los SVG del capítulo 4 y de
+  la isla de calor, contraste de leyendas subido. **Pendiente:** auditoría de
+  contraste de todo el sitio y del connected scatter, y accesibilidad del app
+  React (`web/`, es Code).
 - ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
 - ⬜ **Explorar granularidad calle/punto (no barrio) para REC-8**: el fichero
   `locales` del catastro foral (REC-8, ver sección Code) trae calle + portal
@@ -428,8 +437,10 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   dashboard (mapa + panel de indicadores). Quedan **analysis-only** por no
   encajar en el modelo Metric/Indicator (desglose multi-categoría, no un
   valor por año): ocupación CNO-11, establecimientos por sector A10 en
-  Donostia, renta por profesión. Pendiente (Cowork): integración narrativa en
-  `historias.html`/`resumen.md`.
+  Donostia, renta por profesión. ✅ **Integración narrativa hecha (jul-2026, Cowork):**
+  capítulo 4 «Quién trabaja Donostia» en `historias.html` (coropleta interactiva de
+  origen + gráficos de correlación/salario/I+D, caveats MET-5/MET-6) + digest en
+  `resumen.md`/`TESIS-CIUDAD.md`. **Pendiente (Code):** ver REC-21-web abajo.
 
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):
@@ -442,6 +453,15 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
   instancia maplibre real.
 - ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
+- ⬜ **REC-21-web — ficha de país en el detalle de barrio** (Code, `web/`):
+  top-5 países de origen por barrio con su evolución a 10 años, usando
+  `analysis/output/extranjeros_top_paises.csv` (regenerable con
+  `python analysis/perfil_extranjeros_empleo.py --save`). Decidir si vive en el
+  panel de detalle de barrio del app o solo en el relato. Las 8 métricas
+  `pct_origin_*` ya están cableadas y son seleccionables en el picker.
+- ⬜ **A11y del app React** (Code, `web/`): contraste, foco de teclado, texto
+  alternativo/tabla-espejo de los mapas y leyendas legibles sin color, en
+  paralelo a la pasada hecha en `historias.html`.
 - ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
   nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
   lado (cada uno con su propio selector de métrica y escala de color, no

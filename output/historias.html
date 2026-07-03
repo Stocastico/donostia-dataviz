@@ -511,7 +511,7 @@
 
     <div class="fig">
       <h3>Cada origen tira de la renta del barrio en sentido distinto</h3>
-      <p class="cap">Correlación de Pearson entre barrios (n=17) entre la cuota de cada región de origen y la renta per cápita del barrio. A la derecha (verde): se asienta donde la renta es mayor; a la izquierda (coral): donde es menor. Entre paréntesis, la correlación con el % de universitarios.</p>
+      <p class="cap">Correlación de Pearson entre barrios (n=17) entre la cuota de cada región de origen y la renta per cápita del barrio. A la derecha (azul): se asienta donde la renta es mayor; a la izquierda (coral): donde es menor. Entre paréntesis, la correlación con el % de universitarios.</p>
       <div class="mapwrap"><svg class="map" id="orgcorr" style="max-width:640px;margin:0 auto"></svg></div>
       <p class="src">analysis/perfil_extranjeros_empleo.py · docs/intermedia/ANALISIS-EXTRANJEROS-EMPLEO.md §1.3. Correlación entre barrios (falacia ecológica, MET-6): describe geografía, no hogares.</p>
     </div>
@@ -1699,7 +1699,7 @@ document.querySelectorAll('#compsel button').forEach(b=>b.addEventListener('clic
 
 
 /* ============ STORY: QUIÉN TRABAJA (REC-21) ============ */
-function mkSvg(id,w,h){const s=document.getElementById(id);if(!s)return null;s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.innerHTML='';return s;}
+function mkSvg(id,w,h,label){const s=document.getElementById(id);if(!s)return null;s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.setAttribute('role','img');if(label)s.setAttribute('aria-label',label);s.innerHTML='';return s;}
 function mk(svg,tag,attrs,txt){const n=el(tag,attrs);if(txt!=null)n.textContent=txt;svg.appendChild(n);return n;}
 const numES=(v,d=1)=>v.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
 const ORG_DATA={"latam":{"aiete":1.77,"altza":6.26,"amaraberri":5.96,"anorga":0.96,"antigua":3.32,"ategorrieta-ulia":2.32,"egia":5.93,"erdialdea":5.83,"gros":5.08,"ibaeta":3.11,"igeldo":1.64,"intxaurrondo":4.39,"landerbaso":0.0,"loiola":4.46,"martutene":6.83,"mirakruz-bidebieta":6.35,"miramon-zorroaga":0.0,"zubieta":0.0},"norte_africa":{"aiete":0.3,"altza":1.81,"amaraberri":0.49,"anorga":0.0,"antigua":0.22,"ategorrieta-ulia":0.0,"egia":0.47,"erdialdea":0.65,"gros":0.29,"ibaeta":0.51,"igeldo":0.0,"intxaurrondo":5.76,"landerbaso":0.0,"loiola":2.27,"martutene":0.0,"mirakruz-bidebieta":0.9,"miramon-zorroaga":0.0,"zubieta":0.0},"europa_occidental":{"aiete":2.01,"altza":0.82,"amaraberri":1.07,"anorga":0.0,"antigua":1.94,"ategorrieta-ulia":2.37,"egia":1.2,"erdialdea":2.71,"gros":2.2,"ibaeta":1.3,"igeldo":1.73,"intxaurrondo":1.15,"landerbaso":0.0,"loiola":0.9,"martutene":0.79,"mirakruz-bidebieta":0.98,"miramon-zorroaga":0.51,"zubieta":0.0},"asia":{"aiete":0.28,"altza":1.09,"amaraberri":1.41,"anorga":0.0,"antigua":0.37,"ategorrieta-ulia":0.0,"egia":0.6,"erdialdea":0.88,"gros":1.26,"ibaeta":0.6,"igeldo":0.0,"intxaurrondo":0.36,"landerbaso":0.0,"loiola":0.29,"martutene":0.0,"mirakruz-bidebieta":0.64,"miramon-zorroaga":0.0,"zubieta":0.0},"europa_este":{"aiete":0.85,"altza":1.17,"amaraberri":0.85,"anorga":0.0,"antigua":0.89,"ategorrieta-ulia":0.26,"egia":0.51,"erdialdea":1.2,"gros":0.61,"ibaeta":0.81,"igeldo":1.35,"intxaurrondo":0.57,"landerbaso":0.0,"loiola":0.78,"martutene":1.25,"mirakruz-bidebieta":1.42,"miramon-zorroaga":0.81,"zubieta":0.0}};
@@ -1708,6 +1708,7 @@ const ORG_HINTS={latam:'Más de la mitad de toda la población extranjera; se co
 const ORG_SEQ=['#f2f4fb','#c7cfe9','#8f9dd0','#5a6db5','#33468f'];
 let ORGK='latam';
 const mapOrg=buildMap('map_org');
+mapOrg.svg.setAttribute('role','img');mapOrg.svg.setAttribute('aria-label','Mapa coroplético de Donostia: cuota de población por región de origen y barrio; los mismos datos están en la tabla contigua.');
 function renderOrigin(){
   const S=ORG_DATA[ORGK];
   const entries=Object.keys(S).map(k=>[k,S[k]]).filter(e=>e[1]!=null);
@@ -1729,13 +1730,13 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* origin <-> income correlation (diverging bars) */
 (function orgCorr(){
   const rows=[['Europa occidental',0.24,0.59],['Europa del Este',-0.13,-0.12],['Asia',-0.28,0.16],['Norte de África',-0.48,-0.37],['América Latina',-0.69,-0.29]];
-  const W=680,H=250,padT=30,padB=26,namesR=150,x0=168,x1=498,gut=512;const svg=mkSvg('orgcorr',W,H);if(!svg)return;
+  const W=680,H=250,padT=30,padB=26,namesR=150,x0=168,x1=498,gut=512;const svg=mkSvg('orgcorr',W,H,'Correlación entre la cuota de cada región de origen y la renta del barrio; positiva se asienta donde hay más renta, negativa donde hay menos.');if(!svg)return;
   const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=0.8,sx=r=>cx+(r/SS)*plotW;
   const n=rows.length,bandH=(H-padT-padB)/n;
   mk(svg,'line',{x1:cx,y1:padT-8,x2:cx,y2:H-padB,stroke:'#c8d0dc','stroke-width':1});
   mk(svg,'text',{x:cx,y:16,'text-anchor':'middle',fill:'#6b7a90','font-size':11},'correlación con la renta del barrio');
-  [[-0.5,'−0,5'],[0,'0'],[0.5,'+0,5']].forEach(t=>mk(svg,'text',{x:sx(t[0]),y:H-8,'text-anchor':'middle',fill:'#9aa7ba','font-size':9},t[1]));
-  rows.forEach((r,i)=>{const name=r[0],ri=r[1],ru=r[2],cyb=padT+bandH*i+bandH/2,col=ri>=0?'#2a9d6f':'#d1495b',xr=sx(ri);
+  [[-0.5,'−0,5'],[0,'0'],[0.5,'+0,5']].forEach(t=>mk(svg,'text',{x:sx(t[0]),y:H-8,'text-anchor':'middle',fill:'#6b7a90','font-size':9.5},t[1]));
+  rows.forEach((r,i)=>{const name=r[0],ri=r[1],ru=r[2],cyb=padT+bandH*i+bandH/2,col=ri>=0?'#2c7bb6':'#d1495b',xr=sx(ri);
     mk(svg,'rect',{x:Math.min(cx,xr),y:cyb-9,width:Math.abs(xr-cx),height:18,rx:3,fill:col,'fill-opacity':.85});
     mk(svg,'text',{x:namesR,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':11,'font-weight':600},name);
     const lab=(ri>=0?'+':'−')+numES(Math.abs(ri),2)+'  (univ '+(ru>=0?'+':'−')+numES(Math.abs(ru),2)+')';
@@ -1746,7 +1747,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 (function salaryChart(){
   const rows=[['Directores y gerentes',65657],['Téc. y prof. científicos',39359],['Téc. y prof. de apoyo',32512],['Administrativos / oficina',30054],['Operadores de instalaciones',28815],['Artesanos y cualificados',27333],['Agrario / pesquero',24781],['Ocupaciones elementales',21488],['Servicios, ventas',18044]];
   const W=560,H=280,padT=8,padB=14,x0=155,x1=W-52;const svg=mkSvg('salary',W,H);if(!svg)return;
-  const max=70000,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;
+  const max=70000,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Renta media anual del trabajo por grupo de ocupación, de dirección 65.657 € a servicios 18.044 €.');
   rows.forEach((r,i)=>{const name=r[0],v=r[1],cyb=padT+bandH*i+bandH/2,t=(v-18000)/48000;
     mk(svg,'rect',{x:x0,y:cyb-9,width:sx(v)-x0,height:18,rx:3,fill:rampColor(['#cdd6ea','#5a6db5','#33468f'],t)});
     mk(svg,'text',{x:x0-8,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':10.5,'font-weight':600},name);
@@ -1757,23 +1758,23 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 (function randdChart(){
   const rows=[['Gipuzkoa',31.0,'#33468f'],['España',13.6,'#b3bdd6']];
   const W=360,H=200,padT=30,padB=42,x0=88,x1=W-46;const svg=mkSvg('randd',W,H);if(!svg)return;
-  const max=36,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;
+  const max=36,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Personal de I+D por 1.000 ocupados: Gipuzkoa 31,0 frente a España 13,6.');
   mk(svg,'text',{x:W/2,y:16,'text-anchor':'middle',fill:'#6b7a90','font-size':11},'Personal I+D por 1.000 ocupados');
   rows.forEach((r,i)=>{const name=r[0],v=r[1],c=r[2],cyb=padT+bandH*i+bandH/2;
     mk(svg,'rect',{x:x0,y:cyb-13,width:sx(v)-x0,height:26,rx:3,fill:c});
     mk(svg,'text',{x:x0-8,y:cyb+4,'text-anchor':'end',fill:'#3a4a63','font-size':11,'font-weight':600},name);
     mk(svg,'text',{x:sx(v)+6,y:cyb+4,fill:'#3a4a63','font-size':11,'font-weight':700},numES(v,1));});
-  mk(svg,'text',{x:W/2,y:H-10,'text-anchor':'middle',fill:'#9aa7ba','font-size':9.5},'‰ · investigadores: 21,0 vs 8,5');
+  mk(svg,'text',{x:W/2,y:H-10,'text-anchor':'middle',fill:'#6b7a90','font-size':9.5},'‰ · investigadores: 21,0 vs 8,5');
 })();
 
 /* heat island anomaly by barrio (REC-14, diverging bars) */
 (function heatBars(){
   const rows=[['Gros',4.8],['Amara Berri',4.3],['Egia',4.1],['Intxaurrondo',3.6],['Erdialdea (Centro)',3.0],['Aiete',2.7],['Loiola',2.5],['Altza',0.4],['Zubieta',-0.4],['Mirakruz-Bidebieta',-1.9],['Ategorrieta-Ulia',-2.7],['Igeldo',-3.1],['Oarain',-4.3],['Landerbaso',-4.6]];
   const W=640,H=380,padT=28,padB=22,x0=160,x1=W-52;const svg=mkSvg('heat_bars',W,H);if(!svg)return;
-  const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=5,sx=v=>cx+(v/SS)*plotW,n=rows.length,bandH=(H-padT-padB)/n;
+  const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=5,sx=v=>cx+(v/SS)*plotW,n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Anomalía de temperatura de superficie por barrio respecto a la media de la ciudad; Gros +4,8 grados, anillo verde hasta -4,6.');
   mk(svg,'line',{x1:cx,y1:padT-8,x2:cx,y2:H-padB,stroke:'#c8d0dc','stroke-width':1});
   mk(svg,'text',{x:cx,y:15,'text-anchor':'middle',fill:'#6b7a90','font-size':11},'Δ °C vs. media de la ciudad');
-  [[-4,'−4'],[-2,'−2'],[0,'0'],[2,'+2'],[4,'+4']].forEach(t=>mk(svg,'text',{x:sx(t[0]),y:H-7,'text-anchor':'middle',fill:'#9aa7ba','font-size':9},t[1]));
+  [[-4,'−4'],[-2,'−2'],[0,'0'],[2,'+2'],[4,'+4']].forEach(t=>mk(svg,'text',{x:sx(t[0]),y:H-7,'text-anchor':'middle',fill:'#6b7a90','font-size':9.5},t[1]));
   rows.forEach((r,i)=>{const name=r[0],v=r[1],cyb=padT+bandH*i+bandH/2,xr=sx(v);
     const col=v>=0?rampColor(['#f6b48f','#e34a33','#a63446'],Math.min(1,v/5)):rampColor(['#a6d4e6','#2c7bb6'],Math.min(1,-v/5));
     mk(svg,'rect',{x:Math.min(cx,xr),y:cyb-7,width:Math.abs(xr-cx),height:14,rx:2,fill:col});
