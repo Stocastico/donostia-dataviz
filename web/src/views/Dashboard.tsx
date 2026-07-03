@@ -15,6 +15,7 @@ import { LeadLagSection } from "../components/LeadLagSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
+import { BarrioOriginsSection } from "../components/BarrioOriginsSection";
 import { ConfidenceCard } from "../components/ConfidenceCard";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
@@ -171,6 +172,7 @@ export function Dashboard() {
       <HousingPressureSection />
       <MiceSection />
       <IndicatorsSection />
+      <BarrioOriginsSection />
     </div>
   );
 }

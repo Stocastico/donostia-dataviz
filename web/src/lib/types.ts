@@ -74,6 +74,29 @@ export interface IndicatorData {
   values: Record<string, { value: number; source: string }>;
 }
 
+/** One foreign country in a barrio's origin card (REC-21-web). */
+export interface OriginCountry {
+  country: string;
+  region: string;
+  peopleLatest: number;
+  peoplePast: number;
+  pctOfBarrio: number;
+}
+
+export interface BarrioOrigins {
+  name: string;
+  foreignLatest: number;
+  top: OriginCountry[];
+}
+
+/** Payload of origen_paises_barrio.json. */
+export interface OriginPaisesData {
+  latestYear: string | null;
+  pastYear: string | null;
+  source: string;
+  barrios: Record<string, BarrioOrigins>;
+}
+
 export interface BarrioProperties {
   barrio_id: string;
   name: string;
