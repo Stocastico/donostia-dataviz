@@ -78,9 +78,11 @@ jul-2026 anotado.
 **Análisis**
 - [x] Tanda inferencial AN-9…AN-20 (blindaje de índice, correlaciones, lead/lag).
 - [ ] Cada REC de la última tanda con su lectura frente a H1–H4.
-- [ ] **Indicador de accesibilidad residencial** (% hogares que superarían el 30 %
-  de esfuerzo) — pieza Code pendiente de la espina «tensión residencial»,
-  derivable de renta+alquiler ya en el proyecto (no requiere dato nuevo).
+- [x] **Accesibilidad residencial** — el *alivio* ya está a la vista con REC-15
+  (`vpo_dwellings_per_1000`) frente a la presión de MET-1. El «% de hogares que
+  superarían el 30 %» se **cierra como laguna declarada** (decisión del usuario,
+  jul-2026): exigiría inventar la distribución de renta intra-barrio (solo hay
+  media), la inferencia intra-grupo que el proyecto rechaza (MET-6).
 
 **Frontend (`web/`)**
 - [x] Mapa coroplético + slider + play + small multiples + dos-ciudades.

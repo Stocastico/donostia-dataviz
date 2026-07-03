@@ -107,9 +107,16 @@ Queda su integración narrativa (Cowork).
   (jul-2026, Cowork):* la síntesis (cap. 7) y su takeaway hacen explícita la
   **convergencia de presiones sobre el este obrero** &mdash;tensión alquiler/renta +
   migración económica (cap. 4) + isla de calor (cap. 5) sobre la misma geografía&mdash;,
-  con el caveat de la posible «ilusión de equidad» del Gini. **Pendiente (Code):**
-  (a) un indicador de accesibilidad residencial más completo (la familia ya existe
-  en MET-1; ampliarla p.ej. con % de hogares que superarían el 30 % de esfuerzo).
+  con el caveat de la posible «ilusión de equidad» del Gini. **Alivio ahora a la
+  vista (jul-2026, Code):** REC-15 `vpo_dwellings_per_1000` mapea dónde aterrizó
+  la vivienda protegida (este obrero) frente a dónde está la presión (centro
+  caro) — el contrapeso que faltaba. **Cerrado como laguna declarada (jul-2026,
+  decisión del usuario):** el indicador «% de hogares que superarían el 30 % de
+  esfuerzo» **no se implementa** — exigiría inventar la distribución de renta
+  *dentro* del barrio (solo hay media por barrio), justo la inferencia intra-grupo
+  que el proyecto rechaza (MET-6, falacia ecológica; mismo criterio que REC-8/11).
+  `housing_tension` ya da el esfuerzo teórico medio; el % de hogares necesitaría
+  microdatos de hogar que no son públicos a grano barrio.
 - ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
