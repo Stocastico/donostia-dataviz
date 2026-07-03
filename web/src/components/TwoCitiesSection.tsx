@@ -5,6 +5,7 @@ import type { MetricData, MetricInfo } from "../lib/types";
 import { ChoroplethMap } from "./ChoroplethMap";
 import { Legend } from "./Legend";
 import { MapDataTable } from "./MapDataTable";
+import { barrioRows } from "../lib/mapTable";
 import { MetricPicker } from "./MetricPicker";
 
 const TOURISM_IDS = ["airbnb_density", "vut_density", "vut_count"];
@@ -116,7 +117,12 @@ function TwoCitiesPanel({
         )}
       </div>
       {panel.metric && (
-        <MapDataTable geojson={barriosGeoJSON} metric={panel.metric} period={period} />
+        <MapDataTable
+          rows={barrioRows(barriosGeoJSON, panel.metric, period)}
+          label={panel.metric.label}
+          period={period}
+          unit={panel.metric.unit}
+        />
       )}
       {panel.metric && <p className="source-note">Fonte: {panel.metric.source}</p>}
     </div>

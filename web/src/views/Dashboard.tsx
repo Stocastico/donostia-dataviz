@@ -16,6 +16,7 @@ import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
 import { MapDataTable } from "../components/MapDataTable";
+import { barrioRows } from "../lib/mapTable";
 import { BarrioOriginsSection } from "../components/BarrioOriginsSection";
 import { ConfidenceCard } from "../components/ConfidenceCard";
 import { buildColorScale } from "../lib/colorScale";
@@ -123,7 +124,12 @@ export function Dashboard() {
       </div>
 
       {metric && (
-        <MapDataTable geojson={barriosGeoJSON} metric={metric} period={period} />
+        <MapDataTable
+          rows={barrioRows(barriosGeoJSON, metric, period)}
+          label={metric.label}
+          period={period}
+          unit={metric.unit}
+        />
       )}
 
       {selectedInfo && (

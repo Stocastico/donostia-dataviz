@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { barrioRows } from "../src/lib/mapTable";
+import { barrioRows, rowsFromDecorated } from "../src/lib/mapTable";
 import type { BarriosGeoJSON, MetricData } from "../src/lib/types";
 
 const geo = {
@@ -43,6 +43,20 @@ describe("barrioRows (map mirror table)", () => {
   it("has no delta for the first period", () => {
     const rows = barrioRows(geo, metric, "2020");
     expect(rows.every((r) => r.deltaLabel === "")).toBe(true);
+  });
+
+  it("reads computed rows from decorated features, sorted with n/d last", () => {
+    const decorated = {
+      type: "FeatureCollection",
+      features: [
+        { properties: { barrio_id: "a", name: "A", __value: 3, __valueLabel: "3%", __deltaLabel: "" } },
+        { properties: { barrio_id: "b", name: "B", __value: 9, __valueLabel: "9%", __deltaLabel: "" } },
+        { properties: { barrio_id: "c", name: "C", __value: null, __valueLabel: "n/d" } },
+      ],
+    } as unknown as BarriosGeoJSON;
+    const rows = rowsFromDecorated(decorated);
+    expect(rows.map((r) => r.id)).toEqual(["b", "a", "c"]);
+    expect(rows[2].valueLabel).toBe("n/d");
   });
 
   it("labels categorical metrics by category name, without a delta", () => {

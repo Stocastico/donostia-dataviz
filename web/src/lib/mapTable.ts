@@ -44,6 +44,34 @@ export function barrioRows(
     };
   });
 
+  return sortRows(rows);
+}
+
+/** Rows for maps whose barrios were decorated with computed __value/__valueLabel
+ *  (and optional __deltaLabel) rather than coming from a single MetricData —
+ *  e.g. the housing-pressure and bivariate maps. */
+export function rowsFromDecorated(geojson: BarriosGeoJSON): BarrioRow[] {
+  const rows = geojson.features.map((f) => {
+    const p = f.properties as unknown as {
+      barrio_id: string;
+      name: string;
+      __value?: number | null;
+      __valueLabel?: string;
+      __deltaLabel?: string;
+    };
+    return {
+      id: p.barrio_id,
+      name: p.name,
+      value: p.__value ?? null,
+      valueLabel: p.__valueLabel ?? "n/d",
+      deltaLabel: p.__deltaLabel ?? "",
+    };
+  });
+  return sortRows(rows);
+}
+
+/** Sort by value descending, barrios with no value last (alpha among them). */
+function sortRows(rows: BarrioRow[]): BarrioRow[] {
   return rows.sort((x, y) => {
     if (x.value == null && y.value == null) return x.name.localeCompare(y.name, "it");
     if (x.value == null) return 1;

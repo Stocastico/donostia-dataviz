@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { ChoroplethMap } from "./ChoroplethMap";
 import { Legend } from "./Legend";
 import { ConfidenceCard } from "./ConfidenceCard";
+import { MapDataTable } from "./MapDataTable";
+import { barrioRows } from "../lib/mapTable";
 import { buildColorScale } from "../lib/colorScale";
 import { barriosGeoJSON, loadMetric, metricRegistry } from "../lib/data";
 import type { MetricData } from "../lib/types";
@@ -46,12 +48,24 @@ function MapCard({ metricId, title }: { metricId: string; title: ReactNode }) {
     <div className="transform-card">
       <h3>{title}</h3>
       {metric && scale ? (
-        <div className="map-area">
+        <div
+          className="map-area"
+          role="img"
+          aria-label={`Mappa coropletica: ${metric.label}, ${period}. Dati nella tabella qui sotto.`}
+        >
           <ChoroplethMap geojson={barriosGeoJSON} metric={metric} period={period} scale={scale} />
           <Legend scale={scale} unit={metric.unit} />
         </div>
       ) : (
         <div className="map-placeholder">Caricamento…</div>
+      )}
+      {metric && (
+        <MapDataTable
+          rows={barrioRows(barriosGeoJSON, metric, period)}
+          label={metric.label}
+          period={period}
+          unit={metric.unit}
+        />
       )}
       {info?.confidence && (
         <ConfidenceCard confidence={info.confidence} assumptions={info.assumptions} />

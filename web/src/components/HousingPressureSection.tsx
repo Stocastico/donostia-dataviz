@@ -7,6 +7,8 @@ import { formatValue } from "../lib/format";
 import type { BarriosGeoJSON, MetricData, MetricKind } from "../lib/types";
 import { BarrioMap } from "./BarrioMap";
 import { Legend } from "./Legend";
+import { MapDataTable } from "./MapDataTable";
+import { rowsFromDecorated } from "../lib/mapTable";
 
 const M2_OPTIONS = [20, 30, 40] as const;
 type M2 = (typeof M2_OPTIONS)[number];
@@ -87,6 +89,7 @@ export function HousingPressureSection() {
         ...f,
         properties: {
           ...f.properties,
+          __value: has ? v : null,
           __color: has ? s.color(v) : NO_DATA_COLOR,
           __valueLabel: has ? formatValue(v, measure.unit) : "n/d",
           __deltaLabel: "",
@@ -158,11 +161,20 @@ export function HousingPressureSection() {
       </p>
 
       <div className="bivariate-body">
-        <div className="map-area">
+        <div
+          className="map-area"
+          role="img"
+          aria-label={`Mappa coropletica: ${measure.label}. Dati nella tabella qui sotto.`}
+        >
           {scale ? (
             <>
               <BarrioMap data={data} />
               <Legend scale={scale} unit={measure.unit} />
+              <MapDataTable
+                rows={rowsFromDecorated(data)}
+                label={measure.label}
+                unit={measure.unit}
+              />
             </>
           ) : (
             <div className="map-placeholder">Caricamento dati…</div>
