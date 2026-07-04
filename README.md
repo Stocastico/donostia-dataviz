@@ -136,6 +136,12 @@ con `barrio_id` estable como clave de join.
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
 > usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).
 
+Además de las 37 métricas por barrio, hay una vista **sub-barrio** (grano
+**calle**): *"Viviendas turísticas, calle a calle"* — un mapa de símbolos
+proporcionales de las **viviendas turísticas por calle** (301 calles), cruzando
+el censo VUT con el callejero municipal. Datos en `web/src/data/street_vut.json`
+y `datos/procesado/tablas/calles_vut.csv`.
+
 Todas las cifras citadas en la documentación y en `output/historias.html` son
 **reproducibles** desde `analysis/*.py` o desde las métricas del pipeline.
 

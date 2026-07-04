@@ -549,8 +549,16 @@ def run(offline: bool = False) -> dict:
     calle_csv = config.RAW_DIR / calles_vut.CSV_NAME
     if calle_zip.exists() and calle_csv.exists():
         streets = calles_vut.write_json(calle_zip, calle_csv, out_dir / "street_vut.json")
+        # Same numbers as a tidy CSV (project principle), under datos/procesado.
+        export_tables.write_csv(
+            config.TABLES_DIR / "calles_vut.csv",
+            ["street_code", "name_es", "name_eu", "lon", "lat", "units", "vut", "hut", "beds"],
+            [{"street_code": s["code"], "name_es": s["nameEs"], "name_eu": s["nameEu"],
+              "lon": s["lon"], "lat": s["lat"], "units": s["units"], "vut": s["vut"],
+              "hut": s["hut"], "beds": s["beds"]} for s in streets["streets"]],
+        )
         print(
-            f"  ✓ street_vut.json ({streets['streetCount']} streets, "
+            f"  ✓ street_vut.json + calles_vut.csv ({streets['streetCount']} streets, "
             f"{streets['matchRate']}% of census rows matched)"
         )
     else:
