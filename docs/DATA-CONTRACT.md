@@ -112,6 +112,42 @@ scalar per cell) feeding the "Chi vive nel barrio · origini" section. Built by
 > ⚠️ MET-5: country of origin is **not** a proxy for income/tourism/
 > transformation. The card is descriptive and the UI copy states it.
 
+### `street_vut.json` — touristic housing per **street** (sub-barrio)
+
+The one payload keyed on **street geometry**, not `barrio_id`: it feeds the
+"Viviendas turísticas, calle a calle" proportional-symbol map. Built by
+`datasets/calles_vut.py` by matching the VUT census (`vtur_censo.csv`) addresses
+to the municipal callejero (a stable `KodKalea` code + a representative label
+point per street). `matchRate` keeps the join honest — the pipeline never
+silently drops unmatched rows. Same numbers exported as
+`datos/procesado/tablas/calles_vut.csv`.
+
+```jsonc
+{
+  "source": "Donostia Open Data — censo viviendas turísticas × callejero municipal",
+  "totalRows": 1489,               // census rows seen
+  "matchedRows": 1489,             // rows matched to a street
+  "matchRate": 100.0,              // matchedRows / totalRows * 100
+  "streetCount": 301,              // streets with ≥1 touristic unit
+  "streets": [                     // sorted by units desc
+    {
+      "code": "5060",              // callejero KodKalea (stable join key)
+      "nameEs": "Zabaleta, Calle de",
+      "nameEu": "Zabaleta Kalea",
+      "lon": -1.974356,            // representative label point (WGS84),
+      "lat": 43.324396,            //   NOT the street axis
+      "units": 35,                 // touristic units (vut + hut)
+      "vut": 34,                   // whole dwellings
+      "hut": 1,                    // rooms
+      "beds": 155                  // licensed beds (plazas) summed
+    }
+  ]
+}
+```
+
+> Snapshot (no time dimension), point-not-line. Read a circle as "touristic
+> units at this street", located at the street's label anchor.
+
 ## Invariants (enforced by pipeline tests)
 
 1. Every `barrio_id` used in any `metric_*.json` exists in `barrios.geojson`.

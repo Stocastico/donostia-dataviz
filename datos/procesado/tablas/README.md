@@ -54,6 +54,21 @@ its own `source` because these are curated from individual press releases.
 | `year`, `value` | the observation |
 | `source` | citation for that specific figure |
 
+### `calles_vut.csv`
+Touristic housing (VUT/HUT) at **street** granularity — the one table below the
+barrio level. One row per street with ≥1 touristic unit (301 streets). Built by
+matching the VUT census addresses to the municipal callejero (see
+`datasets/calles_vut.py`); mirrors `web/src/data/street_vut.json`.
+
+| column | meaning |
+|---|---|
+| `street_code` | stable callejero code (`KodKalea`) |
+| `name_es`, `name_eu` | street name (Spanish / Basque) |
+| `lon`, `lat` | representative label point (WGS84), *not* the street axis |
+| `units` | touristic units on the street (`vut` + `hut`) |
+| `vut`, `hut` | split into whole dwellings (VUT) and rooms (HUT) |
+| `beds` | licensed beds (plazas) summed over the street's units |
+
 ## Provenance
 
 Sources and access status for every dataset are documented in

@@ -39,6 +39,31 @@ export interface MetricData {
   categories?: string[];
 }
 
+/** One street in the sub-barrio touristic-housing export (street_vut.json). */
+export interface StreetVut {
+  code: string;
+  nameEs: string;
+  nameEu: string;
+  lon: number;
+  lat: number;
+  /** Touristic units on the street (VUT + HUT). */
+  units: number;
+  vut: number;
+  hut: number;
+  /** Licensed beds (plazas) summed over the street's units. */
+  beds: number;
+}
+
+/** Payload of street_vut.json — touristic housing per street (calles_vut). */
+export interface StreetVutData {
+  source: string;
+  totalRows: number;
+  matchedRows: number;
+  matchRate: number;
+  streetCount: number;
+  streets: StreetVut[];
+}
+
 /** Lightweight descriptor from series.json. */
 export interface SeriesInfo {
   id: string;

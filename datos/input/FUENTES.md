@@ -18,7 +18,8 @@ existe dataset abierto estructurado.
 | Fichero crudo | Fuente | URL | Alimenta | Snapshot / periodo | Licencia |
 |---|---|---|---|---|---|
 | `auzoak.json` | Donostia Open Data | `.../recursos/mapa_auzoak/auzoak.json` | geometría de referencia (barrios) | actual | Open Data DSS |
-| `vtur_censo.csv` | Donostia Open Data | `.../recursos/censo-viviendas-turisticas/urb_ckan_vtur_censo.csv` | `vut_count`, `vut_density`, `vut_plazas` | snapshot actual | Open Data DSS |
+| `vtur_censo.csv` | Donostia Open Data | `.../recursos/censo-viviendas-turisticas/urb_ckan_vtur_censo.csv` | `vut_count`, `vut_density`, `vut_plazas` y (por **calle**, vía `helbidea`) `street_vut.json` / `calles_vut.csv` | snapshot actual | Open Data DSS |
+| `callejero.zip` | Donostia Open Data (Nombres de calle) | `.../dataset/ce59dab6…/download/hiribarrukobideenizena.zip` (SHP de puntos-etiqueta, EPSG:25830, con `KodKalea` + nombres ES/EU) | callejero municipal → geometría de `street_vut.json` / `calles_vut.csv` (grano **calle**, sub-barrio) | actual (861 calles) | Open Data DSS |
 | `demo_barrio.csv` | Donostia Open Data | `.../recursos/demografia-origen/demografianacionalidadbarrio.csv` | `pct_foreign`, `population`, `pct_origin_*` (8 métricas por región de origen, REC-21) y `origen_paises_barrio.json` (ficha top-5 países por barrio, REC-21-web) | anual 2000–2025 | Open Data DSS |
 | `edad_barrio.csv` | Donostia Open Data | `.../recursos/demografia-piramideedad/demografiapiramideedadbarrio.csv` | `ageing_index`, `pct_youth_adults` | anual 2000–2025 | Open Data DSS |
 | `renta_barrio.csv` | Donostia Open Data (Eustat) | `.../recursos/eustat_renta/eustatrentabarrio.csv` | `income_total`, `income_gender_gap` | anual 2016–2023 | Open Data DSS / Eustat |

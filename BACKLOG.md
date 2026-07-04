@@ -158,16 +158,29 @@ Queda su integración narrativa (Cowork).
   contraste de todo el sitio y del connected scatter, y accesibilidad del app
   React (`web/`, es Code).
 - ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
-- ⬜ **Explorar granularidad calle/punto (no barrio) para REC-8**: el fichero
-  `locales` del catastro foral (REC-8, ver sección Code) trae calle + portal
-  por local — no agregable a barrio sin un callejero (bloqueado en Code), pero
-  sí explotable *sin* agregar a barrio: densidad de locales, superficie media,
-  antigüedad de la edificación (`FeFinObr`) por calle o por punto. Investigar
-  si tiene sentido narrativo una visualización a esa escala (mapa de puntos o
-  por eje viario en vez de coropleta) y qué insight aportaría (p. ej. ejes
-  comerciales, antigüedad del parque construido) que la vista por barrio no
-  muestre. REC-6 (movilidad) no aplica hoy: su fuente está dada de baja, sin
-  datos de ningún grano disponibles.
+- ✅ **Granularidad calle/punto (no barrio)** — hecho (jul-2026, Code): primera
+  vista **sub-barrio** del proyecto. El censo VUT (`vtur_censo.csv`) trae la
+  dirección (`helbidea`) y el **callejero municipal** de Donostia Open Data
+  (*Nombres de calle*, SHP de puntos-etiqueta con código estable `KodKalea` +
+  nombres ES/EU) da geometría por calle — el "callejero que faltaba" que
+  bloqueaba REC-8/REC-12 **ya está cableado**. Un matcher de prefijo más largo
+  (que no parte los nombres con número dentro, p. ej. *Abuztuaren 31 Kalea* /
+  *31 de Agosto*) empareja dirección→calle al **100 % de las 1.489 filas del
+  censo**. Salida: `web/src/data/street_vut.json` + `datos/procesado/tablas/`
+  `calles_vut.csv` (301 calles: unidades/plazas VUT-HUT por calle) y una sección
+  nueva en la app — *"Viviendas turísticas, calle a calle"* — con **mapa de
+  símbolos proporcionales** (un círculo por calle, tamaño+color por unidades o
+  plazas), leyenda y **tabla-espejo accesible**. Enseña lo que la media de
+  barrio borra: los ejes saturados del centro (Zabaleta, Urbieta, Easo, San
+  Marcial) frente a un barrio "medio". Módulo `datasets/calles_vut.py` + tests;
+  `lib/streets.ts` + tests. Verificado en navegador (Playwright).
+  - *Pendiente / no hecho:* la parte **catastral** de la idea original
+    (antigüedad de la edificación `FeFinObr`, densidad de locales/superficie
+    media por calle) sigue aparcada — el catastro foral es **inalcanzable desde
+    este entorno** (`opendata.gipuzkoa.eus` 502; mirror sin API limpia). Con el
+    callejero ya cableado sería abordable el día que el host se desbloquee.
+  - REC-6 (movilidad) no aplica hoy: su fuente está dada de baja, sin datos de
+    ningún grano disponibles.
 
 ---
 

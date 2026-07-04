@@ -21,6 +21,7 @@ from .datasets import (
     aemet_climate,
     airbnb,
     barrio_profiles,
+    calles_vut,
     change_velocity,
     demografia,
     demografia_edad,
@@ -85,6 +86,15 @@ RAW_DOWNLOADS: dict[str, str] = {
     "emal_barrios.xlsx": (
         "https://euskadi.eus/contenidos/estadistica/122417_emal_tablas_estad/"
         "opendata/EMAL.-Barrios-Municipios.-2016-2025_es.xlsx"
+    ),
+    # Municipal street directory (callejero, "Nombres de calle") — zipped SHP of
+    # label points in EPSG:25830 with a stable street code (KodKalea) + ES/EU
+    # names. Enables the street-granularity VUT map (calles_vut). Not joined to
+    # barrios: this is the sub-barrio layer.
+    calles_vut.RAW_ZIP: (
+        "https://www.donostia.eus/datosabiertos/dataset/"
+        "ce59dab6-0de6-47b9-b5d7-8b422a68b709/resource/"
+        "74843ba4-16a4-487b-baf7-583f521c2368/download/hiribarrukobideenizena.zip"
     ),
     # Educational facilities (GeoJSON points, WGS84) — joined to barrios spatially.
     "educativos.json": (
@@ -531,6 +541,28 @@ def run(offline: bool = False) -> dict:
         barrio_names,
     )
     print(f"  ✓ origen_paises_barrio.json ({len(origen['barrios'])} barrios)")
+
+    # 5c. Touristic housing per **street** (sub-barrio). Not a Metric — street
+    #     geometry, not barrio_id; its own JSON export (see the module docstring).
+    #     Skipped gracefully if the callejero SHP or the census isn't present.
+    calle_zip = config.RAW_DIR / calles_vut.RAW_ZIP
+    calle_csv = config.RAW_DIR / calles_vut.CSV_NAME
+    if calle_zip.exists() and calle_csv.exists():
+        streets = calles_vut.write_json(calle_zip, calle_csv, out_dir / "street_vut.json")
+        # Same numbers as a tidy CSV (project principle), under datos/procesado.
+        export_tables.write_csv(
+            config.TABLES_DIR / "calles_vut.csv",
+            ["street_code", "name_es", "name_eu", "lon", "lat", "units", "vut", "hut", "beds"],
+            [{"street_code": s["code"], "name_es": s["nameEs"], "name_eu": s["nameEu"],
+              "lon": s["lon"], "lat": s["lat"], "units": s["units"], "vut": s["vut"],
+              "hut": s["hut"], "beds": s["beds"]} for s in streets["streets"]],
+        )
+        print(
+            f"  ✓ street_vut.json + calles_vut.csv ({streets['streetCount']} streets, "
+            f"{streets['matchRate']}% of census rows matched)"
+        )
+    else:
+        print("  · street_vut.json skipped (callejero.zip / vtur_censo.csv absent)")
 
     # 6. Tidy CSV export (language-agnostic tables under data/).
     tables = config.TABLES_DIR

@@ -11,6 +11,7 @@ import { BivariateSection } from "../components/BivariateSection";
 import { TransformationSection } from "../components/TransformationSection";
 import { TwoCitiesSection } from "../components/TwoCitiesSection";
 import { TourismCompareSection } from "../components/TourismCompareSection";
+import { StreetVutSection } from "../components/StreetVutSection";
 import { LeadLagSection } from "../components/LeadLagSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
 import { MiceSection } from "../components/MiceSection";
@@ -187,6 +188,7 @@ export function Dashboard() {
       <TransformationSection />
       <TwoCitiesSection />
       <TourismCompareSection />
+      <StreetVutSection />
       <LeadLagSection />
       <HousingPressureSection />
       <MiceSection />
