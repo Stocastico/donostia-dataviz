@@ -108,3 +108,18 @@ def test_streets_carry_display_names_and_point():
     assert melodi["nameEu"] == "Melodi Kalea"
     assert melodi["nameEs"] == "Melodi, Calle"
     assert melodi["lon"] == -2.00 and melodi["lat"] == 43.30
+
+
+def test_payload_contract_invariants():
+    """Invariants the DATA-CONTRACT promises for street_vut.json."""
+    payload = calles_vut.build_payload(CALLEJERO, VUT_ROWS)
+    assert payload["matchedRows"] <= payload["totalRows"]
+    assert payload["streetCount"] == len(payload["streets"])
+    for s in payload["streets"]:
+        assert s["units"] == s["vut"] + s["hut"]  # split sums to the total
+        assert s["units"] >= 1                      # only streets with VUT are kept
+        assert s["beds"] >= 0
+        assert s["lon"] is not None and s["lat"] is not None  # always placeable
+    # sorted by units descending
+    unit_seq = [s["units"] for s in payload["streets"]]
+    assert unit_seq == sorted(unit_seq, reverse=True)
