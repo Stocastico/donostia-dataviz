@@ -8,8 +8,8 @@ import type { StreetVut, StreetVutData } from "./types";
 
 /** Selectable measures. ``rMin``/``rMax`` bound the circle radius in pixels. */
 export const MEASURES = {
-  units: { key: "units" as const, label: "Viviendas turísticas", unit: "unità", rMin: 4, rMax: 22 },
-  beds: { key: "beds" as const, label: "Plazas turísticas", unit: "posti letto", rMin: 4, rMax: 22 },
+  units: { key: "units" as const, label: "Viviendas turísticas", unit: "unidades", rMin: 4, rMax: 22 },
+  beds: { key: "beds" as const, label: "Plazas turísticas", unit: "plazas", rMin: 4, rMax: 22 },
 } satisfies Record<string, { key: keyof Pick<StreetVut, "units" | "beds">; label: string; unit: string; rMin: number; rMax: number }>;
 
 export type MeasureKey = keyof typeof MEASURES;

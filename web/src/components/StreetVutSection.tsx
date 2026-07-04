@@ -33,15 +33,15 @@ export function StreetVutSection() {
     <section className="street-vut">
       <h2>Viviendas turísticas, calle a calle</h2>
       <p className="street-vut-sub">
-        Il resto dell'app aggrega tutto ai 19 barrios; questa vista scende un
-        livello. Il censo VUT porta l'indirizzo (<code>helbidea</code>), e il{" "}
-        callejero municipale dà un codice di via stabile e un punto per ogni
-        strada: uniti, contano le <strong>{totalUnits}</strong> viviendas
-        turísticas per via. Emerge ciò che la media di barrio nasconde — gli assi
-        della Parte Vieja e i paseos, non un barrio «medio».
+        El resto de la app lo agrega todo a los 19 barrios; esta vista baja un
+        nivel. El censo VUT trae la dirección (<code>helbidea</code>) y el{" "}
+        callejero municipal da un código de calle estable y un punto por calle:
+        cruzados, cuentan las <strong>{totalUnits}</strong> viviendas turísticas
+        por calle. Aflora lo que la media de barrio esconde — los ejes del centro
+        y los paseos, no un barrio «medio».
       </p>
 
-      <div className="street-vut-controls" role="group" aria-label="Misura mostrata">
+      <div className="street-vut-controls" role="group" aria-label="Medida mostrada">
         {(Object.keys(MEASURES) as MeasureKey[]).map((k) => (
           <button
             key={k}
@@ -58,7 +58,7 @@ export function StreetVutSection() {
       <div
         className="map-area"
         role="img"
-        aria-label={`Mappa a simboli proporzionali: ${m.label} per via a Donostia. Ogni cerchio è una via, più grande e più caldo dove ci sono più unità. Via con più ${m.unit}: ${top ? `${top.name}, ${top.valueLabel}` : "n/d"}. Dati completi nella tabella qui sotto.`}
+        aria-label={`Mapa de símbolos proporcionales: ${m.label} por calle en Donostia. Cada círculo es una calle, más grande y más cálido donde hay más unidades. Calle con más ${m.unit}: ${top ? `${top.name}, ${top.valueLabel}` : "n/d"}. Datos completos en la tabla de abajo.`}
       >
         <StreetMap data={fc} />
         <Legend scale={scale} unit={m.unit} />
@@ -66,24 +66,24 @@ export function StreetVutSection() {
 
       <details className="map-data-table">
         <summary>
-          Tabella dati: {m.label} per via ({data.streetCount} vie)
+          Tabla de datos: {m.label} por calle ({data.streetCount} calles)
         </summary>
         <p className="street-vut-note">
-          Fonte: {data.source}. Match indirizzo→via: {data.matchedRows}/
-          {data.totalRows} righe del censo ({data.matchRate}%). Il punto è
-          l'ancora dell'etichetta della via (non il suo asse); censo istantaneo,
-          senza serie storica.
+          Fuente: {data.source}. Emparejamiento dirección→calle:{" "}
+          {data.matchedRows}/{data.totalRows} filas del censo ({data.matchRate}%).
+          El punto es el ancla de la etiqueta de la calle (no su eje); censo
+          instantáneo, sin serie histórica.
         </p>
         <table>
           <caption className="sr-only">
-            {m.label} per via a Donostia, in {m.unit}, ordinate dal più alto al
-            più basso.
+            {m.label} por calle en Donostia, en {m.unit}, ordenadas de mayor a
+            menor.
           </caption>
           <thead>
             <tr>
-              <th scope="col">Via</th>
+              <th scope="col">Calle</th>
               <th scope="col">{m.label}</th>
-              <th scope="col">{measure === "units" ? "Posti letto" : "Unità"}</th>
+              <th scope="col">{measure === "units" ? "Plazas" : "Unidades"}</th>
             </tr>
           </thead>
           <tbody>
