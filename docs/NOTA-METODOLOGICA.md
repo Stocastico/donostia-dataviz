@@ -91,7 +91,9 @@ la honestidad del proyecto.
 muestra una **ficha de confianza** (badge de color + supuestos) bajo el mapa.
 Reparto actual (jul-2026): **37 métricas live — 16 observadas, 18 derivadas, 3
 proxy** (`noise_night_pct55` ruido de transporte, `airbnb_activity` sesgo de
-adopción, `vpo_dwellings_per_1000` solo promociones Etxebide). Ejemplos de
+adopción, `vpo_dwellings_per_1000` solo promociones Etxebide — ventana parcial:
+≤~⅓ del solo alquiler protegido de la ciudad, patronato municipal ausente, sus
+«0» no implican ausencia de VPO). Ejemplos de
 supuestos expuestos: el 30 m²/persona de `housing_tension`, el k-means N=13 de
 `barrio_profile`, "% extranjeros no es proxy de gentrificación", el join
 punto→barrio de `schools/health_per_1000` y `vpo_dwellings_per_1000`.

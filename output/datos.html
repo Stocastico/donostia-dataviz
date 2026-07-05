@@ -84,7 +84,7 @@
       <thead><tr><th>Métrica</th><th>Unidad</th><th>Cobertura</th><th>Confianza</th><th>Fuente</th></tr></thead>
       <tbody>
         <tr><td><code>housing_tension</code></td><td>esfuerzo alquiler/renta (%)</td><td>13 barrios, 2023</td><td><span class="badge b-der">derivado</span></td><td>EMA + Eustat (supuesto 30 m²/persona, regulable)</td></tr>
-        <tr><td><code>vpo_dwellings_per_1000</code></td><td>viviendas protegidas /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-pro">proxy</span></td><td>Promociones de Etxebide — Open Data Euskadi (REC-15; solo Etxebide, join espacial). Huella en el este obrero, 0 en el centro</td></tr>
+        <tr><td><code>vpo_dwellings_per_1000</code></td><td>viviendas Etxebide /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-pro">proxy</span></td><td>Promociones de Etxebide — Open Data Euskadi (REC-15; join espacial). ⚠️ Ventana parcial: 1.120 viviendas, ≤~⅓ del solo alquiler protegido (3.151 uds., zona tensionada 2024); el patronato municipal (2.087) no se publica georreferenciado → un «0» no implica ausencia de VPO</td></tr>
         <tr><td><code>rent_eur_m2</code></td><td>€/m² construido</td><td>13 barrios, 2016–2024</td><td><span class="badge b-obs">observado</span></td><td>Gobierno Vasco — EMA/EMAL (T8.3)</td></tr>
         <tr><td><code>income_total</code></td><td>renta per cápita €</td><td>17 barrios, 2016–2023</td><td><span class="badge b-obs">observado</span></td><td>Eustat (vía Donostia Open Data)</td></tr>
         <tr><td><code>pct_university</code> / <code>pct_foreign</code></td><td>%</td><td>por barrio, serie 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — Donostia Open Data</td></tr>
@@ -152,7 +152,9 @@
       <li><a href="https://opendata.euskadi.eus">Open Data Euskadi — registro REATE</a> — viviendas y
         habitaciones de uso turístico con fecha de alta (histórico de licencias VUT/HUT).</li>
       <li><a href="https://opendata.euskadi.eus">Open Data Euskadi — Etxebide</a> — promociones de vivienda
-        protegida (coords + nº de viviendas), geocodificadas a barrio (REC-15, <code>vpo_dwellings_per_1000</code>).</li>
+        protegida (coords + nº de viviendas), geocodificadas a barrio (REC-15, <code>vpo_dwellings_per_1000</code>).
+        Registro <strong>parcial</strong>: ni el parque del patronato municipal (Donostiako Etxegintza, 2.087
+        viviendas) ni el Registro de Vivienda Protegida completo se publican georreferenciados — laguna declarada.</li>
       <li><a href="https://www.euskadi.eus">Gobierno Vasco — EMA/EMAL</a> — alquiler medio €/m² por barrio,
         2016–2024 (fianzas registradas).</li>
       <li><a href="https://opendata.aemet.es">AEMET OpenData</a> — climatologías mensuales de la estación

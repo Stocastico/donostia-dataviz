@@ -108,9 +108,11 @@ Queda su integración narrativa (Cowork).
   **convergencia de presiones sobre el este obrero** &mdash;tensión alquiler/renta +
   migración económica (cap. 4) + isla de calor (cap. 5) sobre la misma geografía&mdash;,
   con el caveat de la posible «ilusión de equidad» del Gini. **Alivio ahora a la
-  vista (jul-2026, Code):** REC-15 `vpo_dwellings_per_1000` mapea dónde aterrizó
-  la vivienda protegida (este obrero) frente a dónde está la presión (centro
-  caro) — el contrapeso que faltaba. **Cerrado como laguna declarada (jul-2026,
+  vista, con cobertura acotada (jul-2026, recalibrado el 05):** el contrapeso
+  público se cuenta con el dato de ciudad (alquiler protegido = 3.151 viviendas,
+  ¼ del alquiler ocupado, memoria de zona tensionada 2024) + la ventana Etxebide
+  de REC-15 (≤~⅓ de ese parque, concentrada en el este obrero); su mapa completo
+  por barrio no es público. **Cerrado como laguna declarada (jul-2026,
   decisión del usuario):** el indicador «% de hogares que superarían el 30 % de
   esfuerzo» **no se implementa** — exigiría inventar la distribución de renta
   *dentro* del barrio (solo hay media por barrio), justo la inferencia intra-grupo
@@ -130,13 +132,14 @@ Queda su integración narrativa (Cowork).
   (REC-15) y `health_per_1000` (REC-18) en la tabla y en Fuentes (Etxebide, salud).*
 - ✅ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)** —
   hecha (jul-2026, **desde Code**; resultó perfectamente hacible sin Cowork): cap. 7
-  gana la figura «El contrapeso público» (mapa VPO **junto al de tensión MET-1**,
-  con la lectura Loiola 22,3‰ / cero en el centro caro **y también en Altza-Egia,
-  los barrios más tensionados**) + frase en el takeaway + matiz en la hipótesis 3
-  del epílogo; cap. 6 gana la capa «Servicios de salud» en el mapa de la ciudad
-  vivida (13 urbanos: Loiola/Egia en cabeza; el artefacto de Miramón-Zorroaga,
-  documentado y fuera del mapa de 13). Digest en `resumen.md`/`TESIS-CIUDAD.md`
-  (incl. anexo 🏥 y matiz de H3). Verificado en navegador (0 errores JS).
+  gana la figura del contrapeso público (mapa Etxebide **junto al de tensión
+  MET-1**) + frase en el takeaway + matiz en la hipótesis 3 del epílogo; cap. 6
+  gana la capa «Servicios de salud» en el mapa de la ciudad vivida (13 urbanos:
+  Loiola/Egia en cabeza; el artefacto de Miramón-Zorroaga, documentado y fuera
+  del mapa de 13). Digest en `resumen.md`/`TESIS-CIUDAD.md` (incl. anexo 🏥 y
+  matiz de H3). Verificado en navegador (0 errores JS). *Reescrita el 05 tras
+  cuantificar la cobertura del registro Etxebide (ver REC-15): la figura pasa a
+  «una ventana parcial» y las lecturas sobre los ceros se retiran.*
 - ✅ **Ficha de país en el relato (opcional)** — hecha (jul-2026, Code): la
   historia #4 remite a la vista «Chi vive nel barrio · origini» del panel
   (puente app↔narrativa), mismo patrón que la vista calle a calle.
@@ -452,19 +455,28 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   en el este"; anillo verde −3…−5 °C. La historia #4 gana dimensión espacial;
   `lst_anomaly` es candidata a coropleta. Detalle en
   `ANALISIS-INFERENCIAL.md` §REC-14.
-- ✅ **REC-15 vivienda protegida / VPO** — hecho (jul-2026): métrica coroplética
+- ✅ **REC-15 vivienda protegida / VPO** — hecho (jul-2026), **recalibrado
+  (2026-07-05, petición del usuario)**: métrica coroplética
   `vpo_dwellings_per_1000` (proxy, snapshot) desde las **promociones de Etxebide**
   (Open Data Euskadi): coords UTM + nº de viviendas, geocodificadas punto→barrio
-  y normalizadas por 1000 hab. Cierra la laguna «tensión residencial» del
-  `PLAN-CIERRE.md`: **dónde aterrizó la vivienda protegida vs. dónde está la
-  presión**. Hallazgo: la huella se concentra en el este obrero/periférico
-  (Loiola 22,3‰, Amara Berri, Intxaurrondo, Ibaeta) y es **cero en 14 barrios**,
-  incluido el centro caro (Erdialdea) y Gros — el contrapeso H2/H3 que faltaba.
-  Solo promociones Etxebide (VISESA/Alokabide/Gob. Vasco), no todo el parque VPO
-  ni el patronato municipal → suelo del parque, no censo. Módulo
-  `datasets/vpo_etxebide.py` + 4 tests. ✅ *Integración narrativa hecha (jul-2026,
-  Code): figura «El contrapeso público» en el cap. 7 (mapa VPO junto al de tensión
-  MET-1) + resumen/TESIS.*
+  y normalizadas por 1000 hab. Módulo `datasets/vpo_etxebide.py` + 4 tests.
+  Hallazgo (lo afirmable): las promociones del registro (1.120 viviendas, 13
+  promociones) se concentran en el este obrero/periferia interior (Loiola 22,3‰,
+  Amara Berri 18,7, Intxaurrondo 16,3, Ibaeta 15,5).
+  ⚠️ **Cobertura cuantificada (2026-07-05):** el registro es una **ventana
+  parcial** — la memoria de la **zona tensionada (2024)** cifra el alquiler
+  protegido + dotacionales de la ciudad en **3.151 viviendas (¼ del alquiler
+  ocupado)**: Etxegintza 2.087 («repartidas por la mayor parte de los barrios»),
+  GV/Alokabide 554, Benta Berri 510. Las promociones Etxebide son ≤~⅓ de solo
+  ese parque de alquiler → **los «0» por barrio no son interpretables como
+  ausencia de VPO** y la lectura «cero en el centro / no toca a Altza-Egia» se
+  **retiró** de relato, resumen y TESIS. Ni el parque de Etxegintza ni el
+  Registro de Vivienda Protegida completo se publican georreferenciados
+  (buscado en Donostia OD, Open Data Euskadi, Eustat PxWeb, Udalmap) → la foto
+  completa queda como **laguna declarada**; el contrapeso se cuenta con el dato
+  de ciudad (3.151 = ¼) + la ventana Etxebide etiquetada como tal.
+  ✅ *Integración narrativa (jul-2026, Code, reescrita el 05):* figura «El
+  contrapeso público: una ventana parcial» en el cap. 7 + resumen/TESIS.*
 - ⬜ **REC-16 tipología comercial vía OSM** (histórico): ¿comercio de barrio →
   servicios turísticos? Complementa REC-7 (que solo llega a ciudad).
 - ✅ **REC-17 matrices origen-destino Eustat** — hecho (jul-2026) con matiz:

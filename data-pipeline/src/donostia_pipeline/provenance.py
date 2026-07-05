@@ -59,9 +59,13 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Accessibilità come densità di servizi, non tempo di percorrenza reale.",
     ]),
     "vpo_dwellings_per_1000": ("proxy", [
-        "Solo promozioni gestite da Etxebide (VISESA/Alokabide/Governo Basco): "
-        "un pavimento del parco protetto, non il censimento di tutta la VPO né il "
-        "patronato municipale.",
+        "Solo promozioni gestite da Etxebide (VISESA/Alokabide/Governo Basco), "
+        "1.120 alloggi: copre al massimo ~un terzo del solo parco protetto in "
+        "affitto della città (3.151 unità, memoria della zona tensionata 2024) "
+        "e non include il patronato municipale (Donostiako Etxegintza, 2.087 "
+        "unità distribuite per la maggior parte dei barrios).",
+        "Uno «0» significa zero in questo registro, non assenza di vivienda "
+        "protegida nel barrio.",
         "Snapshot cumulativo (per lo più «Terminada»), non una serie storica.",
         "Join spaziale punto→barrio.", _PER_1000,
     ]),

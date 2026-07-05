@@ -105,6 +105,33 @@ vivas**, no solo contra los JSON del repo:
   de `sprint_a`) se reproduce en −0,64 con el pareo 2023 (diferencia de pareo
   de periodos, mismo orden).
 
+## Addendum (2026-07-05, segunda tanda) — REC-15 recalibrado a petición del usuario
+
+El usuario señaló que un mapa basado solo en promociones Etxebide es demasiado
+parcial para lecturas de política pública («a Egia sí hay VPO»). Se investigó y
+tenía razón:
+
+- **Cobertura cuantificada.** La memoria de la **declaración de zona de mercado
+  residencial tensionado** (2024, donostia.eus/Irekia) cifra el alquiler
+  protegido + alojamientos dotacionales en **3.151 viviendas = ¼ del alquiler
+  ocupado**: Donostiako Etxegintza **2.087** («repartidas por la mayor parte de
+  los barrios»), GV/Alokabide 554, Benta Berri 510. Nuestro dataset (1.120
+  viviendas) es ≤~⅓ de solo ese parque de alquiler — y una fracción menor del
+  parque protegido total (que incluye VPO en propiedad).
+- **No hay registro completo georreferenciado público.** Buscado sin éxito:
+  Donostia Open Data (API CKAN: solo `patrimonio_municipal`, sin parque
+  Etxegintza), Open Data Euskadi, Eustat PxWeb (0 tablas de VPO municipales),
+  Udalmap (solo flujos: VPO terminadas/adjudicadas por quinquenio).
+- **Cambios aplicados:** la figura del cap. 7 pasa de «dónde aterrizó la
+  vivienda protegida» a «**una ventana parcial**»; las lecturas sobre los ceros
+  («cero en el centro», «no toca a Altza-Egia») se **retiran** de historias,
+  resumen, TESIS y epílogo; el contrapeso se cuenta con el dato de ciudad
+  (3.151 = ¼) + la ventana Etxebide etiquetada como tal; supuestos de la métrica
+  actualizados en `provenance.py` **y** en `metric_*.json`/`metrics.json` (misma
+  serialización canónica del build); datos.html/FUENTES/SOURCES/NOTA-MET/BACKLOG/
+  PLAN-CIERRE al día. La foto completa queda como **laguna declarada** (pista
+  futura: parque Etxegintza o Registro de Vivienda Protegida georreferenciados).
+
 ## Lo que queda (único paso hasta el cierre)
 1. **Usuario:** revisar los textos → lanzar a mano *Actions → Deploy site
    (GitHub Pages) → Run workflow* sobre `main`; comprobar el primer despliegue

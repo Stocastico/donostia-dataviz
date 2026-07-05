@@ -46,13 +46,16 @@ absoluto manda en el centro, pero el **esfuerzo** alquiler/renta es máximo en e
 este obrero: Altza 21,9 %, Egia 21,3 %, Intxaurrondo 20,9 %. La correlación
 `tensión ↔ renta` es **−0,81, y −0,89 sin el centro** — la relación más fuerte y
 robusta de todo el sistema. La tensión es, ante todo, un problema de renta baja.
-*El contrapeso público ya tiene mapa (REC-15, jul-2026):* la vivienda protegida
-de las promociones de Etxebide se concentra en Loiola (**22,3‰**), Amara Berri
-(18,7), Intxaurrondo (16,3) e Ibaeta (15,5) y es **cero en los otros 14 barrios**
-con dato, incluidos el centro caro y Gros. Bien orientada hacia la geografía de
-la presión, pero sin tocar a los dos barrios más tensionados (Altza y Egia, 0‰
-en este registro). *(Proxy: solo promociones Etxebide — suelo del parque
-protegido, no censo de toda la VPO.)*
+*El contrapeso público (REC-15, jul-2026):* a escala de ciudad tiene número
+oficial — el alquiler protegido + alojamientos dotacionales suma **3.151
+viviendas, la cuarta parte del alquiler ocupado** (memoria de la zona
+tensionada, 2024: Etxegintza 2.087, GV/Alokabide 554, Benta Berri 510) — pero
+**no mapa completo por barrio**: el patronato municipal (2/3 del parque,
+«repartido por la mayor parte de los barrios») no se publica georreferenciado.
+La única ventana abierta, las promociones de Etxebide (1.120 viviendas, ≤~⅓ del
+solo parque de alquiler), se concentra en Loiola (**22,3‰**), Amara Berri
+(18,7), Intxaurrondo (16,3) e Ibaeta (15,5). **Sus ceros no son ceros de
+vivienda protegida**: dónde falta el contrapeso queda como laguna declarada.
 
 **4. La población extranjera crece más rápido en ese mismo este.** Intxaurrondo
 +0,92 puntos/año, Mirakruz +0,68, Martutene +0,65, frente a Aiete +0,27. Y
@@ -103,9 +106,11 @@ sólida del proyecto.
 **Se puede afirmar:** touristificación concentrada (y, calle a calle, aún más:
 las 10 calles más cargadas reúnen el 19 % del censo VUT); asociación robusta
 turismo↔alquiler; que la tensión de vivienda recae en el este de renta baja; que
-el contrapeso público (VPO Etxebide) aterrizó en el este obrero y es cero en el
-centro y en los barrios más tensionados (REC-15); que la brecha territorial de
-renta es estable; que el cambio social (Loiola/Egia) y la presión turística
+el alquiler protegido de la ciudad suma 3.151 viviendas (¼ del alquiler ocupado)
+y que las promociones de Etxebide —la única ventana georreferenciada de ese
+parque— se concentran en el este obrero (REC-15; **no** se puede afirmar dónde
+*no* hay vivienda protegida: el registro es parcial); que la brecha territorial
+de renta es estable; que el cambio social (Loiola/Egia) y la presión turística
 (centro) son geografías distintas; que el clima se calienta.
 
 **No se puede afirmar (todavía):**
@@ -156,9 +161,11 @@ respecto al precio. ✅ **Primer test superado a favor (jul-2026):** AN-13
 tres IC95 % de β cruzan el 0; `ANALISIS-INFERENCIAL.md`). Sigue pendiente lo
 que este dato no ve: desigualdad intra-barrio y quien se marcha del municipio.
 *Matiz de política pública (REC-15):* el instrumento que podría mover la
-accesibilidad —la vivienda protegida— está bien orientado hacia el este obrero
-pero es cero justo donde el esfuerzo es máximo (Altza, Egia), así que hoy no
-altera la foto de H3.
+accesibilidad —la vivienda protegida— pesa ya ¼ del alquiler ocupado a escala
+de ciudad, pero su distribución completa por barrio no es pública (el patronato
+municipal, 2/3 del parque de alquiler, no se publica georreferenciado); la
+ventana visible (promociones Etxebide) apunta al este obrero. Con el dato
+disponible no se puede decir si altera o no la foto de H3 barrio a barrio.
 
 **H4 — El centro pierde población sin dejar de concentrar actividad.** Lo
 sugieren la pérdida de población (Gros −0,60 %/año) simultánea al máximo de
@@ -210,9 +217,11 @@ las 10 calles más cargadas = **19 %** del censo — la media de barrio borra lo
 **🏠 Vivienda.** Alquiler €/m² (EMA 2024): Erdialdea **16,6**, Aiete 16,2, Gros
 15,9; este más barato; Erdialdea **+29 %** desde 2016. Esfuerzo alquiler/renta
 máximo en el este obrero (Altza 21,9 %, Egia 21,3 %, Intxaurrondo 20,9 %), mínimo
-en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %. Vivienda protegida Etxebide (REC-15,
-snapshot): Loiola **22,3‰**, Amara Berri 18,7, Intxaurrondo 16,3, Ibaeta 15,5;
-**0 en los otros 14 barrios** con dato (proxy: solo promociones Etxebide).
+en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %. Alquiler protegido de la ciudad:
+**3.151 viviendas = ¼ del alquiler ocupado** (zona tensionada 2024; Etxegintza
+2.087 + GV/Alokabide 554 + Benta Berri 510). Promociones Etxebide (REC-15,
+ventana parcial ≤~⅓ de ese parque, snapshot): Loiola **22,3‰**, Amara Berri
+18,7, Intxaurrondo 16,3, Ibaeta 15,5; sus «0» **no** implican ausencia de VPO.
 
 **💶 Economía.** Renta per cápita 2023: Aiete ~30.440 € vs. Altza ~18.371 €
 (~1,7×). Brecha de género marcada (Aiete ~29,9 %). Gini territorial **estable**
