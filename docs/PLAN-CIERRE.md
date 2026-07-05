@@ -42,11 +42,19 @@ que ya aplicó REC-8/REC-11).
 - **Resuelto mejor de lo esperado: grano barrio, no municipio.** La fuente viva
   es **Promociones de Etxebide** (Open Data Euskadi, CSV con coords UTM + nº de
   viviendas), geocodificable punto→barrio. Métrica `vpo_dwellings_per_1000`
-  (proxy, snapshot). **Hallazgo:** la huella protegida se concentra en el este
-  obrero/periférico (Loiola 22,3‰, Amara Berri, Intxaurrondo, Ibaeta) y es cero
-  en 14 barrios, incluido el centro caro y Gros → el contrapeso H2/H3 que faltaba.
-- Caveat: solo promociones Etxebide (no todo el parque VPO ni el patronato
-  municipal) → suelo del parque, no censo. Documentado como proxy (MET-4).
+  (proxy, snapshot). **Hallazgo (lo afirmable):** las promociones del registro
+  (1.120 viviendas) se concentran en el este obrero/periférico (Loiola 22,3‰,
+  Amara Berri, Intxaurrondo, Ibaeta).
+- ⚠️ **Cobertura cuantificada (2026-07-05, petición del usuario):** el registro
+  es una **ventana parcial** — el alquiler protegido de la ciudad suma **3.151
+  viviendas (¼ del alquiler ocupado**; memoria de la zona tensionada 2024:
+  Etxegintza 2.087, GV/Alokabide 554, Benta Berri 510) y las promociones
+  Etxebide son ≤~⅓ de solo ese parque. **Los «0» por barrio no se interpretan**
+  (el patronato municipal, repartido «por la mayor parte de los barrios», no se
+  publica georreferenciado); la lectura «cero en el centro / no toca a
+  Altza-Egia» se retiró del relato. La foto completa (parque Etxegintza /
+  Registro de Vivienda Protegida georreferenciados) = **laguna declarada**.
+  Documentado como proxy (MET-4) con la cobertura en los supuestos de la métrica.
 
 ### 2.2 REC-18 · Equipamientos y accesibilidad — ✅ hecho (jul-2026, primer corte)
 - **Entregado:** `health_per_1000` (equipamientos de salud, 29 puntos, join
@@ -77,12 +85,14 @@ jul-2026 anotado.
 
 **Análisis**
 - [x] Tanda inferencial AN-9…AN-20 (blindaje de índice, correlaciones, lead/lag).
-- [x] Cada REC de la última tanda con su lectura frente a H1–H4 *(jul-2026:
-  REC-15 matiza H2/H3 — contrapeso en el este obrero, cero en el centro y en
-  Altza/Egia, los más tensionados; REC-18 aporta la cara «ciudad vivida» de H4.
-  En `TESIS-CIUDAD.md` (eslabón 3, H3, anexo) y en el cap. 6/7 del relato).*
+- [x] Cada REC de la última tanda con su lectura frente a H1–H4 *(jul-2026,
+  recalibrado el 05: REC-15 — el contrapeso público a escala ciudad es ¼ del
+  alquiler ocupado (3.151 viv.); la ventana Etxebide apunta al este obrero, pero
+  con ≤~⅓ de cobertura sus ceros no se interpretan (dónde falta = laguna
+  declarada); REC-18 aporta la cara «ciudad vivida» de H4. En `TESIS-CIUDAD.md`
+  (eslabón 3, H3, anexo) y en el cap. 6/7 del relato).*
 - [x] **Accesibilidad residencial** — el *alivio* ya está a la vista con REC-15
-  (`vpo_dwellings_per_1000`) frente a la presión de MET-1. El «% de hogares que
+  (ventana Etxebide + dato de ciudad) frente a la presión de MET-1. El «% de hogares que
   superarían el 30 %» se **cierra como laguna declarada** (decisión del usuario,
   jul-2026): exigiría inventar la distribución de renta intra-barrio (solo hay
   media), la inferencia intra-grupo que el proyecto rechaza (MET-6).

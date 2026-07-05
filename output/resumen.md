@@ -39,7 +39,7 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 | `airbnb_density` | anuncios /1000 ab. | 19 barrios, snapshot 2025-09 | derivado | Inside Airbnb |
 | `schools_per_1000` | centros /1000 ab. | por barrio | derivado | Open Data (equipamientos) |
 | `health_per_1000` | servicios de salud /1000 ab. | por barrio, snapshot | derivado | Open Data (equipamientos, REC-18) |
-| `vpo_dwellings_per_1000` | viviendas protegidas /1000 ab. | por barrio, snapshot | proxy | Etxebide / Open Data Euskadi (REC-15) |
+| `vpo_dwellings_per_1000` | viviendas Etxebide /1000 ab. | por barrio, snapshot | proxy | Etxebide / Open Data Euskadi (REC-15; ventana parcial: ≤~⅓ del solo alquiler protegido, patronato municipal ausente) |
 | `noise_night_pct55` | % área ≥55 dB (Lnight) | por barrio, 2022 | proxy | Mapa estratégico ruido |
 | `transform_class` | clase (4 categorías) | 13 barrios | derivado | Índice AN-8 |
 | `transform_tourism_score` / `transform_socio_score` | z-score | 13 barrios | derivado | Índice AN-8 |
@@ -152,14 +152,17 @@ propósito: esa es la información.*
   Antiguo +197 puntos, Miramón-Zorroaga −218, Loiola −20 (todo desde 2015) y la
   **V de Egia** (rejuveneció 2000→2010, re-envejeció después; tortuosidad 4,3).
   La dispersión de la nube es plana (1,36→1,28): coherente con H3.
-- **El contrapeso público existe, pero no toca a los más tensionados (REC-15):**
-  la vivienda protegida de las promociones de Etxebide se concentra en cuatro
-  barrios del este obrero/periferia interior —Loiola **22,3‰**, Amara Berri 18,7,
-  Intxaurrondo 16,3, Ibaeta 15,5— y es **cero en los otros 14** con dato,
-  incluidos el centro caro y Gros. Bien orientada hacia la geografía de la
-  presión… salvo que **Altza y Egia**, los barrios con más esfuerzo
-  alquiler/renta (21,9 % y 21,3 %), no tienen ni una vivienda de este registro.
-  *(Proxy: solo promociones Etxebide, suelo del parque protegido, no censo.)*
+- **El contrapeso público tiene número de ciudad, pero no mapa completo (REC-15):**
+  el alquiler protegido + alojamientos dotacionales suma **3.151 viviendas — la
+  cuarta parte del alquiler ocupado** del municipio (memoria de la zona
+  tensionada, 2024: Etxegintza 2.087, Gob. Vasco/Alokabide 554, Benta Berri 510).
+  La única ventana georreferenciada abierta son las **promociones de Etxebide**
+  (1.120 viviendas, ≤~⅓ del solo parque de alquiler): se concentran en el este
+  obrero/periferia interior —Loiola **22,3‰**, Amara Berri 18,7, Intxaurrondo
+  16,3, Ibaeta 15,5—. ⚠️ **Los ceros de ese mapa no son ceros de vivienda
+  protegida**: el patronato municipal (2/3 del parque de alquiler, «repartido por
+  la mayor parte de los barrios») no se publica georreferenciado — dónde *falta*
+  el contrapeso queda como **laguna declarada**.
 - **La concentración turística se agudiza al bajar al callejero (sub-barrio):**
   cruzando el censo VUT con el callejero municipal (301 calles con ≥1 vivienda
   turística, emparejamiento del 100 % de 1.489 fichas), las **diez calles** más
@@ -262,9 +265,10 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    pero no turístico. Las trayectorias 2000→2025 (AN-18, connected scatter
    estático nuevo) añaden la lectura MET-8: universitarización como marea
    (17/17), tres formas de envejecer y la **V de Egia** (su momento joven ya
-   revirtió). Cierra con el **contrapeso público** (REC-15): mapa VPO junto al de
-   tensión — la vivienda protegida aterrizó en el este obrero (Loiola 22,3‰),
-   cero en el centro caro y en los barrios más tensionados (Altza, Egia).
+   revirtió). Cierra con el **contrapeso público** (REC-15): a escala ciudad el
+   alquiler protegido es ¼ del alquiler ocupado (3.151 viviendas); la única
+   ventana por barrio (promociones Etxebide, ≤~⅓ de ese parque) apunta al este
+   obrero (Loiola 22,3‰) — sus ceros **no** son ceros de vivienda protegida.
    *"Transformación", no "gentrificación"; N=13, pesos iguales.*
 
 > **Apéndice del HTML — "La ciudad de fondo":** estacionalidad hotelera,
