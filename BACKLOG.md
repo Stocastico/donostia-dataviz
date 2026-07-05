@@ -55,6 +55,15 @@ Queda su integración narrativa (Cowork).
   desde jul-2026) + apéndice de contexto y epílogo.
 - **Documentos:** `TESIS-CIUDAD`, `GUION-OUTPUTS`, `NOTA-METODOLOGICA`, `SOURCES`,
   `output/resumen.md` (síntesis para revisión externa).
+- **Auditoría de parcialidad de fuentes (2026-07-05, petición del usuario):**
+  revisadas las ~20 fuentes de las 7 historias con la pregunta «¿registro
+  completo o ventana parcial?». Resultado: además del caso VPO/Etxebide (ya
+  recalibrado), se declararon 4 parcialidades que faltaban — EPA por
+  nacionalidad = encuesta con submuestras pequeñas (cap. 4), Inside Airbnb =
+  una sola plataforma, INE EOH = solo hoteles, equipamientos = registro
+  municipal — en supuestos de métrica + relato + `datos.html`. Doctrina
+  «**Registro ≠ universo**» fijada en MET-5 y en Limitaciones del resumen.
+  Detalle por fuente: `session-handoff-2026-07-05.md` (addendum 2).
 - **Reestructuración (jul-2026, Cowork):** `output/` (html + resumen),
   `datos/input` (MICE curado + `FUENTES.md` + `descargar_raw.sh`),
   `datos/procesado` (placeholder), `docs/intermedia/` y `docs/archive/`, este BACKLOG.

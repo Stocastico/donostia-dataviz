@@ -250,7 +250,7 @@
           <table class="rank" id="rank_press"><thead><tr><th>Barrio</th><th style="text-align:right" id="rankcol">Esfuerzo</th></tr></thead><tbody></tbody></table>
         </div>
       </div>
-      <p class="src">Fuente: Gobierno Vasco EMA (alquiler €/m² registrado) + Eustat/Donostia Open Data (renta per cápita). Métrica derivada.</p>
+      <p class="src">Fuente: Gobierno Vasco EMA (alquiler €/m² de nuevos contratos con fianza depositada — no el stock de alquileres vigentes) + Eustat/Donostia Open Data (renta per cápita). Métrica derivada.</p>
     </div>
 
     <div class="narrow">
@@ -519,11 +519,11 @@
     <div class="keynums">
       <div class="kn"><div class="big">×19</div><div class="lbl">Crecimiento de la cuota latinoamericana desde 2000 (0,25 %→4,81 % de la población). El Magreb crece ×27 desde una base casi nula; Europa occidental solo ×2,6.</div></div>
       <div class="kn"><div class="big">−0,69 / +0,59</div><div class="lbl">América Latina correlaciona −0,69 con la renta del barrio; Europa occidental, +0,59 con el % de universitarios. La misma cifra de «extranjeros» esconde relaciones opuestas.</div></div>
-      <div class="kn"><div class="big">18,4 %</div><div class="lbl">Paro de la población africana en Gipuzkoa (2024), casi 3× la europea (6,7 %) y 6× la americana (3,2 %). La población extranjera dobla en paro a la española (9,4 % vs 4,3 %).</div></div>
+      <div class="kn"><div class="big">18,4 %</div><div class="lbl">Paro de la población africana en Gipuzkoa (2024), casi 3× la europea (6,7 %) y 6× la americana (3,2 %). La población extranjera dobla en paro a la española (9,4 % vs 4,3 %). Ojo: EPA = encuesta, y la submuestra por continente es pequeña — el <em>orden</em> es robusto, la cifra exacta no.</div></div>
     </div>
 
     <div class="narrow">
-      <p>La estabilidad laboral también se reparte de forma desigual por origen. Con la EPA vasca desagregada por continente (Gipuzkoa, 2024), la tasa de paro de la población <strong>africana (18,4 %)</strong> casi triplica la europea (6,7 %); la población de nacionalidad extranjera tiene, en conjunto, más del doble de paro que la española (9,4 % vs 4,3 %) pese a una tasa de actividad más alta &mdash;busca empleo con más intensidad y lo encuentra menos&mdash;. Lo que estos datos <strong>no</strong> ven, y por eso no se afirma: el sinhogarismo y la economía informal, que ninguna encuesta de actividad capta por diseño. Se deja como vacío declarado, no se rellena con un proxy.</p>
+      <p>La estabilidad laboral también se reparte de forma desigual por origen. Con la EPA vasca desagregada por continente (Gipuzkoa, 2024), la tasa de paro de la población <strong>africana (18,4 %)</strong> casi triplica la europea (6,7 %); la población de nacionalidad extranjera tiene, en conjunto, más del doble de paro que la española (9,4 % vs 4,3 %) pese a una tasa de actividad más alta &mdash;busca empleo con más intensidad y lo encuentra menos&mdash;. Dos avisos de fuente: es una <strong>encuesta</strong>, no un registro, y a nivel de Gipuzkoa las submuestras por continente son pequeñas &mdash;la brecha (África ≫ Europa) es robusta; el decimal, no&mdash;. Y lo que estos datos <strong>no</strong> ven, y por eso no se afirma: el sinhogarismo y la economía informal, que ninguna encuesta de actividad capta por diseño (hogares con domicilio). Se deja como vacío declarado, no se rellena con un proxy.</p>
     </div>
 
     <div class="fig">
@@ -545,7 +545,7 @@
         <span class="t-lab">La conclusión</span>
         <p>Donostia no atrae «un» perfil de extranjero, sino al menos <strong>dos</strong> que ni viven en los mismos barrios ni tienen la misma renta: una migración económica &mdash;sobre todo latinoamericana, y magrebí&mdash; asentada en el este de renta baja, y un goteo europeo-occidental cualificado en el centro caro. La ciudad, a la vez, tiene una intensidad investigadora que dobla la media española <em>y</em> una base amplia de empleo de servicios mal pagado. Leer «% de extranjeros» como una sola cosa &mdash;o como señal de gentrificación&mdash; borra justamente esta doble estructura.</p>
       </div>
-      <span class="conf"><span class="dot observed"></span><b>Observado + derivado.</b>&nbsp;El origen por barrio es padrón (observado); las correlaciones y el empleo por continente/ocupación son agregados de barrio o de Gipuzkoa (falacia ecológica, MET-6), <strong>nunca</strong> lecturas individuales. No existe cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a grano municipal ni provincial (MET-5); todo el vínculo origen↔trabajo es triangulación, no medición.</span>
+      <span class="conf"><span class="dot observed"></span><b>Observado + derivado.</b>&nbsp;El origen por barrio es padrón (registro completo); el empleo por nacionalidad/continente es <strong>EPA: encuesta con submuestras pequeñas</strong> a nivel Gipuzkoa (el orden entre grupos es robusto; las cifras exactas llevan error de muestreo). Las correlaciones son agregados de barrio o de Gipuzkoa (falacia ecológica, MET-6), <strong>nunca</strong> lecturas individuales. No existe cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a grano municipal ni provincial (MET-5); todo el vínculo origen↔trabajo es triangulación, no medición.</span>
       <p class="nextcap">Precios, personas y trabajo se mueven sobre un escenario que también se mueve.
         <a href="#s4">Capítulo 5 — el clima que lo enmarca →</a></p>
     </div>
@@ -639,8 +639,9 @@
         <strong>densidad de alojamiento turístico</strong> por barrio &mdash;anuncios de Airbnb por cada 1.000
         habitantes&mdash; y la compara con las viviendas de uso turístico (VUT) registradas.</p>
       <p>Los datos de Airbnb (Inside Airbnb, foto de septiembre de 2025) capturan un universo <strong>más amplio
-        que los VUT legales</strong>, porque incluyen alojamientos no registrados. Aun así, el patrón coincide:
-        el turismo se agolpa en el centro.</p>
+        que los VUT legales</strong>, porque incluyen alojamientos no registrados &mdash;aunque de una sola
+        plataforma: son un <em>suelo</em> del alquiler turístico online, no su total (Booking y otras quedan
+        fuera)&mdash;. Aun así, el patrón coincide: el turismo se agolpa en el centro.</p>
     </div>
 
     <div class="fig">
@@ -689,7 +690,7 @@
       <h3>Dos turismos: Airbnb crece mucho más rápido que el hotel</h3>
       <p class="cap">Índice base 2016 = 100. Reseñas de Airbnb (proxy de estancias) frente a pernoctaciones hoteleras (INE). El bache de 2020 es la pandemia. Parte del crecimiento de Airbnb es <em>adopción de la plataforma</em> (migración de canal y mayor propensión a reseñar), no solo turistas nuevos: el ×6 vale como orden de magnitud, no como cifra exacta.</p>
       <div class="mapwrap"><svg class="map" id="tourindex" style="max-width:720px;margin:0 auto"></svg></div>
-      <p class="src">Inside Airbnb (reseñas/mes, «modelo San Francisco»: una reseña ≈ una estancia) · INE EOH tabla 2078 (pernoctaciones). Años completos 2013–2024.</p>
+      <p class="src">Inside Airbnb (reseñas/mes, «modelo San Francisco»: una reseña ≈ una estancia; solo plataforma Airbnb) · INE EOH tabla 2078 (pernoctaciones en establecimientos hoteleros; pensiones y apartamentos turísticos no incluidos). Años completos 2013–2024.</p>
     </div>
 
     <div class="narrow">
@@ -780,7 +781,9 @@
             poca población: artefacto per cápita conocido, no dotación de proximidad.</p>
         </div>
       </div>
-      <p class="src">Donostia Open Data — equipamientos educativos y de salud (join espacial punto→barrio) · mapa estratégico de ruido nocturno Lnight 2022. 13 barrios urbanos.</p>
+      <p class="src">Donostia Open Data — registro municipal de equipamientos, join espacial punto→barrio: educación
+        formal (157 centros públicos y privados; academias fuera) y salud (29 equipamientos públicos y clínicas
+        privadas; consultas privadas y farmacias fuera) · mapa estratégico de ruido nocturno Lnight 2022. 13 barrios urbanos.</p>
     </div>
 
     <div class="keynums">
@@ -1084,7 +1087,7 @@
       <p class="cap">Cada fila es un año (2005–2026), cada columna un mes. Verano intenso, franja pálida en 2020 (COVID) y meses de hombro calentándose con los años: la desestacionalización.</p>
       <div class="mapwrap"><svg class="map" id="season"></svg></div>
       <div class="legend" id="leg_season"></div>
-      <p class="src">INE EOH (tabla 2078) — pernoctaciones España + extranjero.</p>
+      <p class="src">INE EOH (tabla 2078) — pernoctaciones España + extranjero. Solo establecimientos hoteleros: pensiones y apartamentos turísticos no incluidos.</p>
     </div>
 
     <div class="grid2">
