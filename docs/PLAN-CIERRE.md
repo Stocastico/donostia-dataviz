@@ -77,7 +77,10 @@ jul-2026 anotado.
 
 **Análisis**
 - [x] Tanda inferencial AN-9…AN-20 (blindaje de índice, correlaciones, lead/lag).
-- [ ] Cada REC de la última tanda con su lectura frente a H1–H4.
+- [x] Cada REC de la última tanda con su lectura frente a H1–H4 *(jul-2026:
+  REC-15 matiza H2/H3 — contrapeso en el este obrero, cero en el centro y en
+  Altza/Egia, los más tensionados; REC-18 aporta la cara «ciudad vivida» de H4.
+  En `TESIS-CIUDAD.md` (eslabón 3, H3, anexo) y en el cap. 6/7 del relato).*
 - [x] **Accesibilidad residencial** — el *alivio* ya está a la vista con REC-15
   (`vpo_dwellings_per_1000`) frente a la presión de MET-1. El «% de hogares que
   superarían el 30 %» se **cierra como laguna declarada** (decisión del usuario,
@@ -89,18 +92,32 @@ jul-2026 anotado.
 - [x] Ficha de país por barrio (REC-21-web).
 - [x] **A11y del app React** ✅ (jul-2026): tabla-espejo accesible (`MapDataTable`,
   teclado + lector de pantalla) en **todos** los mapas + `role=img`/`aria-label`;
-  contraste verificado AA. Queda solo auditar el foco del resto de controles (menor).
-- [ ] Métrica(s) de la última tanda seleccionables en el picker (si son coropléticas).
+  contraste verificado AA. ✅ El foco del resto de controles quedó auditado y
+  reforzado (jul-2026): anillo `:focus-visible` global, chips con `aria-pressed`,
+  heatmap con `role=img`.
+- [x] Métrica(s) de la última tanda seleccionables en el picker: ambas son
+  `Metric` y salen solas — `vpo_dwellings_per_1000` bajo «Abitazioni»,
+  `health_per_1000` bajo «Sanità».
 
 **Narrativa (`output/`)**
 - [x] 7 historias + epílogo con H1–H4 y sus tests propuestos.
-- [ ] Integración narrativa de la última tanda (Cowork).
-- [ ] `resumen.md` / `TESIS-CIUDAD.md` mencionan la última tanda.
+- [x] Integración narrativa de la última tanda *(jul-2026, hecha desde Code:
+  figura «El contrapeso público» en cap. 7, capa de salud en cap. 6, enlace a la
+  ficha de país en cap. 4)*.
+- [x] `resumen.md` / `TESIS-CIUDAD.md` mencionan la última tanda.
 
-**Publicación** *(no empezado — el verdadero «último» paso)*
-- [ ] Build de producción desplegado (dónde: GitHub Pages / Netlify — decidir).
-- [ ] README con enlace vivo + cómo reproducir el pipeline.
-- [ ] Pasada final de enlaces y de contraste de todo el sitio.
+**Publicación** *(preparada jul-2026; se activa al hacer merge a `main`)*
+- [x] **Workflow de despliegue listo** (`.github/workflows/deploy-pages.yml`,
+  GitHub Pages): app en la raíz + los tres HTML del relato como páginas
+  hermanas; probado en local con el base path de Pages (0 errores JS, enlaces
+  200). Solo se dispara en push a `main` → **nada se publica hasta el merge**.
+  - [ ] Primer despliegue real: merge a `main` + comprobar que Pages queda
+    activado (Settings → Pages → Source = GitHub Actions si el intento
+    automático falla) y el sitio responde.
+- [x] README con la URL del sitio, cómo se despliega y cómo reproducir el pipeline.
+- [x] Pasada final de contraste de todo el sitio (AA medido; `--muted` y
+  etiquetas del scatter corregidas) y de enlaces (nav/footers entre las tres
+  páginas + footer nuevo del app, verificados en el layout desplegado).
 
 **Opcional (no bloquea el cierre)**
 - [ ] DOC-6 working paper metodológico.
@@ -135,11 +152,15 @@ pipeline. Esto evita que el proyecto crezca sin cerrarse.
 
 1. ~~**REC-15 VPO**~~ ✅ hecho (grano barrio).
 2. ~~**REC-18 accesibilidad**~~ ✅ hecho (`health_per_1000`).
-3. **Indicador de accesibilidad residencial** (% >30 % esfuerzo) — sin dato nuevo.
-4. ~~**A11y del app React**~~ ✅ hecho (tabla-espejo en todos los mapas).
-5. **Integración narrativa** de REC-15/18 (Cowork) + `resumen`/`TESIS` al día.
-6. **Publicar** (deploy + README) → **cierre**. *(En espera: el usuario revisará
-   antes el texto de los HTML. Falta decidir destino de despliegue.)*
+3. ~~**Indicador de accesibilidad residencial**~~ — cerrado como laguna declarada
+   (decisión del usuario, ver §3 Datos).
+4. ~~**A11y del app React**~~ ✅ hecho (tabla-espejo + foco + contraste AA).
+5. ~~**Integración narrativa** de REC-15/18 + `resumen`/`TESIS` al día~~ ✅ hecho
+   (jul-2026, desde Code).
+6. **Publicar** → **cierre**. ✅ *Preparado (jul-2026):* workflow de GitHub Pages
+   listo y probado en local, README con la URL. *Queda un único gesto humano:*
+   revisar los textos si se quiere, **hacer merge a `main`** y comprobar el
+   primer despliegue (activar Pages en Settings si el intento automático falla).
 
-Pasos 1–4 (Code) **completos**; 5 es Cowork; 6 es conjunto y el único paso Code
-que queda para «Publicación». Con eso el proyecto queda **terminado, no abandonado**.
+Pasos 1–5 **completos**; del 6 queda solo el merge y la verificación del primer
+despliegue. Con eso el proyecto queda **terminado, no abandonado**.

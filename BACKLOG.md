@@ -117,23 +117,29 @@ Queda su integración narrativa (Cowork).
   que el proyecto rechaza (MET-6, falacia ecológica; mismo criterio que REC-8/11).
   `housing_tension` ya da el esfuerzo teórico medio; el % de hogares necesitaría
   microdatos de hogar que no son públicos a grano barrio.
-- ⬜ **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
+- 🔷 **Mantener `resumen.md` y `TESIS-CIUDAD`** al día cuando entren datos nuevos.
+  *Al día (jul-2026, Code): última tanda (REC-15 VPO, REC-18 salud) y vista calle
+  a calle incorporadas a §1/§3/§4 de `resumen.md` y a eslabones/H3/anexo de
+  `TESIS-CIUDAD.md`. Con la puerta de datos congelada (PLAN-CIERRE), esta tarea
+  queda en mantenimiento pasivo.*
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
   resúmenes manuales, no generados). *Al día (jul-2026, Code): el recuento de
   confianza corregido a **16 obs./18 der./3 proxy (37 métricas)** en
   `metodologia.html` y `NOTA-METODOLOGICA.md`; `datos.html` con `vpo_dwellings_per_1000`
   (REC-15) y `health_per_1000` (REC-18) en la tabla y en Fuentes (Etxebide, salud).*
-- ⬜ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)**
-  (Cowork): el mapa `vpo_dwellings_per_1000` **junto al de tensión MET-1** cuenta
-  el contrapeso —la vivienda protegida aterrizó en el este obrero (Loiola 22,3‰),
-  cero en el centro caro— para la espina «tensión residencial» (cap. 7 / síntesis).
-  `health_per_1000` + `schools_per_1000` = la cara «ciudad vivida» de las dos
-  ciudades (cap. 6 / H4), con el caveat del artefacto per cápita de
-  Miramón-Zorroaga. Digest en `resumen.md`/`TESIS-CIUDAD.md`.
-- ⬜ **Ficha de país en el relato (opcional)**: enlazar la nueva sección del app
-  «Chi vive nel barrio · origini» (REC-21-web) desde la historia #4 si se quiere
-  puente app↔narrativa.
+- ✅ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)** —
+  hecha (jul-2026, **desde Code**; resultó perfectamente hacible sin Cowork): cap. 7
+  gana la figura «El contrapeso público» (mapa VPO **junto al de tensión MET-1**,
+  con la lectura Loiola 22,3‰ / cero en el centro caro **y también en Altza-Egia,
+  los barrios más tensionados**) + frase en el takeaway + matiz en la hipótesis 3
+  del epílogo; cap. 6 gana la capa «Servicios de salud» en el mapa de la ciudad
+  vivida (13 urbanos: Loiola/Egia en cabeza; el artefacto de Miramón-Zorroaga,
+  documentado y fuera del mapa de 13). Digest en `resumen.md`/`TESIS-CIUDAD.md`
+  (incl. anexo 🏥 y matiz de H3). Verificado en navegador (0 errores JS).
+- ✅ **Ficha de país en el relato (opcional)** — hecha (jul-2026, Code): la
+  historia #4 remite a la vista «Chi vive nel barrio · origini» del panel
+  (puente app↔narrativa), mismo patrón que la vista calle a calle.
 - ⬜ **Nuevos ejes de relato** cuando haya datos: movilidad, coste de vida, empleo,
   comercio, vivienda pública (dependen de REC-5…REC-10, sección Code).
 - ✅ **Integración narrativa de REC-12/13/14/17** — hecha (jul-2026, Cowork):
@@ -149,14 +155,19 @@ Queda su integración narrativa (Cowork).
   actividad/interés, no oferta (parque real +2 %), y el bloque REC-13 se partió en dos
   párrafos más legibles. Encadena densidad → dos turismos → COVID → proxy REC-13 →
   estacionalidad → AN-14 → lead/lag → escuelas; largo pero cada pieza se sostiene.
-- 🔷 **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin
-  color) — incluido el connected scatter estático de AN-18 (historia #6).
-  *Parcial (jul-2026, Cowork):* pasada en `historias.html` sobre las gráficas
-  nuevas — correlación origen↔renta pasada a azul/coral (no rojo/verde) y con
-  cifras redundantes, `role="img"`+`aria-label` en los SVG del capítulo 4 y de
-  la isla de calor, contraste de leyendas subido. **Pendiente:** auditoría de
-  contraste de todo el sitio y del connected scatter, y accesibilidad del app
-  React (`web/`, es Code).
+- ✅ **Accesibilidad** de las visualizaciones (contraste, leyendas, lectura sin
+  color) — **completa (jul-2026)**. *Primera pasada (Cowork):* correlación
+  origen↔renta a azul/coral con cifras redundantes, `role="img"`+`aria-label` en
+  los SVG del cap. 4 y la isla de calor. *Auditoría final (Code, jul-2026):*
+  contraste **medido** en todo el sitio narrativo — `--muted` subido de #6b7a90
+  (4,25:1, fallaba AA en texto pequeño) a **#5f6e84 (5,19:1)** en los tres HTML y
+  en todos los textos SVG inline; las etiquetas del connected scatter pasan a
+  variantes oscuras AA (Antiguo estaba en **2,56:1** → #9c5f0e 5,18:1; Egia →
+  #c03a4c 5,32:1; Miramón → #1f7a54 5,29:1; las líneas conservan la paleta), con
+  `trajectories.py --svg` actualizado (`LABEL_COLORS`) para que el generador siga
+  reproduciendo el SVG publicado. Resto de colores de texto verificados ≥4,5:1;
+  las trazas grises del scatter quedan como contexto deliberadamente atenuado
+  (la lectura vive en las 4 destacadas y en el texto).
 - ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
 - ✅ **Granularidad calle/punto (no barrio)** — hecho (jul-2026, Code): primera
   vista **sub-barrio** del proyecto. El censo VUT (`vtur_censo.csv`) trae la
@@ -210,9 +221,9 @@ Queda su integración narrativa (Cowork).
   `datos/input/FUENTES.md`. **AEMET desbloqueado (jul-2026):** `AEMET_API_KEY`
   configurada como variable de entorno de Code (Claude Code on the web no
   tiene almacén de secretos dedicado; ver aviso en `claude-code-on-the-web`
-  docs). ⚠️ Ojo: se guardó con el nombre `AEMET_APY_KEY` (typo) en vez de
-  `AEMET_API_KEY` — corregir el nombre de la variable en la config del
-  entorno para no depender de un `export` manual en cada sesión. El resto de
+  docs). ✅ *El typo del nombre (`AEMET_APY_KEY`) ya está corregido en la config
+  del entorno: la sesión del 2026-07-05 ve `AEMET_API_KEY` con el nombre bueno,
+  sin `export` manual.* El resto de
   fuentes (Donostia Open Data, INE, EMA, Airbnb) sigue sin probar en esta
   sesión — solo se ha corrido `ensure_aemet`, no el pipeline completo.
 
@@ -451,8 +462,9 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   incluido el centro caro (Erdialdea) y Gros — el contrapeso H2/H3 que faltaba.
   Solo promociones Etxebide (VISESA/Alokabide/Gob. Vasco), no todo el parque VPO
   ni el patronato municipal → suelo del parque, no censo. Módulo
-  `datasets/vpo_etxebide.py` + 4 tests. **Pendiente (Cowork):** integración
-  narrativa (el mapa VPO junto al de tensión MET-1 = la historia del contrapeso).
+  `datasets/vpo_etxebide.py` + 4 tests. ✅ *Integración narrativa hecha (jul-2026,
+  Code): figura «El contrapeso público» en el cap. 7 (mapa VPO junto al de tensión
+  MET-1) + resumen/TESIS.*
 - ⬜ **REC-16 tipología comercial vía OSM** (histórico): ¿comercio de barrio →
   servicios turísticos? Complementa REC-7 (que solo llega a ciudad).
 - ✅ **REC-17 matrices origen-destino Eustat** — hecho (jul-2026) con matiz:
@@ -474,7 +486,8 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   con poca población (artefacto per cápita conocido, documentado). Bibliotecas /
   zonas verdes / socio-asistencial no añadidos en este corte (un recurso dio 500;
   se pueden sumar con el mismo patrón si se retoma). Módulo `datasets/salud_gis.py`
-  + 2 tests. **Pendiente (Cowork):** narrar salud+escuelas vs. tensión/renta.
+  + 2 tests. ✅ *Integración narrativa hecha (jul-2026, Code): capa «Servicios de
+  salud» en el mapa de la ciudad vivida del cap. 6 + resumen/TESIS (anexo 🏥).*
 - ⬜ **REC-19 percepción ciudadana** (encuestas municipales de satisfacción):
   la capa subjetiva que falta.
 - ⬜ **REC-20 cajón de ideas** (menor prioridad): licencias de obra y
@@ -523,9 +536,8 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   que `pct_origin_*`, cableado en `build.run()`. Color por región reutiliza la
   agrupación del choropleth pero **legible sin color** (dot + nombre + flechas +
   cifras, a11y). Aviso MET-5 explícito en la copy. 9 tests pipeline + 7 web
-  (TDD); verificado en navegador. Contrato en `docs/DATA-CONTRACT.md`. **Pendiente
-  (Cowork, opcional):** mencionar la ficha en el relato de la historia #4 si se
-  quiere enlazar app↔narrativa.
+  (TDD); verificado en navegador. Contrato en `docs/DATA-CONTRACT.md`. ✅ *Enlace
+  desde la historia #4 hecho (jul-2026, Code).*
 - ✅ **A11y del app React** (Code, `web/`) — hecho (jul-2026): los mapas del app
   son canvas WebGL (opacos a AT, tooltip solo-ratón); cada uno gana una
   **tabla-espejo accesible** (`MapDataTable`: `<details>` en el orden de
@@ -537,9 +549,11 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   presentacional: `barrioRows` (mapas de `MetricData`), `rowsFromDecorated`
   (shape computado) y filas a medida (bivariado); lógica en `lib/mapTable.ts` +
   5 tests; utilidad `.sr-only`. Contraste verificado: `--muted` 4,60:1,
-  `--accent` 4,82:1, `--fg` 16:1 → **todos pasan AA**. **Pendiente (menor):**
-  auditar el foco de teclado del resto de controles (selects/sliders son nativos
-  → ya accesibles).
+  `--accent` 4,82:1, `--fg` 16:1 → **todos pasan AA**. ✅ *Auditoría de foco
+  cerrada (jul-2026): anillo `:focus-visible` global y consistente en
+  button/select/input/a (los selects/sliders nativos ya eran accesibles), chips
+  m²/persona con `role=group`+`aria-pressed`, heatmap de estacionalidad con
+  `role=img`+`aria-label` (antes era solo-hover). 67 tests web en verde.*
 - ✅ **VIZ-10** "ciudad turística vs. vivida" en la app — hecho (jul-2026):
   nueva sección `TwoCitiesSection` con **dos mapas independientes** lado a
   lado (cada uno con su propio selector de métrica y escala de color, no
