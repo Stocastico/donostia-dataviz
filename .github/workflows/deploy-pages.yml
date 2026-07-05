@@ -2,20 +2,17 @@
 # el relato autocontenido (output/historias|metodologia|datos.html) como
 # páginas hermanas, de modo que los enlaces relativos entre ellas funcionan.
 #
-# Se dispara SOLO en push a main (es decir, al hacer merge) o a mano
-# (workflow_dispatch): mientras el trabajo viva en ramas, no se publica nada.
+# Despliegue SOLO MANUAL (decisión del usuario, jul-2026): se lanza desde la
+# pestaña Actions → "Deploy site (GitHub Pages)" → Run workflow, sobre main.
+# Ni el merge ni ningún push publican nada: el usuario revisa los textos y
+# decide cuándo salir. (Si algún día se quiere autodeploy al merge, basta
+# añadir aquí un trigger `push: branches: [main]`.)
 #
 # Requisito de una sola vez: Settings → Pages → Source = "GitHub Actions"
 # (configure-pages intenta activarlo solo con `enablement: true`).
 name: Deploy site (GitHub Pages)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "web/**"
-      - "output/**"
-      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:

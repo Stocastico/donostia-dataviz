@@ -106,12 +106,14 @@ jul-2026 anotado.
   ficha de país en cap. 4)*.
 - [x] `resumen.md` / `TESIS-CIUDAD.md` mencionan la última tanda.
 
-**Publicación** *(preparada jul-2026; se activa al hacer merge a `main`)*
+**Publicación** *(preparada jul-2026; lanzamiento **solo manual**, decisión del
+usuario: primero revisa los textos)*
 - [x] **Workflow de despliegue listo** (`.github/workflows/deploy-pages.yml`,
   GitHub Pages): app en la raíz + los tres HTML del relato como páginas
   hermanas; probado en local con el base path de Pages (0 errores JS, enlaces
-  200). Solo se dispara en push a `main` → **nada se publica hasta el merge**.
-  - [ ] Primer despliegue real: merge a `main` + comprobar que Pages queda
+  200). **Solo `workflow_dispatch`**: ni el merge ni ningún push publican nada.
+  - [ ] Primer despliegue real: cuando los textos estén revisados, Actions →
+    *Deploy site (GitHub Pages)* → Run workflow; comprobar que Pages queda
     activado (Settings → Pages → Source = GitHub Actions si el intento
     automático falla) y el sitio responde.
 - [x] README con la URL del sitio, cómo se despliega y cómo reproducir el pipeline.
@@ -158,9 +160,9 @@ pipeline. Esto evita que el proyecto crezca sin cerrarse.
 5. ~~**Integración narrativa** de REC-15/18 + `resumen`/`TESIS` al día~~ ✅ hecho
    (jul-2026, desde Code).
 6. **Publicar** → **cierre**. ✅ *Preparado (jul-2026):* workflow de GitHub Pages
-   listo y probado en local, README con la URL. *Queda un único gesto humano:*
-   revisar los textos si se quiere, **hacer merge a `main`** y comprobar el
-   primer despliegue (activar Pages en Settings si el intento automático falla).
+   listo y probado en local, README con la URL, **lanzamiento solo manual**.
+   *Queda un único gesto humano:* revisar los textos y lanzar el workflow desde
+   Actions (activar Pages en Settings si el intento automático falla).
 
-Pasos 1–5 **completos**; del 6 queda solo el merge y la verificación del primer
-despliegue. Con eso el proyecto queda **terminado, no abandonado**.
+Pasos 1–5 **completos**; del 6 queda solo revisar los textos y lanzar el
+despliegue a mano. Con eso el proyecto queda **terminado, no abandonado**.

@@ -40,9 +40,10 @@
   (`LABEL_COLORS` + mismos colores de ticks) para que `--svg` siga
   reproduciendo el SVG publicado. Grises del scatter = contexto deliberado.
 
-### 3. Publicación — preparada (falta solo el merge)
-- `.github/workflows/deploy-pages.yml`: GitHub Pages, **solo se dispara en push
-  a `main`** (o a mano) → nada se publica desde ramas; build de `web/` con
+### 3. Publicación — preparada (lanzamiento **solo manual**)
+- `.github/workflows/deploy-pages.yml`: GitHub Pages, **solo `workflow_dispatch`**
+  (decisión del usuario en esta sesión: quiere revisar los textos antes; ni el
+  merge ni ningún push publican nada); build de `web/` con
   `VITE_BASE=/<repo>/` + los tres HTML de `output/` como páginas hermanas.
   `vite.config.ts` ya soportaba `VITE_BASE`; no se tocó.
 - Footer nuevo en el app (enlaces app↔relato, conscientes de `BASE_URL`).
@@ -77,9 +78,37 @@
 - `URBAN13` (claves de `transform.class`) **no** incluye Miramón-Zorroaga ni
   Añorga: cualquier copy sobre mapas «lived» debe contar con eso.
 
+## Auditoría de datos pre-merge (petición del usuario, 2026-07-05)
+
+Antes del merge se re-verificaron los números del relato **contra las fuentes
+vivas**, no solo contra los JSON del repo:
+
+- **REC-15 VPO — reproducido al 100 % desde la fuente viva.** Se re-descargó el
+  CSV de promociones de Etxebide (Open Data Euskadi, 406 promociones de toda
+  Euskadi), se re-parseó (cabecera desplazada confirmada: el nº de viviendas
+  sigue en la posición «Tipologia») y se rehízo el join punto→barrio con
+  shapely/pyproj de forma independiente: **13 promociones caen en Donostia**,
+  en 4 barrios — Loiola 146 viv. (22,28‰), Amara Berri 562 (18,68), Intxaurrondo
+  260 (16,27), Ibaeta 152 (15,49) — **idéntico al publicado**, y Altza/Egia/
+  Erdialdea/Gros están de verdad a 0 en este registro.
+- **REC-18 salud — reproducido al 100 %.** GeoJSON vivo re-descargado: **29
+  equipamientos** (como dice el relato), join independiente → todos los tassi
+  idénticos (Loiola 0,31; Egia 0,21; Miramón-Zorroaga 3,42 = artefacto).
+- **Tensión MET-1:** Altza 21,86→«21,9 %», Egia 21,32→«21,3 %», Intxaurrondo
+  20,88→«20,9 %», Aiete 16,69, Ategorrieta 14,46→«14,5 %» ✓.
+- **Calle a calle:** `calles_vut.csv` re-agregado — Zabaleta 35, Urbieta 34,
+  Easo 33, San Marcial 31, 301 calles, 1.489 unidades ✓; top-10 = 276/1.489 =
+  **18,5 %**, publicado como «19 %» (redondeo al entero; texto de la PR #13).
+- **Coherencia interna:** blob `DONO` ≡ `metric_*.json` ≡ `metrics_long.csv`
+  para vpo/health/schools/tension; keynums adyacentes (Airbnb 33,6→«roza 34»,
+  Gros 19,1; VUT 29,9/20,7) ✓. La correlación escuelas↔tensión citada (−0,63,
+  de `sprint_a`) se reproduce en −0,64 con el pareo 2023 (diferencia de pareo
+  de periodos, mismo orden).
+
 ## Lo que queda (único paso hasta el cierre)
-1. **Usuario:** revisar los textos si quiere → **merge a `main`** → el workflow
-   publica; comprobar el primer despliegue (y Pages en Settings si hiciera
-   falta). Con eso, PLAN-CIERRE queda 100 % en verde.
+1. **Usuario:** revisar los textos → lanzar a mano *Actions → Deploy site
+   (GitHub Pages) → Run workflow* sobre `main`; comprobar el primer despliegue
+   (y Pages en Settings si hiciera falta). Con eso, PLAN-CIERRE queda 100 % en
+   verde.
 2. Opcionales que no bloquean (ya listados): DOC-6 working paper, VIZ-9
    scrollytelling, AN-6 con más serie REATE.

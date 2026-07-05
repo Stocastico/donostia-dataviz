@@ -155,10 +155,11 @@ El proyecto se publica como un único sitio estático:
 - **El relato** (las siete historias): `…/historias.html` · **metodología**:
   `…/metodologia.html` · **datos y fuentes**: `…/datos.html`
 
-El despliegue lo hace `.github/workflows/deploy-pages.yml`: se dispara **solo al
-hacer merge a `main`** (o a mano desde la pestaña Actions), construye `web/` con
-`VITE_BASE=/donostia-dataviz/` y copia los HTML autocontenidos de `output/` como
-páginas hermanas. Mientras el trabajo viva en ramas, no se publica nada.
+El despliegue lo hace `.github/workflows/deploy-pages.yml` y es **solo manual**:
+pestaña *Actions → Deploy site (GitHub Pages) → Run workflow* (sobre `main`).
+Construye `web/` con `VITE_BASE=/donostia-dataviz/` y copia los HTML
+autocontenidos de `output/` como páginas hermanas. **Ningún merge ni push
+publica nada por sí solo**: se revisan los textos y se lanza cuando se decide.
 
 > **Activación (una sola vez):** en *Settings → Pages*, poner **Source =
 > "GitHub Actions"**. El workflow intenta activarlo solo (`enablement: true`);
