@@ -32,6 +32,17 @@ body {
   color: var(--muted);
 }
 
+.app-footer {
+  margin-top: 3rem;
+  padding: 1rem 0 2rem;
+  border-top: 1px solid var(--border, #e2e7ef);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.app-footer a {
+  color: var(--accent);
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;

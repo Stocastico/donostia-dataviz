@@ -147,6 +147,25 @@ Todas las cifras citadas en la documentación y en `output/historias.html` son
 
 ---
 
+## 🌐 Sitio publicado (GitHub Pages)
+
+El proyecto se publica como un único sitio estático:
+
+- **Panel interactivo** (la app React): `https://stocastico.github.io/donostia-dataviz/`
+- **El relato** (las siete historias): `…/historias.html` · **metodología**:
+  `…/metodologia.html` · **datos y fuentes**: `…/datos.html`
+
+El despliegue lo hace `.github/workflows/deploy-pages.yml`: se dispara **solo al
+hacer merge a `main`** (o a mano desde la pestaña Actions), construye `web/` con
+`VITE_BASE=/donostia-dataviz/` y copia los HTML autocontenidos de `output/` como
+páginas hermanas. Mientras el trabajo viva en ramas, no se publica nada.
+
+> **Activación (una sola vez):** en *Settings → Pages*, poner **Source =
+> "GitHub Actions"**. El workflow intenta activarlo solo (`enablement: true`);
+> si el primer despliegue falla por permisos, basta ese ajuste manual.
+
+---
+
 ## ⚙️ Ejecutar
 
 ### Frontend (dashboard)
