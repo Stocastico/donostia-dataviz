@@ -132,6 +132,14 @@ HIGHLIGHTS = {
     "miramon-zorroaga": ("Miramón-Zorroaga", "#2a9d6f"),
     "loiola": ("Loiola", "#1f6f8b"),
 }
+# Las etiquetas de texto usan una variante más oscura (contraste AA 4,5:1
+# sobre blanco); las líneas mantienen la paleta de la página.
+LABEL_COLORS = {
+    "egia": "#c03a4c",
+    "antigua": "#9c5f0e",
+    "miramon-zorroaga": "#1f7a54",
+    "loiola": "#1f6f8b",
+}
 # Desplazamiento (dx, dy) de cada etiqueta respecto al punto final.
 _LABEL_OFFSET = {"egia": (8, 4), "antigua": (8, -6),
                  "miramon-zorroaga": (8, 12), "loiola": (8, 4)}
@@ -170,14 +178,14 @@ def svg_connected_scatter(panel: pd.DataFrame, smooth: int = SMOOTH) -> str:
         parts.append(f'<line x1="{_sx(v):.1f}" y1="{_PY[1]}" x2="{_sx(v):.1f}" '
                      f'y2="{_PY[0]}" stroke="#eef1f6"/>')
         parts.append(f'<text x="{_sx(v):.1f}" y="{_PY[0] + 16:.0f}" font-size="10.5" '
-                     f'fill="#6b7a90" text-anchor="middle">{v:.0f}</text>')
+                     f'fill="#5f6e84" text-anchor="middle">{v:.0f}</text>')
         v += X_STEP
     v = Y_DOMAIN[0]
     while v < Y_DOMAIN[1] + 1e-9:
         parts.append(f'<line x1="{_PX[0]}" y1="{_sy(v):.1f}" x2="{_PX[1]}" '
                      f'y2="{_sy(v):.1f}" stroke="#eef1f6"/>')
         parts.append(f'<text x="{_PX[0] - 8:.0f}" y="{_sy(v) + 3.5:.1f}" font-size="10.5" '
-                     f'fill="#6b7a90" text-anchor="end">{v:.0f}</text>')
+                     f'fill="#5f6e84" text-anchor="end">{v:.0f}</text>')
         v += Y_STEP
     parts.append(f'<line x1="{_PX[0]}" y1="{_PY[0]}" x2="{_PX[1]}" y2="{_PY[0]}" '
                  'stroke="#d7dde7"/>')
@@ -223,16 +231,17 @@ def svg_connected_scatter(panel: pd.DataFrame, smooth: int = SMOOTH) -> str:
         if hi:
             name = HIGHLIGHTS[barrio][0]
             ox, oy = _LABEL_OFFSET.get(barrio, (8, 4))
+            label_fill = LABEL_COLORS.get(barrio, color)
             labels.append(f'<text x="{_sx(x[-1]) + ox:.1f}" y="{_sy(y[-1]) + oy:.1f}" '
                           f'font-size="11.5" font-weight="700" '
-                          f'fill="{color}">{name}</text>')
+                          f'fill="{label_fill}">{name}</text>')
     parts.extend(labels)
     # leyenda: círculo hueco = 2000, lleno = 2025
-    parts.append('<circle cx="66" cy="28" r="4" fill="#fff" stroke="#6b7a90" '
+    parts.append('<circle cx="66" cy="28" r="4" fill="#fff" stroke="#5f6e84" '
                  'stroke-width="1.6"/><text x="75" y="31.5" font-size="10.5" '
-                 'fill="#6b7a90">2000</text>')
-    parts.append('<circle cx="118" cy="28" r="4" fill="#6b7a90"/>'
-                 '<text x="127" y="31.5" font-size="10.5" fill="#6b7a90">2025 · '
+                 'fill="#5f6e84">2000</text>')
+    parts.append('<circle cx="118" cy="28" r="4" fill="#5f6e84"/>'
+                 '<text x="127" y="31.5" font-size="10.5" fill="#5f6e84">2025 · '
                  'puntos intermedios = 2005/10/15/20</text>')
     parts.append("</svg>")
     return "\n".join(parts) + "\n"

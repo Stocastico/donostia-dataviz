@@ -128,12 +128,14 @@ export function HousingPressureSection() {
             </select>
           </div>
           <div className="housing-m2">
-            <span className="control-label">m²/persona</span>
-            <div className="m2-buttons">
+            <span className="control-label" id="m2-label">m²/persona</span>
+            <div className="m2-buttons" role="group" aria-labelledby="m2-label">
               {M2_OPTIONS.map((v) => (
                 <button
                   key={v}
+                  type="button"
                   className={`chip ${v === m2 ? "on" : ""}`}
+                  aria-pressed={v === m2}
                   onClick={() => setM2(v)}
                   disabled={!measure.usesM2}
                   title={measure.usesM2 ? "" : "Influisce solo sulla quota di reddito"}
