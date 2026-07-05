@@ -32,6 +32,10 @@ export function SeasonalityHeatmap({ series, palette = "warm" }: Props) {
     <div className="heatmap">
       <div
         className="heatmap-grid"
+        role="img"
+        aria-label={`Heatmap mese × anno di «${series.label}» (${series.years[0]}–${
+          series.years[series.years.length - 1]
+        }): righe = mesi, colonne = anni; colore più intenso = valore più alto. Valore puntuale nel riquadro sotto la mappa.`}
         style={{ gridTemplateColumns: `2.5rem repeat(${series.years.length}, 1fr)` }}
       >
         {/* Header row: blank corner + years */}

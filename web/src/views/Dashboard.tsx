@@ -194,6 +194,17 @@ export function Dashboard() {
       <MiceSection />
       <IndicatorsSection />
       <BarrioOriginsSection />
+
+      <footer className="app-footer">
+        <p>
+          Questo pannello accompagna il racconto del progetto:{" "}
+          <a href={`${import.meta.env.BASE_URL}historias.html`}>le sette storie</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}metodologia.html`}>metodologia</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}datos.html`}>dati e fonti</a>. Codice e
+          pipeline riproducibile:{" "}
+          <a href="https://github.com/Stocastico/donostia-dataviz">GitHub</a>.
+        </p>
+      </footer>
     </div>
   );
 }

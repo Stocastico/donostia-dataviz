@@ -32,6 +32,17 @@ body {
   color: var(--muted);
 }
 
+.app-footer {
+  margin-top: 3rem;
+  padding: 1rem 0 2rem;
+  border-top: 1px solid var(--border, #e2e7ef);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.app-footer a {
+  color: var(--accent);
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -875,6 +886,15 @@ body {
   padding: 0.3rem 0;
 }
 .map-data-table > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* Consistent, visible keyboard-focus ring on every interactive control
+ * (buttons, selects, sliders, links). Mouse clicks don't trigger it. */
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

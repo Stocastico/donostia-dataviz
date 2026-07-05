@@ -46,6 +46,13 @@ absoluto manda en el centro, pero el **esfuerzo** alquiler/renta es máximo en e
 este obrero: Altza 21,9 %, Egia 21,3 %, Intxaurrondo 20,9 %. La correlación
 `tensión ↔ renta` es **−0,81, y −0,89 sin el centro** — la relación más fuerte y
 robusta de todo el sistema. La tensión es, ante todo, un problema de renta baja.
+*El contrapeso público ya tiene mapa (REC-15, jul-2026):* la vivienda protegida
+de las promociones de Etxebide se concentra en Loiola (**22,3‰**), Amara Berri
+(18,7), Intxaurrondo (16,3) e Ibaeta (15,5) y es **cero en los otros 14 barrios**
+con dato, incluidos el centro caro y Gros. Bien orientada hacia la geografía de
+la presión, pero sin tocar a los dos barrios más tensionados (Altza y Egia, 0‰
+en este registro). *(Proxy: solo promociones Etxebide — suelo del parque
+protegido, no censo de toda la VPO.)*
 
 **4. La población extranjera crece más rápido en ese mismo este.** Intxaurrondo
 +0,92 puntos/año, Mirakruz +0,68, Martutene +0,65, frente a Aiete +0,27. Y
@@ -93,10 +100,13 @@ sólida del proyecto.
 
 ## Qué se puede afirmar y qué no
 
-**Se puede afirmar:** touristificación concentrada; asociación robusta
+**Se puede afirmar:** touristificación concentrada (y, calle a calle, aún más:
+las 10 calles más cargadas reúnen el 19 % del censo VUT); asociación robusta
 turismo↔alquiler; que la tensión de vivienda recae en el este de renta baja; que
-la brecha territorial de renta es estable; que el cambio social (Loiola/Egia) y
-la presión turística (centro) son geografías distintas; que el clima se calienta.
+el contrapeso público (VPO Etxebide) aterrizó en el este obrero y es cero en el
+centro y en los barrios más tensionados (REC-15); que la brecha territorial de
+renta es estable; que el cambio social (Loiola/Egia) y la presión turística
+(centro) son geografías distintas; que el clima se calienta.
 
 **No se puede afirmar (todavía):**
 
@@ -145,6 +155,10 @@ respecto al precio. ✅ **Primer test superado a favor (jul-2026):** AN-13
 2016 no predice la tasa posterior en renta, alquiler ni % universitarios (los
 tres IC95 % de β cruzan el 0; `ANALISIS-INFERENCIAL.md`). Sigue pendiente lo
 que este dato no ve: desigualdad intra-barrio y quien se marcha del municipio.
+*Matiz de política pública (REC-15):* el instrumento que podría mover la
+accesibilidad —la vivienda protegida— está bien orientado hacia el este obrero
+pero es cero justo donde el esfuerzo es máximo (Altza, Egia), así que hoy no
+altera la foto de H3.
 
 **H4 — El centro pierde población sin dejar de concentrar actividad.** Lo
 sugieren la pérdida de población (Gros −0,60 %/año) simultánea al máximo de
@@ -189,12 +203,16 @@ Gros **20,7**, Antiguo 8,5. Estacionalidad hotelera (INE EOH 2005–2026): pico
 jul/ago ~245k, mínimo ene ~116k; desplome 2020 (COVID) y recuperación + ligera
 **desestacionalización** desde 2021; total 2025 ≈ **2,2 M** de pernoctaciones. Proxy de reseñas: exagera
 el crecimiento de oferta **×1,18** (2023–2025: oferta activa +2,0 % vs reseñas +20,2 %) y las altas nuevas de
-licencias VUT del registro REATE caen de **300/año (2017) a 18 (2025)** (REC-13/REC-12).
+licencias VUT del registro REATE caen de **300/año (2017) a 18 (2025)** (REC-13/REC-12). Calle a calle
+(censo VUT × callejero municipal, 301 calles): Zabaleta **35** unidades, Urbieta 34, Easo 33, San Marcial 31;
+las 10 calles más cargadas = **19 %** del censo — la media de barrio borra los ejes saturados.
 
 **🏠 Vivienda.** Alquiler €/m² (EMA 2024): Erdialdea **16,6**, Aiete 16,2, Gros
 15,9; este más barato; Erdialdea **+29 %** desde 2016. Esfuerzo alquiler/renta
 máximo en el este obrero (Altza 21,9 %, Egia 21,3 %, Intxaurrondo 20,9 %), mínimo
-en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %.
+en Ategorrieta-Ulia 14,5 % y Aiete 16,7 %. Vivienda protegida Etxebide (REC-15,
+snapshot): Loiola **22,3‰**, Amara Berri 18,7, Intxaurrondo 16,3, Ibaeta 15,5;
+**0 en los otros 14 barrios** con dato (proxy: solo promociones Etxebide).
 
 **💶 Economía.** Renta per cápita 2023: Aiete ~30.440 € vs. Altza ~18.371 €
 (~1,7×). Brecha de género marcada (Aiete ~29,9 %). Gini territorial **estable**
@@ -212,6 +230,11 @@ en el centro (+0,24 con renta). Paro extranjero en Gipuzkoa **9,4 %** vs **4,3 %
 **🏫 Educación.** Universitarios al alza (Aiete 25,3 %→35,0 %). Centros educativos
 per cápita: la normalización cambia el ranking (Ibaeta 1ª en absoluto, 3ª per
 cápita; Zubieta 1ª per cápita por población baja).
+
+**🏥 Salud (REC-18).** 29 equipamientos de salud, densidad por 1.000 hab.
+(snapshot): Loiola **0,31** y Egia 0,21 encabezan los 13 barrios urbanos —la
+sanidad de proximidad acompaña a la ciudad residente—; Miramón-Zorroaga (3,4)
+es artefacto per cápita del hospital. Densidad de servicios, no isócrona.
 
 **🌡️ Clima (AEMET Igeldo, 1981–2025).** +0,31 °C/década (R²=0,39), media 13,1→14,7 °C;
 días ≥30 °C **+0,81/década** (15 en 2022); máx absoluta **39,7 °C (2022)**, 38,6 °C
