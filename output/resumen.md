@@ -38,6 +38,8 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 | `vut_density` / `vut_count` / `vut_plazas` | VUT /1000 ab. | por barrio | derivado | Donostia Open Data |
 | `airbnb_density` | anuncios /1000 ab. | 19 barrios, snapshot 2025-09 | derivado | Inside Airbnb |
 | `schools_per_1000` | centros /1000 ab. | por barrio | derivado | Open Data (equipamientos) |
+| `health_per_1000` | servicios de salud /1000 ab. | por barrio, snapshot | derivado | Open Data (equipamientos, REC-18) |
+| `vpo_dwellings_per_1000` | viviendas protegidas /1000 ab. | por barrio, snapshot | proxy | Etxebide / Open Data Euskadi (REC-15) |
 | `noise_night_pct55` | % área ≥55 dB (Lnight) | por barrio, 2022 | proxy | Mapa estratégico ruido |
 | `transform_class` | clase (4 categorías) | 13 barrios | derivado | Índice AN-8 |
 | `transform_tourism_score` / `transform_socio_score` | z-score | 13 barrios | derivado | Índice AN-8 |
@@ -150,6 +152,19 @@ propósito: esa es la información.*
   Antiguo +197 puntos, Miramón-Zorroaga −218, Loiola −20 (todo desde 2015) y la
   **V de Egia** (rejuveneció 2000→2010, re-envejeció después; tortuosidad 4,3).
   La dispersión de la nube es plana (1,36→1,28): coherente con H3.
+- **El contrapeso público existe, pero no toca a los más tensionados (REC-15):**
+  la vivienda protegida de las promociones de Etxebide se concentra en cuatro
+  barrios del este obrero/periferia interior —Loiola **22,3‰**, Amara Berri 18,7,
+  Intxaurrondo 16,3, Ibaeta 15,5— y es **cero en los otros 14** con dato,
+  incluidos el centro caro y Gros. Bien orientada hacia la geografía de la
+  presión… salvo que **Altza y Egia**, los barrios con más esfuerzo
+  alquiler/renta (21,9 % y 21,3 %), no tienen ni una vivienda de este registro.
+  *(Proxy: solo promociones Etxebide, suelo del parque protegido, no censo.)*
+- **La concentración turística se agudiza al bajar al callejero (sub-barrio):**
+  cruzando el censo VUT con el callejero municipal (301 calles con ≥1 vivienda
+  turística, emparejamiento del 100 % de 1.489 fichas), las **diez calles** más
+  cargadas reúnen el **19 %** de todo el censo VUT/HUT: Zabaleta (35 unidades),
+  Urbieta (34), Easo (33), San Marcial (31). La media de barrio borra estos ejes.
 - **Dos transformaciones, dos geografías:** correlación entre el score
   socioeconómico y el turístico ≈ **0,25** (débil, N=13) → **no coinciden**.
   Turismo en el centro acomodado (Erdialdea +2,40, Gros +1,37); cambio social en la
@@ -235,7 +250,11 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    ambiental). La estacionalidad por barrio (AN-14) invierte la intuición: la
    periferia depende del verano (ratio ~4,8) y **Erdialdea es el menos
    estacional (2,1)** — presión crónica; y el COVID no interrumpió la
-   turistificación, la aceleró y difundió (AN-20). *Densidad derivada;
+   turistificación, la aceleró y difundió (AN-20). Bajo la media de barrio, la
+   vista calle a calle enseña los ejes saturados (top-10 calles = 19 % del censo
+   VUT). La cara vivida suma la capa de **salud** (REC-18): sanidad de proximidad
+   con Loiola/Egia en cabeza de los 13 urbanos; Miramón-Zorroaga (3,4/1000) es
+   artefacto per cápita del hospital. *Densidad derivada;
    reseñas = proxy.*
 7. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
@@ -243,7 +262,10 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    pero no turístico. Las trayectorias 2000→2025 (AN-18, connected scatter
    estático nuevo) añaden la lectura MET-8: universitarización como marea
    (17/17), tres formas de envejecer y la **V de Egia** (su momento joven ya
-   revirtió). *"Transformación", no "gentrificación"; N=13, pesos iguales.*
+   revirtió). Cierra con el **contrapeso público** (REC-15): mapa VPO junto al de
+   tensión — la vivienda protegida aterrizó en el este obrero (Loiola 22,3‰),
+   cero en el centro caro y en los barrios más tensionados (Altza, Egia).
+   *"Transformación", no "gentrificación"; N=13, pesos iguales.*
 
 > **Apéndice del HTML — "La ciudad de fondo":** estacionalidad hotelera,
 > reciclaje, fiscalidad municipal y MICE, como contexto de ciudad.
