@@ -46,14 +46,25 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Join spaziale punto→barrio.", _PER_1000,
         "Annunci Inside Airbnb (snapshot 2025-09, inclusi non registrati): "
         "universo più ampio dei VUT legali, non lo stesso dato.",
+        "Solo piattaforma Airbnb: un pavimento dell'affitto turistico online "
+        "(Booking/Vrbo e altre piattaforme escluse).",
     ]),
     "airbnb_activity": ("proxy", [
         "Recensioni/anno ≈ soggiorni recensiti («modello San Francisco»): sottostima "
         "le presenze reali e cresce con l'adozione della piattaforma, non solo con l'occupazione.",
+        "Solo piattaforma Airbnb (altre piattaforme escluse).",
         "Denominatore: popolazione dell'ultimo anno (semplificazione a denominatore fisso).",
     ]),
-    "schools_per_1000": ("derived", ["Join spaziale punto→barrio.", _PER_1000]),
+    "schools_per_1000": ("derived", [
+        "Registro municipale dell'educazione formale (157 centri: scolastici, "
+        "universitari, haurreskolak; pubblici e privati) — accademie e "
+        "formazione non regolata escluse.",
+        "Join spaziale punto→barrio.", _PER_1000,
+    ]),
     "health_per_1000": ("derived", [
+        "Registro municipale di equipamientos (ospedali, ambulatori, centri di "
+        "salute; pubblici e cliniche private) — studi medici privati e "
+        "farmacie esclusi.",
         "Join spaziale punto→barrio (ospedali, ambulatori, centri di salute).",
         _PER_1000,
         "Accessibilità come densità di servizi, non tempo di percorrenza reale.",

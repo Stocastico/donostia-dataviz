@@ -234,7 +234,8 @@ envejecido (índice de vejez Gros **370**, Erdialdea **350**), este joven
 (Intxaurrondo 21 % de 25–39); Antiguo +203 puntos de índice en 25 años;
 Miramón-Zorroaga rejuvenece (387→151). Origen (REC-21): la cuota latinoamericana crece **×19** desde 2000
 (0,25 %→4,81 %, >½ de la población extranjera), concentrada en el este de renta baja (r=−0,69); Europa occidental,
-en el centro (+0,24 con renta). Paro extranjero en Gipuzkoa **9,4 %** vs **4,3 %** español; africano **18,4 %**.
+en el centro (+0,24 con renta). Paro extranjero en Gipuzkoa **9,4 %** vs **4,3 %** español; africano **18,4 %**
+*(EPA: encuesta — submuestras por continente pequeñas; el orden es robusto, el decimal no)*.
 
 **🏫 Educación.** Universitarios al alza (Aiete 25,3 %→35,0 %). Centros educativos
 per cápita: la normalización cambia el ranking (Ibaeta 1ª en absoluto, 3ª per

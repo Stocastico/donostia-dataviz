@@ -92,9 +92,9 @@
         <tr><td><code>ageing_index</code></td><td>≥65 / &lt;15 × 100</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
         <tr><td><code>pct_youth_adults</code></td><td>% de 25–39 años</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
         <tr><td><code>vut_density</code> / <code>vut_count</code> / <code>vut_plazas</code></td><td>VUT /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Censo VUT — Donostia Open Data</td></tr>
-        <tr><td><code>airbnb_density</code></td><td>anuncios /1.000 hab.</td><td>19 barrios, snapshot 2025-09</td><td><span class="badge b-der">derivado</span></td><td>Inside Airbnb (Euskadi), join espacial</td></tr>
-        <tr><td><code>schools_per_1000</code></td><td>centros /1.000 hab.</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos educativos — Open Data (GeoJSON)</td></tr>
-        <tr><td><code>health_per_1000</code></td><td>servicios de salud /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos de salud — Open Data (GeoJSON, REC-18; join espacial)</td></tr>
+        <tr><td><code>airbnb_density</code></td><td>anuncios /1.000 hab.</td><td>19 barrios, snapshot 2025-09</td><td><span class="badge b-der">derivado</span></td><td>Inside Airbnb (Euskadi), join espacial. Solo plataforma Airbnb: suelo del alquiler turístico online (Booking y otras fuera); incluye no registrados</td></tr>
+        <tr><td><code>schools_per_1000</code></td><td>centros /1.000 hab.</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos educativos — Open Data (GeoJSON). Registro municipal de educación formal (157 centros públicos y privados; academias fuera)</td></tr>
+        <tr><td><code>health_per_1000</code></td><td>servicios de salud /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos de salud — Open Data (GeoJSON, REC-18; join espacial). Registro municipal (públicos y clínicas privadas; consultas privadas y farmacias fuera)</td></tr>
         <tr><td><code>noise_night_pct55</code></td><td>% área ≥55 dB (Lnight)</td><td>por barrio, 2022</td><td><span class="badge b-pro">proxy</span></td><td>Mapa estratégico de ruido (SHP, ruido de transporte)</td></tr>
         <tr><td><code>transform_class</code> + scores/componentes</td><td>clase / z-score</td><td>13 barrios, base 2016</td><td><span class="badge b-der">derivado</span></td><td>Índice de Transformación (AN-8), componentes a la vista</td></tr>
         <tr><td><code>velocity_*</code></td><td>Δ/año desde 2016</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Pendiente anualizada de las métricas anteriores</td></tr>
@@ -109,7 +109,7 @@
       <thead><tr><th>Serie</th><th>Cobertura</th><th>Confianza</th><th>Fuente</th></tr></thead>
       <tbody>
         <tr><td><code>temp_avg</code> / <code>temp_max</code> / <code>precip</code> / <code>hot_days_30</code></td><td>1981–2025, mensual y anual</td><td><span class="badge b-obs">observado</span></td><td>AEMET OpenData — estación Igeldo (1024E)</td></tr>
-        <tr><td><code>overnight_stays</code> (pernoctaciones hoteleras)</td><td>2005–2026, mensual</td><td><span class="badge b-obs">observado</span></td><td>INE — EOH, tabla 2078</td></tr>
+        <tr><td><code>overnight_stays</code> (pernoctaciones hoteleras)</td><td>2005–2026, mensual</td><td><span class="badge b-obs">observado</span></td><td>INE — EOH, tabla 2078. Solo establecimientos hoteleros (pensiones/apartamentos turísticos no incluidos)</td></tr>
         <tr><td><code>airbnb_reviews</code> (reseñas/mes)</td><td>2011–2025</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — proxy de estancias, con sesgo de adopción (MET-7)</td></tr>
         <tr><td><code>airbnb_activity</code> (panel barrio×año)</td><td>2011–2025</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — reseñas/año/1.000 hab.</td></tr>
       </tbody>
@@ -124,7 +124,7 @@
         <tr><td><code>tax_revenue</code> / <code>fee_revenue</code> (impuestos y tasas municipales)</td><td>2011–2025</td><td><span class="badge b-obs">observado</span></td><td>Donostia Open Data — presupuestos</td></tr>
         <tr><td><code>recycling_rate</code> (recogida selectiva)</td><td>2010–2024</td><td><span class="badge b-obs">observado</span></td><td>Donostia Open Data — residuos (ámbito urbano)</td></tr>
         <tr><td><code>unemployment_rate</code> (total / hombres / mujeres)</td><td>2015–2025</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — PRA, capital Donostia</td></tr>
-        <tr><td><code>unemployment_rate_spanish/foreign_gipuzkoa</code> (paro por nacionalidad)</td><td>2015–2026</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — PRA, Gipuzkoa (REC-21: 4,3 % española vs 9,4 % extranjera)</td></tr>
+        <tr><td><code>unemployment_rate_spanish/foreign_gipuzkoa</code> (paro por nacionalidad)</td><td>2015–2026</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — PRA, Gipuzkoa (REC-21: 4,3 % española vs 9,4 % extranjera). Encuesta: las submuestras por nacionalidad/continente son pequeñas — el orden es robusto, el decimal no</td></tr>
         <tr><td><code>randd_personnel_per_1000_employed_gipuzkoa</code> (intensidad I+D)</td><td>2001–2024</td><td><span class="badge b-obs">observado</span></td><td>Eustat — personal I+D, Gipuzkoa (REC-21: 31,0‰ vs 13,6‰ España)</td></tr>
         <tr><td><code>total_establishments</code> + cuotas comercio/hostelería</td><td>2008–2025</td><td><span class="badge b-der">derivado</span></td><td>Eustat — directorio CDIRAE (CNAE agregado en pipeline)</td></tr>
         <tr><td><code>pct_language_model_a/b/d</code> (modelos lingüísticos)</td><td>1983–2025</td><td><span class="badge b-obs">observado</span></td><td>Eustat PxWeb — enseñanza, municipio Donostia</td></tr>

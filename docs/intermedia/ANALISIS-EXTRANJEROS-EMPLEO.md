@@ -169,7 +169,11 @@ continente de nacionalidad (Gipuzkoa, 2024):
 La tasa de paro de la población africana (18,4 %) casi triplica la europea
 (6,7 %) y multiplica por seis la americana (3,2 %). Esto es coherente —
 aunque no lo demuestra a nivel de Donostia — con la percepción de una
-población magrebí/africana con situación laboral más precaria. La comparación
+población magrebí/africana con situación laboral más precaria.
+*(Nota de fuente, añadida jul-2026: la EPA/PRA es una encuesta y sus
+submuestras por continente a nivel Gipuzkoa son pequeñas — el **orden** entre
+grupos es robusto; las cifras exactas llevan error de muestreo no publicado a
+este grano.)* La comparación
 agregada española/extranjera confirma el patrón: en Gipuzkoa (2025),
 la población de nacionalidad extranjera tiene una tasa de paro más del doble
 que la española (9,4 % vs. 4,3 %), pese a una tasa de actividad más alta

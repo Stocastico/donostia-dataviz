@@ -236,7 +236,8 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    opuestas: la de origen latinoamericano (×19 desde 2000, >½ del total) y magrebí se concentra
    en el este de renta baja (r=−0,69 y −0,48 con la renta del barrio); la europeo-occidental, en
    el centro caro (+0,24 con renta, +0,59 con % universitarios). El paro extranjero en Gipuzkoa
-   dobla al español (9,4 % vs 4,3 %; africano 18,4 %). La ciudad tiene intensidad investigadora
+   dobla al español (9,4 % vs 4,3 %; africano 18,4 % — EPA: encuesta con
+   submuestras pequeñas por continente, orden robusto pero cifra con error). La ciudad tiene intensidad investigadora
    doble que España (31,0‰ vs 13,6‰) y a la vez una base ancha de servicios mal pagados
    (dirección 65.657 € vs servicios 18.044 €, ×3,6). *No existe cruce nacionalidad×ocupación×salario
    a este grano (MET-5): todo es triangulación entre barrios, nunca lectura individual (MET-6).*
@@ -298,6 +299,13 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
 
 ## 6. Limitaciones conocidas
 
+- **Registro ≠ universo** (auditoría de parcialidad, jul-2026): Airbnb = una
+  sola plataforma (suelo del alquiler turístico online); EOH = solo
+  establecimientos hoteleros; REATE = solo altas supervivientes; promociones
+  Etxebide = ≤~⅓ del solo alquiler protegido; EPA por nacionalidad = encuesta
+  con submuestras pequeñas; equipamientos = registro municipal (sin consultas
+  privadas ni academias). **Un cero en un registro parcial no es un cero del
+  fenómeno**; la cobertura se declara en la ficha de cada métrica.
 - **N=13 barrios** clasificables en los análisis de renta/alquiler/transformación
   (los 6 periféricos rurales no tienen renta/alquiler; se excluyen de densidades
   per cápita para evitar artefactos).

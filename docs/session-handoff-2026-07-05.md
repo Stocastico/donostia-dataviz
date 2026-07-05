@@ -132,6 +132,47 @@ tenía razón:
   PLAN-CIERRE al día. La foto completa queda como **laguna declarada** (pista
   futura: parque Etxegintza o Registro de Vivienda Protegida georreferenciados).
 
+## Addendum 2 (2026-07-05, tercera tanda) — auditoría de parcialidad de TODAS las fuentes
+
+Petición del usuario tras el caso VPO: revisar historia por historia si alguna
+otra fuente es un registro parcial presentado como universo. Veredicto por
+fuente:
+
+**Completas o casi (sin cambios):** padrón (población/edad/origen/estudios —
+registro administrativo), renta Eustat (fiscal; «en bandas» ya declarado),
+censo VUT (solo legales — ya declarado), callejero municipal, residuos/
+fiscalidad (administrativo), AEMET (1 estación — declarado), Landsat LST
+(45 escenas, declarado), DIRAE (directorio ≈ censo de establecimientos),
+MICE (curado — declarado), ruido (% área, tráfico — declarado), REATE
+(supervivientes — ya declarado), AN-12 (estimación por residuo — declarado),
+equipamientos educativos (registro municipal completo de educación formal:
+115 escolares + 24 universitarios + 18 haurreskolak, públicos y privados),
+equipamientos de salud (incluye clínicas privadas: Quirónsalud, Policlínica,
+Pakea…).
+
+**Parciales SIN declarar → corregidas en esta tanda:**
+1. **EPA/PRA por nacionalidad-continente (cap. 4)** — es *encuesta* y las
+   submuestras por continente a nivel Gipuzkoa son pequeñas; el «18,4 % paro
+   africano» iba como cifra exacta. → Caveat «orden robusto, decimal no» en
+   keynum + párrafo + ficha de confianza del cap. 4, resumen, TESIS,
+   `ANALISIS-EXTRANJEROS-EMPLEO.md` §1.4 y `datos.html`.
+2. **Inside Airbnb = una sola plataforma** — suelo del alquiler turístico
+   online (Booking/Vrbo fuera). → supuesto nuevo en `airbnb_density`/
+   `airbnb_activity` (provenance + JSONs), párrafo del cap. 6 y `datos.html`.
+3. **INE EOH = solo establecimientos hoteleros** (pensiones/apartamentos
+   fuera) — relevante porque el relato compara «hotel ×1,6» vs «Airbnb ×6».
+   → nota en las dos figuras que la usan + `datos.html`.
+4. **Equipamientos = registro municipal** (sin consultas privadas/farmacias/
+   academias) — supuestos de `schools/health_per_1000` ampliados + src del
+   cap. 6 + `datos.html`.
+5. **EMA = nuevos contratos con fianza depositada** — ya estaba en los
+   supuestos; ahora también en el src del mapa del cap. 1.
+
+**Doctrina nueva (para que no vuelva a pasar):** bullet «**Registro ≠
+universo**» en MET-5 (`metodologia.html`) y en Limitaciones de `resumen.md`:
+un cero en un registro parcial no es un cero del fenómeno; la cobertura se
+declara en la ficha de cada métrica.
+
 ## Lo que queda (único paso hasta el cierre)
 1. **Usuario:** revisar los textos → lanzar a mano *Actions → Deploy site
    (GitHub Pages) → Run workflow* sobre `main`; comprobar el primer despliegue
