@@ -65,6 +65,15 @@ existe dataset abierto estructurado.
 |---|---|---|
 | `mice_donostia.csv` | Indicadores MICE (congresos ICCA; récord 2024: 188 eventos / 259k asistentes) | Curado de notas de prensa citadas por fila (DSS Convention Bureau / ICCA). Ampliar añadiendo filas. |
 | `ibiltur_donostia.csv` | Indicadores IBILTUR Ocio 2023 (gasto/persona, gasto/persona/día, impacto económico) — solo turista de ocio que pernocta | Curado de la ficha de destino Donostia/San Sebastián de Basquetour (PDF). Ampliar cuando salga otra edición **Ocio** (anual) comparable — la de 2022 es "Verano" (otra ventana temporal) y no se mezcla. |
+| `ipc_espana.csv` | IPC general nacional, índice base 2021 = 100, media anual 2016–2025 | **HU-7 (analysis-only)**. Curado de INE, tabla Tempus **50902** (`servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50902`), serie «Nacional. Índice general. Índice.», promediada a media anual. Snapshot jul-2026. Deflactor de `analysis/housing_affordability.py`. |
+| `percepcion_seguridad_eustat.csv` | Familias por grado de seguridad ciudadana y zona (miles), 1989–2024, zonas C.A. Euskadi (00) y Donostia-Bajo Bidasoa (70) | **HU-1 (analysis-only)**. Eustat, Encuesta de Condiciones de Vida, tabla PxWeb **PX_010901_cecv_ma04_3** (POST json-stat2, filtro zona 00+70). Snapshot jul-2026. Eje *percepción* de `analysis/perception_vs_crime.py`. |
+| `criminalidad_donostia.csv` | Infracciones penales conocidas y tasa/1000 hab. de Donostia (**serie parcial**: 2019–2021 + Δ2024) | **HU-1 (analysis-only)**. Curado de prensa citada por fila (euskadi.eus 2022, Noticias de Gipuzkoa 2025; datos Ertzaintza+Guardia Municipal vía Balance de Criminalidad del Min. Interior). **Laguna declarada**: completar con la serie oficial anual del Portal Estadístico de Criminalidad (`estadisticasdecriminalidad.ses.mir.es`). |
+
+## Fuentes analysis-only sin fichero versionado (descarga en tiempo de ejecución)
+
+| Origen | Vía | Alimenta | Notas |
+|---|---|---|---|
+| OpenStreetMap (`shop=*` + `amenity` de hostelería) | Overpass API (`overpass-api.de`, GET con `User-Agent`), área administrativa «Donostia / San Sebastián` | **HU-3** tipología comercial (`analysis/commercial_typology.py`; cache en `analysis/output/osm_commercial_raw.json`, gitignored) | ODbL. Snapshot vivo (foto actual, sin histórico). Completitud OSM variable por barrio → proporciones intra-barrio más robustas que recuentos. |
 
 ## Pendiente / manual (sin dataset abierto)
 

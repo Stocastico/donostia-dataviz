@@ -171,21 +171,51 @@ hipótesis, no porque exista.
    **HU-5/HU-6** medibles solo en su parte de desestacionalización.
    **HU-2** congelada (datos + riesgo causal).
 
-### Estado de implementación (jul-2026, esta sesión)
+### Estado de implementación + HALLAZGOS (jul-2026, esta sesión) ✅
 
-- **HU-7** → `analysis/housing_affordability.py` + tests. Serie indexada
-  (base 2016 = 100) alquiler vs. renta vs. IPC, por barrio y ciudad; ratio de
-  esfuerzo. Fuente IPC: curada en `datos/input/ipc_espana.csv` (INE, media
-  anual), snapshot etiquetado.
-- **HU-1** → `analysis/perception_vs_crime.py` + tests. Máquina de la «tijera»
-  percepción vs. criminalidad real; datos de criminalidad municipal curados en
-  `datos/input/criminalidad_donostia.csv` (Ministerio del Interior, *Balance de
-  Criminalidad*), percepción en `datos/input/percepcion_ciudadana.csv`.
-- **HU-3** → `analysis/commercial_typology.py` + tests. Clasificación de
-  comercios OSM (`shop=*`) en «turístico» vs. «cotidiano/residente» por barrio,
-  cruzada con densidad VUT por calle. Carga vía Overpass (red, no testada);
-  clasificación testada con fixtures.
+Las tres son **análisis exploratorios** (`analysis/`), con TDD (43 tests nuevos,
+suite total 182 pipeline + 159 analysis en verde). No se cablean al pipeline
+hasta que valides el relato. Correlación ≠ causalidad; cifras externas curadas
+con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
 
-> Las tres se implementan como **análisis exploratorios** (`analysis/`), no se
-> cablean al pipeline hasta que el usuario valide el relato. Correlación ≠
-> causalidad; las cifras externas curadas llevan fuente y snapshot por fila.
+- **HU-7 — Vivienda vs. IPC vs. renta** → `analysis/housing_affordability.py`
+  (12 tests). IPC curado en `datos/input/ipc_espana.csv` (INE tabla 50902).
+  **Hallazgo (matizado):** el alquiler de ciudad crece **+34,8 % (2016–2024)**
+  frente al **IPC +23,7 %** → *sí supera a la inflación* (alquiler real +9,0 %).
+  **Pero** la renta disponible pc creció **+28,0 % (2016–2023)**, por *encima*
+  del alquiler (+24,8 %) en esa ventana → el «más que el sueldo» **no** se
+  sostiene con la renta pc (media inflada por rentas altas y no salariales).
+  Por barrio, el alquiler sube más rápido en el este (Intxaurrondo +32 %, Altza
+  +29 %) y el esfuerzo empeora ahí; en Gros/Egia el esfuerzo baja porque la
+  renta subió mucho. *Pendiente para cerrar «vivir solo»:* salario real por
+  tramo/edad (no renta pc); venta €/m² sigue sin fuente (🔴).
+
+- **HU-1 — «La seguridad ha bajado mucho» (percepción vs. realidad)** →
+  `analysis/perception_vs_crime.py` (8 tests). Percepción: serie **Eustat real
+  1989–2024** (`percepcion_seguridad_eustat.csv`, zona Donostia-Bajo Bidasoa).
+  **Hallazgo:** a **largo plazo es FALSO** — familias con «algún problema» de
+  seguridad caen del **35,4 % (1989)** al 14–18 % (2004–2019); pero hay
+  **repunte real 2019→2024 (14,6 %→21,5 %)**, coherente con la encuesta 2026. La
+  criminalidad real (serie parcial, `criminalidad_donostia.csv`) también sube en
+  esa ventana → percepción y realidad **coinciden** en corto plazo; **la «tijera»
+  no está demostrada**. *Bloqueante para cerrarla:* la serie oficial anual
+  completa del Portal Estadístico de Criminalidad (Min. Interior) — laguna
+  declarada.
+
+- **HU-3 — Tipología comercial de la Parte Vieja (OSM)** →
+  `analysis/commercial_typology.py` (23 tests). Clasifica locales OSM
+  (`shop=*` + hostelería `amenity=*`) en hosteleria/turistico/cotidiano/otro/
+  vacant por barrio, cruzado con densidad VUT. Carga Overpass (red, cache
+  gitignored). **Hallazgo:** la **Parte Vieja (bbox) es ~82 % hostelería**
+  (85 de 103 locales), con solo **3 comercios cotidianos** → distrito casi
+  monofuncional de consumo de visitante. OSM infra-mapea souvenirs (`shop=gift`
+  ≈ 1) → el eje real en el casco viejo es la **hostelería** (`amenity`), no la
+  tienda. `corr(turistico_share ↔ VUT) = +0,39`. **Clave honesta:** OSM da la
+  *geografía actual*, no el *cambio* — la prueba temporal («cierran ferreterías»)
+  es la serie CNAE de ciudad (REC-7: retail 14,9→12,6 %, hostelería 6,0→8,1 %);
+  se **triangulan**.
+
+**Otras (no ejecutadas esta sesión):** HU-4 (tráfico) sigue bloqueada por falta
+de aforos; verificar si Donostia OD publica intensidades por calle. HU-5/HU-6
+medibles solo en desestacionalización (pernoctaciones INE ya en repo) + cruce
+MICE×meses. HU-2 (sin techo) congelada por datos + riesgo causal.
