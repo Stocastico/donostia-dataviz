@@ -1,0 +1,7 @@
+indicator_id,year,value,source
+infracciones_penales,2019,12000,"Prensa (cifra redondeada) — Ertzaintza+Guardia Municipal, vía euskadi.eus 2022 ('12.000 el anterior 2019'); PENDIENTE cifra exacta del Portal Estadístico de Criminalidad (Min. Interior)"
+infracciones_penales,2020,10640,"Prensa — Ertzaintza+Guardia Municipal, vía euskadi.eus 2022 ('10.640 en el atípico 2020'); año COVID atípico"
+infracciones_penales,2021,12705,"euskadi.eus 2022 — infracciones penales conocidas por Guardia Municipal y Ertzaintza, Donostia 2021"
+tasa_criminalidad_1000,2019,64.03,"euskadi.eus 2022 — tasa delitos/1000 hab. Donostia 2019 (año pre-pandemia)"
+tasa_criminalidad_1000,2021,67.54,"euskadi.eus 2022 — tasa delitos/1000 hab. Donostia 2021"
+var_interanual_pct,2024,11.8,"Noticias de Gipuzkoa 2025 (Balance de Criminalidad Min. Interior) — criminalidad total Donostia 2024 vs 2023 (+11,8%; convencional +18,4%)"
