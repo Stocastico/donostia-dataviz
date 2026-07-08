@@ -107,3 +107,14 @@ def test_mix_by_barrio_counts_and_ratios():
     # turistico_share_shops = turistico/(turistico+cotidiano) = 1/2
     assert row["turistico_share_shops"] == pytest.approx(0.5)
     assert row["vacancy_rate"] == pytest.approx(1 / 3)  # 1 vacant / 3 (2 activos+1)
+
+
+# ------------------------------------------ triangulación temporal CNAE ----
+def test_cnae_trend_real_endpoints():
+    """El eje TEMPORAL de HU-3 (REC-7): retail baja, hostelería sube."""
+    trend = ct.read_cnae_trend()
+    retail = trend["retail_establishments_share"]
+    hosp = trend["hospitality_establishments_share"]
+    assert retail[2008] == pytest.approx(14.89, abs=0.01)
+    assert retail[retail.index.max()] < retail[2008]   # comercio ↓
+    assert hosp[hosp.index.max()] > hosp[2008]          # hostelería ↑

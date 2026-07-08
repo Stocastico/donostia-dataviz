@@ -57,6 +57,7 @@ from shapely.geometry import shape
 ROOT = Path(__file__).resolve().parent.parent
 GEOJSON = ROOT / "web" / "src" / "data" / "barrios.geojson"
 METRICS = ROOT / "datos" / "procesado" / "tablas" / "metrics_long.csv"
+INDICATORS = ROOT / "datos" / "procesado" / "tablas" / "indicators_long.csv"
 OUTDIR = Path(__file__).resolve().parent / "output"
 CACHE = OUTDIR / "osm_commercial_raw.json"
 
@@ -192,6 +193,21 @@ def vut_density_by_barrio(path: Path = METRICS) -> pd.Series:
     return df.set_index("barrio_id")["value"].astype(float)
 
 
+def read_cnae_trend(path: Path = INDICATORS) -> dict[str, pd.Series]:
+    """Eje TEMPORAL de ciudad (REC-7): cuotas CNAE de comercio y hostelería.
+
+    OSM da la geografía *actual*; esta serie da el *cambio* que la hipótesis
+    describe («cierran negocios de barrio»). Se triangulan.
+    """
+    df = pd.read_csv(path, usecols=["id", "year", "value"])
+    out = {}
+    for ind in ("retail_establishments_share", "hospitality_establishments_share"):
+        sub = df[df["id"] == ind].copy()
+        sub["year"] = sub["year"].astype(int)   # tras filtrar (otros ids traen '1983/1984')
+        out[ind] = sub.set_index("year")["value"].astype(float).sort_index()
+    return out
+
+
 # --------------------------------------------------------------- carga ----
 def fetch_shops(cache: Path = CACHE, use_cache: bool = True) -> list[dict]:
     """Comercios + hostelería de Donostia vía Overpass (cacheado en disco)."""
@@ -258,9 +274,21 @@ def main() -> None:
     print(f"\nParte Vieja (bbox {PARTE_VIEJA_BBOX}): {len(pv)} locales — {pv_mix}")
     print("⚠️  OSM infra-mapea el casco viejo; leer como indicio, no censo.")
 
+    # eje temporal: serie CNAE de ciudad (REC-7)
+    print("\n— Triangulación temporal: cuota de locales por sector (CNAE, ciudad) —\n")
+    trend = read_cnae_trend()
+    retail, hosp = (trend["retail_establishments_share"],
+                    trend["hospitality_establishments_share"])
+    y0t, y1t = retail.index.min(), retail.index.max()
+    print(f"  Comercio minorista: {retail[y0t]:.1f}% ({y0t}) → "
+          f"{retail[y1t]:.1f}% ({y1t})  [{retail[y1t]-retail[y0t]:+.1f} pp]")
+    print(f"  Hostelería:         {hosp[y0t]:.1f}% ({y0t}) → "
+          f"{hosp[y1t]:.1f}% ({y1t})  [{hosp[y1t]-hosp[y0t]:+.1f} pp]")
+
     print("\nLectura: OSM da la GEOGRAFÍA actual (qué barrios son hosteleros/")
-    print("turísticos), no el CAMBIO. La prueba temporal es la serie CNAE de")
-    print("ciudad (REC-7). Se triangulan.")
+    print("turísticos); la serie CNAE da el CAMBIO de ciudad (comercio ↓,")
+    print("hostelería ↑). Se triangulan: la Parte Vieja hostelera de hoy es el")
+    print("estado final de esa deriva, no una prueba causal por sí sola.")
 
     if args.save:
         OUTDIR.mkdir(exist_ok=True)
