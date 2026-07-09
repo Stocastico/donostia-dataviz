@@ -597,9 +597,24 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   **+24,8 %** > salario **+21,8 %** > IPC **+20,4 %** (2016–2023; a 2024 alquiler
   +34,8 %). El «más que el sueldo» se sostiene con el **salario real**, no con la
   renta disponible pc (+28 %, inflada por capital/pensiones). **Pendiente:**
-  precio de **venta** €/m² (🔴, sin fuente abierta por barrio, ver REC-8);
-  sección web dedicada de índice alquiler/salario/IPC (opcional, hoy vía métrica
-  + narrativa).
+  precio de **venta** €/m² (🔴, sin fuente abierta por barrio, ver REC-8 y
+  REC-25); sección web dedicada de índice alquiler/salario/IPC (opcional, hoy vía
+  métrica + narrativa).
+- ⬜ **REC-25 (Usuario) — precio de venta €/m² por barrio vía idealista.**
+  idealista publica en su **sala de prensa** informes de precio de vivienda por
+  barrio de Donostia (URL tipo
+  `idealista.com/sala-de-prensa/informes-precio-vivienda/venta/euskadi/guipuzcoa/donostia-san-sebastian/<barrio>/`,
+  con serie histórica). No es scraping de anuncios: son tablas en una página
+  dedicada. **Bloqueante desde Code:** el sitio devuelve **403 (anti-bot
+  DataDome/Cloudflare)** a cualquier cliente automatizado, incluso con
+  User-Agent de navegador — no es el proxy del entorno (verificado jul-2026); no
+  se intenta evadir el anti-bot (ToS + evasión de detección). **Tarea del
+  usuario:** investigar si esos informes se pueden **descargar** (¿CSV/Excel/API
+  de la sala de prensa?) o hay que **reformatear la página** a mano por barrio, y
+  pasar los datos a Code (como con la criminalidad de HU-1). Con la serie por
+  barrio → métrica de **venta €/m²** en pipeline+web y cruce con alquiler/renta
+  (cierra la casilla 🔴 de HU-7). ⚠️ Revisar los ToS de idealista antes de una
+  descarga sistemática; documentar la fuente y la decisión.
 - ✅ **REC-23 (HU-1) percepción de seguridad vs. criminalidad real** — hecho y
   **cableado al pipeline+web** (jul-2026). Indicadores de ciudad
   `perception_insecurity_donostia/_euskadi` (Eustat ECV `PX_010901_cecv_ma04_3`,
@@ -703,8 +718,10 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
 ## Descartado / no hacer (decisiones firmes)
 
 - **Criminalidad por barrio** — fuente eliminada + escala sub-municipal protegida.
-- **Precios de venta €/m² por barrio** — solo vía catastro foral (REC-8); nunca
-  scraping de Indomio/Idealista (ToS).
+- **Precios de venta €/m² por barrio** — no se hace **scraping de anuncios** de
+  Indomio/Idealista (ToS). Sí queda abierta la vía de los **informes publicados**
+  de la sala de prensa de idealista (tablas por barrio) como tarea del usuario
+  (REC-25), y la del catastro foral (REC-8).
 - **"Índice de gentrificación" como caja negra** — se usa "Transformación Urbana",
   multi-definición y con componentes a la vista.
 - **PCA como método principal de pesos del AN-8** — frágil con N=13; solo como
