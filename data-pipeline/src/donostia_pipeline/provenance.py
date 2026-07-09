@@ -30,6 +30,11 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
     ]),
     "pct_youth_adults": ("observed", ["Quota 25–39 anni sul totale (Padrón)."]),
     "income_total": ("observed", []),
+    "income_labor": ("observed", [
+        "Renta del trabajo (salari) pro capite: la parte da lavoro del reddito, "
+        "senza pensioni/capitale/trasferimenti — la misura rilevante per «vivere "
+        "con uno stipendio» (HU-7). Nel 2016–2023 è cresciuta meno dell'affitto.",
+    ]),
     "pct_university": ("observed", []),
     "rent_eur_m2": ("observed", [
         "EMA: affitti di nuovi contratti registrati (solo locazioni), non l'intero stock.",
