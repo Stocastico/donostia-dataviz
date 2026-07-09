@@ -96,6 +96,7 @@
         <tr><td><code>schools_per_1000</code></td><td>centros /1.000 hab.</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos educativos — Open Data (GeoJSON). Registro municipal de educación formal (157 centros públicos y privados; academias fuera)</td></tr>
         <tr><td><code>health_per_1000</code></td><td>servicios de salud /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos de salud — Open Data (GeoJSON, REC-18; join espacial). Registro municipal (públicos y clínicas privadas; consultas privadas y farmacias fuera)</td></tr>
         <tr><td><code>noise_night_pct55</code></td><td>% área ≥55 dB (Lnight)</td><td>por barrio, 2022</td><td><span class="badge b-pro">proxy</span></td><td>Mapa estratégico de ruido (SHP, ruido de transporte)</td></tr>
+        <tr><td><code>hosteleria_share</code></td><td>% hostelería sobre locales</td><td>13 barrios, snapshot 2026 (HU-3)</td><td><span class="badge b-pro">proxy</span></td><td>OpenStreetMap (Overpass, <code>shop=*</code> + hostelería <code>amenity=*</code>). Foto actual, completitud variable → proporción, no recuento; barrios con &lt;15 locales sin dato</td></tr>
         <tr><td><code>transform_class</code> + scores/componentes</td><td>clase / z-score</td><td>13 barrios, base 2016</td><td><span class="badge b-der">derivado</span></td><td>Índice de Transformación (AN-8), componentes a la vista</td></tr>
         <tr><td><code>velocity_*</code></td><td>Δ/año desde 2016</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Pendiente anualizada de las métricas anteriores</td></tr>
         <tr><td><code>barrio_profile</code></td><td>4 perfiles (k-means)</td><td>13 barrios</td><td><span class="badge b-der">derivado</span></td><td>Renta + universitarios + VUT + alquiler</td></tr>
@@ -170,6 +171,16 @@
         REC-14 (isla de calor por barrio), no el pipeline.</li>
       <li><a href="https://www.basquetour.eus">Basquetour</a> — Ibiltur Ocio (ficha de destino, curado).</li>
       <li>DSS Convention Bureau / ICCA — indicadores MICE (curado de notas de prensa citadas).</li>
+      <li><a href="https://www.eustat.eus">Eustat — Encuesta de Condiciones de Vida</a> — familias por grado de
+        seguridad ciudadana y zona, 1989–2024 (percepción de inseguridad, zona comarcal de Donostia y C.A. de
+        Euskadi; HU-1, <code>perception_insecurity_donostia/_euskadi</code>).</li>
+      <li><a href="https://estadisticasdecriminalidad.ses.mir.es">Ministerio del Interior — Portal Estadístico de
+        Criminalidad</a> — infracciones penales conocidas por tipología, <strong>Gipuzkoa (provincia)</strong>
+        2010–2024 (HU-1, <code>crime_infractions_gipuzkoa</code>). Provincia, no municipio: telón de fondo
+        regional. La serie municipal de Donostia sigue siendo parcial (prensa, <code>crime_infractions</code>).</li>
+      <li>Ayto. de Donostia — <strong>encuesta de percepción del ruido</strong> (2026, 407 entrevistas, vía
+        prensa): barrios percibidos como ruidosos/tranquilos — solo alimenta el análisis H6 (ruido percibido
+        vs. isla de calor y VUT), no el pipeline.</li>
     </ul>
   </div>
 
@@ -179,8 +190,10 @@
       <li><strong>Utilización de DBus</strong> (movilidad) — el dataset desapareció del catálogo municipal;
         sin URL viva. La alternativa Eustat ya está cableada (EMPA/EME + DIRAE, ver indicadores), aunque
         la matriz origen-destino municipio×municipio no existe en su banco PxWeb.</li>
-      <li><strong>Criminalidad por barrio</strong> — fuente eliminada del catálogo y escala sub-municipal
-        protegida. Descartada formalmente, sin sustituto.</li>
+      <li><strong>Criminalidad por barrio</strong> — la fuente sub-municipal fue eliminada del catálogo y esa
+        escala queda protegida; sigue descartada. Sí se integra (jul-2026) la serie oficial a escala de
+        <strong>provincia</strong> (Gipuzkoa, Portal Estadístico de Criminalidad; ver Fuentes) como telón de
+        fondo — no baja a barrio ni a municipio.</li>
       <li><strong>Catastro foral de Gipuzkoa</strong> — descargable, pero sin coordenadas ni barrio en los
         ficheros; aparcado hasta decidir geocodificación.</li>
       <li><strong>Precios de venta €/m² (portales inmobiliarios)</strong> — descartado el scraping por

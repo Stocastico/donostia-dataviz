@@ -9,12 +9,18 @@ the user's HU-1 ("perceived security has fallen a lot — but that isn't true").
   Total × 100, for the Donostia zone and for the C.A. de Euskadi:
   ``perception_insecurity_donostia`` / ``perception_insecurity_euskadi``.
 
-* **Crime** — ``criminalidad_donostia.csv`` (partial press/official series):
-  ``crime_rate_1000`` (rate per 1,000) and ``crime_infractions`` (known
-  penal infractions). Partial by design — the full official annual series
-  (Portal Estadístico de Criminalidad) is a declared gap (see FUENTES.md).
+* **Crime — city** — ``criminalidad_donostia.csv`` (partial press/official
+  series): ``crime_rate_1000`` (rate per 1,000) and ``crime_infractions``
+  (known penal infractions of **Donostia**). Partial by design (press points).
 
-All city-grain, theme ``security``. Pure transforms are unit-tested.
+* **Crime — province** — ``criminalidad_gipuzkoa_mir.csv`` (full official
+  annual series, Portal Estadístico de Criminalidad / Min. Interior):
+  ``crime_infractions_gipuzkoa`` from the ``TOTAL INFRACCIONES PENALES`` row,
+  Gipuzkoa 2010–2024. ⚠️ **Province, not the city** — Donostia ≈ ⅓ of
+  Gipuzkoa; the label says so and any narrative must too. It is the complete
+  real backdrop the Donostia series lacks (regional trend, not exact city).
+
+All city/province-grain, theme ``security``. Pure transforms are unit-tested.
 """
 
 from __future__ import annotations
@@ -27,6 +33,8 @@ from ..model import Indicator
 
 PERCEPTION_FILE = "percepcion_seguridad_eustat.csv"
 CRIME_FILE = "criminalidad_donostia.csv"
+CRIME_GIPUZKOA_FILE = "criminalidad_gipuzkoa_mir.csv"
+CRIME_GIPUZKOA_TOTAL = "TOTAL INFRACCIONES PENALES"
 
 PERCEPTION_SOURCE = (
     "Eustat — Encuesta de Condiciones de Vida, familias por grado de seguridad "
@@ -104,6 +112,29 @@ def crime_indicators_from_rows(rows) -> list[Indicator]:
     return list(indicators.values())
 
 
+def crime_gipuzkoa_indicators_from_rows(rows) -> list[Indicator]:
+    """Curated province rows → the total-infractions Indicator (Gipuzkoa).
+
+    Only the ``TOTAL INFRACCIONES PENALES`` typology becomes an indicator; the
+    per-typology breakdown stays in the CSV for the analysis layer.
+    """
+    ind = Indicator(
+        id="crime_infractions_gipuzkoa",
+        label="Infrazioni penali conosciute — Gipuzkoa (provincia)",
+        unit="infrazioni", theme="security",
+        source="Portal Estadístico de Criminalidad (Min. Interior) — Gipuzkoa")
+    for row in rows:
+        if row.get("tipologia", "").strip() != CRIME_GIPUZKOA_TOTAL:
+            continue
+        try:
+            value = float(str(row["infracciones"]).strip())
+        except (TypeError, ValueError, KeyError):
+            continue
+        ind.values[str(row["year"]).strip()] = {
+            "value": value, "source": row.get("source", "").strip()}
+    return [ind] if ind.values else []
+
+
 def build_indicators() -> list[Indicator]:
     out: list[Indicator] = []
     ppath = config.CURATED_DIR / PERCEPTION_FILE
@@ -114,4 +145,8 @@ def build_indicators() -> list[Indicator]:
     if cpath.exists():
         with cpath.open(encoding="utf-8", newline="") as fh:
             out += crime_indicators_from_rows(list(csv.DictReader(fh)))
+    gpath = config.CURATED_DIR / CRIME_GIPUZKOA_FILE
+    if gpath.exists():
+        with gpath.open(encoding="utf-8", newline="") as fh:
+            out += crime_gipuzkoa_indicators_from_rows(list(csv.DictReader(fh)))
     return out

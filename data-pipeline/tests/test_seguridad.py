@@ -57,6 +57,30 @@ def test_crime_keeps_per_row_source():
     assert ind.values["2020"]["source"] == "euskadi.eus 2022"
 
 
+def test_crime_gipuzkoa_indicator_from_total_row_only():
+    rows = [
+        {"provincia": "Gipuzkoa", "tipologia": "TOTAL INFRACCIONES PENALES",
+         "year": "2019", "infracciones": "25016", "source": "Min. Interior"},
+        {"provincia": "Gipuzkoa", "tipologia": "TOTAL INFRACCIONES PENALES",
+         "year": "2024", "infracciones": "33425", "source": "Min. Interior"},
+        {"provincia": "Gipuzkoa", "tipologia": "5.1.-Hurtos",   # no es el total
+         "year": "2024", "infracciones": "8023", "source": "Min. Interior"},
+    ]
+    (ind,) = seguridad.crime_gipuzkoa_indicators_from_rows(rows)
+    assert ind.id == "crime_infractions_gipuzkoa"
+    assert ind.theme == "security"
+    assert ind.values["2019"]["value"] == 25016.0
+    assert ind.values["2024"]["value"] == 33425.0
+    assert len(ind.values) == 2                  # solo filas TOTAL
+
+
+def test_crime_gipuzkoa_label_flags_province():
+    rows = [{"provincia": "Gipuzkoa", "tipologia": "TOTAL INFRACCIONES PENALES",
+             "year": "2010", "infracciones": "24260", "source": "Min. Interior"}]
+    (ind,) = seguridad.crime_gipuzkoa_indicators_from_rows(rows)
+    assert "Gipuzkoa" in ind.label   # el nombre deja claro que es provincia
+
+
 def test_build_indicators_reads_real_curated_files():
     """Integración: lee los CSV curados reales del repo."""
     inds = {i.id: i for i in seguridad.build_indicators()}
@@ -66,3 +90,6 @@ def test_build_indicators_reads_real_curated_files():
     assert don["1989"]["value"] == 35.4
     assert don["2024"]["value"] == 21.5
     assert "crime_rate_1000" in inds
+    # serie oficial de Gipuzkoa (provincia) también cableada
+    assert "crime_infractions_gipuzkoa" in inds
+    assert inds["crime_infractions_gipuzkoa"].values["2024"]["value"] == 33425.0

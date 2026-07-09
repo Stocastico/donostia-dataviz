@@ -536,6 +536,51 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   origen + gráficos de correlación/salario/I+D, caveats MET-5/MET-6) + digest en
   `resumen.md`/`TESIS-CIUDAD.md`. **Pendiente (Code):** ver REC-21-web abajo.
 
+#### Hipótesis desde encuestas de percepción (H5–H8, `docs/HIPOTESIS-FUTURAS.md` §3)
+
+> ✅ **Integración narrativa hecha (jul-2026, Code):** coda **«Lo que preocupa a
+> la ciudad — y lo que dicen los datos»** en `historias.html` (tras el apéndice,
+> antes del epílogo): contrasta las preocupaciones de la encuesta 2026 con los
+> datos — inseguridad (HU-1, con gráfico percepción Eustat + criminalidad
+> Gipuzkoa), turismo (H8 + HU-5/6), ruido (H6), vivienda (H7). Etiquetado
+> Gipuzkoa≠Donostia. `datos.html` con las fuentes nuevas. Verificado en Chromium
+> (0 errores JS). De paso, arreglado un bug de layout de `.conf` (fichas de
+> confianza) en todo el relato. **H5 sigue bloqueada** (el usuario buscó el
+> desglose por barrio de la encuesta de seguridad 2026, no existe público).
+
+- ✅ **H6 (ruido percibido × isla de calor × VUT)** — hecho (jul-2026,
+  analysis-only): `analysis/perceived_noise_geography.py` (9 tests) + 2 inputs
+  curados (`percepcion_ruido_donostia.csv` encuesta 2026 parcial;
+  `isla_calor_barrio.csv` reproducción de REC-14). **Hallazgo:** el ruido
+  percibido va con el calor (r≈0,73) y el ruido medido (r≈0,75), **no** con la
+  VUT (r≈0,47, confundida por el centro) → ruido = densidad/tráfico, no turismo
+  (MET-5/VIZ-5). ⬜ *Pendiente (opcional, Cowork):* llevarlo a la narrativa.
+- ✅ **H7 (heterogeneidad del alquiler / «Zubieta barato»)** — hecho (jul-2026,
+  analysis-only): `analysis/rent_heterogeneity.py` (7 tests). (1) El «Zubieta
+  barato» **no es verificable**: 6/19 barrios sin dato EMA (Zubieta, Igeldo,
+  Añorga, Miramón-Zorroaga, Landerbaso, Oarain) + 2 parciales → registro parcial
+  (MET-5). (2) Entre los 11 con serie, subida heterogénea pero al revés: el este
+  obrero barato sube más (Loiola +48 %) que el centro caro (Egia +28 %),
+  corr(nivel, crec.)≈−0,5 → convergencia en % (brecha en €/m² persiste, AN-13).
+  ⬜ *Opcional (Cowork):* narrativa (une con HU-7).
+- ✅ **H8 (turismo↑ / altas VUT↓)** — hecho (jul-2026, analysis-only):
+  `analysis/tourism_concern_flow_stock.py` (7 tests). Flujo de altas −94 % desde
+  2017 (300→18) y crecimiento del parque 171 %→1,4 %, pero stock (1.329 lic.,
+  5.706 plazas) y volumen (pernoctaciones récord 2,2 M) en máximos → la
+  preocupación de 2026 va con el stock/masificación, no con el flujo. Descriptivo
+  (encuesta de un solo año). ⬜ *Opcional (Cowork):* narrativa.
+- ⬜ **H5** (inseguridad percibida por barrio) — bloqueada: falta el desglose por
+  barrio de la encuesta de seguridad 2026 (dato que buscará el usuario, §3).
+
+- ✅ **HU-5/HU-6 (desestacionalización + MICE)** — hecho (jul-2026,
+  analysis-only): `analysis/tourism_deseasonalization.py` (8 tests) sobre
+  pernoctaciones mensuales INE 2005–2026. **HU-5 confirmada:** estacionalidad ↓
+  sostenida (%verano 35,9→32,9 %, CV 0,32→0,26; 2023–25 los años menos
+  estacionales); la temporada baja crece +44 % más rápido que agosto.
+  **HU-6:** cruce MICE×mes **imposible** (MICE solo anual) → contribuyente
+  plausible pero no aislable; limitación declarada. ⬜ *Opcional (Cowork):*
+  narrativa (encaja con la historia turística, cap. 6).
+
 #### Batería de hipótesis del usuario (HU-1…HU-7, jul-2026)
 
 > Propuestas por el usuario; evaluadas con semáforo y fuentes en
@@ -564,13 +609,20 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   Datos curados `percepcion_seguridad_eustat.csv` + `criminalidad_donostia.csv`.
   Análisis `analysis/perception_vs_crime.py` (8 tests). **Hallazgo:** «la
   seguridad ha bajado mucho» es **falso a largo plazo** (35,4 % de familias con
-  problema en 1989 → 14–18 % en 2004–2019) con **repunte 2019→2024 (→21,5 %)**;
-  criminalidad parcial también sube → coinciden, «tijera» no demostrada.
-  ⬜ **Bloqueante para cerrar:** serie oficial anual completa de criminalidad de
-  Donostia del **Portal Estadístico de Criminalidad** (Min. Interior,
-  `estadisticasdecriminalidad.ses.mir.es`) — hoy solo puntos de prensa 2019–2021
-  + Δ2024. Con ella se podría contrastar de verdad percepción↑ vs delito.
-- 🟡 **REC-24 (HU-3) tipología comercial de la Parte Vieja (OSM)** — hecho como
+  problema en 1989 → 14–18 % en 2004–2019) con **repunte 2019→2024 (→21,5 %)**.
+  ✅ **Serie oficial de criminalidad integrada (jul-2026, dato del usuario):**
+  Portal Estadístico de Criminalidad (Min. Interior), **Gipuzkoa 2010–2024**
+  (`datos/input/criminalidad_gipuzkoa_mir.csv`, 44 tipologías + total) → indicador
+  `crime_infractions_gipuzkoa` (`datasets/seguridad.py`, +2 tests) y análisis
+  ampliado (`perception_vs_crime.py`, 11 tests, quita el proxy). Hallazgo: el
+  delito real estuvo **plano en la década de 2010** y **sube +34 % 2019→2024** →
+  percepción y realidad **coinciden**, la «tijera» no se sostiene, pero el
+  repunte de preocupación **tiene base real**; a largo plazo la seguridad
+  percibida es mucho mejor que en 1989. ⚠️ **Es provincia, no municipio**
+  (Donostia ≈ ⅓ de Gipuzkoa) — etiquetado así en el indicador y a declarar en
+  cualquier relato; el grano municipal sigue parcial (prensa). Pendiente
+  (opcional, Cowork): llevar la «tijera» y el matiz Gipuzkoa≠Donostia al HTML.
+- ✅ **REC-24 (HU-3) tipología comercial de la Parte Vieja (OSM)** — hecho como
   **analysis-only** (jul-2026): `analysis/commercial_typology.py` (24 tests)
   clasifica locales OSM (`shop=*` + hostelería `amenity=*`) en hosteleria/
   turistico/cotidiano/otro/vacant por barrio (Overpass, cache gitignored),
@@ -578,10 +630,14 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   **Hallazgo:** la Parte Vieja (bbox) es **~82 % hostelería** (85/103 locales),
   3 comercios cotidianos → distrito casi monofuncional de consumo de visitante;
   `corr(turistico_share ↔ VUT)=+0,39`. ⚠️ OSM = foto actual (no cambio) y
-  completitud variable por barrio → proporciones > recuentos. **Pendiente
-  (decidir):** ¿se lleva a la web? Como métrica de barrio (`hosteleria_share`)
-  necesitaría fetch OSM en el pipeline (o snapshot curado), a diferencia del
-  resto; alternativa: dejarlo en `analysis/` como evidencia de la historia.
+  completitud variable por barrio → proporciones > recuentos. ✅ **Llevado a la
+  web (jul-2026, decisión del usuario):** métrica de barrio `hosteleria_share`
+  (tema *Turismo*) desde un **snapshot curado** `datos/input/tipologia_comercial_osm.csv`
+  (sin fetch OSM en build, reproducible offline) vía `datasets/tipologia_comercial.py`
+  (4 tests, proxy). Barrios con <15 locales mapeados = sin dato (mata artefactos
+  de tejido fino: Miramón 5 locales → 100 %). 13 barrios con dato; aparece en el
+  selector y pinta el mapa (verificado en navegador). metrics.json/metric_*.json/
+  metrics_long.csv regenerados; recuento de confianza a 38 métricas (4 proxy).
 
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):

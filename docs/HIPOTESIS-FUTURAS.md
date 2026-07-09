@@ -104,10 +104,20 @@ Ninguna analizada todavía. Ordenadas de más a menos inmediata con los datos
 que ya están en el repo.
 
 **H6 — El ruido percibido coincide con la isla de calor y con la densidad
-VUT.** Ya tenemos ambos datos en el proyecto: Gros (+4,8 °C) y Egia
-(+4,1 °C) destacan en la isla de calor superficial (Landsat, REC-14) *y*
-están en el top-5 de barrios más ruidosos de la encuesta. Cruce directo,
-sin necesidad de datos nuevos — candidata a hacerse primero.
+VUT.** ✅ **Hecho (jul-2026, analysis-only):**
+`analysis/perceived_noise_geography.py` (9 tests) cruza el ruido percibido
+(encuesta municipal 2026, `datos/input/percepcion_ruido_donostia.csv`,
+**parcial**: 5 ruidosos + 4 tranquilos) con la isla de calor (REC-14,
+`datos/input/isla_calor_barrio.csv`), la densidad VUT y el ruido **medido**
+(`noise_night_pct55`, como control). **Hallazgo:** el ruido percibido coincide
+**fuerte** con la isla de calor (r≈0,73) y con el ruido medido (r≈0,75) —la
+geografía del **este denso**—, pero con la **densidad turística (VUT) el vínculo
+es flojo y confundido** (r≈0,47, cae a 0,39 sin Erdialdea): solo se sostiene
+porque los dos barrios más turísticos (Erdialdea, Gros) son a la vez los más
+densos y calientes. Amara Berri, Egia y Añorga son ruidosos **sin** turismo. →
+Media de H6 confirmada (calor) y media **matizada/refutada** (VUT): el ruido es
+de **densidad/tráfico, no de turismo** — coherente con MET-5/VIZ-5 y con la
+demanda de la propia encuesta («menos tráfico»). N=9, correlación ≠ causalidad.
 
 **H5 — La inseguridad percibida no sigue el patrón socioeconómico
 esperado** (p. ej. se concentra en el centro turístico/ocio nocturno más
@@ -117,19 +127,33 @@ encuesta de percepción de seguridad, que **no** hemos localizado todavía
 
 **H7 — La preocupación por vivienda cara no es uniforme: barrios pequeños o
 periféricos pueden tener dinámicas de precio propias, distintas del este
-obrero.** El ejemplo que propuso el usuario (Zubieta más barato) es
-plausible en la forma pero **no verificado**: `metrics_long.csv` no tiene
-fila de alquiler para Zubieta, probablemente por tamaño de muestra
-insuficiente en la EMA — habría que comprobar cobertura antes de afirmar
-nada (mismo problema de fuente parcial que ya documentamos para VPO/Etxebide
-en REC-15).
+obrero.** ✅ **Hecho (jul-2026, analysis-only):**
+`analysis/rent_heterogeneity.py` (7 tests). **Doble hallazgo:** (1) el «Zubieta
+más barato» **NO es verificable** — **6 de 19 barrios no tienen ningún dato**
+de alquiler EMA (Zubieta, Igeldo, Añorga, Miramón-Zorroaga y los exclaves
+Landerbaso/Oarain) y 2 más solo parcial (Ategorrieta-Ulia, Martutene): son los
+pequeños/periféricos de mercado de alquiler fino → registro parcial, no
+universo (MET-5), como VPO/Etxebide. (2) Entre los **11 barrios con serie
+completa**, la subida 2016→2024 **no es uniforme, pero al revés del marco**: el
+este obrero barato sube **más** (Loiola +48 %, Intxaurrondo +44 %, Altza +35 %)
+y el centro caro **menos** (Erdialdea +29 %, Egia +28 %); corr(nivel 2016,
+crecimiento) ≈ −0,5 → **convergencia en %** (la brecha en €/m² persiste, AN-13).
+La presión de asequibilidad es mayor donde la renta es menor (une con HU-7), no
+en una periferia con vida propia. N pequeño; correlación ≠ causalidad.
 
 **H8 — La preocupación por el turismo sube justo cuando la presión bruta
-(altas de licencias VUT nuevas) baja.** Contraintuitivo: REC-13 mostró que
-las altas de licencias REATE caen de 300/año (2017) a 18/año (2025), pero el
-turismo entra nuevo al top-3 de preocupaciones en 2026. Posible relato: lo
-que preocupa ya no es el flujo de nuevas licencias sino el stock acumulado o
-la masificación en temporada alta, no el ritmo de crecimiento.
+(altas de licencias VUT nuevas) baja.** ✅ **Hecho (jul-2026, analysis-only):**
+`analysis/tourism_concern_flow_stock.py` (7 tests). **Hallazgo (H8 respaldada,
+descriptiva):** el **flujo** de altas REATE se desploma −94 % desde el pico
+(300 en 2017 → 18 en 2025) y la tasa de crecimiento del parque cae de 171 %
+(2017) a 1,4 % (2025); pero el **stock** está en **máximo histórico** (1.329
+licencias, 5.706 plazas) y el **volumen real** (pernoctaciones) en **récord**
+(2,2 M en 2025, vs 1,3 M en 2017). Flujo y stock **divergen** 2017→2025. Es
+decir: el parque turístico se ha **estabilizado alto**, no reducido — la
+preocupación de 2026 encaja con el **stock/masificación**, no con el (ya mínimo)
+flujo de nuevas licencias. Salvedades: la encuesta es de **un solo año** (2026),
+no una serie → no se prueba relación temporal; REATE = licencias supervivientes
+(el acumulado es un suelo); correlación ≠ causalidad.
 
 ---
 
@@ -153,12 +177,12 @@ hipótesis, no porque exista.
 
 | # | Hipótesis (resumen) | Datos | Qué hay / qué falta |
 |---|---|---|---|
-| **HU-1** | La percepción de que la seguridad ha bajado mucho es falsa (percepción ≠ realidad) | 🟡 | Percepción: ✅ (encuesta 2026, inseguridad 2ª preocupación «sube con fuerza», §2.1). Realidad objetiva: 🔴 en el repo (criminalidad por barrio descartada, `BACKLOG` L602), pero **a nivel municipio es pública**: *Balance de Criminalidad* del Ministerio del Interior (trimestral, municipios >20k hab) y/o Ertzaintza. Contraste = tijera percepción↑ vs. delito real. |
+| **HU-1** | La percepción de que la seguridad ha bajado mucho es falsa (percepción ≠ realidad) | 🟢 | Percepción: ✅ (Eustat 1989–2024 + encuesta 2026, §2.1). Realidad objetiva: ✅ serie oficial completa del *Portal Estadístico de Criminalidad* (Min. Interior), **Gipuzkoa 2010–2024** (aportada por el usuario). Veredicto: sin «tijera» — a largo plazo la seguridad percibida es mucho mejor que en 1989, pero el repunte 2019→2024 coincide con una subida real del delito (+34 % provincial). ⚠️ provincia, no municipio. |
 | **HU-2** | La percepción de seguridad baja al subir el nº de personas sin techo | 🔴 | Sin techo: no en repo ni BACKLOG. Recuento INE/SIIS es municipal, esporádico y submuestra pequeña. **Riesgo alto de correlación espuria y atribución causal** (todo sube a la vez estos años) → contra la norma del proyecto. Congelada salvo recuento serio. |
 | **HU-3** | El turismo transforma la Parte Vieja: cambio de tipología comercial (souvenirs/chuches ↑, ferreterías/comercio de barrio ↓) | 🟡 | Ciudad: ✅ REC-7 (retail 14,9→12,6 %, hostelería 6,0→8,1 %, 2008–2025) — proxy, no baja a barrio, e-commerce confunde. Barrio/calle: 🟡 vía **OSM `shop=*`** (REC-16): da la foto *actual* por calle (souvenir vs ferretería), sin profundidad histórica. Cruzable con `calles_vut.csv` (densidad VUT × tipo de comercio). |
 | **HU-4** | El tráfico ha crecido y las políticas no lo frenan (+ mapa de calles por intensidad) | 🔴 | No hay datos de tráfico. Movilidad DBus (REC-6) **dada de baja**. Único proxy: ruido 2022 por barrio («el ruido es de tráfico», VIZ-5) — snapshot, por barrio no calle → **no** sirve para el mapa calle-a-calle ni para la tendencia. Falta: aforos municipales de tráfico (verificar si Donostia OD los publica). Contexto: 83 % apoya la ZBE (encuesta 2026). |
-| **HU-5** | Turismo sostenible = desestacionalizar + estancias largas/experiencias, no excursionistas en coche; potenciar tren/avión | 🟡 | Desestacionalización: ✅ (pernoctaciones INE mensuales 2005–2026, ya se observa desde 2021 — cuantificable). Excursionista vs. estancia: 🔴 (gasto excursionista solo Euskadi-wide). Modo de transporte: 🔴. Gasto ocio pernocta: ✅ IBILTUR 2023 (un solo año). |
-| **HU-6** | El turismo de mayor calidad (dinero/respeto) es el de congresos/eventos (MICE) | 🟡 | Volumen/prestigio MICE: ✅ (188 eventos, 259k participantes, 50 % int'l, 2024; serie ICCA). «Más dinero»: 🔴 (gasto por congresista de Donostia no público, solo Euskadi). **Ángulo medible fuerte**: cruzar fechas MICE × pernoctaciones mensuales → ¿MICE rellena temporada baja? = «calidad» como desestacionalización (une con HU-5). |
+| **HU-5** | Turismo sostenible = desestacionalizar + estancias largas/experiencias, no excursionistas en coche; potenciar tren/avión | 🟢🟡 | Desestacionalización: ✅ **hecho** (`tourism_deseasonalization.py`): %verano 35,9→32,9 % y CV 0,32→0,26 (2005→2023-25); temporada baja crece +44 % más que agosto. Excursionista vs. estancia: 🔴 (gasto excursionista solo Euskadi). Modo de transporte: 🔴. Gasto ocio pernocta: ✅ IBILTUR 2023 (un año). |
+| **HU-6** | El turismo de mayor calidad (dinero/respeto) es el de congresos/eventos (MICE) | 🟡 | Volumen/prestigio MICE: ✅ (188 eventos, 259k participantes, 2024; serie ICCA). «Más dinero»: 🔴 (gasto por congresista de Donostia no público). Cruce MICE×mes: 🔴 **no posible** — la serie MICE es solo anual (sin calendario mensual). El MICE encaja como causa plausible de la desestacionalización de HU-5, pero **no se puede aislar** (limitación declarada en `tourism_deseasonalization.py`). |
 | **HU-7** | Vivienda (venta y alquiler) sube más que IPC y que el sueldo; imposible vivir solo | 🟢🟡 | Alquiler: ✅ (EMA 2016–2024 por barrio). Renta: ✅ (`income_total` 2016–2023 por barrio). IPC: 🟡 (INE, trivial añadir como referencia). Sueldo: 🟡 (proxy renta pc + abanico salarial Euskadi REC-21). Venta €/m²: 🔴 (solo catastro foral, descartado; nunca scraping). El alquiler cubre el grueso del relato. |
 
 ### Prioridad de ejecución (esfuerzo/valor + fidelidad a las normas)
@@ -191,16 +215,23 @@ con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
   €/m² sigue sin fuente (🔴).
 
 - **HU-1 — «La seguridad ha bajado mucho» (percepción vs. realidad)** →
-  `analysis/perception_vs_crime.py` (8 tests) **+ integrado en la app**:
-  indicadores `perception_insecurity_donostia/_euskadi` y `crime_rate_1000`/
-  `crime_infractions` (tema *Sicurezza*, `datasets/seguridad.py`) en «Altri
-  indicatori cittadini». Percepción: serie **Eustat real 1989–2024**. **Hallazgo:**
-  a **largo plazo es FALSO** — familias con «algún problema» de seguridad caen del
-  **35,4 % (1989)** al 14–18 % (2004–2019); pero hay **repunte real 2019→2024
-  (14,6 %→21,5 %)**. La criminalidad real (serie parcial) también sube → percepción
-  y realidad **coinciden** en corto plazo; **la «tijera» no está demostrada**.
-  *Bloqueante para cerrarla:* la serie oficial anual completa del Portal
-  Estadístico de Criminalidad — laguna declarada.
+  `analysis/perception_vs_crime.py` (11 tests) **+ integrado en la app**:
+  indicadores `perception_insecurity_donostia/_euskadi`, `crime_rate_1000`/
+  `crime_infractions` (Donostia) y **`crime_infractions_gipuzkoa`** (tema
+  *Sicurezza*, `datasets/seguridad.py`) en «Altri indicatori cittadini».
+  Percepción: serie **Eustat real 1989–2024**. **Hallazgo (cerrado con la serie
+  oficial):** a **largo plazo es FALSO** — familias con «algún problema» de
+  seguridad caen del **35,4 % (1989)** al 14–18 % (2004–2019); pero hay **repunte
+  real 2019→2024 (14,6 %→21,5 %)**. Con la **serie oficial del Portal Estadístico
+  de Criminalidad (Gipuzkoa, 2010–2024)** ya en la mano: la criminalidad real
+  estuvo **plana en la década de 2010** y **sube con fuerza 2019→2024 (+34 %**,
+  25.016→33.425 infracciones), tirada por patrimonio/hurtos y contra las personas
+  → percepción y realidad **coinciden** en el corto plazo: **la «tijera» no se
+  sostiene y el repunte de preocupación tiene base real**. Titular en dos tiempos:
+  la alarma «de siempre» es falsa (mucho mejor que en los 80/90), pero el
+  empeoramiento reciente es real. ⚠️ La serie completa es de **Gipuzkoa
+  (provincia)**, no del municipio (Donostia ≈ ⅓); el grano municipal sigue
+  parcial. Dato aportado por el usuario (jul-2026).
 
 - **HU-3 — Tipología comercial de la Parte Vieja (OSM)** →
   `analysis/commercial_typology.py` (23 tests). Clasifica locales OSM
@@ -213,9 +244,26 @@ con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
   tienda. `corr(turistico_share ↔ VUT) = +0,39`. **Clave honesta:** OSM da la
   *geografía actual*, no el *cambio* — la prueba temporal («cierran ferreterías»)
   es la serie CNAE de ciudad (REC-7: retail 14,9→12,6 %, hostelería 6,0→8,1 %);
-  se **triangulan**.
+  se **triangulan**. ✅ **Llevada a la web (jul-2026, decisión del usuario):** la
+  cuota de hostelería por barrio es ya una métrica coroplética del app
+  (`hosteleria_share`, tema *Turismo*) desde un **snapshot OSM curado**
+  (`datos/input/tipologia_comercial_osm.csv` → `datasets/tipologia_comercial.py`,
+  4 tests); barrios con <15 locales mapeados sin dato (evita el artefacto de
+  tejido fino). Sin fetch OSM en el build (reproducible offline).
 
-**Otras (no ejecutadas esta sesión):** HU-4 (tráfico) sigue bloqueada por falta
-de aforos; verificar si Donostia OD publica intensidades por calle. HU-5/HU-6
-medibles solo en desestacionalización (pernoctaciones INE ya en repo) + cruce
-MICE×meses. HU-2 (sin techo) congelada por datos + riesgo causal.
+- **HU-5/HU-6 — Desestacionalización del turismo** →
+  `analysis/tourism_deseasonalization.py` (8 tests). Pernoctaciones hoteleras
+  **mensuales** INE (2005–2026). **Hallazgo (HU-5 confirmada):** la
+  estacionalidad **baja** de forma sostenida y se acelera tras 2022 — el % de
+  verano (JAS) cae de **35,9 % (2005–07) a 32,9 % (2023–25)** y el CV de 0,32 a
+  0,26; **2023–2025 son los años menos estacionales de la serie**. Mecanismo: la
+  **temporada baja crece +44 % más rápido que el pico** (meses valle
+  ene/feb/nov/dic ×3,0 vs. agosto ×2,1 en 2005→2025). **HU-6 (MICE), límite
+  declarado:** la serie MICE es **solo anual** (sin calendario mensual de
+  eventos) → el MICE crece (récord 2024: 259.000 asistentes) y encaja como
+  contribuyente plausible del relleno de temporada baja, pero **no se puede
+  aislar** de otras causas. Años 2020/2021/2026 fuera (incompletos/atípicos).
+
+**Otras (no ejecutadas):** HU-4 (tráfico) sigue bloqueada por falta de aforos;
+verificar si Donostia OD publica intensidades por calle. HU-2 (sin techo)
+congelada por datos + riesgo causal.

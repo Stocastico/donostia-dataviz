@@ -769,6 +769,42 @@ barrio_profile,Profilo del barrio (tipologia),change,,intxaurrondo,Intxaurrondo,
 barrio_profile,Profilo del barrio (tipologia),change,,loiola,Loiola,perfil,3.0,"Derivata — tipologia di barrio (k-means k=4 su reddito, % laureati, densità VUT, affitto standardizzati; cfr. ANALISIS-SPRINT-A.md §3)"
 barrio_profile,Profilo del barrio (tipologia),change,,martutene,Martutene,perfil,3.0,"Derivata — tipologia di barrio (k-means k=4 su reddito, % laureati, densità VUT, affitto standardizzati; cfr. ANALISIS-SPRINT-A.md §3)"
 barrio_profile,Profilo del barrio (tipologia),change,,mirakruz-bidebieta,Mirakruz-Bidebieta,perfil,3.0,"Derivata — tipologia di barrio (k-means k=4 su reddito, % laureati, densità VUT, affitto standardizzati; cfr. ANALISIS-SPRINT-A.md §3)"
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,aiete,Aiete,actual,0.14,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,altza,Altza,actual,0.1,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,amaraberri,Amara Berri,actual,0.03,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,anorga,Añorga,actual,0.37,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,antigua,Antiguo,actual,0.07,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,ategorrieta-ulia,Ategorrieta-Ulia,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,egia,Egia,actual,0.21,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,erdialdea,Erdialdea (Centro),actual,0.18,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,gros,Gros,actual,0.12,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,ibaeta,Ibaeta,actual,0.1,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,igeldo,Igeldo,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,intxaurrondo,Intxaurrondo,actual,0.06,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,landerbaso,Landerbaso,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,loiola,Loiola,actual,0.31,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,martutene,Martutene,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,0.12,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,miramon-zorroaga,Miramón-Zorroaga,actual,3.42,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,oarain,Oarain,actual,,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,zubieta,Zubieta,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,aiete,Aiete,actual,66.7,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,altza,Altza,actual,57.8,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,amaraberri,Amara Berri,actual,42.9,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,anorga,Añorga,actual,31.2,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,antigua,Antiguo,actual,50.4,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,ategorrieta-ulia,Ategorrieta-Ulia,actual,,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,egia,Egia,actual,39.6,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,erdialdea,Erdialdea (Centro),actual,39.8,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,gros,Gros,actual,36.4,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,ibaeta,Ibaeta,actual,44.3,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,igeldo,Igeldo,actual,,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,intxaurrondo,Intxaurrondo,actual,29.5,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,loiola,Loiola,actual,36.8,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,martutene,Martutene,actual,48.6,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,53.6,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,miramon-zorroaga,Miramón-Zorroaga,actual,,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
+hosteleria_share,Quota di ristorazione tra i locali (OSM),tourism,%,zubieta,Zubieta,actual,,"OpenStreetMap (Overpass, shop=* + hostelería amenity=*), snapshot jul-2026; análisis HU-3 (analysis/commercial_typology.py)"
 housing_tension,Pressione dell'affitto sul residente medio (30 m²),housing,%,aiete,Aiete,2016,16.59,Derivata — pressione teorica dell'affitto sul residente medio: (affitto €/m² × 12 × 30 m²/persona) / reddito pro capite (EMA + Eustat)
 housing_tension,Pressione dell'affitto sul residente medio (30 m²),housing,%,aiete,Aiete,2017,15.97,Derivata — pressione teorica dell'affitto sul residente medio: (affitto €/m² × 12 × 30 m²/persona) / reddito pro capite (EMA + Eustat)
 housing_tension,Pressione dell'affitto sul residente medio (30 m²),housing,%,aiete,Aiete,2018,17.74,Derivata — pressione teorica dell'affitto sul residente medio: (affitto €/m² × 12 × 30 m²/persona) / reddito pro capite (EMA + Eustat)
@@ -7124,6 +7160,25 @@ velocity_rent_eur_m2,Velocità affitto,change,%/anno,intxaurrondo,Intxaurrondo,2
 velocity_rent_eur_m2,Velocità affitto,change,%/anno,loiola,Loiola,2016–2024,4.255,Derivata — tasso annualizzato 2016–2024 di «Affitto medio (€/m²)» (regressione OLS)
 velocity_rent_eur_m2,Velocità affitto,change,%/anno,martutene,Martutene,2016–2024,2.805,Derivata — tasso annualizzato 2016–2024 di «Affitto medio (€/m²)» (regressione OLS)
 velocity_rent_eur_m2,Velocità affitto,change,%/anno,mirakruz-bidebieta,Mirakruz-Bidebieta,2016–2024,3.331,Derivata — tasso annualizzato 2016–2024 di «Affitto medio (€/m²)» (regressione OLS)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,aiete,Aiete,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,altza,Altza,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,amaraberri,Amara Berri,actual,18.68,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,anorga,Añorga,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,antigua,Antiguo,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,ategorrieta-ulia,Ategorrieta-Ulia,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,egia,Egia,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,erdialdea,Erdialdea (Centro),actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,gros,Gros,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,ibaeta,Ibaeta,actual,15.49,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,igeldo,Igeldo,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,intxaurrondo,Intxaurrondo,actual,16.27,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,landerbaso,Landerbaso,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,loiola,Loiola,actual,22.28,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,martutene,Martutene,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,miramon-zorroaga,Miramón-Zorroaga,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,oarain,Oarain,actual,,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
+vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,zubieta,Zubieta,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
 vut_count,Viviendas turísticas (VUT/HUT),tourism,unità,aiete,Aiete,actual,33.0,Donostia Open Data — censo viviendas turísticas (snapshot)
 vut_count,Viviendas turísticas (VUT/HUT),tourism,unità,altza,Altza,actual,8.0,Donostia Open Data — censo viviendas turísticas (snapshot)
 vut_count,Viviendas turísticas (VUT/HUT),tourism,unità,amaraberri,Amara Berri,actual,118.0,Donostia Open Data — censo viviendas turísticas (snapshot)
@@ -7174,41 +7229,3 @@ vut_plazas,Posti letto turistici (plazas VUT/HUT),tourism,posti letto,loiola,Loi
 vut_plazas,Posti letto turistici (plazas VUT/HUT),tourism,posti letto,martutene,Martutene,actual,5.0,Donostia Open Data — censo viviendas turísticas (snapshot)
 vut_plazas,Posti letto turistici (plazas VUT/HUT),tourism,posti letto,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,54.0,Donostia Open Data — censo viviendas turísticas (snapshot)
 vut_plazas,Posti letto turistici (plazas VUT/HUT),tourism,posti letto,miramon-zorroaga,Miramón-Zorroaga,actual,83.0,Donostia Open Data — censo viviendas turísticas (snapshot)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,aiete,Aiete,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,altza,Altza,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,amaraberri,Amara Berri,actual,18.68,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,anorga,Añorga,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,antigua,Antiguo,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,ategorrieta-ulia,Ategorrieta-Ulia,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,egia,Egia,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,erdialdea,Erdialdea (Centro),actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,gros,Gros,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,ibaeta,Ibaeta,actual,15.49,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,igeldo,Igeldo,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,intxaurrondo,Intxaurrondo,actual,16.27,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,landerbaso,Landerbaso,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,loiola,Loiola,actual,22.28,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,martutene,Martutene,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,miramon-zorroaga,Miramón-Zorroaga,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,oarain,Oarain,actual,,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-vpo_dwellings_per_1000,Alloggi protetti Etxebide (per 1000 ab.),housing,per 1000 ab.,zubieta,Zubieta,actual,0.0,Open Data Euskadi — Promociones de Etxebide (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,aiete,Aiete,actual,0.14,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,altza,Altza,actual,0.1,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,amaraberri,Amara Berri,actual,0.03,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,anorga,Añorga,actual,0.37,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,antigua,Antiguo,actual,0.07,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,ategorrieta-ulia,Ategorrieta-Ulia,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,egia,Egia,actual,0.21,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,erdialdea,Erdialdea (Centro),actual,0.18,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,gros,Gros,actual,0.12,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,ibaeta,Ibaeta,actual,0.1,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,igeldo,Igeldo,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,intxaurrondo,Intxaurrondo,actual,0.06,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,landerbaso,Landerbaso,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,loiola,Loiola,actual,0.31,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,martutene,Martutene,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,mirakruz-bidebieta,Mirakruz-Bidebieta,actual,0.12,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,miramon-zorroaga,Miramón-Zorroaga,actual,3.42,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,oarain,Oarain,actual,,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)
-health_per_1000,Servizi sanitari (per 1000 ab.),health,per 1000 ab.,zubieta,Zubieta,actual,0.0,Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)

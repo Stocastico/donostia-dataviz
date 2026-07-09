@@ -84,3 +84,43 @@ def test_read_crime_real_partial_series():
     counts = pc.crime_series(df, "infracciones_penales")
     assert counts[2021] == pytest.approx(12705)
     assert counts[2020] < counts[2019]  # caída COVID 2020
+
+
+# ------------------------------------ serie oficial Gipuzkoa (Min. Interior) --
+def test_gipuzkoa_series_total_from_rows():
+    df = pd.DataFrame({
+        "provincia": ["Gipuzkoa"] * 4,
+        "tipologia": ["TOTAL INFRACCIONES PENALES", "TOTAL INFRACCIONES PENALES",
+                      "5.1.-Hurtos", "5.1.-Hurtos"],
+        "year": [2019, 2024, 2019, 2024],
+        "infracciones": [25016, 33425, 6094, 8023],
+    })
+    total = pc.gipuzkoa_series(df)                       # default = TOTAL
+    assert total[2019] == pytest.approx(25016)
+    assert total[2024] == pytest.approx(33425)
+    hurtos = pc.gipuzkoa_series(df, "5.1.-Hurtos")
+    assert hurtos[2024] == pytest.approx(8023)
+
+
+def test_read_crime_gipuzkoa_real_anchors():
+    df = pc.read_crime_gipuzkoa()
+    total = pc.gipuzkoa_series(df)
+    # serie completa y oficial 2010–2024 (provincia, no municipio)
+    assert total.index.min() == 2010 and total.index.max() == 2024
+    assert total[2010] == pytest.approx(24260)
+    assert total[2024] == pytest.approx(33425)
+    # plana en la década de 2010, salto reciente
+    assert abs(total[2019] - total[2010]) / total[2010] < 0.10   # ~plana
+    assert (total[2024] - total[2019]) / total[2019] > 0.25       # +34% real
+
+
+def test_scissors_real_2019_2024_coincide():
+    """Con la serie oficial: percepción↑ y criminalidad real↑ → COINCIDEN."""
+    df = pc.read_perception()
+    perc = pc.insecurity_share(df, "70")
+    crime = pc.read_crime_gipuzkoa()
+    total = pc.gipuzkoa_series(crime)
+    r = pc.scissors(perc, total, 2019, 2024, threshold=1.0)
+    assert r["perception"] == "sube"
+    assert r["crime"] == "sube"
+    assert r["veredicto"] == "coinciden"          # la 'tijera' NO se sostiene

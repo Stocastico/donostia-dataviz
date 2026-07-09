@@ -142,9 +142,9 @@
   .mini .cap{font-size:.76rem;color:var(--muted);margin:0 0 8px;min-height:3.2em}
   .takeaway .t-lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--muted)}
   .takeaway p{margin:6px 0 0;color:var(--ink)}
-  .conf{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted);
-    background:#f1f5f8;border:1px solid #e2e9ef;border-radius:999px;padding:4px 11px;margin-top:14px}
-  .conf b{font-weight:700} .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .conf{display:block;font-size:.76rem;color:var(--muted);line-height:1.5;
+    background:#f1f5f8;border:1px solid #e2e9ef;border-radius:12px;padding:9px 14px;margin-top:14px}
+  .conf b{font-weight:700} .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
   .dot.derived{background:var(--amber)} .dot.observed{background:var(--green)} .dot.proxy{background:var(--coral)}
 
   table.rank{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:6px}
@@ -1124,6 +1124,46 @@
 </section>
 
 
+<!-- ====================== CODA: PERCEPCIÓN vs DATOS ====================== -->
+<section class="story sx" id="sp">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="story-head">
+        <div class="badge-num">&ne;</div>
+        <div><p class="eyebrow">Coda &middot; percepci&oacute;n y datos</p><h2 class="story-title">Lo que preocupa a la ciudad &mdash; y lo que dicen los datos</h2></div>
+      </div>
+      <p>En 2026 el Ayuntamiento pregunt&oacute; a 1.213 vecinos qu&eacute; les preocupa. El podio: <strong>1&ordm; la vivienda, 2&ordm; la inseguridad</strong> &mdash;que sube con fuerza&mdash; <strong>y 3&ordm; el turismo</strong>, que entra nuevo al top&#8209;3 (un 82&nbsp;% pide &laquo;que no crezca m&aacute;s&raquo;). Son percepciones; con los datos abiertos se pueden contrastar una a una. A veces la percepci&oacute;n acierta &mdash;y a veces cuenta otra historia&mdash;.</p>
+
+      <p><strong>Inseguridad &mdash; falso a largo plazo, real hace poco.</strong> La sensaci&oacute;n de que &laquo;la seguridad ha bajado mucho&raquo; es <strong>falsa</strong> si se mira lejos: las familias que declaran alg&uacute;n problema de seguridad eran el <strong>35,4&nbsp;% en 1989</strong> y bajaron hasta el <strong>14,6&nbsp;% en 2019</strong>. Pero el <strong>repunte reciente es real</strong>: 2024 sube al <strong>21,5&nbsp;%</strong>, y esta vez el delito acompa&ntilde;a. La serie oficial de criminalidad de <strong>Gipuzkoa</strong> estuvo plana toda la d&eacute;cada de 2010 y <strong>sube un 34&nbsp;% entre 2019 y 2024</strong> (25.016&nbsp;&rarr;&nbsp;33.425 infracciones), tirada por el patrimonio y los hurtos (+30/+32&nbsp;%) y por los delitos contra la libertad sexual (+78&nbsp;%) y contra las personas (+53&nbsp;%).</p>
+    </div>
+
+    <div class="fig">
+      <h3>Percepci&oacute;n y realidad, esta vez, coinciden</h3>
+      <p class="cap">Izquierda: % de familias que declaran alg&uacute;n problema de seguridad en la <strong>zona comarcal de Donostia</strong> (Eustat, cada cinco a&ntilde;os). Derecha: infracciones penales conocidas en <strong>Gipuzkoa &mdash;provincia, no ciudad&mdash;</strong> (Portal Estad&iacute;stico de Criminalidad). No hay &laquo;tijera&raquo;: cuando la percepci&oacute;n empeora (2019&rarr;2024), el delito real tambi&eacute;n.</p>
+      <div class="grid2">
+        <div><div class="mapwrap"><svg class="map" id="perc_chart" style="max-width:470px;margin:0 auto"></svg></div></div>
+        <div><div class="mapwrap"><svg class="map" id="crime_chart" style="max-width:470px;margin:0 auto"></svg></div></div>
+      </div>
+      <p class="src">Eustat &mdash; Encuesta de Condiciones de Vida (familias por grado de seguridad, zona Donostia-Bajo Bidasoa). Ministerio del Interior &mdash; Portal Estad&iacute;stico de Criminalidad (Gipuzkoa). An&aacute;lisis: <code>analysis/perception_vs_crime.py</code>.</p>
+    </div>
+
+    <div class="narrow">
+      <p>El titular es de <strong>dos tiempos</strong>: la alarma &laquo;de toda la vida&raquo; no se sostiene &mdash;la ciudad se percibe hoy mucho m&aacute;s segura que en los a&ntilde;os 80 y 90&mdash;, pero el empeoramiento de los &uacute;ltimos a&ntilde;os no es solo una impresi&oacute;n.</p>
+      <span class="conf"><span class="dot observed"></span><b>Observado / curado &mdash; ojo a la escala.</b>&nbsp;La percepci&oacute;n es una <strong>encuesta</strong> (Eustat) de la <strong>zona comarcal</strong> de Donostia, cada cinco a&ntilde;os. La criminalidad completa es de <strong>Gipuzkoa entera</strong> (Donostia &asymp; un tercio de la provincia): es el <strong>tel&oacute;n de fondo regional</strong> de la tendencia, no el dato exacto de la ciudad. Ambas son de ciudad/provincia, no por barrio (MET-5).</span>
+
+      <p style="margin-top:26px"><strong>Turismo &mdash; preocupa el stock, no el goteo de licencias.</strong> El turismo entra al podio justo cuando las <strong>altas de nuevas licencias</strong> de piso tur&iacute;stico est&aacute;n en m&iacute;nimos: de <strong>300 al a&ntilde;o en 2017 a 18 en 2025</strong>. Lo que pesa no es el flujo de nuevas licencias, sino el <strong>stock acumulado</strong> &mdash;1.329 licencias y 5.706 plazas, en m&aacute;ximos&mdash; y el <strong>volumen</strong>: las pernoctaciones marcan r&eacute;cord (2,2 millones en 2025). Y ese volumen se reparte cada vez m&aacute;s por el calendario &mdash;el peso del verano cae del 36&nbsp;% al 32&nbsp;% y los meses de temporada baja crecen un 44&nbsp;% m&aacute;s r&aacute;pido que agosto (el heatmap del ap&eacute;ndice)&mdash;; el MICE (r&eacute;cord de 259.000 congresistas en 2024) encaja como una de las causas de ese relleno, aunque sin calendario mensual de eventos no se puede aislar.</p>
+
+      <p><strong>Ruido &mdash; es el tr&aacute;fico, no el turismo.</strong> La encuesta del ruido se&ntilde;ala como m&aacute;s ruidosos la Parte Vieja, Amara Berri, Egia, Gros y A&ntilde;orga. Cruzados con los datos del proyecto, esos barrios coinciden con la <strong>isla de calor</strong> y con el <strong>ruido medido</strong> (correlaciones &asymp;&nbsp;0,7) &mdash;la geograf&iacute;a del este denso&mdash;, pero <strong>no</strong> con la densidad de pisos tur&iacute;sticos (&asymp;&nbsp;0,47, y solo porque el centro tur&iacute;stico es adem&aacute;s el m&aacute;s denso). Amara Berri, Egia o A&ntilde;orga son ruidosos sin apenas turismo. Coincide con lo que el proyecto ya sab&iacute;a &mdash;el ruido es de tr&aacute;fico, no de turismo&mdash; y con lo que pide la propia encuesta: <strong>menos tr&aacute;fico</strong>.</p>
+
+      <p><strong>Vivienda &mdash; la presi&oacute;n no es uniforme, y ni siquiera se puede medir entera.</strong> El alquiler no sube igual en todas partes: entre los barrios con serie, el <strong>este obrero m&aacute;s barato sube m&aacute;s r&aacute;pido</strong> (Loiola +48&nbsp;%, Intxaurrondo +44&nbsp;% de 2016 a 2024) que el centro caro (Egia +28&nbsp;%) &mdash;converge en porcentaje, aunque la brecha en euros por metro persiste (v&eacute;ase el <a href="#s1">cap&iacute;tulo 1</a>)&mdash;. Y hay un punto ciego: <strong>seis de los diecinueve barrios no tienen ning&uacute;n dato</strong> de alquiler (Zubieta, Igeldo, A&ntilde;orga, Miram&oacute;n-Zorroaga y los dos exclaves rurales), porque su mercado de alquiler es demasiado peque&ntilde;o para registrar contratos. Sobre ellos, sencillamente, no se puede afirmar nada: un registro parcial no es el universo.</p>
+
+      <p class="nextcap">La percepci&oacute;n, contrastada, afina la agenda &mdash;y tambi&eacute;n marca d&oacute;nde se acaban los datos.
+        <a href="#s7">Ep&iacute;logo &mdash; lo que a&uacute;n no podemos responder &rarr;</a></p>
+    </div>
+  </div>
+</section>
+
+
 <!-- ====================== CIERRE: LO QUE NO SABEMOS ====================== -->
 <section class="story sx" id="s7">
   <div class="wrap">
@@ -1883,6 +1923,31 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
     mk(svg,'text',{x:xr+(v>=0?6:-6),y:cyb+4,'text-anchor':v>=0?'start':'end',fill:'#5f6e84','font-size':9},(v>=0?'+':'−')+numES(Math.abs(v),1));});
 })();
 
+
+/* perception of insecurity — Donostia zone (Eustat, vertical bars) */
+(function percChart(){
+  const rows=[[1989,35.4],[1994,24.3],[1999,20.8],[2004,14.1],[2009,15.3],[2014,18.1],[2019,14.6],[2024,21.5]];
+  const W=470,H=250,padT=26,padB=32,x0=34,x1=W-10;const svg=mkSvg('perc_chart',W,H,'Percepción de inseguridad en la zona de Donostia: familias con algún problema de seguridad, del 35,4% en 1989 al mínimo de 14,6% en 2019 y repunte al 21,5% en 2024.');if(!svg)return;
+  const max=38,yb=H-padB,sy=v=>yb-(v/max)*(yb-padT),n=rows.length,step=(x1-x0)/n,bw=step*0.6;
+  mk(svg,'text',{x:x0,y:14,fill:'#5f6e84','font-size':10},'% de familias con algún problema de seguridad');
+  [0,10,20,30].forEach(t=>{mk(svg,'line',{x1:x0,y1:sy(t),x2:x1,y2:sy(t),stroke:'#eceff4','stroke-width':1});mk(svg,'text',{x:x0-4,y:sy(t)+3,'text-anchor':'end',fill:'#5f6e84','font-size':9},t);});
+  rows.forEach((r,i)=>{const yr=r[0],v=r[1],cx=x0+step*i+step/2,hot=yr===2024;
+    mk(svg,'rect',{x:cx-bw/2,y:sy(v),width:bw,height:yb-sy(v),rx:2,fill:hot?'#d1495b':'#8f9dd0'});
+    mk(svg,'text',{x:cx,y:sy(v)-4,'text-anchor':'middle',fill:hot?'#c03a4c':'#5f6e84','font-size':9,'font-weight':hot?700:400},numES(v,1));
+    mk(svg,'text',{x:cx,y:H-8,'text-anchor':'middle',fill:'#5f6e84','font-size':8.5},yr);});
+})();
+
+/* real crime — Gipuzkoa province (Min. Interior, vertical bars) */
+(function crimeChart(){
+  const rows=[[2010,24260],[2011,23734],[2012,24402],[2013,23583],[2014,23994],[2015,23543],[2016,22079],[2017,22281],[2018,23817],[2019,25016],[2020,21846],[2021,24331],[2022,29017],[2023,32920],[2024,33425]];
+  const W=470,H=250,padT=26,padB=32,x0=42,x1=W-10;const svg=mkSvg('crime_chart',W,H,'Infracciones penales conocidas en Gipuzkoa: en torno a 22.000-25.000 entre 2010 y 2019, bache en 2020 y subida hasta 33.425 en 2024.');if(!svg)return;
+  const max=36000,yb=H-padB,sy=v=>yb-(v/max)*(yb-padT),n=rows.length,step=(x1-x0)/n,bw=step*0.66;
+  mk(svg,'text',{x:x0,y:14,fill:'#5f6e84','font-size':10},'Infracciones penales · Gipuzkoa (provincia)');
+  [0,10000,20000,30000].forEach(t=>{mk(svg,'line',{x1:x0,y1:sy(t),x2:x1,y2:sy(t),stroke:'#eceff4','stroke-width':1});mk(svg,'text',{x:x0-4,y:sy(t)+3,'text-anchor':'end',fill:'#5f6e84','font-size':8.5},(t/1000)+'k');});
+  rows.forEach((r,i)=>{const yr=r[0],v=r[1],cx=x0+step*i+step/2,recent=yr>=2022;
+    mk(svg,'rect',{x:cx-bw/2,y:sy(v),width:bw,height:yb-sy(v),rx:1.5,fill:recent?'#e34a33':'#a9b4cf'});
+    if(yr%2===1||yr===2024)mk(svg,'text',{x:cx,y:H-8,'text-anchor':'middle',fill:'#5f6e84','font-size':8},"'"+String(yr).slice(2));});
+})();
 
 /* init */
 renderPress();renderVel();renderAge();renderTour();renderLived();renderComp();renderOrigin();
