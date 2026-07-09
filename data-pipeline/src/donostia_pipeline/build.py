@@ -41,7 +41,9 @@ from .datasets import (
     reate_licencias,
     rent,
     renta,
+    renta_trabajo,
     residuos,
+    seguridad,
     ruido_gis,
     salud_gis,
     tejido_comercial,
@@ -158,8 +160,8 @@ RAW_DOWNLOADS: dict[str, str] = {
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
-            estudios, vut_density, rent, educacion_gis, salud_gis, ruido_gis,
-            airbnb, vpo_etxebide]
+            renta_trabajo, estudios, vut_density, rent, educacion_gis, salud_gis,
+            ruido_gis, airbnb, vpo_etxebide]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads
@@ -414,6 +416,33 @@ def ensure_eustat_empleo_nacionalidad(offline: bool) -> bool:
     return ok_tasas and ok_id and ok_ocup
 
 
+# Eustat PxWeb table PX_173402_crpf_rpf_rp22_2p, filtered server-side to
+# Donostia's barrios and tipo de renta 110 (renta del trabajo = wages), all
+# years — the salary proxy for HU-7 (renta_trabajo.py → income_labor).
+EUSTAT_RENTA_TRABAJO_URL = (
+    "https://www.eustat.eus/bankupx/api/v1/es/DB/PX_173402_crpf_rpf_rp22_2p.px"
+)
+_DONOSTIA_BARRIO_CODES = ["20069"] + sorted(renta_trabajo.EUSTAT_BARRIO_TO_ID)
+EUSTAT_RENTA_TRABAJO_QUERY = {
+    "query": [
+        {"code": "barrios",
+         "selection": {"filter": "item", "values": _DONOSTIA_BARRIO_CODES}},
+        {"code": "tipo de renta",
+         "selection": {"filter": "item", "values": [renta_trabajo.LABOR_INCOME_CODE]}},
+        {"code": "periodo", "selection": {"filter": "all", "values": ["*"]}},
+    ],
+    "response": {"format": "json"},
+}
+
+
+def ensure_eustat_renta_trabajo(offline: bool) -> bool:
+    """Fetch the Donostia labor-income-by-barrio series into raw/ (once)."""
+    return _ensure_pxweb_table(
+        offline, renta_trabajo.RAW_FILE, EUSTAT_RENTA_TRABAJO_URL,
+        EUSTAT_RENTA_TRABAJO_QUERY, "Eustat renta del trabajo",
+    )
+
+
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
 # render disabled ("in arrivo") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
@@ -468,6 +497,10 @@ def run(offline: bool = False) -> dict:
         barrio_index=spatial.BarrioIndex(geojson),
         population_latest=demografia.population_latest_by_barrio(config.RAW_DIR, code_to_id),
     )
+    # renta_trabajo (income_labor) needs its Eustat PxWeb table in raw/ before
+    # the DATASETS loop (the other Eustat fetches feed city indicators later).
+    ensure_eustat_renta_trabajo(offline)
+
     metrics: list[Metric] = []
     for module in DATASETS:
         metrics.extend(module.build(ctx))
@@ -525,7 +558,8 @@ def run(offline: bool = False) -> dict:
                   + tejido_comercial.build_indicators(config.RAW_DIR)
                   + reate_licencias.build_indicators(config.RAW_DIR)
                   + movilidad_laboral.build_indicators(config.RAW_DIR)
-                  + empleo_nacionalidad_gipuzkoa.build_indicators(config.RAW_DIR))
+                  + empleo_nacionalidad_gipuzkoa.build_indicators(config.RAW_DIR)
+                  + seguridad.build_indicators())
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

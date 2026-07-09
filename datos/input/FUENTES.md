@@ -45,6 +45,7 @@ existe dataset abierto estructurado.
 | `eustat_empa_movilidad.json` | Eustat (PxWeb) | tabla `PX_050407_cempa_empa_mt02`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `residents_work_in_city_pct`, denominador de `job_concentration_ratio` | anual 2021–2024 (lugar de trabajo **categórico**, no matriz O-D) | Eustat (open) |
 | `eustat_eme_movilidad.json` | Eustat (PxWeb) | tabla `PX_040606_ceme_me02`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `residents_study_in_city_pct` | anual 2021–2024 (lugar de estudio **categórico**, no matriz O-D) | Eustat (open) |
 | `eustat_dirae_empleo.json` | Eustat (PxWeb) | tabla `PX_200163_cdirae_est07`, municipio 20069, **POST** con filtro server-side (ver `descargar_raw.sh`) | `jobs_located`, numerador de `job_concentration_ratio` | anual 1995–2025 | Eustat (open) |
+| `eustat_renta_trabajo.json` | Eustat (PxWeb) | tabla `PX_173402_crpf_rpf_rp22_2p`, barrios de Donostia + **tipo de renta 110 (renta del trabajo)**, **POST** server-side (`build.ensure_eustat_renta_trabajo`) | `income_labor` (salario/renta del trabajo per cápita por barrio, HU-7) | anual 2016–2023 | Eustat (open) |
 | `eustat_tasas_nacionalidad_gipuzkoa.json` | Eustat (PxWeb) | tabla `PX_050403_cpra_tab17`, Gipuzkoa, **POST** con filtro server-side (ver `descargar_raw.sh`) | `unemployment_rate_spanish_gipuzkoa`, `unemployment_rate_foreign_gipuzkoa` (REC-21) | anual 2015–2026 (promedio anual) | Eustat (open) |
 | `eustat_id_personal_gipuzkoa.json` | Eustat (PxWeb) | tabla `PX_043201_cid_res08c`, Gipuzkoa, **POST** con filtro server-side (ver `descargar_raw.sh`) | numerador de `randd_personnel_per_1000_employed_gipuzkoa` (REC-21) | anual 2001–2024 | Eustat (open) |
 | `eustat_poblacion_ocupada_total.json` | Eustat (PxWeb) | tabla `PX_050403_cpra_tab04`, C.A. de Euskadi + Gipuzkoa, **POST** con filtro server-side (ver `descargar_raw.sh`) | denominador de `randd_personnel_per_1000_employed_gipuzkoa` (REC-21) | anual 1985–2026 (promedio anual) | Eustat (open) |
@@ -65,6 +66,15 @@ existe dataset abierto estructurado.
 |---|---|---|
 | `mice_donostia.csv` | Indicadores MICE (congresos ICCA; récord 2024: 188 eventos / 259k asistentes) | Curado de notas de prensa citadas por fila (DSS Convention Bureau / ICCA). Ampliar añadiendo filas. |
 | `ibiltur_donostia.csv` | Indicadores IBILTUR Ocio 2023 (gasto/persona, gasto/persona/día, impacto económico) — solo turista de ocio que pernocta | Curado de la ficha de destino Donostia/San Sebastián de Basquetour (PDF). Ampliar cuando salga otra edición **Ocio** (anual) comparable — la de 2022 es "Verano" (otra ventana temporal) y no se mezcla. |
+| `ipc_espana.csv` | IPC general nacional, índice base 2021 = 100, media anual 2016–2025 | **HU-7 (analysis-only)**. Curado de INE, tabla Tempus **50902** (`servicios.ine.es/wstempus/js/ES/DATOS_TABLA/50902`), serie «Nacional. Índice general. Índice.», promediada a media anual. Snapshot jul-2026. Deflactor de `analysis/housing_affordability.py`. |
+| `percepcion_seguridad_eustat.csv` | Familias por grado de seguridad ciudadana y zona (miles), 1989–2024, zonas C.A. Euskadi (00) y Donostia-Bajo Bidasoa (70) | **HU-1**. Eustat, Encuesta de Condiciones de Vida, tabla PxWeb **PX_010901_cecv_ma04_3** (POST json-stat2, filtro zona 00+70). Snapshot jul-2026. Alimenta `analysis/perception_vs_crime.py` **y** los indicadores del pipeline `perception_insecurity_donostia/_euskadi` (`datasets/seguridad.py`). |
+| `criminalidad_donostia.csv` | Infracciones penales conocidas y tasa/1000 hab. de Donostia (**serie parcial**: 2019–2021 + Δ2024) | **HU-1**. Curado de prensa citada por fila (euskadi.eus 2022, Noticias de Gipuzkoa 2025; datos Ertzaintza+Guardia Municipal vía Balance de Criminalidad del Min. Interior). Alimenta `analysis/perception_vs_crime.py` **y** los indicadores `crime_infractions`/`crime_rate_1000` (`datasets/seguridad.py`). **Laguna declarada**: completar con la serie oficial anual del Portal Estadístico de Criminalidad (`estadisticasdecriminalidad.ses.mir.es`). |
+
+## Fuentes analysis-only sin fichero versionado (descarga en tiempo de ejecución)
+
+| Origen | Vía | Alimenta | Notas |
+|---|---|---|---|
+| OpenStreetMap (`shop=*` + `amenity` de hostelería) | Overpass API (`overpass-api.de`, GET con `User-Agent`), área administrativa «Donostia / San Sebastián` | **HU-3** tipología comercial (`analysis/commercial_typology.py`; cache en `analysis/output/osm_commercial_raw.json`, gitignored) | ODbL. Snapshot vivo (foto actual, sin histórico). Completitud OSM variable por barrio → proporciones intra-barrio más robustas que recuentos. |
 
 ## Pendiente / manual (sin dataset abierto)
 

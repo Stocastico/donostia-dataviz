@@ -46,6 +46,13 @@ absoluto manda en el centro, pero el **esfuerzo** alquiler/renta es máximo en e
 este obrero: Altza 21,9 %, Egia 21,3 %, Intxaurrondo 20,9 %. La correlación
 `tensión ↔ renta` es **−0,81, y −0,89 sin el centro** — la relación más fuerte y
 robusta de todo el sistema. La tensión es, ante todo, un problema de renta baja.
+*Alquiler vs. sueldo (HU-7, jul-2026):* a escala de ciudad el alquiler crece
+**+24,8 % (2016–2023)** por encima del **salario** (renta del trabajo, `income_labor`)
+**+21,8 %** y del **IPC +20,4 %** — el «crece más que el sueldo» se sostiene *con el
+salario real*, no con la renta disponible pc (+28 %, inflada por pensiones/capital/
+transferencias). Extendido a 2024 el alquiler llega a **+34,8 %** (IPC +23,7 %; alquiler
+real +9,0 %). Qué medida de renta se elija cambia la conclusión: la relevante para
+«vivir de un sueldo» es el salario, y ahí la vivienda gana la carrera.
 *El contrapeso público (REC-15, jul-2026):* a escala de ciudad tiene número
 oficial — el alquiler protegido + alojamientos dotacionales suma **3.151
 viviendas, la cuarta parte del alquiler ocupado** (memoria de la zona
@@ -256,6 +263,16 @@ tendencia clara de mejora, aún bajo el objetivo UE (55 %).
 
 **🎪 MICE.** Récord 2024: **188 eventos**, **259.000 participantes**, 50 %
 internacionales. Congresos ICCA: 16 (2018) → 12 (2019) → 15 (2023) → 13 (2025).
+
+**🛡️ Seguridad (HU-1, jul-2026).** Percepción: familias con *algún problema* de
+seguridad (Eustat ECV, zona Donostia-Bajo Bidasoa) caen de **35,4 % (1989)** a
+**14,1 % (2004)** y ~14–18 % hasta 2019 — «la seguridad ha bajado mucho» es **falso a
+largo plazo**; pero hay **repunte reciente a 21,5 % (2024)**, coherente con la encuesta
+municipal 2026 (inseguridad 2ª preocupación). La criminalidad real (serie **parcial**:
+tasa 64,0→67,5/1000 hab. 2019→2021; +11,8 % en 2024) también sube en esa ventana →
+percepción y realidad **coinciden** en el corto plazo; la «tijera» (percepción sube,
+delito no) **no está demostrada** con lo disponible. Falta la serie oficial anual
+completa (Portal Estadístico de Criminalidad) para cerrarla.
 
 **🔗 Correlaciones clave.** Densidad VUT ↔ alquiler **r = 0,64** (0,62 sin el
 centro; Spearman 0,75); esfuerzo ↔ renta **r = −0,81** (−0,89 sin el centro), la
