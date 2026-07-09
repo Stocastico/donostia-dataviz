@@ -60,6 +60,16 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "Solo piattaforma Airbnb (altre piattaforme escluse).",
         "Denominatore: popolazione dell'ultimo anno (semplificazione a denominatore fisso).",
     ]),
+    "hosteleria_share": ("proxy", [
+        "Quota di ristorazione (bar/ristoranti/caffè) sul totale dei locali di "
+        "strada per barrio, da OpenStreetMap (shop=* + hostelería amenity=*).",
+        "OSM è uno snapshot (foto attuale, non evoluzione) e la sua completezza "
+        "varia per barrio: è una proporzione, non un conteggio.",
+        "I barrios con meno di 15 locali mappati restano senza dato (la quota "
+        "sarebbe un artefatto, es. Miramón 5 locali → 100 %).",
+        "La prova temporale («chiudono i negozi, aprono i bar») è la serie CNAE "
+        "di città (REC-7), triangolata nell'analisi.",
+    ]),
     "schools_per_1000": ("derived", [
         "Registro municipale dell'educazione formale (157 centri: scolastici, "
         "universitari, haurreskolak; pubblici e privati) — accademie e "

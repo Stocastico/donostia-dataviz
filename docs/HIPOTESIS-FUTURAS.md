@@ -244,7 +244,12 @@ con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
   tienda. `corr(turistico_share ↔ VUT) = +0,39`. **Clave honesta:** OSM da la
   *geografía actual*, no el *cambio* — la prueba temporal («cierran ferreterías»)
   es la serie CNAE de ciudad (REC-7: retail 14,9→12,6 %, hostelería 6,0→8,1 %);
-  se **triangulan**.
+  se **triangulan**. ✅ **Llevada a la web (jul-2026, decisión del usuario):** la
+  cuota de hostelería por barrio es ya una métrica coroplética del app
+  (`hosteleria_share`, tema *Turismo*) desde un **snapshot OSM curado**
+  (`datos/input/tipologia_comercial_osm.csv` → `datasets/tipologia_comercial.py`,
+  4 tests); barrios con <15 locales mapeados sin dato (evita el artefacto de
+  tejido fino). Sin fetch OSM en el build (reproducible offline).
 
 - **HU-5/HU-6 — Desestacionalización del turismo** →
   `analysis/tourism_deseasonalization.py` (8 tests). Pernoctaciones hoteleras

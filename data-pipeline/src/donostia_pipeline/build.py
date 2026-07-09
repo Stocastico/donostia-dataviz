@@ -47,6 +47,7 @@ from .datasets import (
     ruido_gis,
     salud_gis,
     tejido_comercial,
+    tipologia_comercial,
     transformation,
     vpo_etxebide,
     vut,
@@ -161,7 +162,7 @@ RAW_DOWNLOADS: dict[str, str] = {
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
             renta_trabajo, estudios, vut_density, rent, educacion_gis, salud_gis,
-            ruido_gis, airbnb, vpo_etxebide]
+            ruido_gis, airbnb, vpo_etxebide, tipologia_comercial]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads

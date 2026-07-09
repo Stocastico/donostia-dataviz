@@ -214,8 +214,9 @@ acomodado, cambio social en la periferia interior).
 
 > Las historias #1 (ampliación HU-7) y #7 (HU-1) salen de la batería de
 > hipótesis del usuario (`docs/HIPOTESIS-FUTURAS.md` §5). HU-3 (tipología
-> comercial de la Parte Vieja) vive de momento solo en `analysis/`
-> (`commercial_typology.py`), pendiente de decidir su vista.
+> comercial de la Parte Vieja): el análisis vive en `analysis/`
+> (`commercial_typology.py`) y su cuota de hostelería por barrio es ya una
+> **métrica coroplética del app** (`hosteleria_share`, tema *Turismo*, jul-2026).
 
 ## Cómo escribir cada relato (plantilla)
 

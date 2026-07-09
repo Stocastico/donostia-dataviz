@@ -622,7 +622,7 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (Donostia ≈ ⅓ de Gipuzkoa) — etiquetado así en el indicador y a declarar en
   cualquier relato; el grano municipal sigue parcial (prensa). Pendiente
   (opcional, Cowork): llevar la «tijera» y el matiz Gipuzkoa≠Donostia al HTML.
-- 🟡 **REC-24 (HU-3) tipología comercial de la Parte Vieja (OSM)** — hecho como
+- ✅ **REC-24 (HU-3) tipología comercial de la Parte Vieja (OSM)** — hecho como
   **analysis-only** (jul-2026): `analysis/commercial_typology.py` (24 tests)
   clasifica locales OSM (`shop=*` + hostelería `amenity=*`) en hosteleria/
   turistico/cotidiano/otro/vacant por barrio (Overpass, cache gitignored),
@@ -630,10 +630,14 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   **Hallazgo:** la Parte Vieja (bbox) es **~82 % hostelería** (85/103 locales),
   3 comercios cotidianos → distrito casi monofuncional de consumo de visitante;
   `corr(turistico_share ↔ VUT)=+0,39`. ⚠️ OSM = foto actual (no cambio) y
-  completitud variable por barrio → proporciones > recuentos. **Pendiente
-  (decidir):** ¿se lleva a la web? Como métrica de barrio (`hosteleria_share`)
-  necesitaría fetch OSM en el pipeline (o snapshot curado), a diferencia del
-  resto; alternativa: dejarlo en `analysis/` como evidencia de la historia.
+  completitud variable por barrio → proporciones > recuentos. ✅ **Llevado a la
+  web (jul-2026, decisión del usuario):** métrica de barrio `hosteleria_share`
+  (tema *Turismo*) desde un **snapshot curado** `datos/input/tipologia_comercial_osm.csv`
+  (sin fetch OSM en build, reproducible offline) vía `datasets/tipologia_comercial.py`
+  (4 tests, proxy). Barrios con <15 locales mapeados = sin dato (mata artefactos
+  de tejido fino: Miramón 5 locales → 100 %). 13 barrios con dato; aparece en el
+  selector y pinta el mapa (verificado en navegador). metrics.json/metric_*.json/
+  metrics_long.csv regenerados; recuento de confianza a 38 métricas (4 proxy).
 
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):
