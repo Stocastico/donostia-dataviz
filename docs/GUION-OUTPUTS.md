@@ -90,6 +90,13 @@ acomodado, cambio social en la periferia interior).
   absoluto — pesa más la renta baja que el alquiler bajo.
 - **Aviso (ficha):** índice relativo *derivado*, no % real de gasto familiar;
   supuesto 30 m²/persona explícito y regulable (MET-1).
+- **Ampliación HU-7 (jul-2026) — alquiler vs. sueldo vs. IPC:** nueva métrica
+  `income_labor` (renta del trabajo por barrio, Eustat, grupo *Economia*).
+  A escala de ciudad el **alquiler +24,8 % (2016–2023)** supera al **salario
+  +21,8 %** y al **IPC +20,4 %** (a 2024: alquiler +34,8 % vs IPC +23,7 %). El
+  «crece más que el sueldo» se sostiene con el **salario real**, no con la renta
+  disponible pc (+28 %, inflada por capital/pensiones). Evidencia reproducible:
+  `analysis/housing_affordability.py`. Precios de **venta** €/m²: sin dato (🔴).
 
 ## #2 — "Qué barrios cambian más rápido"  ·  ✅ LISTO
 
@@ -184,6 +191,31 @@ acomodado, cambio social en la periferia interior).
   niveles (VUT + Airbnb + alquiler); el ruido **no** entra (es tráfico, no turismo).
 
 ---
+
+## #7 — "¿Es verdad que la seguridad ha bajado mucho?" · 🟡 NUEVO (HU-1)
+
+- **Pregunta:** ¿la percepción de que Donostia es más insegura se corresponde
+  con la realidad?
+- **Vistas (frontend):** sección **"Altri indicatori cittadini"** →
+  `perception_insecurity_donostia` / `_euskadi` (% de familias con algún
+  problema de seguridad, 1989–2024) y `crime_rate_1000` / `crime_infractions`
+  (tema *Sicurezza*).
+- **Números:** percepción de problema **35,4 % (1989) → 14,1 % (2004) → 14,6 %
+  (2019) → 21,5 % (2024)**; criminalidad tasa **64,0→67,5/1000** (2019→2021),
+  **+11,8 %** en 2024.
+- **Conclusión (cauta):** «ha bajado mucho la seguridad» es **falso a largo
+  plazo** (hoy se percibe mucho menos problema que en 1989–99), pero hay un
+  **repunte real 2019→2024**; y el poco dato de criminalidad *también* sube, así
+  que percepción y realidad **coinciden** en corto plazo — la «tijera» no está
+  demostrada.
+- **Aviso:** zona comarcal (no municipio exacto); percepción cada 5 años;
+  criminalidad = **serie parcial** de prensa (falta la oficial completa, Portal
+  Estadístico). Evidencia: `analysis/perception_vs_crime.py`.
+
+> Las historias #1 (ampliación HU-7) y #7 (HU-1) salen de la batería de
+> hipótesis del usuario (`docs/HIPOTESIS-FUTURAS.md` §5). HU-3 (tipología
+> comercial de la Parte Vieja) vive de momento solo en `analysis/`
+> (`commercial_typology.py`), pendiente de decidir su vista.
 
 ## Cómo escribir cada relato (plantilla)
 

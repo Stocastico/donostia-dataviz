@@ -178,29 +178,29 @@ suite total 182 pipeline + 159 analysis en verde). No se cablean al pipeline
 hasta que valides el relato. Correlación ≠ causalidad; cifras externas curadas
 con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
 
-- **HU-7 — Vivienda vs. IPC vs. renta** → `analysis/housing_affordability.py`
-  (12 tests). IPC curado en `datos/input/ipc_espana.csv` (INE tabla 50902).
-  **Hallazgo (matizado):** el alquiler de ciudad crece **+34,8 % (2016–2024)**
-  frente al **IPC +23,7 %** → *sí supera a la inflación* (alquiler real +9,0 %).
-  **Pero** la renta disponible pc creció **+28,0 % (2016–2023)**, por *encima*
-  del alquiler (+24,8 %) en esa ventana → el «más que el sueldo» **no** se
-  sostiene con la renta pc (media inflada por rentas altas y no salariales).
-  Por barrio, el alquiler sube más rápido en el este (Intxaurrondo +32 %, Altza
-  +29 %) y el esfuerzo empeora ahí; en Gros/Egia el esfuerzo baja porque la
-  renta subió mucho. *Pendiente para cerrar «vivir solo»:* salario real por
-  tramo/edad (no renta pc); venta €/m² sigue sin fuente (🔴).
+- **HU-7 — Vivienda vs. IPC vs. sueldo** → `analysis/housing_affordability.py`
+  (13 tests) **+ integrado en la app**: nueva métrica de barrio `income_labor`
+  (renta del trabajo, Eustat `PX_173402_crpf_rpf_rp22_2p`) en el pipeline
+  (`datasets/renta_trabajo.py`) y el selector *Economia*; IPC curado en
+  `datos/input/ipc_espana.csv`. **Hallazgo (cerrado con salario real):** el
+  alquiler de ciudad crece **+24,8 % (2016–2023)** por encima del **salario
+  (renta del trabajo) +21,8 %** y del **IPC +20,4 %**; a 2024 el alquiler llega a
+  **+34,8 %** (IPC +23,7 %; alquiler real +9,0 %). El «más que el sueldo» **sí**
+  se sostiene con el salario real — la confusión previa venía de usar la renta
+  disponible pc (+28 %, inflada por capital/pensiones/transferencias). Venta
+  €/m² sigue sin fuente (🔴).
 
 - **HU-1 — «La seguridad ha bajado mucho» (percepción vs. realidad)** →
-  `analysis/perception_vs_crime.py` (8 tests). Percepción: serie **Eustat real
-  1989–2024** (`percepcion_seguridad_eustat.csv`, zona Donostia-Bajo Bidasoa).
-  **Hallazgo:** a **largo plazo es FALSO** — familias con «algún problema» de
-  seguridad caen del **35,4 % (1989)** al 14–18 % (2004–2019); pero hay
-  **repunte real 2019→2024 (14,6 %→21,5 %)**, coherente con la encuesta 2026. La
-  criminalidad real (serie parcial, `criminalidad_donostia.csv`) también sube en
-  esa ventana → percepción y realidad **coinciden** en corto plazo; **la «tijera»
-  no está demostrada**. *Bloqueante para cerrarla:* la serie oficial anual
-  completa del Portal Estadístico de Criminalidad (Min. Interior) — laguna
-  declarada.
+  `analysis/perception_vs_crime.py` (8 tests) **+ integrado en la app**:
+  indicadores `perception_insecurity_donostia/_euskadi` y `crime_rate_1000`/
+  `crime_infractions` (tema *Sicurezza*, `datasets/seguridad.py`) en «Altri
+  indicatori cittadini». Percepción: serie **Eustat real 1989–2024**. **Hallazgo:**
+  a **largo plazo es FALSO** — familias con «algún problema» de seguridad caen del
+  **35,4 % (1989)** al 14–18 % (2004–2019); pero hay **repunte real 2019→2024
+  (14,6 %→21,5 %)**. La criminalidad real (serie parcial) también sube → percepción
+  y realidad **coinciden** en corto plazo; **la «tijera» no está demostrada**.
+  *Bloqueante para cerrarla:* la serie oficial anual completa del Portal
+  Estadístico de Criminalidad — laguna declarada.
 
 - **HU-3 — Tipología comercial de la Parte Vieja (OSM)** →
   `analysis/commercial_typology.py` (23 tests). Clasifica locales OSM
