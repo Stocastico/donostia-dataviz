@@ -127,12 +127,19 @@ encuesta de percepción de seguridad, que **no** hemos localizado todavía
 
 **H7 — La preocupación por vivienda cara no es uniforme: barrios pequeños o
 periféricos pueden tener dinámicas de precio propias, distintas del este
-obrero.** El ejemplo que propuso el usuario (Zubieta más barato) es
-plausible en la forma pero **no verificado**: `metrics_long.csv` no tiene
-fila de alquiler para Zubieta, probablemente por tamaño de muestra
-insuficiente en la EMA — habría que comprobar cobertura antes de afirmar
-nada (mismo problema de fuente parcial que ya documentamos para VPO/Etxebide
-en REC-15).
+obrero.** ✅ **Hecho (jul-2026, analysis-only):**
+`analysis/rent_heterogeneity.py` (7 tests). **Doble hallazgo:** (1) el «Zubieta
+más barato» **NO es verificable** — **6 de 19 barrios no tienen ningún dato**
+de alquiler EMA (Zubieta, Igeldo, Añorga, Miramón-Zorroaga y los exclaves
+Landerbaso/Oarain) y 2 más solo parcial (Ategorrieta-Ulia, Martutene): son los
+pequeños/periféricos de mercado de alquiler fino → registro parcial, no
+universo (MET-5), como VPO/Etxebide. (2) Entre los **11 barrios con serie
+completa**, la subida 2016→2024 **no es uniforme, pero al revés del marco**: el
+este obrero barato sube **más** (Loiola +48 %, Intxaurrondo +44 %, Altza +35 %)
+y el centro caro **menos** (Erdialdea +29 %, Egia +28 %); corr(nivel 2016,
+crecimiento) ≈ −0,5 → **convergencia en %** (la brecha en €/m² persiste, AN-13).
+La presión de asequibilidad es mayor donde la renta es menor (une con HU-7), no
+en una periferia con vida propia. N pequeño; correlación ≠ causalidad.
 
 **H8 — La preocupación por el turismo sube justo cuando la presión bruta
 (altas de licencias VUT nuevas) baja.** ✅ **Hecho (jul-2026, analysis-only):**

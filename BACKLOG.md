@@ -545,15 +545,22 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   percibido va con el calor (r≈0,73) y el ruido medido (r≈0,75), **no** con la
   VUT (r≈0,47, confundida por el centro) → ruido = densidad/tráfico, no turismo
   (MET-5/VIZ-5). ⬜ *Pendiente (opcional, Cowork):* llevarlo a la narrativa.
-- ⬜ **H5** (inseguridad percibida por barrio) — bloqueada: falta el desglose por
-  barrio de la encuesta de seguridad 2026 (§3).
+- ✅ **H7 (heterogeneidad del alquiler / «Zubieta barato»)** — hecho (jul-2026,
+  analysis-only): `analysis/rent_heterogeneity.py` (7 tests). (1) El «Zubieta
+  barato» **no es verificable**: 6/19 barrios sin dato EMA (Zubieta, Igeldo,
+  Añorga, Miramón-Zorroaga, Landerbaso, Oarain) + 2 parciales → registro parcial
+  (MET-5). (2) Entre los 11 con serie, subida heterogénea pero al revés: el este
+  obrero barato sube más (Loiola +48 %) que el centro caro (Egia +28 %),
+  corr(nivel, crec.)≈−0,5 → convergencia en % (brecha en €/m² persiste, AN-13).
+  ⬜ *Opcional (Cowork):* narrativa (une con HU-7).
 - ✅ **H8 (turismo↑ / altas VUT↓)** — hecho (jul-2026, analysis-only):
   `analysis/tourism_concern_flow_stock.py` (7 tests). Flujo de altas −94 % desde
   2017 (300→18) y crecimiento del parque 171 %→1,4 %, pero stock (1.329 lic.,
   5.706 plazas) y volumen (pernoctaciones récord 2,2 M) en máximos → la
   preocupación de 2026 va con el stock/masificación, no con el flujo. Descriptivo
   (encuesta de un solo año). ⬜ *Opcional (Cowork):* narrativa.
-- ⬜ **H7** — pendiente en esta tanda (ver §3 y tareas Code).
+- ⬜ **H5** (inseguridad percibida por barrio) — bloqueada: falta el desglose por
+  barrio de la encuesta de seguridad 2026 (dato que buscará el usuario, §3).
 
 - ✅ **HU-5/HU-6 (desestacionalización + MICE)** — hecho (jul-2026,
   analysis-only): `analysis/tourism_deseasonalization.py` (8 tests) sobre
