@@ -135,11 +135,18 @@ nada (mismo problema de fuente parcial que ya documentamos para VPO/Etxebide
 en REC-15).
 
 **H8 — La preocupación por el turismo sube justo cuando la presión bruta
-(altas de licencias VUT nuevas) baja.** Contraintuitivo: REC-13 mostró que
-las altas de licencias REATE caen de 300/año (2017) a 18/año (2025), pero el
-turismo entra nuevo al top-3 de preocupaciones en 2026. Posible relato: lo
-que preocupa ya no es el flujo de nuevas licencias sino el stock acumulado o
-la masificación en temporada alta, no el ritmo de crecimiento.
+(altas de licencias VUT nuevas) baja.** ✅ **Hecho (jul-2026, analysis-only):**
+`analysis/tourism_concern_flow_stock.py` (7 tests). **Hallazgo (H8 respaldada,
+descriptiva):** el **flujo** de altas REATE se desploma −94 % desde el pico
+(300 en 2017 → 18 en 2025) y la tasa de crecimiento del parque cae de 171 %
+(2017) a 1,4 % (2025); pero el **stock** está en **máximo histórico** (1.329
+licencias, 5.706 plazas) y el **volumen real** (pernoctaciones) en **récord**
+(2,2 M en 2025, vs 1,3 M en 2017). Flujo y stock **divergen** 2017→2025. Es
+decir: el parque turístico se ha **estabilizado alto**, no reducido — la
+preocupación de 2026 encaja con el **stock/masificación**, no con el (ya mínimo)
+flujo de nuevas licencias. Salvedades: la encuesta es de **un solo año** (2026),
+no una serie → no se prueba relación temporal; REATE = licencias supervivientes
+(el acumulado es un suelo); correlación ≠ causalidad.
 
 ---
 

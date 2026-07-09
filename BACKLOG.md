@@ -547,7 +547,13 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (MET-5/VIZ-5). ⬜ *Pendiente (opcional, Cowork):* llevarlo a la narrativa.
 - ⬜ **H5** (inseguridad percibida por barrio) — bloqueada: falta el desglose por
   barrio de la encuesta de seguridad 2026 (§3).
-- ⬜ **H7 / H8** — pendientes en esta tanda (ver §3 y tareas Code).
+- ✅ **H8 (turismo↑ / altas VUT↓)** — hecho (jul-2026, analysis-only):
+  `analysis/tourism_concern_flow_stock.py` (7 tests). Flujo de altas −94 % desde
+  2017 (300→18) y crecimiento del parque 171 %→1,4 %, pero stock (1.329 lic.,
+  5.706 plazas) y volumen (pernoctaciones récord 2,2 M) en máximos → la
+  preocupación de 2026 va con el stock/masificación, no con el flujo. Descriptivo
+  (encuesta de un solo año). ⬜ *Opcional (Cowork):* narrativa.
+- ⬜ **H7** — pendiente en esta tanda (ver §3 y tareas Code).
 
 - ✅ **HU-5/HU-6 (desestacionalización + MICE)** — hecho (jul-2026,
   analysis-only): `analysis/tourism_deseasonalization.py` (8 tests) sobre
