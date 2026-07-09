@@ -170,6 +170,16 @@
         REC-14 (isla de calor por barrio), no el pipeline.</li>
       <li><a href="https://www.basquetour.eus">Basquetour</a> — Ibiltur Ocio (ficha de destino, curado).</li>
       <li>DSS Convention Bureau / ICCA — indicadores MICE (curado de notas de prensa citadas).</li>
+      <li><a href="https://www.eustat.eus">Eustat — Encuesta de Condiciones de Vida</a> — familias por grado de
+        seguridad ciudadana y zona, 1989–2024 (percepción de inseguridad, zona comarcal de Donostia y C.A. de
+        Euskadi; HU-1, <code>perception_insecurity_donostia/_euskadi</code>).</li>
+      <li><a href="https://estadisticasdecriminalidad.ses.mir.es">Ministerio del Interior — Portal Estadístico de
+        Criminalidad</a> — infracciones penales conocidas por tipología, <strong>Gipuzkoa (provincia)</strong>
+        2010–2024 (HU-1, <code>crime_infractions_gipuzkoa</code>). Provincia, no municipio: telón de fondo
+        regional. La serie municipal de Donostia sigue siendo parcial (prensa, <code>crime_infractions</code>).</li>
+      <li>Ayto. de Donostia — <strong>encuesta de percepción del ruido</strong> (2026, 407 entrevistas, vía
+        prensa): barrios percibidos como ruidosos/tranquilos — solo alimenta el análisis H6 (ruido percibido
+        vs. isla de calor y VUT), no el pipeline.</li>
     </ul>
   </div>
 
@@ -179,8 +189,10 @@
       <li><strong>Utilización de DBus</strong> (movilidad) — el dataset desapareció del catálogo municipal;
         sin URL viva. La alternativa Eustat ya está cableada (EMPA/EME + DIRAE, ver indicadores), aunque
         la matriz origen-destino municipio×municipio no existe en su banco PxWeb.</li>
-      <li><strong>Criminalidad por barrio</strong> — fuente eliminada del catálogo y escala sub-municipal
-        protegida. Descartada formalmente, sin sustituto.</li>
+      <li><strong>Criminalidad por barrio</strong> — la fuente sub-municipal fue eliminada del catálogo y esa
+        escala queda protegida; sigue descartada. Sí se integra (jul-2026) la serie oficial a escala de
+        <strong>provincia</strong> (Gipuzkoa, Portal Estadístico de Criminalidad; ver Fuentes) como telón de
+        fondo — no baja a barrio ni a municipio.</li>
       <li><strong>Catastro foral de Gipuzkoa</strong> — descargable, pero sin coordenadas ni barrio en los
         ficheros; aparcado hasta decidir geocodificación.</li>
       <li><strong>Precios de venta €/m² (portales inmobiliarios)</strong> — descartado el scraping por
