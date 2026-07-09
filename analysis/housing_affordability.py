@@ -185,21 +185,27 @@ def main() -> None:
 
     rent = read_metric("rent_eur_m2")
     income = read_metric("income_total")
+    labor = read_metric("income_labor")
     pop = read_metric("population")
     ipc = read_ipc()
 
     city_rent = population_weighted_city(rent, pop)
     city_income = population_weighted_city(income, pop)
+    city_labor = population_weighted_city(labor, pop)
 
     print("=" * 76)
-    print("HU-7 · ASEQUIBILIDAD  ¿el alquiler crece más que el IPC y la renta?")
+    print("HU-7 · ASEQUIBILIDAD  ¿el alquiler crece más que el IPC y el sueldo?")
     print("=" * 76)
 
     y0, y1 = COMMON_WINDOW
     print(f"\n— Ciudad (media ponderada por población), ventana común {y0}–{y1} —\n")
     table = compare_growth(
-        {"Alquiler €/m²": city_rent, "Renta pc": city_income, "IPC": ipc}, y0, y1)
+        {"Alquiler €/m²": city_rent, "Salario (renta trabajo)": city_labor,
+         "Renta disponible pc": city_income, "IPC": ipc}, y0, y1)
     print(table.to_string())
+    print("\nClave: el alquiler crece MÁS que el SALARIO (renta del trabajo) pero")
+    print("MENOS que la renta disponible pc — que incluye pensiones/capital/")
+    print("transferencias e infla la media. Para 'vivir de un sueldo' manda el salario.")
 
     ry0, ry1 = RENT_WINDOW
     print(f"\n— Alquiler vs. IPC, ventana ampliada {ry0}–{ry1} —\n")

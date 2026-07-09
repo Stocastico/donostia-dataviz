@@ -118,3 +118,20 @@ def test_rent_beats_inflation_citywide_2016_2024():
     rent_g = ha.cumulative_growth_pct(city_rent, 2016, 2024)
     ipc_g = ha.cumulative_growth_pct(ipc, 2016, 2024)
     assert rent_g > ipc_g  # alquiler por encima de la inflación
+
+
+def test_rent_beats_labor_income_2016_2023():
+    """El matiz corregido: el alquiler crece más que el SALARIO (renta del
+    trabajo), aunque no más que la renta disponible per cápita."""
+    rent = ha.read_metric("rent_eur_m2")
+    labor = ha.read_metric("income_labor")
+    disposable = ha.read_metric("income_total")
+    pop = ha.read_metric("population")
+    city_rent = ha.population_weighted_city(rent, pop)
+    city_labor = ha.population_weighted_city(labor, pop)
+    city_disp = ha.population_weighted_city(disposable, pop)
+    rent_g = ha.cumulative_growth_pct(city_rent, 2016, 2023)
+    labor_g = ha.cumulative_growth_pct(city_labor, 2016, 2023)
+    disp_g = ha.cumulative_growth_pct(city_disp, 2016, 2023)
+    assert rent_g > labor_g       # alquiler > salario → HU-7 se sostiene con sueldo
+    assert disp_g > rent_g        # pero renta disponible > alquiler (matiz)
