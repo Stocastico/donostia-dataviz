@@ -1,0 +1,10 @@
+survey_zone,barrio_id,category,pct_ruidoso,pct_tranquilo,rank_ruidoso,note,source
+Parte Vieja,erdialdea,ruidoso,71.4,,1,"La Parte Vieja es una zona dentro de Erdialdea (Centro); se mapea a erdialdea","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Amara Berri,amaraberri,ruidoso,,,2,"Prensa da el orden (2º más ruidoso), sin % exacto","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Egia,egia,ruidoso,,,3,"Prensa da el orden (3º), sin % exacto","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Gros,gros,ruidoso,,,4,"Prensa da el orden (4º), sin % exacto","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Añorga,anorga,ruidoso,,,5,"Prensa da el orden (5º), sin % exacto","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Igeldo,igeldo,tranquilo,,100.0,,"100 % lo percibe tranquilo","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Ibaeta,ibaeta,tranquilo,,92.3,,"","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Bidebieta-Miracruz,mirakruz-bidebieta,tranquilo,,91.7,,"","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"
+Aiete-Miramón,aiete,tranquilo,,83.3,,"La encuesta agrupa Aiete+Miramón; se mapea a aiete (Miramón-Zorroaga es barrio aparte en el proyecto)","Ayto. Donostia — encuesta de percepción del ruido, 407 entrevistas dic-2025/abr-2026, vía Noticias de Gipuzkoa 2026-06-29; snapshot jul-2026"

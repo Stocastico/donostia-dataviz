@@ -104,10 +104,20 @@ Ninguna analizada todavía. Ordenadas de más a menos inmediata con los datos
 que ya están en el repo.
 
 **H6 — El ruido percibido coincide con la isla de calor y con la densidad
-VUT.** Ya tenemos ambos datos en el proyecto: Gros (+4,8 °C) y Egia
-(+4,1 °C) destacan en la isla de calor superficial (Landsat, REC-14) *y*
-están en el top-5 de barrios más ruidosos de la encuesta. Cruce directo,
-sin necesidad de datos nuevos — candidata a hacerse primero.
+VUT.** ✅ **Hecho (jul-2026, analysis-only):**
+`analysis/perceived_noise_geography.py` (9 tests) cruza el ruido percibido
+(encuesta municipal 2026, `datos/input/percepcion_ruido_donostia.csv`,
+**parcial**: 5 ruidosos + 4 tranquilos) con la isla de calor (REC-14,
+`datos/input/isla_calor_barrio.csv`), la densidad VUT y el ruido **medido**
+(`noise_night_pct55`, como control). **Hallazgo:** el ruido percibido coincide
+**fuerte** con la isla de calor (r≈0,73) y con el ruido medido (r≈0,75) —la
+geografía del **este denso**—, pero con la **densidad turística (VUT) el vínculo
+es flojo y confundido** (r≈0,47, cae a 0,39 sin Erdialdea): solo se sostiene
+porque los dos barrios más turísticos (Erdialdea, Gros) son a la vez los más
+densos y calientes. Amara Berri, Egia y Añorga son ruidosos **sin** turismo. →
+Media de H6 confirmada (calor) y media **matizada/refutada** (VUT): el ruido es
+de **densidad/tráfico, no de turismo** — coherente con MET-5/VIZ-5 y con la
+demanda de la propia encuesta («menos tráfico»). N=9, correlación ≠ causalidad.
 
 **H5 — La inseguridad percibida no sigue el patrón socioeconómico
 esperado** (p. ej. se concentra en el centro turístico/ocio nocturno más

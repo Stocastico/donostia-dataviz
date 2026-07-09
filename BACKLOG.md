@@ -536,6 +536,19 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   origen + gráficos de correlación/salario/I+D, caveats MET-5/MET-6) + digest en
   `resumen.md`/`TESIS-CIUDAD.md`. **Pendiente (Code):** ver REC-21-web abajo.
 
+#### Hipótesis desde encuestas de percepción (H5–H8, `docs/HIPOTESIS-FUTURAS.md` §3)
+
+- ✅ **H6 (ruido percibido × isla de calor × VUT)** — hecho (jul-2026,
+  analysis-only): `analysis/perceived_noise_geography.py` (9 tests) + 2 inputs
+  curados (`percepcion_ruido_donostia.csv` encuesta 2026 parcial;
+  `isla_calor_barrio.csv` reproducción de REC-14). **Hallazgo:** el ruido
+  percibido va con el calor (r≈0,73) y el ruido medido (r≈0,75), **no** con la
+  VUT (r≈0,47, confundida por el centro) → ruido = densidad/tráfico, no turismo
+  (MET-5/VIZ-5). ⬜ *Pendiente (opcional, Cowork):* llevarlo a la narrativa.
+- ⬜ **H5** (inseguridad percibida por barrio) — bloqueada: falta el desglose por
+  barrio de la encuesta de seguridad 2026 (§3).
+- ⬜ **H7 / H8** — pendientes en esta tanda (ver §3 y tareas Code).
+
 #### Batería de hipótesis del usuario (HU-1…HU-7, jul-2026)
 
 > Propuestas por el usuario; evaluadas con semáforo y fuentes en
