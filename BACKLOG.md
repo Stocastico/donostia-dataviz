@@ -536,6 +536,53 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   origen + gráficos de correlación/salario/I+D, caveats MET-5/MET-6) + digest en
   `resumen.md`/`TESIS-CIUDAD.md`. **Pendiente (Code):** ver REC-21-web abajo.
 
+#### Batería de hipótesis del usuario (HU-1…HU-7, jul-2026)
+
+> Propuestas por el usuario; evaluadas con semáforo y fuentes en
+> `docs/HIPOTESIS-FUTURAS.md` §5. Trabajadas HU-7, HU-1 y HU-3 (las tres
+> priorizadas). HU-2/HU-4/HU-5/HU-6: ver §5 (congeladas o bloqueadas por datos).
+
+- ✅ **REC-22 (HU-7) asequibilidad: alquiler vs. salario vs. IPC** — hecho y
+  **cableado al pipeline+web** (jul-2026). Nueva métrica coroplética de barrio
+  `income_labor` (renta del trabajo, Eustat `PX_173402_crpf_rpf_rp22_2p`, tipo
+  110, 2016–2023) → `datasets/renta_trabajo.py` + `ensure_eustat_renta_trabajo`
+  + tests; aparece en el selector *Economia*. IPC curado
+  (`datos/input/ipc_espana.csv`, INE tabla 50902). Análisis
+  `analysis/housing_affordability.py` (13 tests). **Hallazgo:** alquiler
+  **+24,8 %** > salario **+21,8 %** > IPC **+20,4 %** (2016–2023; a 2024 alquiler
+  +34,8 %). El «más que el sueldo» se sostiene con el **salario real**, no con la
+  renta disponible pc (+28 %, inflada por capital/pensiones). **Pendiente:**
+  precio de **venta** €/m² (🔴, sin fuente abierta por barrio, ver REC-8);
+  sección web dedicada de índice alquiler/salario/IPC (opcional, hoy vía métrica
+  + narrativa).
+- ✅ **REC-23 (HU-1) percepción de seguridad vs. criminalidad real** — hecho y
+  **cableado al pipeline+web** (jul-2026). Indicadores de ciudad
+  `perception_insecurity_donostia/_euskadi` (Eustat ECV `PX_010901_cecv_ma04_3`,
+  % familias con problema de seguridad, 1989–2024) + `crime_infractions`/
+  `crime_rate_1000` (parcial) → `datasets/seguridad.py` + tests; tema
+  *Sicurezza* nuevo en el frontend; render en «Altri indicatori cittadini».
+  Datos curados `percepcion_seguridad_eustat.csv` + `criminalidad_donostia.csv`.
+  Análisis `analysis/perception_vs_crime.py` (8 tests). **Hallazgo:** «la
+  seguridad ha bajado mucho» es **falso a largo plazo** (35,4 % de familias con
+  problema en 1989 → 14–18 % en 2004–2019) con **repunte 2019→2024 (→21,5 %)**;
+  criminalidad parcial también sube → coinciden, «tijera» no demostrada.
+  ⬜ **Bloqueante para cerrar:** serie oficial anual completa de criminalidad de
+  Donostia del **Portal Estadístico de Criminalidad** (Min. Interior,
+  `estadisticasdecriminalidad.ses.mir.es`) — hoy solo puntos de prensa 2019–2021
+  + Δ2024. Con ella se podría contrastar de verdad percepción↑ vs delito.
+- 🟡 **REC-24 (HU-3) tipología comercial de la Parte Vieja (OSM)** — hecho como
+  **analysis-only** (jul-2026): `analysis/commercial_typology.py` (24 tests)
+  clasifica locales OSM (`shop=*` + hostelería `amenity=*`) en hosteleria/
+  turistico/cotidiano/otro/vacant por barrio (Overpass, cache gitignored),
+  cruza con densidad VUT y triangula con la serie CNAE de ciudad (REC-7).
+  **Hallazgo:** la Parte Vieja (bbox) es **~82 % hostelería** (85/103 locales),
+  3 comercios cotidianos → distrito casi monofuncional de consumo de visitante;
+  `corr(turistico_share ↔ VUT)=+0,39`. ⚠️ OSM = foto actual (no cambio) y
+  completitud variable por barrio → proporciones > recuentos. **Pendiente
+  (decidir):** ¿se lleva a la web? Como métrica de barrio (`hosteleria_share`)
+  necesitaría fetch OSM en el pipeline (o snapshot curado), a diferencia del
+  resto; alternativa: dejarlo en `analysis/` como evidencia de la historia.
+
 ### Visualización (si se llevan a la web)
 - ✅ **VIZ-8** small multiples por año + "play" animado — hecho (jul-2026):
   botón ▶/⏸ junto al `TimeSlider` que recorre automáticamente los periodos
