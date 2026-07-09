@@ -549,6 +549,15 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   barrio de la encuesta de seguridad 2026 (§3).
 - ⬜ **H7 / H8** — pendientes en esta tanda (ver §3 y tareas Code).
 
+- ✅ **HU-5/HU-6 (desestacionalización + MICE)** — hecho (jul-2026,
+  analysis-only): `analysis/tourism_deseasonalization.py` (8 tests) sobre
+  pernoctaciones mensuales INE 2005–2026. **HU-5 confirmada:** estacionalidad ↓
+  sostenida (%verano 35,9→32,9 %, CV 0,32→0,26; 2023–25 los años menos
+  estacionales); la temporada baja crece +44 % más rápido que agosto.
+  **HU-6:** cruce MICE×mes **imposible** (MICE solo anual) → contribuyente
+  plausible pero no aislable; limitación declarada. ⬜ *Opcional (Cowork):*
+  narrativa (encaja con la historia turística, cap. 6).
+
 #### Batería de hipótesis del usuario (HU-1…HU-7, jul-2026)
 
 > Propuestas por el usuario; evaluadas con semáforo y fuentes en

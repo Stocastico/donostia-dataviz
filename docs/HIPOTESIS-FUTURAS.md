@@ -167,8 +167,8 @@ hipótesis, no porque exista.
 | **HU-2** | La percepción de seguridad baja al subir el nº de personas sin techo | 🔴 | Sin techo: no en repo ni BACKLOG. Recuento INE/SIIS es municipal, esporádico y submuestra pequeña. **Riesgo alto de correlación espuria y atribución causal** (todo sube a la vez estos años) → contra la norma del proyecto. Congelada salvo recuento serio. |
 | **HU-3** | El turismo transforma la Parte Vieja: cambio de tipología comercial (souvenirs/chuches ↑, ferreterías/comercio de barrio ↓) | 🟡 | Ciudad: ✅ REC-7 (retail 14,9→12,6 %, hostelería 6,0→8,1 %, 2008–2025) — proxy, no baja a barrio, e-commerce confunde. Barrio/calle: 🟡 vía **OSM `shop=*`** (REC-16): da la foto *actual* por calle (souvenir vs ferretería), sin profundidad histórica. Cruzable con `calles_vut.csv` (densidad VUT × tipo de comercio). |
 | **HU-4** | El tráfico ha crecido y las políticas no lo frenan (+ mapa de calles por intensidad) | 🔴 | No hay datos de tráfico. Movilidad DBus (REC-6) **dada de baja**. Único proxy: ruido 2022 por barrio («el ruido es de tráfico», VIZ-5) — snapshot, por barrio no calle → **no** sirve para el mapa calle-a-calle ni para la tendencia. Falta: aforos municipales de tráfico (verificar si Donostia OD los publica). Contexto: 83 % apoya la ZBE (encuesta 2026). |
-| **HU-5** | Turismo sostenible = desestacionalizar + estancias largas/experiencias, no excursionistas en coche; potenciar tren/avión | 🟡 | Desestacionalización: ✅ (pernoctaciones INE mensuales 2005–2026, ya se observa desde 2021 — cuantificable). Excursionista vs. estancia: 🔴 (gasto excursionista solo Euskadi-wide). Modo de transporte: 🔴. Gasto ocio pernocta: ✅ IBILTUR 2023 (un solo año). |
-| **HU-6** | El turismo de mayor calidad (dinero/respeto) es el de congresos/eventos (MICE) | 🟡 | Volumen/prestigio MICE: ✅ (188 eventos, 259k participantes, 50 % int'l, 2024; serie ICCA). «Más dinero»: 🔴 (gasto por congresista de Donostia no público, solo Euskadi). **Ángulo medible fuerte**: cruzar fechas MICE × pernoctaciones mensuales → ¿MICE rellena temporada baja? = «calidad» como desestacionalización (une con HU-5). |
+| **HU-5** | Turismo sostenible = desestacionalizar + estancias largas/experiencias, no excursionistas en coche; potenciar tren/avión | 🟢🟡 | Desestacionalización: ✅ **hecho** (`tourism_deseasonalization.py`): %verano 35,9→32,9 % y CV 0,32→0,26 (2005→2023-25); temporada baja crece +44 % más que agosto. Excursionista vs. estancia: 🔴 (gasto excursionista solo Euskadi). Modo de transporte: 🔴. Gasto ocio pernocta: ✅ IBILTUR 2023 (un año). |
+| **HU-6** | El turismo de mayor calidad (dinero/respeto) es el de congresos/eventos (MICE) | 🟡 | Volumen/prestigio MICE: ✅ (188 eventos, 259k participantes, 2024; serie ICCA). «Más dinero»: 🔴 (gasto por congresista de Donostia no público). Cruce MICE×mes: 🔴 **no posible** — la serie MICE es solo anual (sin calendario mensual). El MICE encaja como causa plausible de la desestacionalización de HU-5, pero **no se puede aislar** (limitación declarada en `tourism_deseasonalization.py`). |
 | **HU-7** | Vivienda (venta y alquiler) sube más que IPC y que el sueldo; imposible vivir solo | 🟢🟡 | Alquiler: ✅ (EMA 2016–2024 por barrio). Renta: ✅ (`income_total` 2016–2023 por barrio). IPC: 🟡 (INE, trivial añadir como referencia). Sueldo: 🟡 (proxy renta pc + abanico salarial Euskadi REC-21). Venta €/m²: 🔴 (solo catastro foral, descartado; nunca scraping). El alquiler cubre el grueso del relato. |
 
 ### Prioridad de ejecución (esfuerzo/valor + fidelidad a las normas)
@@ -232,7 +232,19 @@ con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
   es la serie CNAE de ciudad (REC-7: retail 14,9→12,6 %, hostelería 6,0→8,1 %);
   se **triangulan**.
 
-**Otras (no ejecutadas esta sesión):** HU-4 (tráfico) sigue bloqueada por falta
-de aforos; verificar si Donostia OD publica intensidades por calle. HU-5/HU-6
-medibles solo en desestacionalización (pernoctaciones INE ya en repo) + cruce
-MICE×meses. HU-2 (sin techo) congelada por datos + riesgo causal.
+- **HU-5/HU-6 — Desestacionalización del turismo** →
+  `analysis/tourism_deseasonalization.py` (8 tests). Pernoctaciones hoteleras
+  **mensuales** INE (2005–2026). **Hallazgo (HU-5 confirmada):** la
+  estacionalidad **baja** de forma sostenida y se acelera tras 2022 — el % de
+  verano (JAS) cae de **35,9 % (2005–07) a 32,9 % (2023–25)** y el CV de 0,32 a
+  0,26; **2023–2025 son los años menos estacionales de la serie**. Mecanismo: la
+  **temporada baja crece +44 % más rápido que el pico** (meses valle
+  ene/feb/nov/dic ×3,0 vs. agosto ×2,1 en 2005→2025). **HU-6 (MICE), límite
+  declarado:** la serie MICE es **solo anual** (sin calendario mensual de
+  eventos) → el MICE crece (récord 2024: 259.000 asistentes) y encaja como
+  contribuyente plausible del relleno de temporada baja, pero **no se puede
+  aislar** de otras causas. Años 2020/2021/2026 fuera (incompletos/atípicos).
+
+**Otras (no ejecutadas):** HU-4 (tráfico) sigue bloqueada por falta de aforos;
+verificar si Donostia OD publica intensidades por calle. HU-2 (sin techo)
+congelada por datos + riesgo causal.
