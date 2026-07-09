@@ -153,7 +153,7 @@ hipótesis, no porque exista.
 
 | # | Hipótesis (resumen) | Datos | Qué hay / qué falta |
 |---|---|---|---|
-| **HU-1** | La percepción de que la seguridad ha bajado mucho es falsa (percepción ≠ realidad) | 🟡 | Percepción: ✅ (encuesta 2026, inseguridad 2ª preocupación «sube con fuerza», §2.1). Realidad objetiva: 🔴 en el repo (criminalidad por barrio descartada, `BACKLOG` L602), pero **a nivel municipio es pública**: *Balance de Criminalidad* del Ministerio del Interior (trimestral, municipios >20k hab) y/o Ertzaintza. Contraste = tijera percepción↑ vs. delito real. |
+| **HU-1** | La percepción de que la seguridad ha bajado mucho es falsa (percepción ≠ realidad) | 🟢 | Percepción: ✅ (Eustat 1989–2024 + encuesta 2026, §2.1). Realidad objetiva: ✅ serie oficial completa del *Portal Estadístico de Criminalidad* (Min. Interior), **Gipuzkoa 2010–2024** (aportada por el usuario). Veredicto: sin «tijera» — a largo plazo la seguridad percibida es mucho mejor que en 1989, pero el repunte 2019→2024 coincide con una subida real del delito (+34 % provincial). ⚠️ provincia, no municipio. |
 | **HU-2** | La percepción de seguridad baja al subir el nº de personas sin techo | 🔴 | Sin techo: no en repo ni BACKLOG. Recuento INE/SIIS es municipal, esporádico y submuestra pequeña. **Riesgo alto de correlación espuria y atribución causal** (todo sube a la vez estos años) → contra la norma del proyecto. Congelada salvo recuento serio. |
 | **HU-3** | El turismo transforma la Parte Vieja: cambio de tipología comercial (souvenirs/chuches ↑, ferreterías/comercio de barrio ↓) | 🟡 | Ciudad: ✅ REC-7 (retail 14,9→12,6 %, hostelería 6,0→8,1 %, 2008–2025) — proxy, no baja a barrio, e-commerce confunde. Barrio/calle: 🟡 vía **OSM `shop=*`** (REC-16): da la foto *actual* por calle (souvenir vs ferretería), sin profundidad histórica. Cruzable con `calles_vut.csv` (densidad VUT × tipo de comercio). |
 | **HU-4** | El tráfico ha crecido y las políticas no lo frenan (+ mapa de calles por intensidad) | 🔴 | No hay datos de tráfico. Movilidad DBus (REC-6) **dada de baja**. Único proxy: ruido 2022 por barrio («el ruido es de tráfico», VIZ-5) — snapshot, por barrio no calle → **no** sirve para el mapa calle-a-calle ni para la tendencia. Falta: aforos municipales de tráfico (verificar si Donostia OD los publica). Contexto: 83 % apoya la ZBE (encuesta 2026). |
@@ -191,16 +191,23 @@ con fuente y snapshot por fila (ver `datos/input/FUENTES.md`).
   €/m² sigue sin fuente (🔴).
 
 - **HU-1 — «La seguridad ha bajado mucho» (percepción vs. realidad)** →
-  `analysis/perception_vs_crime.py` (8 tests) **+ integrado en la app**:
-  indicadores `perception_insecurity_donostia/_euskadi` y `crime_rate_1000`/
-  `crime_infractions` (tema *Sicurezza*, `datasets/seguridad.py`) en «Altri
-  indicatori cittadini». Percepción: serie **Eustat real 1989–2024**. **Hallazgo:**
-  a **largo plazo es FALSO** — familias con «algún problema» de seguridad caen del
-  **35,4 % (1989)** al 14–18 % (2004–2019); pero hay **repunte real 2019→2024
-  (14,6 %→21,5 %)**. La criminalidad real (serie parcial) también sube → percepción
-  y realidad **coinciden** en corto plazo; **la «tijera» no está demostrada**.
-  *Bloqueante para cerrarla:* la serie oficial anual completa del Portal
-  Estadístico de Criminalidad — laguna declarada.
+  `analysis/perception_vs_crime.py` (11 tests) **+ integrado en la app**:
+  indicadores `perception_insecurity_donostia/_euskadi`, `crime_rate_1000`/
+  `crime_infractions` (Donostia) y **`crime_infractions_gipuzkoa`** (tema
+  *Sicurezza*, `datasets/seguridad.py`) en «Altri indicatori cittadini».
+  Percepción: serie **Eustat real 1989–2024**. **Hallazgo (cerrado con la serie
+  oficial):** a **largo plazo es FALSO** — familias con «algún problema» de
+  seguridad caen del **35,4 % (1989)** al 14–18 % (2004–2019); pero hay **repunte
+  real 2019→2024 (14,6 %→21,5 %)**. Con la **serie oficial del Portal Estadístico
+  de Criminalidad (Gipuzkoa, 2010–2024)** ya en la mano: la criminalidad real
+  estuvo **plana en la década de 2010** y **sube con fuerza 2019→2024 (+34 %**,
+  25.016→33.425 infracciones), tirada por patrimonio/hurtos y contra las personas
+  → percepción y realidad **coinciden** en el corto plazo: **la «tijera» no se
+  sostiene y el repunte de preocupación tiene base real**. Titular en dos tiempos:
+  la alarma «de siempre» es falsa (mucho mejor que en los 80/90), pero el
+  empeoramiento reciente es real. ⚠️ La serie completa es de **Gipuzkoa
+  (provincia)**, no del municipio (Donostia ≈ ⅓); el grano municipal sigue
+  parcial. Dato aportado por el usuario (jul-2026).
 
 - **HU-3 — Tipología comercial de la Parte Vieja (OSM)** →
   `analysis/commercial_typology.py` (23 tests). Clasifica locales OSM

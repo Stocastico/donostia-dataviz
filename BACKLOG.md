@@ -564,12 +564,19 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   Datos curados `percepcion_seguridad_eustat.csv` + `criminalidad_donostia.csv`.
   Análisis `analysis/perception_vs_crime.py` (8 tests). **Hallazgo:** «la
   seguridad ha bajado mucho» es **falso a largo plazo** (35,4 % de familias con
-  problema en 1989 → 14–18 % en 2004–2019) con **repunte 2019→2024 (→21,5 %)**;
-  criminalidad parcial también sube → coinciden, «tijera» no demostrada.
-  ⬜ **Bloqueante para cerrar:** serie oficial anual completa de criminalidad de
-  Donostia del **Portal Estadístico de Criminalidad** (Min. Interior,
-  `estadisticasdecriminalidad.ses.mir.es`) — hoy solo puntos de prensa 2019–2021
-  + Δ2024. Con ella se podría contrastar de verdad percepción↑ vs delito.
+  problema en 1989 → 14–18 % en 2004–2019) con **repunte 2019→2024 (→21,5 %)**.
+  ✅ **Serie oficial de criminalidad integrada (jul-2026, dato del usuario):**
+  Portal Estadístico de Criminalidad (Min. Interior), **Gipuzkoa 2010–2024**
+  (`datos/input/criminalidad_gipuzkoa_mir.csv`, 44 tipologías + total) → indicador
+  `crime_infractions_gipuzkoa` (`datasets/seguridad.py`, +2 tests) y análisis
+  ampliado (`perception_vs_crime.py`, 11 tests, quita el proxy). Hallazgo: el
+  delito real estuvo **plano en la década de 2010** y **sube +34 % 2019→2024** →
+  percepción y realidad **coinciden**, la «tijera» no se sostiene, pero el
+  repunte de preocupación **tiene base real**; a largo plazo la seguridad
+  percibida es mucho mejor que en 1989. ⚠️ **Es provincia, no municipio**
+  (Donostia ≈ ⅓ de Gipuzkoa) — etiquetado así en el indicador y a declarar en
+  cualquier relato; el grano municipal sigue parcial (prensa). Pendiente
+  (opcional, Cowork): llevar la «tijera» y el matiz Gipuzkoa≠Donostia al HTML.
 - 🟡 **REC-24 (HU-3) tipología comercial de la Parte Vieja (OSM)** — hecho como
   **analysis-only** (jul-2026): `analysis/commercial_typology.py` (24 tests)
   clasifica locales OSM (`shop=*` + hostelería `amenity=*`) en hosteleria/
