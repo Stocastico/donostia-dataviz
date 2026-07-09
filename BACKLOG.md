@@ -538,6 +538,16 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
 
 #### Hipótesis desde encuestas de percepción (H5–H8, `docs/HIPOTESIS-FUTURAS.md` §3)
 
+> ✅ **Integración narrativa hecha (jul-2026, Code):** coda **«Lo que preocupa a
+> la ciudad — y lo que dicen los datos»** en `historias.html` (tras el apéndice,
+> antes del epílogo): contrasta las preocupaciones de la encuesta 2026 con los
+> datos — inseguridad (HU-1, con gráfico percepción Eustat + criminalidad
+> Gipuzkoa), turismo (H8 + HU-5/6), ruido (H6), vivienda (H7). Etiquetado
+> Gipuzkoa≠Donostia. `datos.html` con las fuentes nuevas. Verificado en Chromium
+> (0 errores JS). De paso, arreglado un bug de layout de `.conf` (fichas de
+> confianza) en todo el relato. **H5 sigue bloqueada** (el usuario buscó el
+> desglose por barrio de la encuesta de seguridad 2026, no existe público).
+
 - ✅ **H6 (ruido percibido × isla de calor × VUT)** — hecho (jul-2026,
   analysis-only): `analysis/perceived_noise_geography.py` (9 tests) + 2 inputs
   curados (`percepcion_ruido_donostia.csv` encuesta 2026 parcial;
