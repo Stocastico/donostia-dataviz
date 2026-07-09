@@ -14,6 +14,7 @@ import type { IndicatorData } from "../lib/types";
 const THEME_COLOR: Record<string, string> = {
   environment: "#2ca02c",
   tourism: "#d62728",
+  security: "#7c4dff",
 };
 
 /** Generic annual-indicator line chart (year → value), with a latest-value

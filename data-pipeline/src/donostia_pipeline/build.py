@@ -43,6 +43,7 @@ from .datasets import (
     renta,
     renta_trabajo,
     residuos,
+    seguridad,
     ruido_gis,
     salud_gis,
     tejido_comercial,
@@ -557,7 +558,8 @@ def run(offline: bool = False) -> dict:
                   + tejido_comercial.build_indicators(config.RAW_DIR)
                   + reate_licencias.build_indicators(config.RAW_DIR)
                   + movilidad_laboral.build_indicators(config.RAW_DIR)
-                  + empleo_nacionalidad_gipuzkoa.build_indicators(config.RAW_DIR))
+                  + empleo_nacionalidad_gipuzkoa.build_indicators(config.RAW_DIR)
+                  + seguridad.build_indicators())
     _write_json(out_dir / "indicators.json", [i.to_file() for i in indicators])
     print(f"  ✓ indicators.json ({len(indicators)} indicators)")
 

@@ -16,6 +16,7 @@ const THEME_LABELS: Record<string, string> = {
   climate: "Clima",
   change: "Velocità di cambiamento",
   environment: "Ambiente",
+  security: "Sicurezza",
   transformation: "Trasformazione (AN-8)",
 };
 
