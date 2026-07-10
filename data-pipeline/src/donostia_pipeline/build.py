@@ -38,6 +38,7 @@ from .datasets import (
     movilidad_laboral,
     origen_paises_barrio,
     paro,
+    precio_venta,
     reate_licencias,
     rent,
     renta,
@@ -161,8 +162,8 @@ RAW_DOWNLOADS: dict[str, str] = {
 # vut_density is derived and reads both the VUT census and demographics, so it
 # runs after the sources it depends on are present in raw/.
 DATASETS = [vut, demografia, demografia_edad, demografia_origen_region, renta,
-            renta_trabajo, estudios, vut_density, rent, educacion_gis, salud_gis,
-            ruido_gis, airbnb, vpo_etxebide, tipologia_comercial]
+            renta_trabajo, estudios, vut_density, rent, precio_venta, educacion_gis,
+            salud_gis, ruido_gis, airbnb, vpo_etxebide, tipologia_comercial]
 
 # Derived metrics computed from other metrics (run after DATASETS). Each exposes
 # build_from_metrics(metrics_by_id) -> list[Metric]. ``change_velocity`` reads

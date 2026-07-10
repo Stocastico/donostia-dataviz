@@ -34,6 +34,7 @@ WINDOW_START = 2016  # recent window comparable across metrics (see AN-2)
 TREND_SPECS: dict[str, tuple[str, str, str]] = {
     "income_total": ("level", "Velocità reddito", "%/anno"),
     "rent_eur_m2": ("level", "Velocità affitto", "%/anno"),
+    "sale_price_eur_m2": ("level", "Velocità prezzo di vendita", "%/anno"),
     "population": ("level", "Velocità popolazione", "%/anno"),
     "pct_university": ("pp", "Velocità laureati", "p.p./anno"),
     "pct_foreign": ("pp", "Velocità stranieri", "p.p./anno"),
