@@ -23,7 +23,7 @@ export function classify(value: number, [b1, b2]: [number, number]): BiClass {
 }
 
 /** Class names for tooltips/legend. */
-export const CLASS_LABELS = ["Basso", "Medio", "Alto"] as const;
+export const CLASS_LABELS = ["Bajo", "Medio", "Alto"] as const;
 
 // Stevens "Blue (x) × Red (y)" 3×3 scheme, indexed [yClass][xClass]:
 // x adds blue, y adds red, both-high is dark.

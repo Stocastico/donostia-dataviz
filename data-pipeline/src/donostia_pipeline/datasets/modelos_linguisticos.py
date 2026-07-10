@@ -35,9 +35,9 @@ _PERIOD_IDX = 5
 _TOTAL_CODE = "10"
 _MODEL_CODES = {"20": "a", "30": "b", "40": "d"}
 _LABELS = {
-    "a": "Alunni in modello linguistico A (%)",
-    "b": "Alunni in modello linguistico B (%)",
-    "d": "Alunni in modello linguistico D (%)",
+    "a": "Alumnado en modelo lingüístico A (%)",
+    "b": "Alumnado en modelo lingüístico B (%)",
+    "d": "Alumnado en modelo lingüístico D (%)",
 }
 
 

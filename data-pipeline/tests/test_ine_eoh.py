@@ -58,6 +58,6 @@ def test_month_present_in_one_source_only_still_counts(make_ctx):
 
 def test_metadata(make_ctx):
     s = _build(make_ctx)["overnight_stays"]
-    assert s.unit == "pernottamenti"
+    assert s.unit == "pernoctaciones"
     assert s.kind == "month-year"
     assert s.theme == "tourism"

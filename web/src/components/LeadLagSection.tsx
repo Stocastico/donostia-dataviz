@@ -20,8 +20,8 @@ const RENT = "rent_eur_m2";
 const LAGS = [-1, 0, 1, 2];
 
 function lagLabel(lag: number): string {
-  if (lag === 0) return "0 (stesso anno)";
-  return lag > 0 ? `+${lag} (turismo prima)` : `${lag} (affitto prima)`;
+  if (lag === 0) return "0 (mismo año)";
+  return lag > 0 ? `+${lag} (turismo antes)` : `${lag} (alquiler antes)`;
 }
 
 /** AN-6 — lead/lag turismo→alquiler: ¿la presión turística precede a la subida del
@@ -55,23 +55,23 @@ export function LeadLagSection() {
   return (
     <section className="leadlag">
       <div className="scatter-head">
-        <h2>Turismo → affitto: chi precede chi? (AN-6)</h2>
+        <h2>Turismo → alquiler: ¿quién precede a quién? (AN-6)</h2>
       </div>
 
       <p className="scatter-sub">
-        Correlazione di panel sui {" "}
-        <strong>cambiamenti interanuali</strong> (prime differenze, che tolgono la
-        tendenza comune al rialzo) tra l'attività Airbnb e l'affitto, a diversi
-        sfasamenti. Un picco a destra (sfasamento positivo) indicherebbe che la
-        pressione turistica <strong>precede</strong> l'aumento dell'affitto.
+        Correlación de panel sobre los {" "}
+        <strong>cambios interanuales</strong> (primeras diferencias, que quitan la
+        tendencia común al alza) entre la actividad Airbnb y el alquiler, a distintos
+        desfases. Un pico a la derecha (desfase positivo) indicaría que la
+        presión turística <strong>precede</strong> a la subida del alquiler.
         {best && Number.isFinite(best.r) && (
           <>
             {" "}
-            Il massimo è a <strong>{lagLabel(best.lag)}</strong>, r ={" "}
-            <strong>{best.r.toFixed(2)}</strong> (n = {n}) — ma il segnale{" "}
-            <strong>non sopravvive</strong> al controllo per gli shock comuni di
-            città (AN-16): con effetti fissi di anno r scende a ≈0,10
-            (p permutazione ≈0,30).
+            El máximo está en <strong>{lagLabel(best.lag)}</strong>, r ={" "}
+            <strong>{best.r.toFixed(2)}</strong> (n = {n}) — pero la señal{" "}
+            <strong>no sobrevive</strong> al control por los shocks comunes de
+            ciudad (AN-16): con efectos fijos de año r baja a ≈0,10
+            (p permutación ≈0,30).
           </>
         )}
       </p>
@@ -82,7 +82,7 @@ export function LeadLagSection() {
           <XAxis
             dataKey="label"
             tick={{ fontSize: 11 }}
-            label={{ value: "sfasamento (anni)", position: "bottom", fontSize: 12, offset: 12 }}
+            label={{ value: "desfase (años)", position: "bottom", fontSize: 12, offset: 12 }}
           />
           <YAxis
             type="number"
@@ -117,13 +117,13 @@ export function LeadLagSection() {
       </ResponsiveContainer>
 
       <p className="scatter-sub leadlag-caveat">
-        ⚠️ <strong>Esplorativo</strong> (MET-3): correlazione ≠ causalità. L'affitto
-        è annuale (pochi punti) e le recensioni sono un <em>proxy</em> dell'occupazione
-        che cresce anche con la piattaforma — per questo si leggono le differenze,
-        non i livelli. Il <strong>blindaggio AN-16</strong> (stazionarietà + effetti
-        fissi di anno + permutazione) mostra che gran parte del r(+1)=0,27 era
-        covariazione macro comune: resta una domanda aperta, non un indizio.
-        Riproducibile in <code>analysis/lead_lag.py</code> ·{" "}
+        ⚠️ <strong>Exploratorio</strong> (MET-3): correlación ≠ causalidad. El alquiler
+        es anual (pocos puntos) y las reseñas son un <em>proxy</em> de la ocupación
+        que crece también con la plataforma — por eso se leen las diferencias,
+        no los niveles. El <strong>blindaje AN-16</strong> (estacionariedad + efectos
+        fijos de año + permutación) muestra que gran parte del r(+1)=0,27 era
+        covariación macro común: queda una pregunta abierta, no un indicio.
+        Reproducible en <code>analysis/lead_lag.py</code> ·{" "}
         <code>analysis/lead_lag_robustness.py</code> · <code>docs/ANALISIS-LEADLAG.md</code>.
       </p>
     </section>

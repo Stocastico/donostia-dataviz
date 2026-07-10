@@ -57,14 +57,14 @@ COUNTRY_TO_REGION: dict[str, str] = {
 }
 
 REGIONS: dict[str, str] = {
-    "latam": "Popolazione di origine latinoamericana",
-    "norte_africa": "Popolazione di origine nordafricana",
-    "africa_subsahariana": "Popolazione di origine subsahariana",
-    "europa_occidental": "Popolazione di origine europea occidentale",
-    "europa_este": "Popolazione di origine dell'Europa dell'Est",
-    "oriente_medio": "Popolazione di origine mediorientale",
-    "asia": "Popolazione di origine asiatica (orientale/meridionale)",
-    "norteamerica_oceania": "Popolazione di origine nordamericana/oceanica",
+    "latam": "Población de origen latinoamericano",
+    "norte_africa": "Población de origen norteafricano",
+    "africa_subsahariana": "Población de origen subsahariano",
+    "europa_occidental": "Población de origen europeo occidental",
+    "europa_este": "Población de origen de Europa del Este",
+    "oriente_medio": "Población de origen de Oriente Medio",
+    "asia": "Población de origen asiático (oriental/meridional)",
+    "norteamerica_oceania": "Población de origen norteamericano/oceánico",
 }
 
 

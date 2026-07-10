@@ -85,8 +85,8 @@ def build_series(ctx: BuildContext) -> list[Series]:
         )
 
     return [
-        _series("temp_avg", "Temperatura media mensile", "°C", temp),
-        _series("temp_max", "Temperatura massima assoluta", "°C", temp_max),
-        _series("precip", "Precipitazioni mensili", "mm", precip),
-        _series("hot_days_30", "Giorni caldi (max ≥ 30°C)", "giorni", hot_days),
+        _series("temp_avg", "Temperatura media mensual", "°C", temp),
+        _series("temp_max", "Temperatura máxima absoluta", "°C", temp_max),
+        _series("precip", "Precipitaciones mensuales", "mm", precip),
+        _series("hot_days_30", "Días de calor (máx ≥ 30°C)", "días", hot_days),
     ]

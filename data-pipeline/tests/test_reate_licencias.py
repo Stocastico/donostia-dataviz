@@ -76,8 +76,8 @@ def test_indicators_have_expected_metadata():
         assert ind.theme == "tourism"
         assert "REATE" in ind.source
         assert "bajas" in ind.source  # the survivorship caveat travels with the data
-    assert by_id["vut_licenses_new"].unit == "licenze"
-    assert by_id["vut_plazas_cumulative"].unit == "posti letto"
+    assert by_id["vut_licenses_new"].unit == "licencias"
+    assert by_id["vut_plazas_cumulative"].unit == "plazas"
 
 
 def test_build_indicators_reads_cached_files(tmp_path: Path):

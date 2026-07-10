@@ -60,6 +60,6 @@ def test_temp_max_strips_the_day_in_parentheses(make_ctx):
 
 def test_hot_days_counts_days_over_30(make_ctx):
     hot = _build(make_ctx)["hot_days_30"]
-    assert hot.unit == "giorni"
+    assert hot.unit == "días"
     assert hot.values["2019"]["1"] == 0.0
     assert hot.values["2019"]["7"] == 3.0

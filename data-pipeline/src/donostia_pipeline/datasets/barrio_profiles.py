@@ -34,16 +34,16 @@ N_INIT = 50
 # Profile labels (Italian, to match the dashboard) in a fixed order →
 # the category index a barrio gets is its position in this list.
 PROFILES = [
-    "Centrale turistico, reddito alto",
-    "Residenziale benestante",
-    "Transizionale / misto",
-    "Popolare / in tensione",
+    "Central turístico, renta alta",
+    "Residencial acomodado",
+    "Transicional / mixto",
+    "Popular / en tensión",
 ]
 PROFILE_INDEX = {name: i for i, name in enumerate(PROFILES)}
 
 SOURCE = (
-    "Derivata — tipologia di barrio (k-means k=4 su reddito, % laureati, "
-    "densità VUT, affitto standardizzati; cfr. ANALISIS-SPRINT-A.md §3)"
+    "Derivada — tipología de barrio (k-means k=4 sobre renta, % universitarios, "
+    "densidad VUT, alquiler estandarizados; cf. ANALISIS-SPRINT-A.md §3)"
 )
 
 
@@ -81,12 +81,12 @@ def _kmeans(X: np.ndarray, k: int, seed: int, n_init: int, max_iter: int = 300) 
 def _name(centroid: dict[str, float]) -> str:
     """Map a cluster's z-score centroid to a profile name (as in sprint_a)."""
     if centroid["vut_density"] > 0.6 and centroid["rent_eur_m2"] > 0.3:
-        return "Centrale turistico, reddito alto"
+        return "Central turístico, renta alta"
     if centroid["income_total"] > 0.5 and centroid["vut_density"] < 0.2:
-        return "Residenziale benestante"
+        return "Residencial acomodado"
     if centroid["income_total"] < -0.3:
-        return "Popolare / in tensione"
-    return "Transizionale / misto"
+        return "Popular / en tensión"
+    return "Transicional / mixto"
 
 
 def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
@@ -128,7 +128,7 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
     return [
         Metric(
             id="barrio_profile",
-            label="Profilo del barrio (tipologia)",
+            label="Perfil del barrio (tipología)",
             unit="",
             kind="categorical",
             theme="change",

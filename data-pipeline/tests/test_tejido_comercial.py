@@ -50,7 +50,7 @@ def test_year_without_total_is_dropped():
 def test_indicators_have_expected_metadata():
     payload = {"data": [_row("0", "2020", "1000")]}
     (ind,) = [i for i in tc.establishments_from_pxweb(payload) if i.id == "total_establishments"]
-    assert ind.unit == "locali"
+    assert ind.unit == "locales"
     assert ind.theme == "economy"
     assert "Eustat" in ind.source
 

@@ -55,7 +55,7 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="income_total",
-            label="Renta disponibile pro capite",
+            label="Renta disponible per cápita",
             unit="€",
             kind="sequential",
             theme="economy",
@@ -67,7 +67,7 @@ def build(ctx: BuildContext) -> list[Metric]:
         ),
         Metric(
             id="income_gender_gap",
-            label="Divario di reddito di genere",
+            label="Brecha de renta de género",
             unit="%",
             kind="sequential",
             theme="economy",

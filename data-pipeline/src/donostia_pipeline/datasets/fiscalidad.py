@@ -52,7 +52,7 @@ def build_indicators(raw_dir: Path) -> list[Indicator]:
     if imp.exists():
         out.append(Indicator(
             id="tax_revenue",
-            label="Imposte comunali emesse (M€)",
+            label="Impuestos municipales emitidos (M€)",
             unit="M€",
             theme="economy",
             source=IMP_SOURCE,
@@ -62,7 +62,7 @@ def build_indicators(raw_dir: Path) -> list[Indicator]:
     if tasas.exists():
         out.append(Indicator(
             id="fee_revenue",
-            label="Tasse comunali emesse (M€)",
+            label="Tasas municipales emitidas (M€)",
             unit="M€",
             theme="economy",
             source=TASAS_SOURCE,

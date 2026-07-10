@@ -37,9 +37,9 @@ SOURCE = (
 
 _FECHA_RE = re.compile(r"\d{2}/\d{2}/(\d{4})$")
 _LABELS = {
-    "vut_licenses_new": ("Nuove licenze turistiche VUT/HUT (REATE)", "licenze"),
-    "vut_licenses_cumulative": ("Licenze turistiche VUT/HUT cumulate (REATE)", "licenze"),
-    "vut_plazas_cumulative": ("Posti letto turistici legali cumulati (REATE)", "posti letto"),
+    "vut_licenses_new": ("Nuevas licencias turísticas VUT/HUT (REATE)", "licencias"),
+    "vut_licenses_cumulative": ("Licencias turísticas VUT/HUT acumuladas (REATE)", "licencias"),
+    "vut_plazas_cumulative": ("Plazas turísticas legales acumuladas (REATE)", "plazas"),
 }
 
 

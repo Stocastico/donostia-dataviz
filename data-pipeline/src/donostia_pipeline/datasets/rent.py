@@ -58,7 +58,7 @@ def _build_from_rows(rows, code_to_id: dict[str, str]) -> list[Metric]:
     return [
         Metric(
             id="rent_eur_m2",
-            label="Affitto medio (€/m²)",
+            label="Alquiler medio (€/m²)",
             unit="€/m²",
             kind="sequential",
             theme="housing",

@@ -45,10 +45,10 @@ AIRBNB = "airbnb_density"
 # Socioeconomic classes, fixed order → the categorical index a barrio gets is its
 # position here. Internal Spanish keys (from the analysis) map to these UI labels.
 CLASS_LABELS = [
-    "In trasformazione",
-    "Trasformazione incipiente",
-    "Stabile / senza trasformazione",
-    "Consolidato / non suscettibile",
+    "En transformación",
+    "Transformación incipiente",
+    "Estable / sin transformación",
+    "Consolidado / no susceptible",
 ]
 _CLASS_INDEX = {
     "en transformación": 0,
@@ -58,7 +58,7 @@ _CLASS_INDEX = {
 }
 
 SOURCE = (
-    "Derivata — Indice di Trasformazione Urbana (AN-8; cfr. INDICE-TRANSFORMACION.md)"
+    "Derivada — Índice de Transformación Urbana (AN-8; cf. INDICE-TRANSFORMACION.md)"
 )
 
 
@@ -202,7 +202,7 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
     out: list[Metric] = [
         Metric(
             id="transform_class",
-            label="Trasformazione socioeconomica (classe)",
+            label="Transformación socioeconómica (clase)",
             unit="",
             kind="categorical",
             theme="transformation",
@@ -213,9 +213,9 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
             values=class_values,
             categories=list(CLASS_LABELS),
         ),
-        _diverging("transform_socio_score", "Score di trasformazione socioeconomica", "z", by(score_socio)),
-        _diverging("transform_tourism_score", "Score di pressione turistica", "z", by(score_tourism)),
-        _diverging("transform_univ_excess", "Eccesso crescita laureati (vs mediana)", "p.p./anno", by(univ_excess)),
-        _diverging("transform_rent_excess", "Eccesso crescita affitto (vs mediana)", "%/anno", by(rent_excess)),
+        _diverging("transform_socio_score", "Score de transformación socioeconómica", "z", by(score_socio)),
+        _diverging("transform_tourism_score", "Score de presión turística", "z", by(score_tourism)),
+        _diverging("transform_univ_excess", "Exceso de crecimiento de universitarios (vs mediana)", "p.p./año", by(univ_excess)),
+        _diverging("transform_rent_excess", "Exceso de crecimiento del alquiler (vs mediana)", "%/año", by(rent_excess)),
     ]
     return out

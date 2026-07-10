@@ -19,7 +19,7 @@ def test_groups_rows_into_indicators_by_id():
 
 def test_metadata_comes_from_the_registry():
     icca = next(i for i in mice.indicators_from_rows(ROWS) if i.id == "mice_icca_congresses")
-    assert icca.unit == "congressi"
+    assert icca.unit == "congresos"
     assert icca.theme == "tourism"
     assert "ICCA" in icca.label
 

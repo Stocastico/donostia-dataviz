@@ -36,21 +36,21 @@ COMMON_END = 2023  # alquiler ∩ salario ∩ IPC ∩ venta → comparación a 4
 # Colores validados (dataviz): venta ámbar, alquiler azul, salario verde; IPC gris
 # discontinuo = línea de referencia (identidad por trazo + etiqueta, no solo color).
 SERIES_SPEC = [
-    ("sale", "sale_price_eur_m2", "Prezzo di vendita", "#b5730f", False, "proxy"),
-    ("rent", "rent_eur_m2", "Affitto", "#2166ac", False, "observed"),
-    ("salary", "income_labor", "Salario (reddito da lavoro)", "#2a9d6f", False, "observed"),
-    ("ipc", None, "IPC (inflazione)", "#8a94a6", True, "observed"),
+    ("sale", "sale_price_eur_m2", "Precio de venta", "#b5730f", False, "proxy"),
+    ("rent", "rent_eur_m2", "Alquiler", "#2166ac", False, "observed"),
+    ("salary", "income_labor", "Salario (renta del trabajo)", "#2a9d6f", False, "observed"),
+    ("ipc", None, "IPC (inflación)", "#8a94a6", True, "observed"),
 ]
 
 SOURCE = (
-    "Elaborazione: media ponderata per popolazione, base 2016=100. Prezzo di "
-    "vendita idealista (offerta, REC-25) · affitto EMA · salario Eustat (reddito "
-    "da lavoro) · IPC nazionale INE."
+    "Elaboración: media ponderada por población, base 2016=100. Precio de venta "
+    "idealista (oferta, REC-25) · alquiler EMA · salario Eustat (renta del "
+    "trabajo) · IPC nacional INE."
 )
 NOTE = (
-    "Serie di città (media dei barrios pesata per popolazione), ognuna sul proprio "
-    "intervallo disponibile. Il prezzo di vendita è di **offerta** (proxy). "
-    "Descrittivo, non causale."
+    "Serie de ciudad (media de los barrios ponderada por población), cada una "
+    "sobre su propio intervalo disponible. El precio de venta es de **oferta** "
+    "(proxy). Descriptivo, no causal."
 )
 
 

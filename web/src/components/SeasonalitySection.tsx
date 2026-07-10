@@ -43,7 +43,7 @@ export function SeasonalitySection() {
   return (
     <section className="seasonality">
       <div className="seasonality-head">
-        <h2>Serie temporali — mese × anno</h2>
+        <h2>Series temporales — mes × año</h2>
         {available.length > 1 && (
           <select value={seriesId} onChange={(e) => setSeriesId(e.target.value)}>
             {available.map((s) => (
@@ -58,9 +58,9 @@ export function SeasonalitySection() {
         <>
           <p className="seasonality-sub">
             {series.label} — {series.years[0]}–{series.years[series.years.length - 1]}.
-            Le colonne sono gli anni, le righe i mesi: i colori più intensi
-            indicano i valori più alti. Rivela la stagionalità e la sua
-            evoluzione nel tempo.
+            Las columnas son los años, las filas los meses: los colores más intensos
+            indican los valores más altos. Revela la estacionalidad y su
+            evolución en el tiempo.
           </p>
           {(() => {
             const pres = presentation(series.id, series.unit);
@@ -73,10 +73,10 @@ export function SeasonalitySection() {
               </>
             );
           })()}
-          <p className="source-note">Fonte: {series.source}</p>
+          <p className="source-note">Fuente: {series.source}</p>
         </>
       ) : (
-        <p className="seasonality-sub">Caricamento serie…</p>
+        <p className="seasonality-sub">Cargando serie…</p>
       )}
     </section>
   );

@@ -32,12 +32,12 @@ WINDOW_START = 2016  # recent window comparable across metrics (see AN-2)
 
 # base metric id -> (kind, label, unit). "level" → %/year; "pp" → points/year.
 TREND_SPECS: dict[str, tuple[str, str, str]] = {
-    "income_total": ("level", "Velocità reddito", "%/anno"),
-    "rent_eur_m2": ("level", "Velocità affitto", "%/anno"),
-    "sale_price_eur_m2": ("level", "Velocità prezzo di vendita", "%/anno"),
-    "population": ("level", "Velocità popolazione", "%/anno"),
-    "pct_university": ("pp", "Velocità laureati", "p.p./anno"),
-    "pct_foreign": ("pp", "Velocità stranieri", "p.p./anno"),
+    "income_total": ("level", "Velocidad renta", "%/año"),
+    "rent_eur_m2": ("level", "Velocidad alquiler", "%/año"),
+    "sale_price_eur_m2": ("level", "Velocidad precio de venta", "%/año"),
+    "population": ("level", "Velocidad población", "%/año"),
+    "pct_university": ("pp", "Velocidad universitarios", "p.p./año"),
+    "pct_foreign": ("pp", "Velocidad extranjeros", "p.p./año"),
 }
 MIN_POINTS = 3  # need at least 3 years to fit a defensible slope
 
@@ -98,7 +98,7 @@ def _velocity_for(base: Metric, kind: str, label: str, unit: str) -> Metric | No
         unit=unit,
         kind="diverging",
         theme="change",
-        source=f"Derivata — tasso annualizzato {period} di «{base.label}» (regressione OLS)",
+        source=f"Derivada — tasa anualizada {period} de «{base.label}» (regresión OLS)",
         geo_grain="barrio",
         time_grain="snapshot",
         periods=[period],

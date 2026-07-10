@@ -51,13 +51,13 @@ function MapCard({ metricId, title }: { metricId: string; title: ReactNode }) {
         <div
           className="map-area"
           role="img"
-          aria-label={`Mappa coropletica: ${metric.label}, ${period}. Dati nella tabella qui sotto.`}
+          aria-label={`Mapa coroplético: ${metric.label}, ${period}. Datos en la tabla de abajo.`}
         >
           <ChoroplethMap geojson={barriosGeoJSON} metric={metric} period={period} scale={scale} />
           <Legend scale={scale} unit={metric.unit} />
         </div>
       ) : (
-        <div className="map-placeholder">Caricamento…</div>
+        <div className="map-placeholder">Cargando…</div>
       )}
       {metric && (
         <MapDataTable
@@ -89,26 +89,26 @@ export function TransformationSection() {
   return (
     <section className="transformation">
       <div className="scatter-head">
-        <h2>Donostia in trasformazione (Indice AN-8)</h2>
+        <h2>Donostia en transformación (Índice AN-8)</h2>
       </div>
 
       <p className="scatter-sub">
-        Tre mappe affiancate dello stesso indice multi-definizione, con i componenti
-        a vista. <strong>Trasformazione, non «gentrificazione»</strong>: con i dati
-        disponibili non si può dimostrare la sostituzione dei residenti (MET-2). Il
-        dato chiave è che le due trasformazioni <strong>non coincidono</strong>: il
-        turismo si concentra nel centro benestante (Erdialdea, Gros), il cambiamento
-        sociale nella periferia interna suscettibile (Loiola, Egia).
+        Tres mapas en paralelo del mismo índice multi-definición, con los componentes
+        a la vista. <strong>Transformación, no «gentrificación»</strong>: con los datos
+        disponibles no se puede demostrar la sustitución de residentes (MET-2). El
+        dato clave es que las dos transformaciones <strong>no coinciden</strong>: el
+        turismo se concentra en el centro acomodado (Erdialdea, Gros), el cambio
+        social en la periferia interior susceptible (Loiola, Egia).
       </p>
 
       <div className="transform-grid">
         <MapCard
           metricId="transform_class"
-          title="1 · Trasformazione socioeconomica (classe)"
+          title="1 · Transformación socioeconómica (clase)"
         />
         <MapCard
           metricId="transform_tourism_score"
-          title="2 · Pressione turistica (livelli)"
+          title="2 · Presión turística (niveles)"
         />
         <MapCard
           metricId={component}
@@ -135,7 +135,7 @@ export function TransformationSection() {
       </div>
 
       <p className="source-note">
-        Fonti: {classInfo.source}
+        Fuentes: {classInfo.source}
         {compInfo && compInfo.source !== classInfo.source ? ` · ${compInfo.source}` : ""}
       </p>
     </section>

@@ -20,7 +20,7 @@ from ..spatial import BarrioIndex, rate_per_1000
 
 GEOJSON_NAME = "salud.json"
 PERIOD = "actual"
-SOURCE = "Donostia Open Data — equipamientos de salud (join spaziale punto→barrio)"
+SOURCE = "Donostia Open Data — equipamientos de salud (join espacial punto→barrio)"
 
 
 def build(ctx: BuildContext) -> list[Metric]:
@@ -35,8 +35,8 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="health_per_1000",
-            label="Servizi sanitari (per 1000 ab.)",
-            unit="per 1000 ab.",
+            label="Servicios sanitarios (por 1000 hab.)",
+            unit="por 1000 hab.",
             kind="sequential",
             theme="health",
             source=SOURCE,

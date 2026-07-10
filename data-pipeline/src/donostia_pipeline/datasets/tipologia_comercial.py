@@ -53,7 +53,7 @@ def build_from_csv(path: Path, barrio_ids: set[str]) -> list[Metric]:
     return [
         Metric(
             id="hosteleria_share",
-            label="Quota di ristorazione tra i locali (OSM)",
+            label="Cuota de restauración entre los locales (OSM)",
             unit="%",
             kind="sequential",
             theme="tourism",

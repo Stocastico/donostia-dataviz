@@ -227,17 +227,18 @@ Queda su integración narrativa (Cowork).
   apunta ahora a `datos/input/`; se elimina el duplicado en `data-pipeline/curated/`.
 
 ### Internacionalización del app (idioma)
-- ⬜ **Traducir la interfaz del app React (`web/`) de italiano a español** (decisión
-  del usuario, jul-2026). Hoy el **dashboard está en italiano** —los `label`/
-  `assumptions`/`source` de cada `Metric` (en `datasets/*.py`, `provenance.py`,
-  `change_velocity.py`) y los textos de UI (`web/src/components/*`,
-  `THEME_LABELS`/`MetricPicker`)—, mientras que docs, `historias.html`,
-  `metodologia.html` y `datos.html` están en **español**. Unificar todo a español
-  es lo coherente. Alcance: (1) sustituir esos strings; (2) regenerar
-  `metrics.json` / `metric_*.json` / `metrics_long.csv`. No toca la estructura de
-  datos ni los `barrio_id` (sustitución de texto + rebuild). ⚠️ Las métricas
-  recientes (p.ej. `sale_price_eur_m2`, REC-25) se han dejado **a propósito en
-  italiano** para no mezclar idiomas antes de esta migración.
+- ✅ **App React traducido de italiano a español** (jul-2026, decisión del usuario).
+  Toda la interfaz del dashboard pasa a español: (1) **capa de datos** — `label`/
+  `unit`/`source`/`assumptions`/`categories` de cada `Metric` (en `datasets/*.py`,
+  `provenance.py`, `change_velocity.py`, `affordability_index.py`) + los ~40
+  `metric_*.json` / `metrics.json` / `indicators.json` / `series*.json` regenerados
+  y en sync con el código (verificado provenance↔JSON = 0 mismatches); (2) **UI** —
+  los ~25 componentes `web/src/components/*`, `views/Dashboard.tsx`,
+  `THEME_LABELS` del `MetricPicker`, meses (`lib/series.ts`), locale de formato y de
+  ordenación (`it-IT`/`it`→`es-ES`/`es`), `index.html` `lang="es"`. Tests del
+  pipeline (213) y web (70) actualizados y en verde; build y navegador verificados.
+  No cambia estructura de datos ni `barrio_id`. Los `docstrings`/comentarios de
+  código (dev-facing) se dejan como están.
 
 ### Datos crudos (input)
 - 🔷 **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o

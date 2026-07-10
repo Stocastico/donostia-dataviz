@@ -56,7 +56,7 @@ def recycling_rate_from_rows(rows) -> list[Indicator]:
     return [
         Indicator(
             id="recycling_rate",
-            label="Tasso di raccolta differenziata",
+            label="Tasa de recogida selectiva",
             unit="%",
             theme="environment",
             source=SOURCE,

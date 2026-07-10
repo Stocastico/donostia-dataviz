@@ -34,12 +34,12 @@ export function MonthlyYearLines({ series }: { series: SeriesData }) {
 
   return (
     <div className="cycles-chart">
-      <h3>Cicli mensili per anno</h3>
+      <h3>Ciclos mensuales por año</h3>
       <p className="trend-caption">
-        Ogni linea è un anno: in <span style={{ color: "#bbb" }}>grigio</span> il
-        passato, sui toni caldi gli ultimi {RECENT} anni, in{" "}
-        <strong style={{ color: "#b30000" }}>rosso</strong> il {last}. Più le linee
-        recenti stanno in alto, più gli anni recenti sono caldi.
+        Cada línea es un año: en <span style={{ color: "#bbb" }}>gris</span> el
+        pasado, en tonos cálidos los últimos {RECENT} años, en{" "}
+        <strong style={{ color: "#b30000" }}>rojo</strong> el {last}. Cuanto más arriba
+        están las líneas recientes, más cálidos son los años recientes.
       </p>
       <ResponsiveContainer width="100%" height={320}>
         <LineChart data={rows} margin={{ top: 8, right: 16, bottom: 8, left: 0 }}>

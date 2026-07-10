@@ -83,8 +83,8 @@ def build(ctx: BuildContext) -> list[Metric]:
 
     population = Metric(
         id="population",
-        label="Popolazione residente",
-        unit="abitanti",
+        label="Población residente",
+        unit="habitantes",
         kind="sequential",
         theme="demography",
         source=SOURCE,
@@ -95,7 +95,7 @@ def build(ctx: BuildContext) -> list[Metric]:
     )
     pct_foreign = Metric(
         id="pct_foreign",
-        label="Popolazione straniera",
+        label="Población extranjera",
         unit="%",
         kind="sequential",
         theme="demography",

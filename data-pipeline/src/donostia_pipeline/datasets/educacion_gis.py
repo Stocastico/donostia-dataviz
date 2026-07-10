@@ -18,7 +18,7 @@ from ..spatial import BarrioIndex, rate_per_1000
 
 GEOJSON_NAME = "educativos.json"
 PERIOD = "actual"
-SOURCE = "Donostia Open Data — equipamientos educativos (join spaziale punto→barrio)"
+SOURCE = "Donostia Open Data — equipamientos educativos (join espacial punto→barrio)"
 
 
 def build(ctx: BuildContext) -> list[Metric]:
@@ -33,8 +33,8 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="schools_per_1000",
-            label="Centri educativi (per 1000 ab.)",
-            unit="per 1000 ab.",
+            label="Centros educativos (por 1000 hab.)",
+            unit="por 1000 hab.",
             kind="sequential",
             theme="education",
             source=SOURCE,

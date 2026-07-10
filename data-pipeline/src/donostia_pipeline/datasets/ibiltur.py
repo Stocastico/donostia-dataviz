@@ -29,13 +29,13 @@ CURATED_FILE = "ibiltur_donostia.csv"
 # id -> (label, unit, theme).
 META: dict[str, tuple[str, str, str]] = {
     "ibiltur_ocio_spend_per_person": (
-        "Spesa turistica leisure per persona (IBILTUR Ocio)", "€", "tourism"),
+        "Gasto turístico de ocio por persona (IBILTUR Ocio)", "€", "tourism"),
     "ibiltur_ocio_spend_per_person_day": (
-        "Spesa turistica leisure per persona e giorno (IBILTUR Ocio)", "€/giorno", "tourism"),
+        "Gasto turístico de ocio por persona y día (IBILTUR Ocio)", "€/día", "tourism"),
     "ibiltur_ocio_economic_impact": (
-        "Impatto economico del turismo leisure (IBILTUR Ocio)", "M€", "tourism"),
+        "Impacto económico del turismo de ocio (IBILTUR Ocio)", "M€", "tourism"),
 }
-SOURCE = "Basquetour — IBILTUR Ocio, ficha de destino Donostia/San Sebastián (vedi colonna source)"
+SOURCE = "Basquetour — IBILTUR Ocio, ficha de destino Donostia/San Sebastián (ver columna source)"
 
 
 def indicators_from_rows(rows) -> list[Indicator]:

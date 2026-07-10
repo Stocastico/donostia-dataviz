@@ -46,12 +46,12 @@ export function AnnualTrendChart({ series, mode, color }: Props) {
 
   return (
     <div className="trend-chart">
-      <h3>Media annuale e trend</h3>
+      <h3>Media anual y tendencia</h3>
       {fit && perDecade != null && (
         <p className="trend-caption">
-          Trend lineare: <strong>{sign}{DEC.format(Math.abs(perDecade))} {series.unit}/decennio</strong>{" "}
+          Tendencia lineal: <strong>{sign}{DEC.format(Math.abs(perDecade))} {series.unit}/década</strong>{" "}
           (R² = {DEC.format(fit.r2)}).
-          {partial && ` Il ${lastYear} è parziale (in corso) e non è incluso nel calcolo del trend.`}
+          {partial && ` El ${lastYear} es parcial (en curso) y no se incluye en el cálculo de la tendencia.`}
         </p>
       )}
       <ResponsiveContainer width="100%" height={240}>
@@ -67,11 +67,11 @@ export function AnnualTrendChart({ series, mode, color }: Props) {
           <Tooltip
             formatter={(v: number, name) => [
               `${DEC.format(v)} ${series.unit}`,
-              name === "trend" ? "trend" : "media annuale",
+              name === "trend" ? "tendencia" : "media anual",
             ]}
           />
-          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} name="media annuale" />
-          <Line type="monotone" dataKey="trend" stroke="#666" strokeWidth={1.5} strokeDasharray="6 4" dot={false} name="trend" />
+          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} name="media anual" />
+          <Line type="monotone" dataKey="trend" stroke="#666" strokeWidth={1.5} strokeDasharray="6 4" dot={false} name="tendencia" />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

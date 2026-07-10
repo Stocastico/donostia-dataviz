@@ -64,19 +64,19 @@ export function TourismCompareSection() {
   return (
     <section className="tourism-compare">
       <div className="scatter-head">
-        <h2>Due turismi: Airbnb vs hotel (dal {BASE})</h2>
+        <h2>Dos turismos: Airbnb vs hotel (desde {BASE})</h2>
       </div>
 
       <p className="scatter-sub">
-        Pernottamenti alberghieri (INE) e recensioni Airbnb, entrambi{" "}
-        <strong>indicizzati a {BASE} = 100</strong> per confrontare la traiettoria
-        nonostante le unità diverse.
+        Pernoctaciones hoteleras (INE) y reseñas Airbnb, ambos{" "}
+        <strong>indexados a {BASE} = 100</strong> para comparar la trayectoria
+        pese a las unidades distintas.
         {peak != null && (
           <>
             {" "}
-            L'attività Airbnb arriva a <strong>~{Math.round(peak)}</strong> ({BASE} =
-            100): cresce <strong>molto più in fretta</strong> della capacità
-            alberghiera — la ciudad turística que se expande es la de los pisos,
+            La actividad Airbnb llega a <strong>~{Math.round(peak)}</strong> ({BASE} =
+            100): crece <strong>mucho más rápido</strong> que la capacidad
+            hotelera — la ciudad turística que se expande es la de los pisos,
             no la de los hoteles.
           </>
         )}
@@ -107,8 +107,8 @@ export function TourismCompareSection() {
             }}
           />
           <RLegend />
-          <Line type="monotone" dataKey="airbnb" name="Airbnb (recensioni)" stroke="#d62728" strokeWidth={2} dot={false} connectNulls />
-          <Line type="monotone" dataKey="hotel" name="Hotel (pernottamenti)" stroke="#1f77b4" strokeWidth={2} dot={false} connectNulls />
+          <Line type="monotone" dataKey="airbnb" name="Airbnb (reseñas)" stroke="#d62728" strokeWidth={2} dot={false} connectNulls />
+          <Line type="monotone" dataKey="hotel" name="Hotel (pernoctaciones)" stroke="#1f77b4" strokeWidth={2} dot={false} connectNulls />
         </LineChart>
       </ResponsiveContainer>
 

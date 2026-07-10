@@ -26,7 +26,7 @@ export function BarrioOriginsSection() {
   return (
     <section className="origins">
       <div className="scatter-head">
-        <h2>Chi vive nel barrio · origini</h2>
+        <h2>Quién vive en el barrio · orígenes</h2>
         <div className="origins-select">
           <label className="control-label" htmlFor="origins-barrio">Barrio</label>
           <select
@@ -42,19 +42,19 @@ export function BarrioOriginsSection() {
       </div>
 
       <p className="scatter-sub">
-        Le prime <strong>cinque nazionalità straniere</strong> di {barrio.name} nel{" "}
-        {latestYear}, con la variazione rispetto a dieci anni prima ({pastYear}).
-        L'origine <strong>non è un indicatore</strong> di reddito, turismo o
-        trasformazione (MET-5): è una fotografia di <em>chi</em> abita il barrio.
-        Dentro «popolazione straniera» convivono profili opposti — la migrazione
-        economica recente e l'Europa ad alto reddito — che il resto della mappa
-        tiene distinti nei livelli <em>pct_origin_*</em>.
+        Las primeras <strong>cinco nacionalidades extranjeras</strong> de {barrio.name} en{" "}
+        {latestYear}, con la variación respecto a diez años antes ({pastYear}).
+        El origen <strong>no es un indicador</strong> de renta, turismo o
+        transformación (MET-5): es una fotografía de <em>quién</em> habita el barrio.
+        Dentro de «población extranjera» conviven perfiles opuestos — la migración
+        económica reciente y la Europa de renta alta — que el resto del mapa
+        mantiene distintos en los niveles <em>pct_origin_*</em>.
       </p>
 
       <ol
         className="origins-list"
         role="img"
-        aria-label={`Prime nazionalità straniere di ${barrio.name} nel ${latestYear}`}
+        aria-label={`Principales nacionalidades extranjeras de ${barrio.name} en ${latestYear}`}
       >
         {barrio.top.map((c, i) => {
           const region = regionInfo(c.region);
@@ -97,8 +97,8 @@ export function BarrioOriginsSection() {
       </ol>
 
       <p className="source-note">
-        Fonte: {originPaises.source}. Variazione {pastYear}→{latestYear}; «nuovo»
-        = nazionalità non presente (o non registrata) nel barrio dieci anni prima.
+        Fuente: {originPaises.source}. Variación {pastYear}→{latestYear}; «nuevo»
+        = nacionalidad no presente (o no registrada) en el barrio diez años antes.
       </p>
     </section>
   );

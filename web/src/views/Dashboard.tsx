@@ -90,7 +90,7 @@ export function Dashboard() {
     <div className="dashboard">
       <header className="app-header">
         <h1>Donostia Dataviz</h1>
-        <p>L'evoluzione di Donostia / San Sebastián per barrio.</p>
+        <p>La evolución de Donostia / San Sebastián por barrio.</p>
       </header>
 
       <div className="controls">
@@ -111,8 +111,8 @@ export function Dashboard() {
         role="img"
         aria-label={
           metric
-            ? `Mappa coropletica: ${metric.label}, ${period}. Dati completi nella tabella qui sotto.`
-            : "Mappa in caricamento"
+            ? `Mapa coroplético: ${metric.label}, ${period}. Datos completos en la tabla de abajo.`
+            : "Mapa cargando"
         }
       >
         {metric && scale ? (
@@ -121,7 +121,7 @@ export function Dashboard() {
             <Legend scale={scale} unit={metric.unit} />
           </>
         ) : (
-          <div className="map-placeholder">Caricamento dati…</div>
+          <div className="map-placeholder">Cargando datos…</div>
         )}
       </div>
 
@@ -136,7 +136,7 @@ export function Dashboard() {
 
       {selectedInfo && (
         <div className="metric-meta">
-          <p className="source-note">Fonte: {selectedInfo.source}</p>
+          <p className="source-note">Fuente: {selectedInfo.source}</p>
           {selectedInfo.confidence && (
             <ConfidenceCard
               confidence={selectedInfo.confidence}
@@ -161,7 +161,7 @@ export function Dashboard() {
       {metric && metric.periods.length > 1 && (
         <section className="compare-area">
           <div className="barrio-select">
-            <span className="control-label">Confronta barrios (max {MAX_COMPARE})</span>
+            <span className="control-label">Comparar barrios (máx {MAX_COMPARE})</span>
             <div className="barrio-chips">
               {barriosGeoJSON.features.map((f) => {
                 const id = f.properties.barrio_id;
@@ -199,11 +199,11 @@ export function Dashboard() {
 
       <footer className="app-footer">
         <p>
-          Questo pannello accompagna il racconto del progetto:{" "}
-          <a href={`${import.meta.env.BASE_URL}historias.html`}>le sette storie</a> ·{" "}
-          <a href={`${import.meta.env.BASE_URL}metodologia.html`}>metodologia</a> ·{" "}
-          <a href={`${import.meta.env.BASE_URL}datos.html`}>dati e fonti</a>. Codice e
-          pipeline riproducibile:{" "}
+          Este panel acompaña el relato del proyecto:{" "}
+          <a href={`${import.meta.env.BASE_URL}historias.html`}>las siete historias</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}metodologia.html`}>metodología</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}datos.html`}>datos y fuentes</a>. Código y
+          pipeline reproducible:{" "}
           <a href="https://github.com/Stocastico/donostia-dataviz">GitHub</a>.
         </p>
       </footer>
