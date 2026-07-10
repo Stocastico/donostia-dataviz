@@ -330,12 +330,17 @@ Queda su integración narrativa (Cowork).
   - **Cowork**: si aparecen datos, el ángulo narrativo (reconversión
     comercial→vivienda como alivio a la tensión habitacional) encaja con la
     tesis de transformación urbana ya desarrollada.
-- ⬜ **AN-6 refinamiento** — alquiler mensual/trimestral y 2ª señal turística
-  independiente para triangular el lead/lag. Ver AN-16 (estacionariedad +
-  control macro). **La 2ª señal ya existe (jul-2026): la curva REATE de
-  REC-12** (`vut_licenses_cumulative`, 2016–2025, ciudad) — queda el análisis
-  que reabra H1 con ella (T≈9 anual: esperar más serie o buscar grano
-  trimestral en el registro).
+- ✅ **AN-6 refinamiento** — hecho (jul-2026): `analysis/lead_lag_reate.py`
+  (+ `tests/test_lead_lag_reate.py`, 14 tests). Cruza **a grano ciudad** el flujo
+  anual de licencias REATE (`vut_licenses_new`, 2ª señal *independiente* de las
+  reseñas — cierra el punto ciego del FE de año de AN-16) con la variación del
+  alquiler medio, con detrend lineal + test de permutación. **Resultado: la 2ª
+  señal NO reabre H1** — la asociación cruda es negativa (cruce de tendencias:
+  licencias que caen vs. alquiler que acelera), el signo se vuelve inestable al
+  detrend y ningún desfase es significativo con T≈8. Refuerza el veredicto de
+  AN-16. Detalle en `ANALISIS-LEADLAG.md` §"Refinamiento AN-6". **La palanca que
+  queda ya no es el proxy sino la resolución anual**: grano trimestral del
+  alquiler/licencias o una serie más larga (sin fuente pública hoy).
 
 ### Análisis inferencial (feedback IAs jul-2026 — detalle y origen en `docs/intermedia/FEEDBACK-IAS-2026-07.md`)
 
