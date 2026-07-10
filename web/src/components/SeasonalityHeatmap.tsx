@@ -33,9 +33,9 @@ export function SeasonalityHeatmap({ series, palette = "warm" }: Props) {
       <div
         className="heatmap-grid"
         role="img"
-        aria-label={`Heatmap mese × anno di «${series.label}» (${series.years[0]}–${
+        aria-label={`Heatmap mes × año de «${series.label}» (${series.years[0]}–${
           series.years[series.years.length - 1]
-        }): righe = mesi, colonne = anni; colore più intenso = valore più alto. Valore puntuale nel riquadro sotto la mappa.`}
+        }): filas = meses, columnas = años; color más intenso = valor más alto. Valor puntual en el recuadro bajo el mapa.`}
         style={{ gridTemplateColumns: `2.5rem repeat(${series.years.length}, 1fr)` }}
       >
         {/* Header row: blank corner + years */}
@@ -65,7 +65,7 @@ export function SeasonalityHeatmap({ series, palette = "warm" }: Props) {
         <div className="hm-readout">
           {hover
             ? `${MONTH_LABELS[hover.monthIdx]} ${hover.year}: ${formatValue(hover.value, series.unit)}`
-            : "Passa sul calendario per i valori"}
+            : "Pasa por el calendario para ver los valores"}
         </div>
       </div>
     </div>

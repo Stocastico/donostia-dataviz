@@ -8,15 +8,15 @@ import type { OriginPaisesData } from "./types";
  *  pct_origin_* choropleth metrics; colour is a *secondary* channel — the card
  *  always prints the region name too, so it reads without colour (a11y). */
 export const ORIGIN_REGIONS: Record<string, { label: string; color: string }> = {
-  latam: { label: "America Latina", color: "#4393c3" },
-  norte_africa: { label: "Nord Africa", color: "#d6604d" },
-  africa_subsahariana: { label: "Africa subsahariana", color: "#bf812d" },
-  europa_occidental: { label: "Europa occidentale", color: "#5aae61" },
-  europa_este: { label: "Europa dell'Est", color: "#9970ab" },
-  oriente_medio: { label: "Medio Oriente", color: "#e08214" },
+  latam: { label: "América Latina", color: "#4393c3" },
+  norte_africa: { label: "Norte de África", color: "#d6604d" },
+  africa_subsahariana: { label: "África subsahariana", color: "#bf812d" },
+  europa_occidental: { label: "Europa occidental", color: "#5aae61" },
+  europa_este: { label: "Europa del Este", color: "#9970ab" },
+  oriente_medio: { label: "Oriente Medio", color: "#e08214" },
   asia: { label: "Asia", color: "#762a83" },
-  norteamerica_oceania: { label: "Nord America / Oceania", color: "#2166ac" },
-  otros: { label: "Altro", color: "#878787" },
+  norteamerica_oceania: { label: "Norteamérica / Oceanía", color: "#2166ac" },
+  otros: { label: "Otro", color: "#878787" },
 };
 
 const FALLBACK = { label: "Altro", color: "#878787" };
@@ -57,5 +57,5 @@ export function originDelta(latest: number, past: number): OriginDelta {
 export function barrioOptions(data: OriginPaisesData): Array<{ id: string; name: string }> {
   return Object.entries(data.barrios)
     .map(([id, b]) => ({ id, name: b.name }))
-    .sort((a, b) => a.name.localeCompare(b.name, "it"));
+    .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }

@@ -10,7 +10,7 @@ export function IndicatorsSection() {
 
   return (
     <section className="indicators">
-      <h2>Altri indicatori cittadini</h2>
+      <h2>Otros indicadores de ciudad</h2>
       <div className="indicators-grid">
         {generic.map((ind) => (
           <IndicatorTrendChart key={ind.id} indicator={ind} />

@@ -6,9 +6,9 @@ interface Props {
 }
 
 const TIER: Record<Confidence, { label: string; hint: string }> = {
-  observed: { label: "Osservato", hint: "Misurato direttamente dalla fonte." },
-  derived: { label: "Derivato", hint: "Calcolato da metriche osservate." },
-  proxy: { label: "Proxy", hint: "Approssimazione che sostituisce il dato reale." },
+  observed: { label: "Observado", hint: "Medido directamente de la fuente." },
+  derived: { label: "Derivado", hint: "Calculado a partir de métricas observadas." },
+  proxy: { label: "Proxy", hint: "Aproximación que sustituye al dato real." },
 };
 
 /** MET-4 confidence card: a tier badge (observed/derived/proxy) plus the

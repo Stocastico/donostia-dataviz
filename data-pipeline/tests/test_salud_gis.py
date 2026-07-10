@@ -45,7 +45,7 @@ def _ctx(tmp_path):
 def test_health_per_1000_normalized_by_population(tmp_path):
     (m,) = salud_gis.build(_ctx(tmp_path))
     assert m.id == "health_per_1000"
-    assert m.unit == "per 1000 ab."
+    assert m.unit == "por 1000 hab."
     assert m.theme == "health"
     assert m.time_grain == "snapshot"
     # a: 1 / 2000 * 1000 = 0.5 ; b: 2 / 4000 * 1000 = 0.5

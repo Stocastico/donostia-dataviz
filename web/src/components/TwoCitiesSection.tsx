@@ -53,23 +53,23 @@ export function TwoCitiesSection() {
   return (
     <section className="two-cities">
       <div className="scatter-head">
-        <h2>La città turistica vs. la città vissuta</h2>
+        <h2>La ciudad turística vs. la ciudad vivida</h2>
       </div>
       <p className="scatter-sub">
-        Due Donostia sovrapposte ma <strong>geograficamente separate</strong>:
-        l'alloggio turistico si concentra nel centro storico e a Gros, mentre i
-        servizi e la popolazione residente si distribuiscono soprattutto in
-        periferia. Le due mappe sono indipendenti — cambia la metrica in
-        ciascun lato per esplorare.
+        Dos Donostia superpuestas pero <strong>geográficamente separadas</strong>:
+        el alojamiento turístico se concentra en el casco viejo y en Gros, mientras
+        que los servicios y la población residente se distribuyen sobre todo en la
+        periferia. Los dos mapas son independientes — cambia la métrica en
+        cada lado para explorar.
       </p>
       <div className="two-cities-grid">
-        <TwoCitiesPanel title="🧳 Città turistica" metrics={tourismMetrics} panel={left} />
-        <TwoCitiesPanel title="🏠 Città vissuta" metrics={residentMetrics} panel={right} />
+        <TwoCitiesPanel title="🧳 Ciudad turística" metrics={tourismMetrics} panel={left} />
+        <TwoCitiesPanel title="🏠 Ciudad vivida" metrics={residentMetrics} panel={right} />
       </div>
       <p className="scatter-sub leadlag-caveat">
-        ⚠️ Il rumore notturno (`noise_night_pct55`) è dominato dal traffico, non
-        è un proxy di turismo — vedi la correzione in `NOTA-METODOLOGICA.md`
-        (MET-5) e l'analisi in `intermedia/ANALISIS-SPRINT-A.md`.
+        ⚠️ El ruido nocturno (`noise_night_pct55`) está dominado por el tráfico, no
+        es un proxy de turismo — ver la corrección en `NOTA-METODOLOGICA.md`
+        (MET-5) y el análisis en `intermedia/ANALISIS-SPRINT-A.md`.
       </p>
     </section>
   );
@@ -103,8 +103,8 @@ function TwoCitiesPanel({
         role="img"
         aria-label={
           panel.metric
-            ? `Mappa coropletica: ${panel.metric.label}, ${period}. Dati nella tabella qui sotto.`
-            : "Mappa in caricamento"
+            ? `Mapa coroplético: ${panel.metric.label}, ${period}. Datos en la tabla de abajo.`
+            : "Mapa cargando"
         }
       >
         {panel.metric && scale ? (
@@ -113,7 +113,7 @@ function TwoCitiesPanel({
             <Legend scale={scale} unit={panel.metric.unit} />
           </>
         ) : (
-          <div className="map-placeholder">Caricamento dati…</div>
+          <div className="map-placeholder">Cargando datos…</div>
         )}
       </div>
       {panel.metric && (
@@ -124,7 +124,7 @@ function TwoCitiesPanel({
           unit={panel.metric.unit}
         />
       )}
-      {panel.metric && <p className="source-note">Fonte: {panel.metric.source}</p>}
+      {panel.metric && <p className="source-note">Fuente: {panel.metric.source}</p>}
     </div>
   );
 }

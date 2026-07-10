@@ -40,7 +40,7 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="pct_university",
-            label="Popolazione con studi universitari",
+            label="Población con estudios universitarios",
             unit="%",
             kind="sequential",
             theme="education",

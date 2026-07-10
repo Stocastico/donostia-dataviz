@@ -22,10 +22,10 @@ def _name(income, university, vut, rent):
 
 
 def test_centroid_naming_rules():
-    assert _name(1.0, 1.0, 1.0, 1.0) == "Centrale turistico, reddito alto"
-    assert _name(1.0, 1.0, 0.0, -1.0) == "Residenziale benestante"
-    assert _name(-1.0, -1.0, -0.5, -0.5) == "Popolare / in tensione"
-    assert _name(0.0, 0.0, 0.0, 0.0) == "Transizionale / misto"
+    assert _name(1.0, 1.0, 1.0, 1.0) == "Central turístico, renta alta"
+    assert _name(1.0, 1.0, 0.0, -1.0) == "Residencial acomodado"
+    assert _name(-1.0, -1.0, -0.5, -0.5) == "Popular / en tensión"
+    assert _name(0.0, 0.0, 0.0, 0.0) == "Transicional / mixto"
 
 
 def test_latest_picks_max_period_skipping_nulls():
@@ -62,10 +62,10 @@ def test_documented_assignment_is_reproduced():
     for bid, by_period in m.values.items():
         groups[m.categories[int(by_period["perfil"])]].append(bid)
 
-    assert sorted(groups["Centrale turistico, reddito alto"]) == ["erdialdea", "gros"]
-    assert sorted(groups["Residenziale benestante"]) == ["aiete", "antigua", "ibaeta"]
-    assert sorted(groups["Transizionale / misto"]) == ["amaraberri", "ategorrieta-ulia", "egia"]
-    assert sorted(groups["Popolare / in tensione"]) == [
+    assert sorted(groups["Central turístico, renta alta"]) == ["erdialdea", "gros"]
+    assert sorted(groups["Residencial acomodado"]) == ["aiete", "antigua", "ibaeta"]
+    assert sorted(groups["Transicional / mixto"]) == ["amaraberri", "ategorrieta-ulia", "egia"]
+    assert sorted(groups["Popular / en tensión"]) == [
         "altza", "intxaurrondo", "loiola", "martutene", "mirakruz-bidebieta",
     ]
     assert len(m.values) == 13  # the barrios carrying all four variables

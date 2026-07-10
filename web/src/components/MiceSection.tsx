@@ -32,25 +32,25 @@ export function MiceSection() {
 
   return (
     <section className="mice">
-      <h2>Turismo MICE — congressi e riunioni</h2>
+      <h2>Turismo MICE — congresos y reuniones</h2>
       <p className="mice-sub">
-        Dati curati da fonti citate (memorias DSS Turismoa, Convention Bureau,
-        ICCA): non esiste un dataset aperto strutturato. Ogni valore porta la sua
-        fonte (vedi <code>datos/procesado/tablas/indicators_long.csv</code>).
+        Datos curados de fuentes citadas (memorias DSS Turismoa, Convention Bureau,
+        ICCA): no existe un dataset abierto estructurado. Cada valor lleva su
+        fuente (ver <code>datos/procesado/tablas/indicators_long.csv</code>).
       </p>
 
       <div className="mice-cards">
         {evLatest && (
           <StatCard
             value={formatValue(evLatest.value, events!.unit)}
-            label={`Eventi professionali (${evLatest.year})`}
+            label={`Eventos profesionales (${evLatest.year})`}
             sub={events!.values[evLatest.year].source}
           />
         )}
         {atLatest && (
           <StatCard
             value={formatValue(atLatest.value, attendees!.unit)}
-            label={`Partecipanti (${atLatest.year})`}
+            label={`Participantes (${atLatest.year})`}
             sub={attendees!.values[atLatest.year].source}
           />
         )}
@@ -58,7 +58,7 @@ export function MiceSection() {
 
       {icca && (
         <>
-          <h3>{icca.label} per anno</h3>
+          <h3>{icca.label} por año</h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={barData} margin={{ top: 18, right: 16, bottom: 8, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#eee" vertical={false} />
@@ -83,9 +83,9 @@ export function MiceSection() {
             </BarChart>
           </ResponsiveContainer>
           <p className="source-note">
-            Nota: i congressi ICCA seguono criteri stretti (associazioni
-            internazionali, rotazione tra paesi) — molto meno numerosi del totale
-            di eventi professionali del Convention Bureau.
+            Nota: los congresos ICCA siguen criterios estrictos (asociaciones
+            internacionales, rotación entre países) — mucho menos numerosos que el total
+            de eventos profesionales del Convention Bureau.
           </p>
         </>
       )}

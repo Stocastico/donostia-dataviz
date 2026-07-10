@@ -48,8 +48,8 @@ def build_series(ctx: BuildContext) -> list[Series]:
     return [
         Series(
             id="overnight_stays",
-            label="Pernottamenti totali (hotel)",
-            unit="pernottamenti",
+            label="Pernoctaciones totales (hotel)",
+            unit="pernoctaciones",
             theme="tourism",
             source=SOURCE,
             kind="month-year",

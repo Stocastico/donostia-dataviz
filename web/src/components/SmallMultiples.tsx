@@ -29,11 +29,11 @@ export function SmallMultiples({ metric, scale, activeIndex, onSelect }: Props) 
 
   return (
     <section className="small-multiples">
-      <h2>Tutti gli anni in un colpo d'occhio</h2>
+      <h2>Todos los años de un vistazo</h2>
       <p className="scatter-sub">
-        Un mini-mappa per periodo, stessa scala colore della mappa principale.
-        Clicca un anno per saltarci; usa "▶ Riproduci" sopra per animarli in
-        sequenza.
+        Un mini-mapa por periodo, misma escala de color que el mapa principal.
+        Haz clic en un año para saltar; usa "▶ Reproducir" arriba para animarlos
+        en secuencia.
       </p>
       <div className="small-multiples-grid">
         {metric.periods.map((period, i) => (
@@ -42,7 +42,7 @@ export function SmallMultiples({ metric, scale, activeIndex, onSelect }: Props) 
             type="button"
             className={`mini-map-cell ${i === activeIndex ? "active" : ""}`}
             onClick={() => onSelect(i)}
-            aria-label={`Vai all'anno ${period}`}
+            aria-label={`Ir al año ${period}`}
             aria-pressed={i === activeIndex}
           >
             <svg viewBox={`0 0 ${CELL_W} ${CELL_H}`} width={CELL_W} height={CELL_H}>

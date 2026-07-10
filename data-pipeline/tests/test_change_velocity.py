@@ -21,7 +21,7 @@ def test_level_metric_rate_is_percent_per_year():
     assert m.id == "velocity_income_total"
     assert m.kind == "diverging"
     assert m.theme == "change"
-    assert m.unit == "%/anno"
+    assert m.unit == "%/año"
     assert m.periods == ["2016–2019"]
     # slope 1000/yr ÷ mean 21500 × 100 = 4.651 %/yr
     assert m.values["altza"]["2016–2019"] == 4.651
@@ -34,7 +34,7 @@ def test_pp_metric_rate_is_points_per_year_and_can_be_negative():
     })
     (m,) = change_velocity.build_from_metrics({"pct_foreign": foreign})
     assert m.id == "velocity_pct_foreign"
-    assert m.unit == "p.p./anno"
+    assert m.unit == "p.p./año"
     assert m.values["gros"]["2016–2018"] == -0.5  # diverging allows negatives
 
 

@@ -41,7 +41,7 @@ def build(ctx: BuildContext) -> list[Metric]:
     count_metric = Metric(
         id="vut_count",
         label="Viviendas turísticas (VUT/HUT)",
-        unit="unità",
+        unit="unidades",
         kind="sequential",
         theme="tourism",
         source=SOURCE,
@@ -52,8 +52,8 @@ def build(ctx: BuildContext) -> list[Metric]:
     )
     plazas_metric = Metric(
         id="vut_plazas",
-        label="Posti letto turistici (plazas VUT/HUT)",
-        unit="posti letto",
+        label="Plazas turísticas (VUT/HUT)",
+        unit="plazas",
         kind="sequential",
         theme="tourism",
         source=SOURCE,

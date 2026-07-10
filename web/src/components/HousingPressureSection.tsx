@@ -22,9 +22,9 @@ interface Measure {
   usesM2: boolean;
 }
 const MEASURES: Measure[] = [
-  { id: "share", label: "Quota di reddito", unit: "%", kind: "sequential", usesM2: true },
-  { id: "zgap", label: "Z-score (affitto − reddito)", unit: "z", kind: "diverging", usesM2: false },
-  { id: "pctgap", label: "Percentile (affitto − reddito)", unit: "pp", kind: "diverging", usesM2: false },
+  { id: "share", label: "Cuota de renta", unit: "%", kind: "sequential", usesM2: true },
+  { id: "zgap", label: "Z-score (alquiler − renta)", unit: "z", kind: "diverging", usesM2: false },
+  { id: "pctgap", label: "Percentil (alquiler − renta)", unit: "pp", kind: "diverging", usesM2: false },
 ];
 
 const namesById: Record<string, string> = Object.fromEntries(
@@ -117,10 +117,10 @@ export function HousingPressureSection() {
   return (
     <section className="housing">
       <div className="scatter-head">
-        <h2>Pressione dell'affitto sul residente medio</h2>
+        <h2>Presión del alquiler sobre el residente medio</h2>
         <div className="housing-controls">
           <div className="housing-measure">
-            <span className="control-label">Misura</span>
+            <span className="control-label">Medida</span>
             <select value={measureId} onChange={(e) => setMeasureId(e.target.value as MeasureId)}>
               {MEASURES.map((m) => (
                 <option key={m.id} value={m.id}>{m.label}</option>
@@ -138,7 +138,7 @@ export function HousingPressureSection() {
                   aria-pressed={v === m2}
                   onClick={() => setM2(v)}
                   disabled={!measure.usesM2}
-                  title={measure.usesM2 ? "" : "Influisce solo sulla quota di reddito"}
+                  title={measure.usesM2 ? "" : "Solo influye en la cuota de renta"}
                 >
                   {v}
                 </button>
@@ -149,24 +149,24 @@ export function HousingPressureSection() {
       </div>
 
       <p className="scatter-sub">
-        Non è "la percentuale di reddito che spende una famiglia", ma una{" "}
-        <strong>pressione teorica sul residente medio</strong>, confrontabile tra
-        barrios. Il parametro m²/persona è <strong>esplicito e regolabile</strong>{" "}
-        (20/30/40) invece di nascosto: cambia solo la <em>quota di reddito</em>; le
-        altre due misure (z-score e percentile) non dipendono da esso. Le tre misure
-        guardano cose diverse: la <em>quota di reddito</em> misura l'onere di
-        accessibilità (dominato dal reddito basso → l'est operaio); gli{" "}
-        <em>scarti standardizzati</em> misurano quanto l'affitto corre più del
-        reddito (e illuminano anche il centro caro). I barrios segnalati da{" "}
-        <strong>tutte e tre</strong> sono quelli sotto pressione comunque la si
-        misuri.
+        No es "el porcentaje de renta que gasta un hogar", sino una{" "}
+        <strong>presión teórica sobre el residente medio</strong>, comparable entre
+        barrios. El parámetro m²/persona es <strong>explícito y regulable</strong>{" "}
+        (20/30/40) en vez de estar oculto: cambia solo la <em>cuota de renta</em>; las
+        otras dos medidas (z-score y percentil) no dependen de él. Las tres medidas
+        miran cosas distintas: la <em>cuota de renta</em> mide el esfuerzo de
+        accesibilidad (dominado por la renta baja → el este obrero); los{" "}
+        <em>desajustes estandarizados</em> miden cuánto corre el alquiler por delante
+        de la renta (e iluminan también el centro caro). Los barrios señalados por{" "}
+        <strong>las tres</strong> son los que están bajo presión se mida como se
+        mida.
       </p>
 
       <div className="bivariate-body">
         <div
           className="map-area"
           role="img"
-          aria-label={`Mappa coropletica: ${measure.label}. Dati nella tabella qui sotto.`}
+          aria-label={`Mapa coroplético: ${measure.label}. Datos en la tabla de abajo.`}
         >
           {scale ? (
             <>
@@ -179,12 +179,12 @@ export function HousingPressureSection() {
               />
             </>
           ) : (
-            <div className="map-placeholder">Caricamento dati…</div>
+            <div className="map-placeholder">Cargando datos…</div>
           )}
         </div>
         {family && (
           <div className="housing-family">
-            <span className="control-label">Barrios più sotto pressione (top 5)</span>
+            <span className="control-label">Barrios bajo más presión (top 5)</span>
             <div className="family-cols">
               {MEASURES.map((m) => (
                 <div key={m.id} className="family-col">
@@ -200,17 +200,17 @@ export function HousingPressureSection() {
               ))}
             </div>
             <p className="family-note">
-              In <strong>grassetto</strong>, i barrios nel top 5 di <em>tutte e tre</em>
-              le misure: la pressione lì non è un artefatto né del parametro m² né
-              della formula scelta. Le liste non coincidono del tutto — ed è il punto:
-              onere di reddito e scarto affitto-reddito non sono la stessa cosa.
+              En <strong>negrita</strong>, los barrios en el top 5 de <em>las tres</em>
+              medidas: la presión ahí no es un artefacto ni del parámetro m² ni
+              de la fórmula elegida. Las listas no coinciden del todo — y ese es el punto:
+              esfuerzo de renta y desajuste alquiler-renta no son lo mismo.
             </p>
           </div>
         )}
       </div>
 
       <p className="source-note">
-        Fonti: {rentM?.source}
+        Fuentes: {rentM?.source}
         {incomeM && incomeM.source !== rentM?.source ? ` · ${incomeM.source}` : ""}
       </p>
     </section>

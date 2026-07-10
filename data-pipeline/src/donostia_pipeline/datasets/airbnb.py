@@ -36,7 +36,7 @@ LISTINGS_GZ = "airbnb_listings.csv.gz"
 REVIEWS_GZ = "airbnb_reviews.csv.gz"
 SNAPSHOT = "2025-09"  # Inside Airbnb Euskadi snapshot 2025-09-29
 SOURCE = (
-    "Inside Airbnb — Euskadi (snapshot 2025-09-29); join spaziale punto→barrio"
+    "Inside Airbnb — Euskadi (snapshot 2025-09-29); join espacial punto→barrio"
 )
 SOURCE_REVIEWS = (
     "Inside Airbnb — recensioni per mese (proxy di presenza turistica, "
@@ -85,8 +85,8 @@ def build(ctx: BuildContext) -> list[Metric]:
     metrics = [
         Metric(
             id="airbnb_density",
-            label="Densità Airbnb (annunci per 1000 ab.)",
-            unit="per 1000 ab.",
+            label="Densidad Airbnb (anuncios por 1000 hab.)",
+            unit="por 1000 hab.",
             kind="sequential",
             theme="tourism",
             source=SOURCE,
@@ -145,8 +145,8 @@ def _activity_metric(
 
     return Metric(
         id="airbnb_activity",
-        label="Attività Airbnb (recensioni/anno per 1000 ab.)",
-        unit="per 1000 ab./anno",
+        label="Actividad Airbnb (reseñas/año por 1000 hab.)",
+        unit="por 1000 hab./año",
         kind="sequential",
         theme="tourism",
         source=SOURCE_REVIEWS,
@@ -188,8 +188,8 @@ def build_series(ctx: BuildContext) -> list[Series]:
     return [
         Series(
             id="airbnb_reviews",
-            label="Recensioni Airbnb / mese (proxy di presenza turistica)",
-            unit="recensioni",
+            label="Reseñas Airbnb / mes (proxy de presencia turística)",
+            unit="reseñas",
             theme="tourism",
             source=SOURCE_REVIEWS,
             kind="month-year",

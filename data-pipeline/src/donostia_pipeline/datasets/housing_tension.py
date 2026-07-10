@@ -25,8 +25,8 @@ from ..model import Metric
 
 M2_PER_PERSON = 30
 SOURCE = (
-    "Derivata — pressione teorica dell'affitto sul residente medio: "
-    "(affitto €/m² × 12 × 30 m²/persona) / reddito pro capite (EMA + Eustat)"
+    "Derivada — presión teórica del alquiler sobre el residente medio: "
+    "(alquiler €/m² × 12 × 30 m²/persona) / renta per cápita (EMA + Eustat)"
 )
 
 
@@ -51,7 +51,7 @@ def build_from_metrics(metrics: dict[str, Metric]) -> list[Metric]:
     return [
         Metric(
             id="housing_tension",
-            label="Pressione dell'affitto sul residente medio (30 m²)",
+            label="Presión del alquiler sobre el residente medio (30 m²)",
             unit="%",
             kind="sequential",
             theme="housing",

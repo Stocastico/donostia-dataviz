@@ -31,7 +31,7 @@ from ..spatial import BarrioIndex
 ZIP_NAME = "ruido_noche_2022.zip"
 PERIOD = "2022"
 THRESHOLD_DB = 55
-SOURCE = "Donostia Open Data — mapa estratégico de ruido nocturno (Lnight) 2022 (areal join)"
+SOURCE = "Donostia Open Data — mapa estratégico de ruido nocturno (Lnight) 2022 (join areal)"
 
 
 def _exposed_geoms(feature_collection: dict, threshold: int) -> list[dict]:
@@ -60,7 +60,7 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="noise_night_pct55",
-            label="Area esposta a rumore notturno ≥55 dB",
+            label="Área expuesta a ruido nocturno ≥55 dB",
             unit="%",
             kind="sequential",
             theme="environment",

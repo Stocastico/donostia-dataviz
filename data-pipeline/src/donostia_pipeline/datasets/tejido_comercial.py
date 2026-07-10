@@ -64,13 +64,13 @@ def establishments_from_pxweb(payload: dict) -> list[Indicator]:
         elif cnae.startswith(_HOSPITALITY_PREFIXES):
             bucket["hospitality"] += value
 
-    total_ind = Indicator(id="total_establishments", label="Esercizi totali (Donostia)",
-                           unit="locali", theme="economy", source=SOURCE)
+    total_ind = Indicator(id="total_establishments", label="Establecimientos totales (Donostia)",
+                           unit="locales", theme="economy", source=SOURCE)
     retail_ind = Indicator(id="retail_establishments_share",
-                            label="Quota commercio al dettaglio (% esercizi)",
+                            label="Cuota de comercio minorista (% establecimientos)",
                             unit="%", theme="economy", source=SOURCE)
     hospitality_ind = Indicator(id="hospitality_establishments_share",
-                                 label="Quota alloggio/ristorazione (% esercizi)",
+                                 label="Cuota de alojamiento/restauración (% establecimientos)",
                                  unit="%", theme="economy", source=SOURCE)
 
     for period, counts in by_period.items():

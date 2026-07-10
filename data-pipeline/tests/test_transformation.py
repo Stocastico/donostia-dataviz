@@ -67,10 +67,10 @@ def test_documented_classes_and_scores():
     def klass(bid):
         return cls.categories[int(cls.values[bid][tr.PERIOD])]
 
-    assert klass("loiola") == "In trasformazione"
-    assert klass("egia") == "Trasformazione incipiente"
-    assert klass("erdialdea") == "Consolidato / non suscettibile"
-    assert klass("martutene") == "Stabile / senza trasformazione"
+    assert klass("loiola") == "En transformación"
+    assert klass("egia") == "Transformación incipiente"
+    assert klass("erdialdea") == "Consolidado / no susceptible"
+    assert klass("martutene") == "Estable / sin transformación"
 
     socio = out["transform_socio_score"]
     validate(socio, valid_ids)

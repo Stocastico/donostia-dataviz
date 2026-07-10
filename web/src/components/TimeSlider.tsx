@@ -13,7 +13,7 @@ export function TimeSlider({ periods, index, onChange, playing, onTogglePlay }: 
   if (periods.length <= 1) {
     return (
       <div className="time-slider single">
-        <span className="control-label">Periodo</span>
+        <span className="control-label">Período</span>
         <span className="period-value">{periods[0] ?? "—"}</span>
       </div>
     );
@@ -21,7 +21,7 @@ export function TimeSlider({ periods, index, onChange, playing, onTogglePlay }: 
   return (
     <div className="time-slider">
       <span className="control-label">
-        Anno <strong>{periods[index]}</strong>
+        Año <strong>{periods[index]}</strong>
       </span>
       <div className="time-slider-row">
         {onTogglePlay && (
@@ -29,7 +29,7 @@ export function TimeSlider({ periods, index, onChange, playing, onTogglePlay }: 
             type="button"
             className="play-button"
             onClick={onTogglePlay}
-            aria-label={playing ? "Pausa" : "Riproduci l'evoluzione temporale"}
+            aria-label={playing ? "Pausa" : "Reproducir la evolución temporal"}
             aria-pressed={playing}
           >
             {playing ? "⏸" : "▶"}
@@ -42,7 +42,7 @@ export function TimeSlider({ periods, index, onChange, playing, onTogglePlay }: 
           value={index}
           step={1}
           onChange={(e) => onChange(Number(e.target.value))}
-          aria-label="Seleziona anno"
+          aria-label="Seleccionar año"
         />
       </div>
       <div className="slider-ends">

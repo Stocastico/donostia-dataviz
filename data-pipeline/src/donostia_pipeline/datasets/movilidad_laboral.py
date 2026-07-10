@@ -83,17 +83,17 @@ def indicators_from_pxweb(empa: dict | None, eme: dict | None,
     jobs = _year_values(dirae, None) if dirae else {}
     residents = _year_values(empa, _TOTAL) if empa else {}
     specs = [
-        ("jobs_located", "Impieghi localizzati in città (Eustat DIRAE)",
-         "persone", SOURCE_DIRAE,
+        ("jobs_located", "Empleos localizados en la ciudad (Eustat DIRAE)",
+         "personas", SOURCE_DIRAE,
          jobs),
         ("residents_work_in_city_pct",
-         "Occupati residenti che lavorano nel proprio comune", "%", SOURCE_EMPA,
+         "Ocupados residentes que trabajan en su propio municipio", "%", SOURCE_EMPA,
          _pct_in_own(empa) if empa else {}),
         ("residents_study_in_city_pct",
-         "Studenti residenti che studiano nel proprio comune", "%", SOURCE_EME,
+         "Estudiantes residentes que estudian en su propio municipio", "%", SOURCE_EME,
          _pct_in_own(eme) if eme else {}),
         ("job_concentration_ratio",
-         "Rapporto impieghi localizzati / occupati residenti", "ratio", SOURCE_RATIO,
+         "Ratio empleos localizados / ocupados residentes", "ratio", SOURCE_RATIO,
          {year: jobs[year] / residents[year]
           for year in jobs if residents.get(year)}),
     ]

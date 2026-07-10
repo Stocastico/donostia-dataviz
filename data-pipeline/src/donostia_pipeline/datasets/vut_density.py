@@ -23,7 +23,7 @@ from . import demografia
 
 VUT_CSV = "vtur_censo.csv"
 PERIOD = "actual"
-SOURCE = "Derivata — censo VUT / popolazione (Donostia Open Data)"
+SOURCE = "Derivada — censo VUT / población (Donostia Open Data)"
 
 
 def _vut_units_by_barrio(ctx: BuildContext) -> dict[str, int]:
@@ -48,8 +48,8 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="vut_density",
-            label="Densità VUT (per 1000 abitanti)",
-            unit="per 1000 ab.",
+            label="Densidad VUT (por 1000 habitantes)",
+            unit="por 1000 hab.",
             kind="sequential",
             theme="tourism",
             source=SOURCE,

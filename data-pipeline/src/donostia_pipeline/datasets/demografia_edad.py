@@ -84,7 +84,7 @@ def build(ctx: BuildContext) -> list[Metric]:
 
     ageing_index = Metric(
         id="ageing_index",
-        label="Indice di vecchiaia (≥65 / <15)",
+        label="Índice de vejez (≥65 / <15)",
         unit="",
         kind="sequential",
         theme="demography",
@@ -96,7 +96,7 @@ def build(ctx: BuildContext) -> list[Metric]:
     )
     pct_youth_adults = Metric(
         id="pct_youth_adults",
-        label="Popolazione 25–39 anni",
+        label="Población 25–39 años",
         unit="%",
         kind="sequential",
         theme="demography",

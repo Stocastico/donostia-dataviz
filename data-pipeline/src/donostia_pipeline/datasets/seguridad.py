@@ -42,18 +42,18 @@ PERCEPTION_SOURCE = (
 )
 _ZONA_INDICATOR = {
     "70": ("perception_insecurity_donostia",
-           "Famiglie con problemi di sicurezza — Donostia (%)"),
+           "Familias con problemas de seguridad — Donostia (%)"),
     "00": ("perception_insecurity_euskadi",
-           "Famiglie con problemi di sicurezza — Euskadi (%)"),
+           "Familias con problemas de seguridad — Euskadi (%)"),
 }
 
 # Crime indicator_id → (label, unit). Level series only (rates/counts); the
 # year-on-year % row is skipped (not a level).
 _CRIME_META = {
     "tasa_criminalidad_1000": ("crime_rate_1000",
-                               "Tasso di criminalità (per 1000 ab.)", "per 1000 ab."),
+                               "Tasa de criminalidad (por 1000 hab.)", "por 1000 hab."),
     "infracciones_penales": ("crime_infractions",
-                             "Infrazioni penali conosciute (Donostia)", "infrazioni"),
+                             "Infracciones penales conocidas (Donostia)", "infracciones"),
 }
 
 
@@ -120,8 +120,8 @@ def crime_gipuzkoa_indicators_from_rows(rows) -> list[Indicator]:
     """
     ind = Indicator(
         id="crime_infractions_gipuzkoa",
-        label="Infrazioni penali conosciute — Gipuzkoa (provincia)",
-        unit="infrazioni", theme="security",
+        label="Infracciones penales conocidas — Gipuzkoa (provincia)",
+        unit="infracciones", theme="security",
         source="Portal Estadístico de Criminalidad (Min. Interior) — Gipuzkoa")
     for row in rows:
         if row.get("tipologia", "").strip() != CRIME_GIPUZKOA_TOTAL:

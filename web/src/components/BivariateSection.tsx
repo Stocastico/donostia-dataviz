@@ -83,38 +83,38 @@ export function BivariateSection() {
         properties: { ...f.properties, __color: color, __valueLabel: valueLabel, __deltaLabel: "" },
       };
     });
-    rows.sort((a, b) => a.name.localeCompare(b.name, "it"));
+    rows.sort((a, b) => a.name.localeCompare(b.name, "es"));
     return { data: { ...barriosGeoJSON, features } as BarriosGeoJSON, mapped: joint.length, rows };
   }, [x, y, xInfo, yInfo]);
 
   return (
     <section className="bivariate">
       <div className="scatter-head">
-        <h2>Mappa bivariata (3×3)</h2>
+        <h2>Mapa bivariado (3×3)</h2>
         <div className="scatter-axes">
           <label>
-            <span className="control-label">Asse X</span>
+            <span className="control-label">Eje X</span>
             <AxisSelect value={xId} onChange={setXId} />
           </label>
           <label>
-            <span className="control-label">Asse Y</span>
+            <span className="control-label">Eje Y</span>
             <AxisSelect value={yId} onChange={setYId} />
           </label>
         </div>
       </div>
 
       <p className="scatter-sub">
-        Ogni barrio è classificato in terzili (basso/medio/alto) su ciascun asse
-        (ultimo anno disponibile); il colore combina le due classi. I barrios
-        "anomali" — alti su un asse e bassi sull'altro — spiccano. {mapped} barrios
-        con dati su entrambi gli assi.
+        Cada barrio se clasifica en terciles (bajo/medio/alto) en cada eje
+        (último año disponible); el color combina las dos clases. Los barrios
+        "anómalos" — altos en un eje y bajos en el otro — destacan. {mapped} barrios
+        con datos en ambos ejes.
       </p>
 
       <div className="bivariate-body">
         <div
           className="map-area"
           role="img"
-          aria-label={`Mappa bivariata: ${xInfo?.label ?? "X"} × ${yInfo?.label ?? "Y"}, ultimo anno. Dati nella tabella qui sotto.`}
+          aria-label={`Mapa bivariado: ${xInfo?.label ?? "X"} × ${yInfo?.label ?? "Y"}, último año. Datos en la tabla de abajo.`}
         >
           <BarrioMap data={data} />
         </div>
@@ -123,11 +123,11 @@ export function BivariateSection() {
       <MapDataTable
         rows={rows}
         label={`${xInfo?.label ?? "X"} × ${yInfo?.label ?? "Y"}`}
-        period="ultimo anno"
+        period="último año"
       />
 
       <p className="source-note">
-        Fonti: {xInfo?.source}
+        Fuentes: {xInfo?.source}
         {yInfo && yInfo.source !== xInfo?.source ? ` · ${yInfo.source}` : ""}
       </p>
     </section>

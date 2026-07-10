@@ -65,26 +65,26 @@ export function ScatterSection() {
   return (
     <section className="scatter">
       <div className="scatter-head">
-        <h2>Correlazioni tra barrios</h2>
+        <h2>Correlaciones entre barrios</h2>
         <div className="scatter-axes">
           <label>
-            <span className="control-label">Asse X</span>
+            <span className="control-label">Eje X</span>
             <AxisSelect value={xId} onChange={setXId} />
           </label>
           <label>
-            <span className="control-label">Asse Y</span>
+            <span className="control-label">Eje Y</span>
             <AxisSelect value={yId} onChange={setYId} />
           </label>
         </div>
       </div>
 
       <p className="scatter-sub">
-        Ogni punto è un barrio (ultimo anno disponibile: X {latestPeriod(x)}, Y{" "}
-        {latestPeriod(y)}); l'area è proporzionale alla popolazione.
+        Cada punto es un barrio (último año disponible: X {latestPeriod(x)}, Y{" "}
+        {latestPeriod(y)}); el área es proporcional a la población.
         {r != null && (
           <>
             {" "}
-            Correlazione di Pearson <strong>r = {r.toFixed(2)}</strong>.
+            Correlación de Pearson <strong>r = {r.toFixed(2)}</strong>.
           </>
         )}
       </p>
@@ -109,7 +109,7 @@ export function ScatterSection() {
             width={56}
             label={{ value: yInfo?.label, angle: -90, position: "insideLeft", fontSize: 12 }}
           />
-          <ZAxis type="number" dataKey="size" range={[60, 520]} name="popolazione" />
+          <ZAxis type="number" dataKey="size" range={[60, 520]} name="población" />
           <Tooltip
             cursor={{ strokeDasharray: "3 3" }}
             content={({ active, payload }) => {
@@ -130,7 +130,7 @@ export function ScatterSection() {
         </ScatterChart>
       </ResponsiveContainer>
       <p className="source-note">
-        Fonti: {xInfo?.source}
+        Fuentes: {xInfo?.source}
         {yInfo && yInfo.source !== xInfo?.source ? ` · ${yInfo.source}` : ""}
       </p>
     </section>

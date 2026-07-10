@@ -45,7 +45,7 @@ export function IndicatorTrendChart({ indicator }: { indicator: IndicatorData })
           <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
-      <p className="source-note">Fonte: {indicator.source}</p>
+      <p className="source-note">Fuente: {indicator.source}</p>
     </div>
   );
 }

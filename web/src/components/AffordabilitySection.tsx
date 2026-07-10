@@ -26,16 +26,16 @@ export function AffordabilitySection() {
   return (
     <section className="affordability">
       <div className="scatter-head">
-        <h2>Comprare e affittare corrono più del salario</h2>
+        <h2>Comprar y alquilar corren más que el salario</h2>
       </div>
       <p className="scatter-sub">
-        Quattro serie di città indicizzate a <strong>2016 = 100</strong> (media dei
-        barrios pesata per popolazione): il <strong>prezzo di vendita</strong>{" "}
-        (idealista, offerta &mdash; <em>proxy</em>), l'<strong>affitto</strong> (EMA),
-        il <strong>salario</strong> (reddito da lavoro, Eustat) e l'<strong>IPC</strong>{" "}
-        (inflazione, linea di riferimento tratteggiata). Chi sta sopra l'IPC si
-        incarisce in termini reali; chi sta sopra il salario, più veloce di quanto
-        cresca lo stipendio.
+        Cuatro series de ciudad indexadas a <strong>2016 = 100</strong> (media de los
+        barrios ponderada por población): el <strong>precio de venta</strong>{" "}
+        (idealista, oferta &mdash; <em>proxy</em>), el <strong>alquiler</strong> (EMA),
+        el <strong>salario</strong> (renta del trabajo, Eustat) y el <strong>IPC</strong>{" "}
+        (inflación, línea de referencia discontinua). Lo que está por encima del IPC
+        se encarece en términos reales; lo que está por encima del salario, más rápido
+        de lo que crece el sueldo.
       </p>
 
       <ResponsiveContainer width="100%" height={330}>
@@ -50,7 +50,7 @@ export function AffordabilitySection() {
           />
           <Tooltip
             formatter={(v: number, name: string) => [fmtIdx(v), byId[name]?.label ?? name]}
-            labelFormatter={(y) => `Anno ${y}`}
+            labelFormatter={(y) => `Año ${y}`}
           />
           <Legend formatter={(value: string) => byId[value]?.label ?? value} />
           {d.series.map((s) => (
@@ -79,25 +79,25 @@ export function AffordabilitySection() {
             </div>
             <div className="stat-sub">
               {s.growth.full != null && s.lastYear !== d.commonEnd
-                ? `${fmtPct(s.growth.full)} accumulato al ${s.lastYear}`
-                : `finestra comune ${d.baseYear}–${d.commonEnd}`}
+                ? `${fmtPct(s.growth.full)} acumulado a ${s.lastYear}`
+                : `ventana común ${d.baseYear}–${d.commonEnd}`}
             </div>
           </div>
         ))}
       </div>
 
       <p className="afford-take">
-        Nella finestra comune <strong>{d.baseYear}–{d.commonEnd}</strong> l'ordine è
-        netto: <strong>vendita &gt; affitto &gt; salario &gt; IPC</strong>. Comprare
-        casa è la voce che è cresciuta di più &mdash; e, guardando oltre il 2023, il
-        prezzo di vendita accumula un <strong>+{d.series.find((s) => s.id === "sale")?.growth.full}%</strong>{" "}
-        al {d.series.find((s) => s.id === "sale")?.lastYear}, mentre il salario si è
-        fermato molto prima. È la stessa asequibilità della Storia 1, vista in un
-        indice unico.
+        En la ventana común <strong>{d.baseYear}–{d.commonEnd}</strong> el orden es
+        claro: <strong>venta &gt; alquiler &gt; salario &gt; IPC</strong>. Comprar
+        vivienda es la partida que más ha crecido &mdash; y, mirando más allá de 2023, el
+        precio de venta acumula un <strong>+{d.series.find((s) => s.id === "sale")?.growth.full}%</strong>{" "}
+        a {d.series.find((s) => s.id === "sale")?.lastYear}, mientras el salario se
+        paró mucho antes. Es la misma asequibilidad de la Historia 1, vista en un
+        índice único.
       </p>
 
       <p className="source-note">
-        Fonte: {d.source} {d.note}
+        Fuente: {d.source} {d.note}
       </p>
     </section>
   );

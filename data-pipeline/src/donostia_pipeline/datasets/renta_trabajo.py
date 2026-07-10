@@ -84,7 +84,7 @@ def income_labor_from_pxweb(payload: dict) -> list[Metric]:
     return [
         Metric(
             id="income_labor",
-            label="Reddito da lavoro pro capite",
+            label="Renta del trabajo per cápita",
             unit="€",
             kind="sequential",
             theme="economy",

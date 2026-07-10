@@ -1,6 +1,6 @@
 // Value/delta formatting shared by the tooltip, legend and charts.
 
-const NUM = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 1 });
+const NUM = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 
 export function formatValue(value: number | null | undefined, unit: string): string {
   if (value == null || !Number.isFinite(value)) return "n/d";

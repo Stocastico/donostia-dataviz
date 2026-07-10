@@ -104,7 +104,7 @@ def build_from_rows(rows, barrio_ids: set[str]) -> list[Metric]:
     return [
         Metric(
             id="sale_price_eur_m2",
-            label="Prezzo di vendita (€/m²)",
+            label="Precio de venta (€/m²)",
             unit="€/m²",
             kind="sequential",
             theme="housing",

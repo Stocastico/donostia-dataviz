@@ -45,7 +45,7 @@ def _ctx(tmp_path):
 def test_schools_per_1000_normalized_by_population(tmp_path):
     (m,) = educacion_gis.build(_ctx(tmp_path))
     assert m.id == "schools_per_1000"
-    assert m.unit == "per 1000 ab."
+    assert m.unit == "por 1000 hab."
     assert m.theme == "education"
     assert m.time_grain == "snapshot"
     # a: 2 schools / 4000 * 1000 = 0.5 ; b: 1 / 1000 * 1000 = 1.0

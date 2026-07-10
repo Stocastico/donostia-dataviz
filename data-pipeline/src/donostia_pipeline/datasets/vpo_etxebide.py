@@ -104,8 +104,8 @@ def build(ctx: BuildContext) -> list[Metric]:
     return [
         Metric(
             id="vpo_dwellings_per_1000",
-            label="Alloggi protetti Etxebide (per 1000 ab.)",
-            unit="per 1000 ab.",
+            label="Viviendas protegidas Etxebide (por 1000 hab.)",
+            unit="por 1000 hab.",
             kind="sequential",
             theme="housing",
             source=SOURCE,

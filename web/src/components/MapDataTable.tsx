@@ -22,19 +22,19 @@ export function MapDataTable({ rows, label, period, unit }: Props) {
   return (
     <details className="map-data-table">
       <summary>
-        Tabella dati: {label}
+        Tabla de datos: {label}
         {period ? ` (${period})` : ""}
       </summary>
       <table>
         <caption className="sr-only">
-          {label} per barrio{period ? `, ${period}` : ""}. In {unit || "valore"}, ordinati
-          dal più alto al più basso.
+          {label} por barrio{period ? `, ${period}` : ""}. En {unit || "valor"}, ordenados
+          de mayor a menor.
         </caption>
         <thead>
           <tr>
             <th scope="col">Barrio</th>
-            <th scope="col">Valore</th>
-            {withDelta && <th scope="col">Δ periodo prec.</th>}
+            <th scope="col">Valor</th>
+            {withDelta && <th scope="col">Δ periodo ant.</th>}
           </tr>
         </thead>
         <tbody>

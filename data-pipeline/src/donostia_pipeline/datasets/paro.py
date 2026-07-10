@@ -29,9 +29,9 @@ _SEXO_IDX = 2
 _PERIOD_IDX = 4
 _SEXO_CODES = {"10": "unemployment_rate", "20": "unemployment_rate_men", "30": "unemployment_rate_women"}
 _LABELS = {
-    "unemployment_rate": "Tasso di disoccupazione (Donostia)",
-    "unemployment_rate_men": "Tasso di disoccupazione — uomini",
-    "unemployment_rate_women": "Tasso di disoccupazione — donne",
+    "unemployment_rate": "Tasa de paro (Donostia)",
+    "unemployment_rate_men": "Tasa de paro — hombres",
+    "unemployment_rate_women": "Tasa de paro — mujeres",
 }
 
 

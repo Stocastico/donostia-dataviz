@@ -27,7 +27,7 @@ const SERIES: SeriesData = {
 describe("series helpers", () => {
   it("has 12 month labels", () => {
     expect(MONTH_LABELS).toHaveLength(12);
-    expect(MONTH_LABELS[0]).toBe("Gen");
+    expect(MONTH_LABELS[0]).toBe("Ene");
     expect(MONTH_LABELS[11]).toBe("Dic");
   });
 
@@ -45,7 +45,7 @@ describe("series helpers", () => {
   it("monthlyYearRows builds 12 month rows keyed by year for line overlay", () => {
     const rows = monthlyYearRows(SERIES); // years 2020,2021; months 1,2
     expect(rows).toHaveLength(12);
-    expect(rows[0].month).toBe("Gen");
+    expect(rows[0].month).toBe("Ene");
     expect(rows[0]["2020"]).toBe(100);
     expect(rows[0]["2021"]).toBe(150);
     expect(rows[1]["2021"]).toBeNull(); // Feb 2021 was null

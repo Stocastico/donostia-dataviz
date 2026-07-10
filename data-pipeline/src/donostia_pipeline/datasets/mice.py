@@ -24,11 +24,11 @@ CURATED_FILE = "mice_donostia.csv"
 
 # id -> (label, unit, theme). Defines which indicator ids are recognised.
 META: dict[str, tuple[str, str, str]] = {
-    "mice_icca_congresses": ("Congressi internazionali (ICCA)", "congressi", "tourism"),
-    "mice_events_total": ("Eventi professionali (totale)", "eventi", "tourism"),
-    "mice_attendees": ("Partecipanti a congressi", "persone", "tourism"),
+    "mice_icca_congresses": ("Congresos internacionales (ICCA)", "congresos", "tourism"),
+    "mice_events_total": ("Eventos profesionales (total)", "eventos", "tourism"),
+    "mice_attendees": ("Participantes en congresos", "personas", "tourism"),
 }
-SOURCE = "Curato da memorias DSS Turismoa, Convention Bureau e ICCA (vedi colonna source)"
+SOURCE = "Curado de memorias DSS Turismoa, Convention Bureau e ICCA (ver columna source)"
 
 
 def indicators_from_rows(rows) -> list[Indicator]:

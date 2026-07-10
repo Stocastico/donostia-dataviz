@@ -73,7 +73,7 @@ export function rowsFromDecorated(geojson: BarriosGeoJSON): BarrioRow[] {
 /** Sort by value descending, barrios with no value last (alpha among them). */
 function sortRows(rows: BarrioRow[]): BarrioRow[] {
   return rows.sort((x, y) => {
-    if (x.value == null && y.value == null) return x.name.localeCompare(y.name, "it");
+    if (x.value == null && y.value == null) return x.name.localeCompare(y.name, "es");
     if (x.value == null) return 1;
     if (y.value == null) return -1;
     return y.value - x.value;

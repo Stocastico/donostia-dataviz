@@ -54,11 +54,11 @@ def _paro_por_nacionalidad(payload: dict) -> list[Indicator]:
     indicators = {
         "unemployment_rate_spanish_gipuzkoa": Indicator(
             id="unemployment_rate_spanish_gipuzkoa",
-            label="Tasso di disoccupazione — nazionalità spagnola (Gipuzkoa)",
+            label="Tasa de paro — nacionalidad española (Gipuzkoa)",
             unit="%", theme="economy", source=SOURCE_TASAS),
         "unemployment_rate_foreign_gipuzkoa": Indicator(
             id="unemployment_rate_foreign_gipuzkoa",
-            label="Tasso di disoccupazione — nazionalità straniera (Gipuzkoa)",
+            label="Tasa de paro — nacionalidad extranjera (Gipuzkoa)",
             unit="%", theme="economy", source=SOURCE_TASAS),
     }
     nac_to_id = {
@@ -110,7 +110,7 @@ def _randd_ratio(id_payload: dict, ocupados_payload: dict) -> list[Indicator]:
 
     indicator = Indicator(
         id="randd_personnel_per_1000_employed_gipuzkoa",
-        label="Personale I+D per 1000 occupati (Gipuzkoa)",
+        label="Personal I+D por 1000 ocupados (Gipuzkoa)",
         unit="‰", theme="economy", source=SOURCE_ID,
     )
     for year, count in personal.items():

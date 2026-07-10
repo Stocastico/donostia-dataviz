@@ -52,6 +52,6 @@ def test_populated_barrio_without_vut_is_zero(make_ctx):
 
 def test_metric_metadata(make_ctx):
     m = _build(make_ctx)["vut_density"]
-    assert m.unit == "per 1000 ab."
+    assert m.unit == "por 1000 hab."
     assert m.kind == "sequential"
     assert m.theme == "tourism"

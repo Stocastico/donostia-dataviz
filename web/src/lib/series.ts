@@ -3,8 +3,8 @@
 import type { SeriesData } from "./types";
 
 export const MONTH_LABELS = [
-  "Gen", "Feb", "Mar", "Apr", "Mag", "Giu",
-  "Lug", "Ago", "Set", "Ott", "Nov", "Dic",
+  "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic",
 ];
 
 /** All non-null values across every year/month — for building the color scale. */

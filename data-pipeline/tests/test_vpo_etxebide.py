@@ -82,7 +82,7 @@ def _ctx_with_geometry_around(tmp_path):
 def test_build_metric_shape_and_per_1000(tmp_path):
     (m,) = mod.build(_ctx_with_geometry_around(tmp_path))
     assert m.id == "vpo_dwellings_per_1000"
-    assert m.unit == "per 1000 ab."
+    assert m.unit == "por 1000 hab."
     assert m.theme == "housing"
     assert m.time_grain == "snapshot"
     # a: (80+20) dwellings / 5000 * 1000 = 20.0 ; b: no promotions → 0/1000 = 0.0
