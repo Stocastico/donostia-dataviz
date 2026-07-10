@@ -98,6 +98,47 @@ lead/lag +1 **no puede citarse como indicio direccional** — queda pendiente de
 una segunda señal turística independiente (REC-12) y de alquiler
 mensual/trimestral.
 
+## Refinamiento AN-6 (jul-2026): la 2ª señal REATE, a grano ciudad
+
+> Reproducible: `python analysis/lead_lag_reate.py [--save]`
+> (tests en `analysis/tests/test_lead_lag_reate.py`). Cierra la pista que dejaba
+> abierta el blindaje AN-16 y el "Qué lo reforzaría" de abajo.
+
+El punto ciego del AN-16 es explícito: los **efectos fijos de año** absorben
+cualquier empujón turismo→alquiler *uniforme en toda la ciudad*. La única forma
+de mirar ese canal es un test **a grano ciudad** (una sola serie temporal), y
+para no repetir el proxy de reseñas se usa una **segunda señal independiente**:
+la curva REATE de **nuevas licencias VUT/HUT** (`vut_licenses_new`, altas
+supervivientes por año, 2016–2025; REC-12). Es *oferta legal registrada*, no
+*interés de visitante* → ajena al sesgo de adopción de plataforma (MET-7).
+
+Se cruza el flujo anual de licencias con la **variación** del alquiler medio de
+ciudad (€/m², primeras diferencias, 2017–2024) para varios desfases:
+
+| Desfase (años) | r crudo (ciudad) | r detrended | n | p permutación |
+|---|---|---|---|---|
+| −1 | −0,363 | 0,322 | 8 | 0,38 |
+| 0 | −0,422 | 0,248 | 8 | 0,29 |
+| +1 | −0,125 | 0,564 | 8 | 0,77 |
+| +2 | −0,750 | −0,536 | 7 | 0,05 |
+
+**Lectura honesta.** A grano ciudad la asociación cruda es **negativa** en todos
+los desfases: el flujo de licencias **cae** a lo largo del periodo (pico 300 en
+2017 → 18 en 2025, con la regulación/purga) mientras la variación del alquiler
+**se acelera** al final (0,3 €/m² en 2019 → 1,3 en 2024). Eso es un **cruce de
+tendencias de signo opuesto**, no una dinámica: cuando se quitan las tendencias
+lineales (columna *detrended*), el signo se vuelve **inestable** (−1: +0,32, 0:
++0,25, +1: +0,56, +2: −0,54) y ningún desfase es significativo (p de permutación
+0,29–0,77; el único bajo, +2 crudo p=0,05, es negativo, n=7 y desaparece al
+detrend). Con **T≈8** nada de esto es concluyente por diseño.
+
+**Conclusión.** La 2ª señal REATE **no reabre H1** — si acaso, refuerza el
+veredicto de AN-16: no hay indicio direccional turismo→alquiler citable con estos
+datos. La vía que quedaría es la ya anotada: **grano trimestral** del alquiler o
+de las licencias, o una serie más larga que dé potencia real. Coherente también
+con AN-19 (Airbnb no añade sobre renta/universitarios en la ecuación del
+alquiler) y con "dos geografías".
+
 ## Contexto-ciudad (descriptivo)
 
 A nivel ciudad (niveles, sin detrending — solo para situar): la actividad Airbnb
@@ -126,5 +167,7 @@ navegador desde las mismas métricas `airbnb_activity` y `rent_eur_m2`
 ## Qué lo reforzaría
 
 - Alquiler **mensual/trimestral** (si apareciera) → desfases finos y más potencia.
-- Una segunda medida de presión turística independiente de reseñas (p. ej. plazas
-  VUT con serie temporal) para triangular el proxy.
+- ✅ *Una segunda medida de presión turística independiente de reseñas* — **hecho
+  (jul-2026): la curva REATE de licencias VUT** (ver "Refinamiento AN-6" arriba).
+  No reabre H1; el límite real ya no es el proxy, es la **resolución anual** con
+  T≈8. La palanca que queda es el grano trimestral o una serie más larga.
