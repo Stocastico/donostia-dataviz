@@ -119,9 +119,10 @@ reutilizables en cualquier stack. La carpeta [`datos/`](datos/README.md)
 documenta y organiza entrada (`datos/input`, con `FUENTES.md`) y salida
 (`datos/procesado`).
 
-Estado actual (**37 métricas coropléticas** por barrio, jul-2026): población,
+Estado actual (**40 métricas coropléticas** por barrio, jul-2026): población,
 origen (incl. **8 regiones de origen** `pct_origin_*` + **ficha de países** por
-barrio), estudios, renta, alquiler, tensión, VUT, **densidad Airbnb**, escuelas y
+barrio), estudios, renta, alquiler, **precio de venta €/m²** (idealista, REC-25),
+tensión, VUT, **densidad Airbnb**, escuelas y
 **servicios de salud** (accesibilidad, REC-18), **vivienda protegida** (Etxebide,
 REC-15) + **velocidad de cambio** (`velocity_*`) + **perfiles** (categórica) +
 **estructura por edad** + **ruido nocturno** (GIS) + el **Índice de
@@ -136,7 +137,7 @@ con `barrio_id` estable como clave de join.
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
 > usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).
 
-Además de las 37 métricas por barrio, hay una vista **sub-barrio** (grano
+Además de las 40 métricas por barrio, hay una vista **sub-barrio** (grano
 **calle**): *"Viviendas turísticas, calle a calle"* — un mapa de símbolos
 proporcionales de las **viviendas turísticas por calle** (301 calles), cruzando
 el censo VUT con el callejero municipal. Datos en `web/src/data/street_vut.json`

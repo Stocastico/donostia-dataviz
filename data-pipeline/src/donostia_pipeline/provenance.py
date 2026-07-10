@@ -160,6 +160,16 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
         "popolazione minima in valore assoluto.",
     ]),
     # --- proxy (approximation) ---
+    "sale_price_eur_m2": ("proxy", [
+        "Prezzi di **offerta** (annunci idealista), non di transazione: stima per "
+        "eccesso di ciò che si compravende davvero.",
+        "Le zone idealista non sono i 19 barrios ufficiali: alcune sono aggregate "
+        "(Aiete-Añorga-Ibaeta, Altza-Bidebieta) e prendono lo stesso valore; "
+        "erdialdea usa la zona Centro-Miraconcha (Parte Vieja mostrata a parte).",
+        "Media annuale dei mesi disponibili; senza dato: distretti rurali "
+        "(Igeldo, Zubieta, Landerbaso, Oarain) e Loiola/Martutene/Miramón "
+        "(serie idealista assente o inaffidabile).",
+    ]),
     "noise_night_pct55": ("proxy", [
         "I mappe strategiche sono dominate dal rumore di TRASPORTO, non isolano la vita notturna.",
         "% di area (non pesata per popolazione); snapshot 2022.",
@@ -167,7 +177,8 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
 }
 
 # Velocity metrics share one assumption; fill them programmatically.
-for _base in ("income_total", "rent_eur_m2", "population", "pct_university", "pct_foreign"):
+for _base in ("income_total", "rent_eur_m2", "sale_price_eur_m2", "population",
+              "pct_university", "pct_foreign"):
     CONFIDENCE[f"velocity_{_base}"] = ("derived", [_VELOCITY])
 
 DEFAULT = ("observed", [])

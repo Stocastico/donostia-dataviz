@@ -86,6 +86,7 @@
         <tr><td><code>housing_tension</code></td><td>esfuerzo alquiler/renta (%)</td><td>13 barrios, 2023</td><td><span class="badge b-der">derivado</span></td><td>EMA + Eustat (supuesto 30 m²/persona, regulable)</td></tr>
         <tr><td><code>vpo_dwellings_per_1000</code></td><td>viviendas Etxebide /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-pro">proxy</span></td><td>Promociones de Etxebide — Open Data Euskadi (REC-15; join espacial). ⚠️ Ventana parcial: 1.120 viviendas, ≤~⅓ del solo alquiler protegido (3.151 uds., zona tensionada 2024); el patronato municipal (2.087) no se publica georreferenciado → un «0» no implica ausencia de VPO</td></tr>
         <tr><td><code>rent_eur_m2</code></td><td>€/m² construido</td><td>13 barrios, 2016–2024</td><td><span class="badge b-obs">observado</span></td><td>Gobierno Vasco — EMA/EMAL (T8.3)</td></tr>
+        <tr><td><code>sale_price_eur_m2</code></td><td>€/m² de venta</td><td>12 barrios, 2011–2026</td><td><span class="badge b-pro">proxy</span></td><td>idealista, sala de prensa (REC-25) — precios de <strong>oferta</strong>, no de transacción; media anual de la serie mensual. Zonas idealista mapeadas a barrios (Centro-Miraconcha = Erdialdea; Parte Vieja aparte); sin dato en rurales y Loiola/Martutene/Miramón</td></tr>
         <tr><td><code>income_total</code></td><td>renta per cápita €</td><td>17 barrios, 2016–2023</td><td><span class="badge b-obs">observado</span></td><td>Eustat (vía Donostia Open Data)</td></tr>
         <tr><td><code>pct_university</code> / <code>pct_foreign</code></td><td>%</td><td>por barrio, serie 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — Donostia Open Data</td></tr>
         <tr><td><code>pct_origin_*</code> (8 regiones de origen)</td><td>% del barrio</td><td>por barrio, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón por país de nacimiento (REC-21) — desglose de <code>pct_foreign</code></td></tr>
@@ -158,6 +159,8 @@
         viviendas) ni el Registro de Vivienda Protegida completo se publican georreferenciados — laguna declarada.</li>
       <li><a href="https://www.euskadi.eus">Gobierno Vasco — EMA/EMAL</a> — alquiler medio €/m² por barrio,
         2016–2024 (fianzas registradas).</li>
+      <li><a href="https://www.idealista.com/sala-de-prensa/informes-precio-vivienda/">idealista — sala de prensa</a> —
+        precio de venta €/m² <em>de oferta</em> por barrio, serie mensual 2010–2026 (REC-25, snapshot curado aportado por el usuario).</li>
       <li><a href="https://opendata.aemet.es">AEMET OpenData</a> — climatologías mensuales de la estación
         Igeldo (1024E), 1981–2025.</li>
       <li><a href="https://www.ine.es">INE</a> — Encuesta de Ocupación Hotelera (tabla 2078), pernoctaciones;

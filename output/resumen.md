@@ -30,6 +30,7 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 |---|---|---|---|---|
 | `housing_tension` | esfuerzo alquiler/renta (%) | 13 barrios, 2023 | derivado | EMA + Eustat |
 | `rent_eur_m2` | €/m² | 13 barrios, 2023–2024 | observado | Gob. Vasco EMA |
+| `sale_price_eur_m2` | €/m² de venta | 12 barrios, 2011–2026 | proxy | idealista sala de prensa (REC-25; precios de oferta, media anual) |
 | `income_total` | renta per cápita € | 17 barrios | observado | Eustat |
 | `pct_university` / `pct_foreign` | % | por barrio, serie | observado | Padrón |
 | `pct_origin_*` (8 regiones de origen) | % del barrio | por barrio, 2000–2025 | observado | Padrón (país de nacimiento) |
@@ -78,6 +79,9 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
   de barrio, con test de robustez *leave-outliers-out* (`corr_robustness.csv`).
 - **`distribucion_barrios.py`** — distribución de renta/alquiler; Gini territorial
   ponderado por población (AN-5), matriz niveles×variaciones del alquiler (AN-4).
+- **`precios_venta.py`** — precio de venta €/m² por barrio (REC-25, idealista):
+  media anual, subida desde el suelo de 2014 (+53 % a +78 %) y ventana 2016–2023
+  (+29 %, por delante de alquiler/salario/IPC), brecha de nivel centro/este.
 - **`transformation_index.py`** — Índice de Transformación Urbana (AN-8):
   dos modos (socioeconómico estilo Freeman 2005 adaptado, y presión turística),
   pesos iguales, componentes a la vista, año base 2016. Bloqueado por test.

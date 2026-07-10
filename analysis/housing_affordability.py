@@ -27,8 +27,9 @@ Lecturas honestas (heredadas de MET-1 y de la TESIS):
   IPC se reporta además hasta 2024.
 - Los paneles de barrio difieren (11 barrios con alquiler, 17 con renta): cada
   serie de ciudad pondera los barrios que reportan esa métrica.
-- Precios de **venta** €/m² no entran (no hay fuente abierta por barrio; ver
-  `BACKLOG`); el alquiler cubre el grueso del relato.
+- Precios de **venta** €/m² se analizan aparte (REC-25, idealista) en
+  `analysis/precios_venta.py`: la venta subió **+29 %** (2016–2023), por delante
+  del alquiler, el salario y el IPC. Aquí el foco es el alquiler.
 - Correlación/serie descriptiva, no causalidad.
 
 Solo pandas + numpy. No necesita crudos (lee tablas procesadas). Uso:
@@ -223,7 +224,8 @@ def main() -> None:
 
     print("\nLectura: 'crece más que la inflación' = alq_crec_% > ipc_crec_%; "
           "'más que el sueldo' = alq_crec_% > renta_crec_%. El esfuerzo (vivir")
-    print("solo en 30 m²) sube donde la renta no acompaña. Venta €/m²: sin dato.")
+    print("solo en 30 m²) sube donde la renta no acompaña. Venta €/m²: ver "
+          "analysis/precios_venta.py (REC-25).")
 
     if args.save:
         OUTDIR.mkdir(exist_ok=True)

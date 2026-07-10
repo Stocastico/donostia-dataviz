@@ -73,6 +73,7 @@ existe dataset abierto estructurado.
 | `percepcion_ruido_donostia.csv` | Ruido percibido por barrio: 5 «ruidosos» (Parte Vieja 71,4 % + orden de Amara Berri/Egia/Gros/Añorga) y 4 «tranquilos» (Igeldo 100 %, Ibaeta 92,3 %, Bidebieta-Miracruz 91,7 %, Aiete-Miramón 83,3 %) | **H6**. Ayto. Donostia — encuesta de percepción del ruido (407 entrevistas dic-2025/abr-2026), vía Noticias de Gipuzkoa 2026-06-29. Snapshot jul-2026. **Parcial** (prensa; solo esos 9 barrios, sin % para los ruidosos salvo Parte Vieja) y con zonificación propia mapeada a `barrio_id` (Parte Vieja→erdialdea, Aiete-Miramón→aiete; ver columna `note`). Alimenta `analysis/perceived_noise_geography.py`. |
 | `isla_calor_barrio.csv` | Anomalía LST (°C vs. media de ciudad) por barrio, verano 2015–2025 — 19 barrios | **H6 / REC-14**. **Reproducción versionada** de la salida de `analysis/heat_island.py --save` (idéntica a la tabla de `ANALISIS-INFERENCIAL.md` §REC-14): se guarda curada porque regenerarla exige red + `rasterio` + 45 escenas Landsat. No es una fuente externa nueva, sino un resultado del proyecto consumido por `analysis/perceived_noise_geography.py`. |
 | `tipologia_comercial_osm.csv` | Tipología comercial por barrio: recuentos (hostelería / comercios / vacíos) y cuotas (`hosteleria_share`, `turistico_share_shops`, `vacancy_rate`), 17 barrios | **HU-3 / REC-24**. **Snapshot curado** de OpenStreetMap (Overpass, `shop=*` + hostelería `amenity=*`), jul-2026 — generado con `analysis/commercial_typology.py`. Se versiona para que el build sea reproducible offline (no hay fetch OSM en el pipeline). Alimenta el análisis **y** la métrica de barrio `hosteleria_share` (`datasets/tipologia_comercial.py`, tema *Turismo*; barrios con <15 locales sin dato). ⚠️ Foto actual, no evolución; completitud OSM variable → proporciones, no recuentos. |
+| `precios_venta_idealista.csv` | Precio de venta €/m² **de oferta** por barrio, serie **mensual** tidy (`zona_idealista, mes, precio_eur_m2`), ~2010–2026; 10 zonas idealista | **HU-7 / REC-25** (aportado por el usuario jul-2026). **Snapshot curado** de la **sala de prensa de idealista** (informes de precio de venta por barrio; el sitio bloquea clientes automáticos con 403 anti-bot → transcripción del Excel de origen en `raw/`, gitignored). Alimenta la métrica de barrio `sale_price_eur_m2` (`datasets/precio_venta.py`, tema *Abitazioni*, media anual) **y** la historia 1 de `historias.html`. ⚠️ Precios de **oferta** (anuncios), no de transacción → *proxy*. Las zonas idealista no son los 19 barrios oficiales: crosswalk en el módulo (agregadas Aiete-Añorga-Ibaeta y Altza-Bidebieta comparten valor; `erdialdea` = zona Centro-Miraconcha, Parte Vieja aparte en el relato). Excluidas al origen Miramón-Zorroaga y Loiola-Martutene (serie idealista duplicada byte a byte que acaba en 2019). |
 
 ## Fuentes analysis-only sin fichero versionado (descarga en tiempo de ejecución)
 
@@ -82,7 +83,7 @@ existe dataset abierto estructurado.
 
 ## Pendiente / manual (sin dataset abierto)
 
-Precio de venta €/m² por barrio (Indomio/Eustat), gasto de excursionistas y de
+Gasto de excursionistas y de
 turismo de negocios/MICE por destino (solo hay cifras Euskadi-wide, no
 Donostia-específicas), satisfacción del visitante (Observatorio Turístico),
 catastro foral (Diputación de Gipuzkoa). Detalle en `docs/SOURCES.md`.

@@ -226,6 +226,19 @@ Queda su integración narrativa (Cowork).
 - ✅ **Consolidar `data-pipeline/curated/` en `datos/input/`** — `config.CURATED_DIR`
   apunta ahora a `datos/input/`; se elimina el duplicado en `data-pipeline/curated/`.
 
+### Internacionalización del app (idioma)
+- ⬜ **Traducir la interfaz del app React (`web/`) de italiano a español** (decisión
+  del usuario, jul-2026). Hoy el **dashboard está en italiano** —los `label`/
+  `assumptions`/`source` de cada `Metric` (en `datasets/*.py`, `provenance.py`,
+  `change_velocity.py`) y los textos de UI (`web/src/components/*`,
+  `THEME_LABELS`/`MetricPicker`)—, mientras que docs, `historias.html`,
+  `metodologia.html` y `datos.html` están en **español**. Unificar todo a español
+  es lo coherente. Alcance: (1) sustituir esos strings; (2) regenerar
+  `metrics.json` / `metric_*.json` / `metrics_long.csv`. No toca la estructura de
+  datos ni los `barrio_id` (sustitución de texto + rebuild). ⚠️ Las métricas
+  recientes (p.ej. `sale_price_eur_m2`, REC-25) se han dejado **a propósito en
+  italiano** para no mezclar idiomas antes de esta migración.
+
 ### Datos crudos (input)
 - 🔷 **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
   `python -m donostia_pipeline.build` (necesita red). No se pudo hacer desde
@@ -596,25 +609,30 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   `analysis/housing_affordability.py` (13 tests). **Hallazgo:** alquiler
   **+24,8 %** > salario **+21,8 %** > IPC **+20,4 %** (2016–2023; a 2024 alquiler
   +34,8 %). El «más que el sueldo» se sostiene con el **salario real**, no con la
-  renta disponible pc (+28 %, inflada por capital/pensiones). **Pendiente:**
-  precio de **venta** €/m² (🔴, sin fuente abierta por barrio, ver REC-8 y
-  REC-25); sección web dedicada de índice alquiler/salario/IPC (opcional, hoy vía
-  métrica + narrativa).
-- ⬜ **REC-25 (Usuario) — precio de venta €/m² por barrio vía idealista.**
+  renta disponible pc (+28 %, inflada por capital/pensiones). ✅ **Casilla del
+  precio de venta €/m² cerrada** por REC-25 (jul-2026): la venta subió **+29 %**
+  (2016–2023), por delante del alquiler, el salario y el IPC → refuerza «comprar se
+  encareció más que todo lo demás». Pendiente (opcional): sección web dedicada de
+  índice alquiler/salario/IPC (hoy vía métrica + narrativa).
+- ✅ **REC-25 (Usuario) — precio de venta €/m² por barrio vía idealista** — hecho
+  y **cableado a pipeline+web+relato** (jul-2026, dato aportado por el usuario).
   idealista publica en su **sala de prensa** informes de precio de vivienda por
-  barrio de Donostia (URL tipo
-  `idealista.com/sala-de-prensa/informes-precio-vivienda/venta/euskadi/guipuzcoa/donostia-san-sebastian/<barrio>/`,
-  con serie histórica). No es scraping de anuncios: son tablas en una página
-  dedicada. **Bloqueante desde Code:** el sitio devuelve **403 (anti-bot
-  DataDome/Cloudflare)** a cualquier cliente automatizado, incluso con
-  User-Agent de navegador — no es el proxy del entorno (verificado jul-2026); no
-  se intenta evadir el anti-bot (ToS + evasión de detección). **Tarea del
-  usuario:** investigar si esos informes se pueden **descargar** (¿CSV/Excel/API
-  de la sala de prensa?) o hay que **reformatear la página** a mano por barrio, y
-  pasar los datos a Code (como con la criminalidad de HU-1). Con la serie por
-  barrio → métrica de **venta €/m²** en pipeline+web y cruce con alquiler/renta
-  (cierra la casilla 🔴 de HU-7). ⚠️ Revisar los ToS de idealista antes de una
-  descarga sistemática; documentar la fuente y la decisión.
+  barrio, pero el sitio devuelve **403 (anti-bot)** a cualquier cliente automatizado
+  (verificado; no se evade el anti-bot por ToS) → el usuario pasó la **serie mensual
+  larga ~2010–2026** como Excel, transcrita a snapshot curado
+  `datos/input/precios_venta_idealista.csv` (10 zonas idealista). Nueva métrica
+  coroplética **`sale_price_eur_m2`** (tema *Abitazioni*, €/m², **media anual
+  2011–2026**, proxy) vía `datasets/precio_venta.py` (+ `velocity_sale_price_eur_m2`)
+  con **crosswalk documentado** idealista→19 barrios (agregadas comparten valor;
+  `erdialdea` = Centro-Miraconcha, decisión del usuario; Parte Vieja aparte;
+  Miramón/Loiola-Martutene excluidas: serie duplicada byte a byte hasta 2019).
+  7 tests pipeline. **Al relato:** nueva sección en la Historia 1 de
+  `historias.html` (gráfico de líneas 2011–2026 con 4 barrios resaltados) — **cierra
+  la casilla 🔴 de HU-7**: entre 2016–2023 la venta subió **+29 %** (por delante de
+  alquiler +24,8 %, salario +21,8 %, IPC +20,4 %) y **+60 %** acumulado 2016→2026;
+  la brecha de nivel centro/este (2,2×) persiste. metrics.json / metric_*.json /
+  metrics_long.csv regenerados; recuento de confianza sube a 40 métricas.
+  ⚠️ Precios de **oferta**, no de transacción; verificado en navegador (mapa + app).
 - ✅ **REC-23 (HU-1) percepción de seguridad vs. criminalidad real** — hecho y
   **cableado al pipeline+web** (jul-2026). Indicadores de ciudad
   `perception_insecurity_donostia/_euskadi` (Eustat ECV `PX_010901_cecv_ma04_3`,
@@ -718,10 +736,10 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
 ## Descartado / no hacer (decisiones firmes)
 
 - **Criminalidad por barrio** — fuente eliminada + escala sub-municipal protegida.
-- **Precios de venta €/m² por barrio** — no se hace **scraping de anuncios** de
-  Indomio/Idealista (ToS). Sí queda abierta la vía de los **informes publicados**
-  de la sala de prensa de idealista (tablas por barrio) como tarea del usuario
-  (REC-25), y la del catastro foral (REC-8).
+- **Scraping de anuncios de venta (Indomio/Idealista)** — descartado (ToS). La vía
+  de los **informes publicados** de la sala de prensa de idealista sí se usó: el
+  usuario los pasó como snapshot curado → **REC-25 hecho** (métrica `sale_price_eur_m2`).
+  La del catastro foral (REC-8) sigue abierta.
 - **"Índice de gentrificación" como caja negra** — se usa "Transformación Urbana",
   multi-definición y con componentes a la vista.
 - **PCA como método principal de pesos del AN-8** — frágil con N=13; solo como
