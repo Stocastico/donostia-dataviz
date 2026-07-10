@@ -14,6 +14,7 @@ import { TourismCompareSection } from "../components/TourismCompareSection";
 import { StreetVutSection } from "../components/StreetVutSection";
 import { LeadLagSection } from "../components/LeadLagSection";
 import { HousingPressureSection } from "../components/HousingPressureSection";
+import { AffordabilitySection } from "../components/AffordabilitySection";
 import { MiceSection } from "../components/MiceSection";
 import { IndicatorsSection } from "../components/IndicatorsSection";
 import { MapDataTable } from "../components/MapDataTable";
@@ -191,6 +192,7 @@ export function Dashboard() {
       <StreetVutSection />
       <LeadLagSection />
       <HousingPressureSection />
+      <AffordabilitySection />
       <MiceSection />
       <IndicatorsSection />
       <BarrioOriginsSection />

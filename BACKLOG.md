@@ -280,7 +280,10 @@ Queda su integración narrativa (Cowork).
   comercio por e-commerce no descartada). No hay licencias por barrio (lo
   que pedía originalmente REC-7); ciudad únicamente. Módulo
   `datasets/tejido_comercial.py` + tests.
-- ⬜ **REC-8 Catastro Foral de Gipuzkoa** — investigado (jul-2026): los CSV **sí**
+- 🚫 **REC-8 Catastro Foral de Gipuzkoa — NO SE HACE** (jul-2026, decisión del
+  usuario: no aparece una fuente con barrio/coordenadas utilizable; el proxy de
+  venta de idealista, REC-25, cubre ya el precio de compra por barrio).
+  Investigado: los CSV **sí**
   se pueden descargar (el host documentado `opepro08.sare.gipuzkoa.net` no es
   alcanzable; hay espejo funcional en
   `api.gipuzkoairekia.eus/dataset/recurso/<id>/descargar`), pero **ninguno de
@@ -290,7 +293,8 @@ Queda su integración narrativa (Cowork).
   calle + portal (geocodificable, pero sin callejero→barrio en el proyecto y
   con el mismo problema de calles que cruzan barrios que REC-6). **No es el
   quick-win que asumía `docs/archive/PLAN-RECOLECCION.md`** (lo marcaba ✅);
-  aparcado hasta decidir si vale la pena la geocodificación por calle o el WFS.
+  aparcado y ahora **descartado**: la geocodificación por calle + WFS INSPIRE no
+  compensa cuando REC-25 ya da precio de venta por barrio.
 - ✅ **REC-9 modelos lingüísticos (euskera)** — hecho (jul-2026): 3 indicadores
   ciudad `pct_language_model_a/b/d` (% alumnado por modelo) desde Eustat PxWeb
   (tabla `PX_040601_ceens_mun01`, municipio Donostia, auto-fetch por POST en
@@ -582,8 +586,9 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   5.706 plazas) y volumen (pernoctaciones récord 2,2 M) en máximos → la
   preocupación de 2026 va con el stock/masificación, no con el flujo. Descriptivo
   (encuesta de un solo año). ⬜ *Opcional (Cowork):* narrativa.
-- ⬜ **H5** (inseguridad percibida por barrio) — bloqueada: falta el desglose por
-  barrio de la encuesta de seguridad 2026 (dato que buscará el usuario, §3).
+- 🚫 **H5** (inseguridad percibida por barrio) — **NO SE HACE** (jul-2026,
+  decisión del usuario): no aparece el desglose por barrio de la encuesta de
+  seguridad 2026. Sin ese dato la hipótesis no es evaluable; se retira del plan.
 
 - ✅ **HU-5/HU-6 (desestacionalización + MICE)** — hecho (jul-2026,
   analysis-only): `analysis/tourism_deseasonalization.py` (8 tests) sobre
@@ -612,8 +617,12 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   renta disponible pc (+28 %, inflada por capital/pensiones). ✅ **Casilla del
   precio de venta €/m² cerrada** por REC-25 (jul-2026): la venta subió **+29 %**
   (2016–2023), por delante del alquiler, el salario y el IPC → refuerza «comprar se
-  encareció más que todo lo demás». Pendiente (opcional): sección web dedicada de
-  índice alquiler/salario/IPC (hoy vía métrica + narrativa).
+  encareció más que todo lo demás». ✅ **Sección web dedicada hecha** (jul-2026):
+  `AffordabilitySection` en el app — gráfico indexado (base 2016=100) de **venta ·
+  alquiler · salario · IPC** de ciudad (media ponderada por población) desde
+  `web/src/data/affordability_index.json` (`datasets/affordability_index.py`, 6
+  tests + 1 web). Tarjetas con la ventana común 2016–2023 (venta +30 % > alquiler
+  +25 % > salario +22 % > IPC +20 %) y el acumulado por serie. Verificado en navegador.
 - ✅ **REC-25 (Usuario) — precio de venta €/m² por barrio vía idealista** — hecho
   y **cableado a pipeline+web+relato** (jul-2026, dato aportado por el usuario).
   idealista publica en su **sala de prensa** informes de precio de vivienda por
