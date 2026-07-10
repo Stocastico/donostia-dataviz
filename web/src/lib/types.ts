@@ -88,6 +88,29 @@ export interface SeriesData {
   values: Record<string, Record<string, number | null>>;
 }
 
+/** One indexed city series in the affordability comparison (HU-7). */
+export interface AffordabilitySeries {
+  id: string;
+  label: string;
+  color: string;
+  confidence: "observed" | "derived" | "proxy";
+  dash?: boolean;
+  lastYear: number;
+  // index value (base year = 100) per year, e.g. { "2016": 100, "2024": 134.8 }
+  data: Record<string, number>;
+  growth: { common: number | null; full: number | null };
+}
+
+/** affordability_index.json — venta/alquiler/salario/IPC, city, base 2016 = 100. */
+export interface AffordabilityData {
+  baseYear: number;
+  commonEnd: number;
+  unit: string;
+  series: AffordabilitySeries[];
+  source: string;
+  note: string;
+}
+
 /** Annual city indicator (e.g. MICE) from indicators.json. */
 export interface IndicatorData {
   id: string;

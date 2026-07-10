@@ -19,6 +19,7 @@ import requests
 from . import config, export_tables, geometry, provenance, spatial
 from .datasets import (
     aemet_climate,
+    affordability_index,
     airbnb,
     barrio_profiles,
     calles_vut,
@@ -577,6 +578,15 @@ def run(offline: bool = False) -> dict:
         barrio_names,
     )
     print(f"  ✓ origen_paises_barrio.json ({len(origen['barrios'])} barrios)")
+
+    # 5b-bis. HU-7 affordability index (venta/alquiler/salario/IPC, city, 2016=100).
+    #     Not a Metric — bespoke JSON from the base metrics + curated IPC.
+    afford = affordability_index.write_json(
+        out_dir / "affordability_index.json",
+        {m.id: m for m in metrics},
+        config.CURATED_DIR / "ipc_espana.csv",
+    )
+    print(f"  ✓ affordability_index.json ({len(afford['series'])} series)")
 
     # 5c. Touristic housing per **street** (sub-barrio). Not a Metric — street
     #     geometry, not barrio_id; its own JSON export (see the module docstring).

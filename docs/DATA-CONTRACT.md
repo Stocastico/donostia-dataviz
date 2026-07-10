@@ -112,6 +112,30 @@ scalar per cell) feeding the "Chi vive nel barrio · origini" section. Built by
 > ⚠️ MET-5: country of origin is **not** a proxy for income/tourism/
 > transformation. The card is descriptive and the UI copy states it.
 
+### `affordability_index.json` — HU-7 city index (sale/rent/salary/IPC)
+
+Not a `Metric`: four **city-level** series indexed to a common base year
+(2016 = 100), for the `AffordabilitySection` chart. Built by
+`datasets/affordability_index.py` as a population-weighted mean of the barrio
+metrics (`sale_price_eur_m2`, `rent_eur_m2`, `income_labor`) plus the national
+IPC (`datos/input/ipc_espana.csv`). Same weighting as
+`analysis/housing_affordability.py`; missing padrón years carry the latest
+weights forward so the sale series reaches 2026.
+
+```json
+{
+  "baseYear": 2016, "commonEnd": 2023, "unit": "indice (2016 = 100)",
+  "series": [
+    {"id": "sale", "label": "Prezzo di vendita", "color": "#b5730f",
+     "confidence": "proxy", "lastYear": 2026,
+     "data": {"2016": 100.0, "2026": 159.5},
+     "growth": {"common": 29.9, "full": 59.5}}
+    // rent, salary, ipc (ipc has "dash": true) …
+  ],
+  "source": "…", "note": "…"
+}
+```
+
 ### `street_vut.json` — touristic housing per **street** (sub-barrio)
 
 The one payload keyed on **street geometry**, not `barrio_id`: it feeds the

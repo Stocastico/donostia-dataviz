@@ -2,6 +2,7 @@
 // registry + geometry eagerly (small) and lazy-load each metric on demand.
 
 import type {
+  AffordabilityData,
   BarriosGeoJSON,
   IndicatorData,
   MetricData,
@@ -16,6 +17,7 @@ import rawSeriesRegistry from "../data/series.json";
 import rawIndicators from "../data/indicators.json";
 import rawOrigins from "../data/origen_paises_barrio.json";
 import rawStreetVut from "../data/street_vut.json";
+import rawAffordability from "../data/affordability_index.json";
 import rawGeo from "../data/barrios.geojson?raw";
 
 export const metricRegistry: MetricInfo[] = rawRegistry as MetricInfo[];
@@ -27,6 +29,8 @@ export const indicators: IndicatorData[] = rawIndicators as unknown as Indicator
 export const originPaises: OriginPaisesData = rawOrigins as OriginPaisesData;
 
 export const streetVut: StreetVutData = rawStreetVut as StreetVutData;
+
+export const affordability: AffordabilityData = rawAffordability as AffordabilityData;
 
 export const barriosGeoJSON: BarriosGeoJSON = JSON.parse(
   rawGeo,
