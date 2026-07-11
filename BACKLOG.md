@@ -251,17 +251,23 @@ Queda su integración narrativa (Cowork).
   código (dev-facing) se dejan como están.
 
 ### Datos crudos (input)
-- 🔷 **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
-  `python -m donostia_pipeline.build` (necesita red). No se pudo hacer desde
-  Cowork (web_fetch agota tiempo; curl prohibido por política). Ver
-  `datos/input/FUENTES.md`. **AEMET desbloqueado (jul-2026):** `AEMET_API_KEY`
-  configurada como variable de entorno de Code (Claude Code on the web no
-  tiene almacén de secretos dedicado; ver aviso en `claude-code-on-the-web`
-  docs). ✅ *El typo del nombre (`AEMET_APY_KEY`) ya está corregido en la config
-  del entorno: la sesión del 2026-07-05 ve `AEMET_API_KEY` con el nombre bueno,
-  sin `export` manual.* El resto de
-  fuentes (Donostia Open Data, INE, EMA, Airbnb) sigue sin probar en esta
-  sesión — solo se ha corrido `ensure_aemet`, no el pipeline completo.
+- ✅ **Validar el build online completo** (era «poblar `datos/input/raw/`») —
+  hecho (2026-07-11, Code, con red vía proxy): `python -m donostia_pipeline.build`
+  corrió **end-to-end desde contenedor limpio** — todas las fuentes vivas
+  responden (Donostia Open Data, Eustat PxWeb ×9 tablas, INE, EMA, Inside
+  Airbnb, REATE, AEMET con `AEMET_API_KEY`) y regenera 41 métricas + 33
+  indicadores + 6 series + matcher de calles al 100 %. **Los diffs vs. el repo
+  eran mínimos y legítimos** (AEMET añade jun-2026; censo VUT vivo 1.488→1.486
+  unidades; padrón ±1 hab. en 2 celdas de Aiete) y **NO se commitearon**: los
+  relatos citan cifras del snapshot actual y un refresco parcial las
+  desincronizaría — refrescar datos queda como decisión editorial previa a un
+  redespliegue (regenerar + re-verificar keynums + actualizar el blob `DONO`).
+  Nota: `raw/` (en `data-pipeline/raw/`) está gitignored y el contenedor es
+  efímero, así que «poblar raw/» solo tiene sentido en local;
+  `datos/input/descargar_raw.sh` sigue siendo la vía para una máquina propia.
+  ✅ *El typo del nombre (`AEMET_APY_KEY`) ya está corregido en la config
+  del entorno: las sesiones ven `AEMET_API_KEY` con el nombre bueno,
+  sin `export` manual.*
 
 ### Datos nuevos / análisis (del backlog histórico)
 - ✅ **REC-5 tasa de paro** — hecho (jul-2026): 3 indicadores ciudad
