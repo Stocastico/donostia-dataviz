@@ -16,8 +16,9 @@ los datos en historias sobre cómo cambia la ciudad.
 ## 🚀 Empieza aquí
 
 1. **[`output/historias.html`](output/historias.html)** — el documento narrativo:
-   **seis historias** (la ciudad que se encarece · qué barrios cambian más rápido ·
-   quién vive Donostia · el clima cambia · turística vs. vivida · en transformación)
+   **siete historias** (la ciudad que se encarece · qué barrios cambian más rápido ·
+   quién vive Donostia · quién trabaja Donostia · el clima cambia · turística vs.
+   vivida · en transformación)
    con texto y **visualizaciones interactivas** (mueve el supuesto de m²/persona,
    recorre los años, cambia de indicador). Ábrelo en cualquier navegador; es
    autocontenido, sin dependencias.
@@ -40,7 +41,7 @@ los datos en historias sobre cómo cambia la ciudad.
 .
 ├── README.md             ← este fichero
 ├── BACKLOG.md            ← backlog (hecho + pendiente), secciones Cowork / Code
-├── output/               ← entregables: historias.html (6 historias) + resumen.md
+├── output/               ← entregables: historias.html (7 historias) + resumen.md
 ├── datos/                ← input/ (crudos + curados + FUENTES.md) · procesado/tablas/ (tablas tidy CSV)
 ├── docs/                 ← documentación activa (fuentes, metodología, relatos)
 │   ├── intermedia/       ← análisis ya volcados en los outputs (congelados)
@@ -119,16 +120,18 @@ reutilizables en cualquier stack. La carpeta [`datos/`](datos/README.md)
 documenta y organiza entrada (`datos/input`, con `FUENTES.md`) y salida
 (`datos/procesado`).
 
-Estado actual (**40 métricas coropléticas** por barrio, jul-2026): población,
+Estado actual (**41 métricas coropléticas** por barrio, jul-2026): población,
 origen (incl. **8 regiones de origen** `pct_origin_*` + **ficha de países** por
-barrio), estudios, renta, alquiler, **precio de venta €/m²** (idealista, REC-25),
-tensión, VUT, **densidad Airbnb**, escuelas y
+barrio), estudios, renta (total y **del trabajo**, REC-22), alquiler, **precio de
+venta €/m²** (idealista, REC-25), tensión, VUT, **densidad Airbnb**, escuelas y
 **servicios de salud** (accesibilidad, REC-18), **vivienda protegida** (Etxebide,
-REC-15) + **velocidad de cambio** (`velocity_*`) + **perfiles** (categórica) +
+REC-15), **hostelería sobre locales** (OSM, HU-3) + **velocidad de cambio**
+(`velocity_*`) + **perfiles** (categórica) +
 **estructura por edad** + **ruido nocturno** (GIS) + el **Índice de
 Transformación** (`transform_*`); **series mensuales** de ciudad (clima +
-pernoctaciones + reseñas Airbnb); **28 indicadores anuales** (MICE, reciclaje,
-fiscalidad, paro, comercio, movilidad laboral, modelos lingüísticos…). Cada
+pernoctaciones + reseñas Airbnb); **33 indicadores anuales** (MICE, reciclaje,
+fiscalidad, paro, comercio, movilidad laboral, modelos lingüísticos, seguridad
+—percepción y delito—…). Cada
 métrica lleva su **ficha de confianza** (observado / derivado / proxy +
 supuestos) y el mapa tiene **tabla-espejo accesible** (teclado / lector de
 pantalla). Geometría única de referencia: 19 barrios oficiales (`mapa_auzoak`),
@@ -137,7 +140,7 @@ con `barrio_id` estable como clave de join.
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
 > usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).
 
-Además de las 40 métricas por barrio, hay una vista **sub-barrio** (grano
+Además de las 41 métricas por barrio, hay una vista **sub-barrio** (grano
 **calle**): *"Viviendas turísticas, calle a calle"* — un mapa de símbolos
 proporcionales de las **viviendas turísticas por calle** (301 calles), cruzando
 el censo VUT con el callejero municipal. Datos en `web/src/data/street_vut.json`

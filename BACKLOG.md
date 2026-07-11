@@ -135,10 +135,13 @@ Queda su integración narrativa (Cowork).
   queda en mantenimiento pasivo.*
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
-  resúmenes manuales, no generados). *Al día (jul-2026, Code): el recuento de
-  confianza corregido a **16 obs./18 der./3 proxy (37 métricas)** en
-  `metodologia.html` y `NOTA-METODOLOGICA.md`; `datos.html` con `vpo_dwellings_per_1000`
-  (REC-15) y `health_per_1000` (REC-18) en la tabla y en Fuentes (Etxebide, salud).*
+  resúmenes manuales, no generados). *Al día (2026-07-11, Code): recuento de
+  confianza refrescado a **17 obs./19 der./5 proxy (41 métricas)** en
+  `metodologia.html` y `NOTA-METODOLOGICA.md` (las altas de REC-22 `income_labor`
+  y REC-25 `sale_price_eur_m2` habían dejado rancio el 16/18/4); `datos.html` y
+  `resumen.md` §1 completados con las filas que faltaban (`population`,
+  `income_labor`, `income_gender_gap`, `airbnb_activity`) y el recuento de
+  indicadores actualizado a **33**.*
 - ✅ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)** —
   hecha (jul-2026, **desde Code**; resultó perfectamente hacible sin Cowork): cap. 7
   gana la figura del contrapeso público (mapa Etxebide **junto al de tensión
@@ -341,6 +344,10 @@ Queda su integración narrativa (Cowork).
   AN-16. Detalle en `ANALISIS-LEADLAG.md` §"Refinamiento AN-6". **La palanca que
   queda ya no es el proxy sino la resolución anual**: grano trimestral del
   alquiler/licencias o una serie más larga (sin fuente pública hoy).
+  ✅ *Veredicto llevado a la narrativa (2026-07-11, Code):* `historias.html`
+  (sección lead/lag del cap. 6 + epílogo), `resumen.md` (§2/§3/H1/pregunta
+  abierta #1) y `TESIS-CIUDAD.md` (H1) ya no dicen «a la espera de una segunda
+  señal» — dicen que la señal REATE se probó y no reabre H1.
 
 ### Análisis inferencial (feedback IAs jul-2026 — detalle y origen en `docs/intermedia/FEEDBACK-IAS-2026-07.md`)
 
