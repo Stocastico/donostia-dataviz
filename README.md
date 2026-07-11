@@ -135,6 +135,12 @@ supuestos) y el mapa tiene **tabla-espejo accesible** (teclado / lector de
 pantalla). Geometría única de referencia: 19 barrios oficiales (`mapa_auzoak`),
 con `barrio_id` estable como clave de join.
 
+> **Vigencia de los datos:** última descarga completa de las fuentes el
+> **2026-07-10**; build online re-validado contra las fuentes vivas el
+> **2026-07-11** (todas responden; diffs aguas arriba mínimos, no aplicados —
+> ver BACKLOG §Datos crudos). Detalle por fuente en `datos/input/FUENTES.md`
+> y en la sección «Vigencia» de `output/datos.html`.
+
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
 > usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).
 

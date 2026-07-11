@@ -22,7 +22,9 @@
 
 Fuentes oficiales salvo MICE (curado de notas de prensa citadas). Nivel de
 confianza por métrica: **observado** (dato directo), **derivado** (calculado),
-**proxy** (aproximación).
+**proxy** (aproximación). **Vigencia:** última descarga completa de las fuentes
+el **2026-07-10**; build online re-validado contra las fuentes vivas el
+2026-07-11 (diffs aguas arriba mínimos, no aplicados).
 
 ### Métricas por barrio (choropleths)
 
