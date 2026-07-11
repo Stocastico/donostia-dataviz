@@ -24,13 +24,10 @@ los datos en historias sobre cómo cambia la ciudad.
    autocontenido, sin dependencias.
 2. **[`output/resumen.md`](output/resumen.md)** — síntesis del proyecto (datos,
    análisis, correlaciones e historias) pensada para revisión externa.
-3. **[`docs/GUION-OUTPUTS.md`](docs/GUION-OUTPUTS.md)** — el plan de los relatos:
-   para cada historia, la pregunta de partida, las cifras verificadas, dónde vive
-   en la app y los avisos de confianza.
-4. **[`docs/TESIS-CIUDAD.md`](docs/TESIS-CIUDAD.md)** — la lectura integrada: qué
+3. **[`docs/TESIS-CIUDAD.md`](docs/TESIS-CIUDAD.md)** — la lectura integrada: qué
    dicen en conjunto los datos sobre la transformación de Donostia, y qué **no** se
    puede afirmar todavía.
-5. **[`BACKLOG.md`](BACKLOG.md)** — qué está hecho y qué falta, separado en tareas
+4. **[`BACKLOG.md`](BACKLOG.md)** — qué está hecho y qué falta, separado en tareas
    de **Cowork** (documentación/relatos) y **Code** (pipeline/web/datos).
 
 ---
@@ -81,7 +78,6 @@ Agrupados por para qué sirven. Toda la documentación activa está en español.
 |---|---|---|
 | `NOTA-METODOLOGICA.md` | Decisiones metodológicas (MET-1…5): por qué medimos como medimos. | es |
 | `TESIS-CIUDAD.md` | Lectura integrada y *cauta* de la transformación + anexo de hallazgos por eje. | es |
-| `GUION-OUTPUTS.md` | **Plan de los relatos finales** (empieza por aquí para narrar). | es |
 
 **Análisis intermedio (`docs/intermedia/`)**
 
@@ -107,6 +103,8 @@ Conservados como referencia, no borrados. No forman parte del camino activo.
 | `archive/INSIGHTS.md` | Digest por eje; su contenido vive en el anexo de `TESIS-CIUDAD.md`. |
 | `archive/DATA-HANDOFF.md` | Resumen para revisión externa. En italiano. |
 | `archive/PROJECT-BRIEF.md` | Brief original (v1). Superado por v2. En italiano. |
+| `archive/GUION-OUTPUTS.md` | Plan de los relatos. Función cumplida: las 7 historias ya están escritas (cifras vigentes en `output/` y `TESIS-CIUDAD.md`). |
+| `archive/session-handoff-*.md` | Bitácoras de sesión (jul-2026): qué se hizo y por qué, sesión a sesión. |
 
 ---
 

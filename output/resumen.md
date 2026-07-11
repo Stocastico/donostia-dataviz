@@ -423,9 +423,10 @@ Pensado para que otra IA proponga mejoras. Candidatos:
 - Datos tidy: `datos/procesado/tablas/*.csv` (metrics/series/indicators en formato long).
 - Regenerar pipeline: `python -m donostia_pipeline.build`.
 - Análisis: `python analysis/{sprint_a,distribucion_barrios,transformation_index,lead_lag}.py`.
-- Documentación de referencia: `docs/GUION-OUTPUTS.md` (empieza aquí),
-  `docs/TESIS-CIUDAD.md`, `docs/NOTA-METODOLOGICA.md`, `docs/SOURCES.md`;
+- Documentación de referencia: `docs/TESIS-CIUDAD.md`,
+  `docs/NOTA-METODOLOGICA.md`, `docs/SOURCES.md`;
   análisis en `docs/intermedia/` (`ANALISIS-SPRINT-A.md`, `ANALISIS-LEADLAG.md`,
-  `INDICE-TRANSFORMACION.md`); backlog en `BACKLOG.md` (raíz).
+  `INDICE-TRANSFORMACION.md`); backlog en `BACKLOG.md` (raíz). El plan original
+  de los relatos (ya cumplido) está archivado en `docs/archive/GUION-OUTPUTS.md`.
 - Entregable narrativo: `output/historias.html` (autocontenido).
 - Datos de entrada: `datos/input/FUENTES.md` (manifiesto de fuentes).

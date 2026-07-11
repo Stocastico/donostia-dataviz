@@ -13,7 +13,7 @@
 > lleva su **ficha de confianza** (badge observado/derivado/proxy + supuestos) bajo
 > el mapa.
 
-> ⚠️ **Estado (2026-07-11).** Este guion cumplió su función: **los relatos ya
+> ⚠️ **Estado (2026-07-11, archivado en `docs/archive/`).** Este guion cumplió su función: **los relatos ya
 > están escritos** (`output/historias.html`, hoy **7 capítulos** — el guion
 > planificó 6; el cap. 4 «Quién trabaja Donostia» se añadió después y clima /
 > turística / síntesis pasaron a 5/6/7). Se conserva como referencia del plan,

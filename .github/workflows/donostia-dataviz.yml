@@ -1,17 +1,26 @@
 name: Donostia Dataviz CI
 
+# docs/README/output entran en los paths porque test_doc_counts.py ata los
+# recuentos citados en la prosa a web/src/data: editar solo un doc también
+# debe pasar por ese candado.
 on:
   push:
     paths:
       - "data-pipeline/**"
       - "analysis/**"
       - "web/**"
+      - "docs/**"
+      - "output/**"
+      - "README.md"
       - ".github/workflows/donostia-dataviz.yml"
   pull_request:
     paths:
       - "data-pipeline/**"
       - "analysis/**"
       - "web/**"
+      - "docs/**"
+      - "output/**"
+      - "README.md"
 
 jobs:
   pipeline:

@@ -63,10 +63,13 @@ Queda su integración narrativa (Cowork).
   una sola plataforma, INE EOH = solo hoteles, equipamientos = registro
   municipal — en supuestos de métrica + relato + `datos.html`. Doctrina
   «**Registro ≠ universo**» fijada en MET-5 y en Limitaciones del resumen.
-  Detalle por fuente: `session-handoff-2026-07-05.md` (addendum 2).
+  Detalle por fuente: `docs/archive/session-handoff-2026-07-05.md` (addendum 2).
 - **Reestructuración (jul-2026, Cowork):** `output/` (html + resumen),
   `datos/input` (MICE curado + `FUENTES.md` + `descargar_raw.sh`),
   `datos/procesado` (placeholder), `docs/intermedia/` y `docs/archive/`, este BACKLOG.
+  *Segunda pasada (2026-07-11, Code):* los 7 `session-handoff-*.md` y
+  `GUION-OUTPUTS.md` (función cumplida: los relatos ya están escritos) pasan a
+  `docs/archive/`; referencias activas actualizadas (README, resumen §8).
 - **Revisión externa (jul-2026, Cowork):** feedback de ChatGPT/DeepSeek/Gemini
   consolidado con decisiones en `docs/intermedia/FEEDBACK-IAS-2026-07.md`.
   Aplicado ya: **MET-6** (falacia ecológica), **MET-7** (sesgo de adopción del
@@ -141,7 +144,11 @@ Queda su integración narrativa (Cowork).
   y REC-25 `sale_price_eur_m2` habían dejado rancio el 16/18/4); `datos.html` y
   `resumen.md` §1 completados con las filas que faltaban (`population`,
   `income_labor`, `income_gender_gap`, `airbnb_activity`) y el recuento de
-  indicadores actualizado a **33**.*
+  indicadores actualizado a **33**. Y para que no vuelva a derivar: **candado
+  nuevo** `data-pipeline/tests/test_doc_counts.py` — los recuentos citados en
+  README / NOTA-METODOLOGICA / metodologia.html / resumen.md se comparan en CI
+  contra `metrics.json`/`indicators.json` (el workflow ahora también se dispara
+  con cambios en `docs/`, `output/` y `README.md`).*
 - ✅ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)** —
   hecha (jul-2026, **desde Code**; resultó perfectamente hacible sin Cowork): cap. 7
   gana la figura del contrapeso público (mapa Etxebide **junto al de tensión
