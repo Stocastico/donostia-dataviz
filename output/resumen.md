@@ -14,7 +14,7 @@
 >
 > **Nota de nomenclatura.** El barrio se llama **Antiguo** (no "Antigua").
 > Corregido en el entregable narrativo; el `barrio_id` interno sigue siendo
-> `antigua` como clave de join (ver §Pendientes).
+> `antigua` como clave de join (ver `BACKLOG.md` §Nomenclatura).
 
 ---
 
@@ -22,7 +22,9 @@
 
 Fuentes oficiales salvo MICE (curado de notas de prensa citadas). Nivel de
 confianza por métrica: **observado** (dato directo), **derivado** (calculado),
-**proxy** (aproximación).
+**proxy** (aproximación). **Vigencia:** última descarga completa de las fuentes
+el **2026-07-10**; build online re-validado contra las fuentes vivas el
+2026-07-11 (diffs aguas arriba mínimos, no aplicados).
 
 ### Métricas por barrio (choropleths)
 
@@ -32,19 +34,28 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 | `rent_eur_m2` | €/m² | 13 barrios, 2023–2024 | observado | Gob. Vasco EMA |
 | `sale_price_eur_m2` | €/m² de venta | 12 barrios, 2011–2026 | proxy | idealista sala de prensa (REC-25; precios de oferta, media anual) |
 | `income_total` | renta per cápita € | 17 barrios | observado | Eustat |
+| `income_labor` | renta del trabajo per cápita € | 18 barrios, 2016–2023 | observado | Eustat (REC-22; solo salario, sin capital ni pensiones) |
+| `income_gender_gap` | brecha de renta H/M (%) | 17 barrios | derivado | Eustat |
+| `population` | habitantes | 18 barrios, 2000–2025 | observado | Padrón |
 | `pct_university` / `pct_foreign` | % | por barrio, serie | observado | Padrón |
 | `pct_origin_*` (8 regiones de origen) | % del barrio | por barrio, 2000–2025 | observado | Padrón (país de nacimiento) |
 | `ageing_index` | ≥65/<15 ×100 | 18 barrios, 2000–2025 | observado | Padrón |
 | `pct_youth_adults` | % 25–39 | 18 barrios, 2000–2025 | observado | Padrón |
 | `vut_density` / `vut_count` / `vut_plazas` | VUT /1000 ab. | por barrio | derivado | Donostia Open Data |
 | `airbnb_density` | anuncios /1000 ab. | 19 barrios, snapshot 2025-09 | derivado | Inside Airbnb |
+| `airbnb_activity` | reseñas/año /1000 ab. | panel barrio×año, 2011–2025 | proxy | Inside Airbnb (sesgo de adopción MET-7) |
 | `schools_per_1000` | centros /1000 ab. | por barrio | derivado | Open Data (equipamientos) |
 | `health_per_1000` | servicios de salud /1000 ab. | por barrio, snapshot | derivado | Open Data (equipamientos, REC-18) |
 | `vpo_dwellings_per_1000` | viviendas Etxebide /1000 ab. | por barrio, snapshot | proxy | Etxebide / Open Data Euskadi (REC-15; ventana parcial: ≤~⅓ del solo alquiler protegido, patronato municipal ausente) |
 | `noise_night_pct55` | % área ≥55 dB (Lnight) | por barrio, 2022 | proxy | Mapa estratégico ruido |
+| `hosteleria_share` | % hostelería sobre locales | 13 barrios, snapshot 2026 | proxy | OSM (HU-3; barrios con <15 locales sin dato) |
 | `transform_class` | clase (4 categorías) | 13 barrios | derivado | Índice AN-8 |
 | `transform_tourism_score` / `transform_socio_score` | z-score | 13 barrios | derivado | Índice AN-8 |
 | `transform_univ_excess` / `transform_rent_excess` | exceso vs mediana | 13 barrios | derivado | Índice AN-8 |
+| `velocity_*` (6 métricas) | Δ/año desde 2016 | por barrio | derivado | pendiente anualizada de las anteriores |
+| `barrio_profile` | 4 perfiles (k-means) | 13 barrios | derivado | renta + universitarios + VUT + alquiler |
+
+*(41 métricas en total; recuento de confianza: 17 observadas · 19 derivadas · 5 proxy.)*
 
 ### Series temporales (grano ciudad)
 
@@ -62,12 +73,20 @@ confianza por métrica: **observado** (dato directo), **derivado** (calculado),
 `recycling_rate` (recogida selectiva %), `mice_icca_congresses`,
 `mice_events_total` (188 eventos en 2024, récord), `mice_attendees` (259.000).
 
-Nuevos (jul-2026): `unemployment_rate_spanish_gipuzkoa` / `unemployment_rate_foreign_gipuzkoa`
+Nuevos (jul-2026): `unemployment_rate(_men/_women)` (PRA, Donostia 2015–2025:
+12,0 %→5,0 %), `unemployment_rate_spanish_gipuzkoa` / `unemployment_rate_foreign_gipuzkoa`
 (paro por nacionalidad, Gipuzkoa 2015–2026: 4,3 % vs 9,4 %),
 `randd_personnel_per_1000_employed_gipuzkoa` (I+D, 31,0‰ en 2024; España 13,6‰),
 `vut_licenses_new` / `vut_licenses_cumulative` / `vut_plazas_cumulative` (registro REATE,
 ciudad 2016–2025), `residents_work_in_city_pct` / `residents_study_in_city_pct` / `jobs_located`
-+ derivado `job_concentration_ratio` (1,20 en 2024: la ciudad importa trabajadores, cierra H4).
++ derivado `job_concentration_ratio` (1,20 en 2024: la ciudad importa trabajadores, cierra H4);
+`total_establishments` + cuotas comercio/hostelería (DIRAE 2008–2025: comercio
+14,9 %→12,6 %, hostelería 6,0 %→8,1 %), `pct_language_model_a/b/d` (modelos
+lingüísticos escolares, 1983–2025), `ibiltur_ocio_*` (gasto del turista de ocio,
+2023) y la pareja percepción/realidad de seguridad (HU-1):
+`perception_insecurity_donostia/_euskadi` (Eustat ECV 1989–2024) +
+`crime_infractions(_gipuzkoa)` / `crime_rate_1000` (Min. Interior; ⚠️ provincia,
+no municipio). **33 indicadores en total.**
 
 ---
 
@@ -96,6 +115,18 @@ Reproducible con `python analysis/<script>.py`. Solo pandas + numpy.
   estacionalidad por barrio (`tourism_seasonality.py`), ruptura COVID
   (`covid_break.py`) y trayectorias (`trajectories.py`). Resultados en
   `docs/intermedia/ANALISIS-INFERENCIAL.md`.
+- **`lead_lag_reate.py`** — refinamiento AN-6 (jul-2026): la 2ª señal turística
+  (flujo de licencias REATE, independiente de las reseñas) cruzada con el
+  alquiler a grano ciudad, con detrend y permutación. **No reabre H1** (ningún
+  desfase significativo, T≈8); la palanca pendiente es la resolución anual.
+- **`housing_affordability.py`** (HU-7) — venta **+29 %** > alquiler **+24,8 %** >
+  salario **+21,8 %** > IPC **+20,4 %** (2016–2023, ciudad); el «sube más que el
+  sueldo» se sostiene con el salario real, no con la renta disponible pc.
+- **Tanda percepción/hipótesis del usuario (jul-2026)** —
+  `perception_vs_crime.py` (HU-1), `commercial_typology.py` (HU-3, Parte Vieja),
+  `perceived_noise_geography.py` (H6), `rent_heterogeneity.py` (H7),
+  `tourism_concern_flow_stock.py` (H8), `tourism_deseasonalization.py` (HU-5/6),
+  `airbnb_snapshots.py` (REC-13) y `heat_island.py` (REC-14).
 
 ---
 
@@ -135,7 +166,11 @@ propósito: esa es la información.*
   ⚠️ **El blindaje AN-16 (jul-2026) rebajó esta señal:** con efectos fijos de
   año (que absorben IPC, tipos, COVID) r(+1) cae a **0,10** y la permutación da
   **p≈0,30** — la mayor parte era covariación macro común. El indicio
-  direccional **no se sostiene**; pregunta abierta a la espera de REC-12.
+  direccional **no se sostiene**; y el refinamiento AN-6 (jul-2026,
+  `lead_lag_reate.py`) probó la segunda señal que faltaba — el flujo de
+  licencias REATE, ajeno al proxy de reseñas — **sin reabrir la pregunta**:
+  ningún desfase significativo a grano ciudad. Solo la reabriría un grano
+  sub-anual (alquiler/licencias trimestrales), hoy no público.
 - **La pérdida de población del centro es vegetativa, no de expulsión (AN-12,
   residuo por cohortes):** Erdialdea **atrae** migración neta (+2.162 en
   2000–2025) y aun así pierde población — su déficit nacimientos−defunciones
@@ -186,6 +221,19 @@ propósito: esa es la información.*
 - **Clima (Igeldo 1981–2025):** +0,31 °C/década (R²=0,39; 13,1→14,7 °C); días
   ≥30 °C +0,81/década (R²=0,10; picos 2003/2022/2023); precipitación sin tendencia
   (R²=0,06). Máxima absoluta 39,7 °C (2022).
+- **Percepción y delito coinciden (HU-1):** «la seguridad ha bajado mucho» es
+  falso a largo plazo (35,4 % de familias con problema en 1989 → 14–18 % en
+  2004–2019), pero el repunte 2019→2024 (→21,5 %) tiene base real: el delito en
+  Gipuzkoa estuvo plano en la década de 2010 y sube **+34 %** 2019→2024
+  (⚠️ provincia, no municipio).
+- **La Parte Vieja es un distrito casi monofuncional (HU-3, OSM):** ~82 % de sus
+  locales mapeados son hostelería (85/103), 3 comercios cotidianos;
+  `corr(cuota turística ↔ VUT) = +0,39`. Foto actual, no cambio.
+- **La estacionalidad hotelera baja (HU-5):** % verano 35,9→32,9 % y CV
+  0,32→0,26 (2005–2025); la temporada baja crece +44 % más rápido que agosto.
+  El alquiler sube de forma heterogénea pero convergente en % (H7): el este
+  barato sube más (Loiola +48 %) que el centro caro (Egia +28 %); la brecha en
+  €/m² persiste (coherente con AN-13).
 
 ### Tesis integradora (cauta)
 
@@ -201,7 +249,9 @@ hecho demostrado: sin microdatos de movilidad no se puede afirmar desplazamiento
 Más que respuestas cerradas, el análisis deja **cuatro hipótesis empíricas**
 contrastables con datos mejores (detalle y tests propuestos en
 `docs/TESIS-CIUDAD.md`): **H1** la presión turística anticipa el alquiler ~1 año
-(⚠️ *debilitada por AN-16: no sobrevive al control por shocks comunes de año*);
+(⚠️ *debilitada por AN-16: no sobrevive al control por shocks comunes de año; y
+el refinamiento AN-6 con la 2ª señal REATE tampoco la reabre — queda a la espera
+de datos sub-anuales*);
 **H2** transformación turística y social siguen geografías distintas (✅
 *reforzada por AN-9: el patrón no depende de los pesos del índice*); **H3** la
 desigualdad territorial permanece estable mientras cambia la accesibilidad (✅
@@ -224,7 +274,10 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
 1. **La ciudad que se encarece.** ¿Dónde es insostenible vivir? El esfuerzo
    alquiler/renta **se invierte** respecto al precio: máximo en el este obrero
    (Altza ~21,9 %, Egia ~21,3 %, Intxaurrondo ~20,9 %), no en el centro caro.
-   Correlación tensión↔renta −0,89. *Derivado; supuesto 30 m²/persona regulable.*
+   Correlación tensión↔renta −0,89. Desde jul-2026 suma el **precio de venta**
+   (idealista, REC-25): +29 % en 2016–2023 — por delante de alquiler, salario e
+   IPC (HU-7) — y +60 % acumulado 2016→2026; brecha de nivel centro/este 2,2×.
+   *Derivado; supuesto 30 m²/persona regulable; venta = precios de oferta.*
 2. **Qué barrios cambian más rápido.** Alquiler +3–4 %/año en todas partes;
    extranjeros crecen en el este; el centro pierde población. Egia es el "barrio en
    movimiento" (universitarios al alza). *Perfiles descriptivos, N=13.*
@@ -254,7 +307,8 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    parte es adopción de plataforma, MET-7 — cuantificado en REC-13: la oferta activa real solo sube
    +2,0 % en 2023–2025 frente a +20,2 % de reseñas, ×1,18 de exageración; altas VUT del REATE 300/año→18). El indicio de que precedía al
    alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,
-   r≈0,10, p≈0,30). El ruido nocturno es de **tráfico**, no de turismo (capa
+   r≈0,10, p≈0,30), y el cruce con la curva REATE (refinamiento AN-6) tampoco
+   lo reabre. El ruido nocturno es de **tráfico**, no de turismo (capa
    ambiental). La estacionalidad por barrio (AN-14) invierte la intuición: la
    periferia depende del verano (ratio ~4,8) y **Erdialdea es el menos
    estacional (2,1)** — presión crónica; y el COVID no interrumpió la
@@ -278,6 +332,10 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
 
 > **Apéndice del HTML — "La ciudad de fondo":** estacionalidad hotelera,
 > reciclaje, fiscalidad municipal y MICE, como contexto de ciudad.
+> **Coda — "Lo que preocupa a la ciudad — y lo que dicen los datos" (jul-2026):**
+> contraste de las preocupaciones de la encuesta 2026 (inseguridad, turismo,
+> ruido, vivienda) con los datos de HU-1, H6, H7 y H8; etiquetado
+> Gipuzkoa ≠ Donostia.
 > **Cierre del HTML — "Lo que los datos aún no pueden responder":** los límites
 > del proyecto, en primera plana (jul-2026).
 
@@ -342,6 +400,10 @@ Pensado para que otra IA proponga mejoras. Candidatos:
 
 1. **Serie temporal de presión turística por barrio** (plazas VUT históricas, o
    Airbnb longitudinal) para triangular el proxy de reseñas y reforzar el AN-6.
+   *Parcialmente respondida (jul-2026):* REC-12 (curva REATE de ciudad) y REC-13
+   (snapshots Airbnb) existen; el cruce lead/lag con la curva REATE
+   (`lead_lag_reate.py`) **no reabre H1**. Lo que sigue faltando es el grano:
+   por barrio y/o sub-anual.
 2. ~~Estructura de edad como señal de sustitución residencial~~ ✅
    **Respondida (jul-2026, AN-12)**: la pérdida del centro es vegetativa
    (Erdialdea atrae migración neta); el éxodo 25–39 es de Gros. Queda el salto
@@ -352,19 +414,21 @@ Pensado para que otra IA proponga mejoras. Candidatos:
    permiten los datos? ¿Falta algún aviso de confianza?
 6. **Nuevos ejes de historia**: movilidad, coste de vida, servicios públicos,
    vivienda pública — ¿qué datos abiertos faltan por incorporar?
-7. **Accesibilidad y claridad** de las visualizaciones (contraste, leyendas,
-   lectura sin color).
+7. ~~Accesibilidad y claridad de las visualizaciones~~ ✅ **Hecha (jul-2026):**
+   contraste medido AA en sitio narrativo y app, tablas-espejo accesibles en
+   todos los mapas, foco visible global (ver `BACKLOG.md` §A11y).
 
 ---
 
 ## 8. Reproducibilidad
 
-- Datos tidy: `data/*.csv` (metrics/series/indicators en formato long).
+- Datos tidy: `datos/procesado/tablas/*.csv` (metrics/series/indicators en formato long).
 - Regenerar pipeline: `python -m donostia_pipeline.build`.
 - Análisis: `python analysis/{sprint_a,distribucion_barrios,transformation_index,lead_lag}.py`.
-- Documentación de referencia: `docs/GUION-OUTPUTS.md` (empieza aquí),
-  `docs/TESIS-CIUDAD.md`, `docs/NOTA-METODOLOGICA.md`, `docs/SOURCES.md`;
+- Documentación de referencia: `docs/TESIS-CIUDAD.md`,
+  `docs/NOTA-METODOLOGICA.md`, `docs/SOURCES.md`;
   análisis en `docs/intermedia/` (`ANALISIS-SPRINT-A.md`, `ANALISIS-LEADLAG.md`,
-  `INDICE-TRANSFORMACION.md`); backlog en `BACKLOG.md` (raíz).
+  `INDICE-TRANSFORMACION.md`); backlog en `BACKLOG.md` (raíz). El plan original
+  de los relatos (ya cumplido) está archivado en `docs/archive/GUION-OUTPUTS.md`.
 - Entregable narrativo: `output/historias.html` (autocontenido).
 - Datos de entrada: `datos/input/FUENTES.md` (manifiesto de fuentes).

@@ -65,6 +65,7 @@
     <span class="brand">Donostia en datos</span>
     <a href="historias.html">← Historias</a>
     <a href="metodologia.html">Metodología</a>
+    <a href="#vigencia">Vigencia</a>
     <a href="#barrio">Por barrio</a>
     <a href="#series">Series</a>
     <a href="#fuentes">Fuentes</a>
@@ -74,6 +75,18 @@
 
 <main>
 <div class="wrap">
+
+  <div class="card" id="vigencia">
+    <h2>Vigencia de los datos</h2>
+    <p>Los datos del panel y de las tablas CSV se <strong>descargaron de las fuentes y regeneraron
+      por última vez el 10 de julio de 2026</strong> (build completo del pipeline). El 11 de julio de
+      2026 se re-ejecutó el build contra las fuentes vivas como <strong>validación de
+      reproducibilidad</strong>, sin refrescar los datos publicados: los únicos cambios aguas arriba
+      eran junio de 2026 en la serie AEMET, −2 unidades en el censo VUT (registro vivo) y ±1
+      habitante del padrón en dos celdas de Aiete. La ventana temporal de cada dataset (serie o
+      snapshot) se indica fila a fila en las tablas de abajo; los snapshots puntuales
+      (Inside Airbnb 2025-09, censo VUT, equipamientos…) conservan su fecha propia.</p>
+  </div>
 
   <div class="card" id="barrio">
     <h2>Métricas por barrio (mapas coropléticos)</h2>
@@ -88,12 +101,16 @@
         <tr><td><code>rent_eur_m2</code></td><td>€/m² construido</td><td>13 barrios, 2016–2024</td><td><span class="badge b-obs">observado</span></td><td>Gobierno Vasco — EMA/EMAL (T8.3)</td></tr>
         <tr><td><code>sale_price_eur_m2</code></td><td>€/m² de venta</td><td>12 barrios, 2011–2026</td><td><span class="badge b-pro">proxy</span></td><td>idealista, sala de prensa (REC-25) — precios de <strong>oferta</strong>, no de transacción; media anual de la serie mensual. Zonas idealista mapeadas a barrios (Centro-Miraconcha = Erdialdea; Parte Vieja aparte); sin dato en rurales y Loiola/Martutene/Miramón</td></tr>
         <tr><td><code>income_total</code></td><td>renta per cápita €</td><td>17 barrios, 2016–2023</td><td><span class="badge b-obs">observado</span></td><td>Eustat (vía Donostia Open Data)</td></tr>
+        <tr><td><code>income_labor</code></td><td>renta del trabajo per cápita €</td><td>18 barrios, 2016–2023</td><td><span class="badge b-obs">observado</span></td><td>Eustat — renta personal por tipo (REC-22): solo salario, sin rentas de capital ni pensiones</td></tr>
+        <tr><td><code>income_gender_gap</code></td><td>brecha de renta H/M (%)</td><td>17 barrios, 2016–2023</td><td><span class="badge b-der">derivado</span></td><td>Eustat — renta media por sexo (vía Donostia Open Data)</td></tr>
+        <tr><td><code>population</code></td><td>habitantes</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — Donostia Open Data</td></tr>
         <tr><td><code>pct_university</code> / <code>pct_foreign</code></td><td>%</td><td>por barrio, serie 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — Donostia Open Data</td></tr>
         <tr><td><code>pct_origin_*</code> (8 regiones de origen)</td><td>% del barrio</td><td>por barrio, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón por país de nacimiento (REC-21) — desglose de <code>pct_foreign</code></td></tr>
         <tr><td><code>ageing_index</code></td><td>≥65 / &lt;15 × 100</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
         <tr><td><code>pct_youth_adults</code></td><td>% de 25–39 años</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
         <tr><td><code>vut_density</code> / <code>vut_count</code> / <code>vut_plazas</code></td><td>VUT /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Censo VUT — Donostia Open Data</td></tr>
         <tr><td><code>airbnb_density</code></td><td>anuncios /1.000 hab.</td><td>19 barrios, snapshot 2025-09</td><td><span class="badge b-der">derivado</span></td><td>Inside Airbnb (Euskadi), join espacial. Solo plataforma Airbnb: suelo del alquiler turístico online (Booking y otras fuera); incluye no registrados</td></tr>
+        <tr><td><code>airbnb_activity</code></td><td>reseñas/año /1.000 hab.</td><td>panel barrio×año, 2011–2025</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — reseñas como proxy de presencia turística. Sesgo de adopción de plataforma (MET-7, exageración ×1,18 cuantificada en REC-13); solo Airbnb</td></tr>
         <tr><td><code>schools_per_1000</code></td><td>centros /1.000 hab.</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos educativos — Open Data (GeoJSON). Registro municipal de educación formal (157 centros públicos y privados; academias fuera)</td></tr>
         <tr><td><code>health_per_1000</code></td><td>servicios de salud /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos de salud — Open Data (GeoJSON, REC-18; join espacial). Registro municipal (públicos y clínicas privadas; consultas privadas y farmacias fuera)</td></tr>
         <tr><td><code>noise_night_pct55</code></td><td>% área ≥55 dB (Lnight)</td><td>por barrio, 2022</td><td><span class="badge b-pro">proxy</span></td><td>Mapa estratégico de ruido (SHP, ruido de transporte)</td></tr>

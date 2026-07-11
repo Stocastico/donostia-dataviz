@@ -1,5 +1,13 @@
 # Datos de input — fuentes y snapshots
 
+> **Vigencia (última extracción).** Los datos publicados en `web/src/data/` y
+> `datos/procesado/tablas/` se descargaron de estas fuentes por última vez el
+> **2026-07-10** (build completo). El **2026-07-11** se re-ejecutó el build
+> online como validación: todas las fuentes de esta tabla siguen vivas y los
+> cambios aguas arriba eran mínimos (AEMET añade jun-2026; censo VUT −2
+> unidades; padrón ±1 hab.) — no se refrescó el repo para no desincronizar las
+> cifras citadas en los relatos (ver BACKLOG §Datos crudos).
+
 Registro de **todos los datos de entrada** del proyecto: de dónde salen, qué
 alimentan y cómo obtenerlos. Los ficheros crudos grandes/binarios y los que
 requieren clave o API **no se versionan aquí directamente**; se descargan con

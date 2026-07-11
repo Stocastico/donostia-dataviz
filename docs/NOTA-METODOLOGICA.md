@@ -89,12 +89,14 @@ la honestidad del proyecto.
 (`observed`/`derived`/`proxy`) + `assumptions`, definidos en un único lugar
 (`data-pipeline/.../provenance.py`) y aplicados centralmente en `build.run`. La UI
 muestra una **ficha de confianza** (badge de color + supuestos) bajo el mapa.
-Reparto actual (jul-2026): **38 métricas live — 16 observadas, 18 derivadas, 4
+Reparto actual (jul-2026): **41 métricas live — 17 observadas, 19 derivadas, 5
 proxy** (`noise_night_pct55` ruido de transporte, `airbnb_activity` sesgo de
 adopción, `vpo_dwellings_per_1000` solo promociones Etxebide — ventana parcial:
 ≤~⅓ del solo alquiler protegido de la ciudad, patronato municipal ausente, sus
-«0» no implican ausencia de VPO —, y `hosteleria_share` HU-3 vía OSM —foto
-actual, completitud variable, barrios con <15 locales sin dato—). Ejemplos de
+«0» no implican ausencia de VPO —, `hosteleria_share` HU-3 vía OSM —foto
+actual, completitud variable, barrios con <15 locales sin dato— y
+`sale_price_eur_m2` — precios de **oferta** idealista, no de transacción; media
+anual, REC-25 —). Ejemplos de
 supuestos expuestos: el 30 m²/persona de `housing_tension`, el k-means N=13 de
 `barrio_profile`, "% extranjeros no es proxy de gentrificación", el join
 punto→barrio de `schools/health_per_1000` y `vpo_dwellings_per_1000`.

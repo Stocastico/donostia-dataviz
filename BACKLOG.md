@@ -63,10 +63,13 @@ Queda su integración narrativa (Cowork).
   una sola plataforma, INE EOH = solo hoteles, equipamientos = registro
   municipal — en supuestos de métrica + relato + `datos.html`. Doctrina
   «**Registro ≠ universo**» fijada en MET-5 y en Limitaciones del resumen.
-  Detalle por fuente: `session-handoff-2026-07-05.md` (addendum 2).
+  Detalle por fuente: `docs/archive/session-handoff-2026-07-05.md` (addendum 2).
 - **Reestructuración (jul-2026, Cowork):** `output/` (html + resumen),
   `datos/input` (MICE curado + `FUENTES.md` + `descargar_raw.sh`),
   `datos/procesado` (placeholder), `docs/intermedia/` y `docs/archive/`, este BACKLOG.
+  *Segunda pasada (2026-07-11, Code):* los 7 `session-handoff-*.md` y
+  `GUION-OUTPUTS.md` (función cumplida: los relatos ya están escritos) pasan a
+  `docs/archive/`; referencias activas actualizadas (README, resumen §8).
 - **Revisión externa (jul-2026, Cowork):** feedback de ChatGPT/DeepSeek/Gemini
   consolidado con decisiones en `docs/intermedia/FEEDBACK-IAS-2026-07.md`.
   Aplicado ya: **MET-6** (falacia ecológica), **MET-7** (sesgo de adopción del
@@ -135,10 +138,17 @@ Queda su integración narrativa (Cowork).
   queda en mantenimiento pasivo.*
 - 🔷 **Mantener `metodologia.html` y `datos.html`** sincronizados con
   `NOTA-METODOLOGICA.md` y `SOURCES.md`/`FUENTES.md` cuando cambien (son
-  resúmenes manuales, no generados). *Al día (jul-2026, Code): el recuento de
-  confianza corregido a **16 obs./18 der./3 proxy (37 métricas)** en
-  `metodologia.html` y `NOTA-METODOLOGICA.md`; `datos.html` con `vpo_dwellings_per_1000`
-  (REC-15) y `health_per_1000` (REC-18) en la tabla y en Fuentes (Etxebide, salud).*
+  resúmenes manuales, no generados). *Al día (2026-07-11, Code): recuento de
+  confianza refrescado a **17 obs./19 der./5 proxy (41 métricas)** en
+  `metodologia.html` y `NOTA-METODOLOGICA.md` (las altas de REC-22 `income_labor`
+  y REC-25 `sale_price_eur_m2` habían dejado rancio el 16/18/4); `datos.html` y
+  `resumen.md` §1 completados con las filas que faltaban (`population`,
+  `income_labor`, `income_gender_gap`, `airbnb_activity`) y el recuento de
+  indicadores actualizado a **33**. Y para que no vuelva a derivar: **candado
+  nuevo** `data-pipeline/tests/test_doc_counts.py` — los recuentos citados en
+  README / NOTA-METODOLOGICA / metodologia.html / resumen.md se comparan en CI
+  contra `metrics.json`/`indicators.json` (el workflow ahora también se dispara
+  con cambios en `docs/`, `output/` y `README.md`).*
 - ✅ **Integración narrativa de REC-15 (VPO) y REC-18 (accesibilidad salud)** —
   hecha (jul-2026, **desde Code**; resultó perfectamente hacible sin Cowork): cap. 7
   gana la figura del contrapeso público (mapa Etxebide **junto al de tensión
@@ -241,17 +251,23 @@ Queda su integración narrativa (Cowork).
   código (dev-facing) se dejan como están.
 
 ### Datos crudos (input)
-- 🔷 **Poblar `datos/input/raw/`** ejecutando `datos/input/descargar_raw.sh` o
-  `python -m donostia_pipeline.build` (necesita red). No se pudo hacer desde
-  Cowork (web_fetch agota tiempo; curl prohibido por política). Ver
-  `datos/input/FUENTES.md`. **AEMET desbloqueado (jul-2026):** `AEMET_API_KEY`
-  configurada como variable de entorno de Code (Claude Code on the web no
-  tiene almacén de secretos dedicado; ver aviso en `claude-code-on-the-web`
-  docs). ✅ *El typo del nombre (`AEMET_APY_KEY`) ya está corregido en la config
-  del entorno: la sesión del 2026-07-05 ve `AEMET_API_KEY` con el nombre bueno,
-  sin `export` manual.* El resto de
-  fuentes (Donostia Open Data, INE, EMA, Airbnb) sigue sin probar en esta
-  sesión — solo se ha corrido `ensure_aemet`, no el pipeline completo.
+- ✅ **Validar el build online completo** (era «poblar `datos/input/raw/`») —
+  hecho (2026-07-11, Code, con red vía proxy): `python -m donostia_pipeline.build`
+  corrió **end-to-end desde contenedor limpio** — todas las fuentes vivas
+  responden (Donostia Open Data, Eustat PxWeb ×9 tablas, INE, EMA, Inside
+  Airbnb, REATE, AEMET con `AEMET_API_KEY`) y regenera 41 métricas + 33
+  indicadores + 6 series + matcher de calles al 100 %. **Los diffs vs. el repo
+  eran mínimos y legítimos** (AEMET añade jun-2026; censo VUT vivo 1.488→1.486
+  unidades; padrón ±1 hab. en 2 celdas de Aiete) y **NO se commitearon**: los
+  relatos citan cifras del snapshot actual y un refresco parcial las
+  desincronizaría — refrescar datos queda como decisión editorial previa a un
+  redespliegue (regenerar + re-verificar keynums + actualizar el blob `DONO`).
+  Nota: `raw/` (en `data-pipeline/raw/`) está gitignored y el contenedor es
+  efímero, así que «poblar raw/» solo tiene sentido en local;
+  `datos/input/descargar_raw.sh` sigue siendo la vía para una máquina propia.
+  ✅ *El typo del nombre (`AEMET_APY_KEY`) ya está corregido en la config
+  del entorno: las sesiones ven `AEMET_API_KEY` con el nombre bueno,
+  sin `export` manual.*
 
 ### Datos nuevos / análisis (del backlog histórico)
 - ✅ **REC-5 tasa de paro** — hecho (jul-2026): 3 indicadores ciudad
@@ -341,6 +357,10 @@ Queda su integración narrativa (Cowork).
   AN-16. Detalle en `ANALISIS-LEADLAG.md` §"Refinamiento AN-6". **La palanca que
   queda ya no es el proxy sino la resolución anual**: grano trimestral del
   alquiler/licencias o una serie más larga (sin fuente pública hoy).
+  ✅ *Veredicto llevado a la narrativa (2026-07-11, Code):* `historias.html`
+  (sección lead/lag del cap. 6 + epílogo), `resumen.md` (§2/§3/H1/pregunta
+  abierta #1) y `TESIS-CIUDAD.md` (H1) ya no dicen «a la espera de una segunda
+  señal» — dicen que la señal REATE se probó y no reabre H1.
 
 ### Análisis inferencial (feedback IAs jul-2026 — detalle y origen en `docs/intermedia/FEEDBACK-IAS-2026-07.md`)
 

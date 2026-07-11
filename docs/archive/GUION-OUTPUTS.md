@@ -13,6 +13,18 @@
 > lleva su **ficha de confianza** (badge observado/derivado/proxy + supuestos) bajo
 > el mapa.
 
+> ⚠️ **Estado (2026-07-11, archivado en `docs/archive/`).** Este guion cumplió su función: **los relatos ya
+> están escritos** (`output/historias.html`, hoy **7 capítulos** — el guion
+> planificó 6; el cap. 4 «Quién trabaja Donostia» se añadió después y clima /
+> turística / síntesis pasaron a 5/6/7). Se conserva como referencia del plan,
+> con tres avisos: (1) los nombres de sección/grupo de la app citados abajo
+> (*Abitazioni*, *Due turismi*…) son de la versión italiana — **la app está hoy
+> en español**; (2) el **lead/lag AN-6 (r≈0,27)** citado como número de #5 quedó
+> **retirado** después (AN-16: no sobrevive a los efectos fijos de año; el
+> refinamiento con la señal REATE tampoco lo reabre); (3) para cifras vigentes,
+> la referencia son `output/historias.html`, `output/resumen.md` y
+> `TESIS-CIUDAD.md`, no este documento.
+
 ---
 
 ## 0. Resumen: qué se puede producir HOY

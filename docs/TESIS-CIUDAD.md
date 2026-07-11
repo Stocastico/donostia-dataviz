@@ -148,6 +148,15 @@ p permutación ≈0,30) — la mayor parte era covariación macro de toda la ciu
 H1 queda **debilitada pero no cerrada**: el diseño con efectos fijos de año no
 puede ver un efecto uniforme en toda la ciudad; la reabrirían el alquiler
 mensual/trimestral y el histórico de licencias VUT (REC-12) como segunda señal.
+⚠️ **Segundo test en contra (jul-2026, refinamiento AN-6):** esa segunda señal
+ya se probó — `analysis/lead_lag_reate.py` cruza a grano ciudad el flujo anual
+de licencias REATE (independiente del proxy de reseñas) con la variación del
+alquiler medio, con detrend y permutación, y **no reabre H1**: la asociación
+cruda es negativa (cruce de tendencias), el signo se vuelve inestable al
+detrend y ningún desfase es significativo con T≈8. La palanca pendiente ya no
+es el proxy sino la **resolución anual** (alquiler/licencias trimestrales o una
+serie más larga; sin fuente pública hoy). Detalle:
+`docs/intermedia/ANALISIS-LEADLAG.md` §«Refinamiento AN-6».
 
 **H2 — La transformación turística y la social siguen geografías distintas.**
 Lo sugiere la correlación débil entre ambos scores (≈0,25) y el mapa: turismo en

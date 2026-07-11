@@ -16,20 +16,18 @@ los datos en historias sobre cómo cambia la ciudad.
 ## 🚀 Empieza aquí
 
 1. **[`output/historias.html`](output/historias.html)** — el documento narrativo:
-   **seis historias** (la ciudad que se encarece · qué barrios cambian más rápido ·
-   quién vive Donostia · el clima cambia · turística vs. vivida · en transformación)
+   **siete historias** (la ciudad que se encarece · qué barrios cambian más rápido ·
+   quién vive Donostia · quién trabaja Donostia · el clima cambia · turística vs.
+   vivida · en transformación)
    con texto y **visualizaciones interactivas** (mueve el supuesto de m²/persona,
    recorre los años, cambia de indicador). Ábrelo en cualquier navegador; es
    autocontenido, sin dependencias.
 2. **[`output/resumen.md`](output/resumen.md)** — síntesis del proyecto (datos,
    análisis, correlaciones e historias) pensada para revisión externa.
-3. **[`docs/GUION-OUTPUTS.md`](docs/GUION-OUTPUTS.md)** — el plan de los relatos:
-   para cada historia, la pregunta de partida, las cifras verificadas, dónde vive
-   en la app y los avisos de confianza.
-4. **[`docs/TESIS-CIUDAD.md`](docs/TESIS-CIUDAD.md)** — la lectura integrada: qué
+3. **[`docs/TESIS-CIUDAD.md`](docs/TESIS-CIUDAD.md)** — la lectura integrada: qué
    dicen en conjunto los datos sobre la transformación de Donostia, y qué **no** se
    puede afirmar todavía.
-5. **[`BACKLOG.md`](BACKLOG.md)** — qué está hecho y qué falta, separado en tareas
+4. **[`BACKLOG.md`](BACKLOG.md)** — qué está hecho y qué falta, separado en tareas
    de **Cowork** (documentación/relatos) y **Code** (pipeline/web/datos).
 
 ---
@@ -40,7 +38,7 @@ los datos en historias sobre cómo cambia la ciudad.
 .
 ├── README.md             ← este fichero
 ├── BACKLOG.md            ← backlog (hecho + pendiente), secciones Cowork / Code
-├── output/               ← entregables: historias.html (6 historias) + resumen.md
+├── output/               ← entregables: historias.html (7 historias) + resumen.md
 ├── datos/                ← input/ (crudos + curados + FUENTES.md) · procesado/tablas/ (tablas tidy CSV)
 ├── docs/                 ← documentación activa (fuentes, metodología, relatos)
 │   ├── intermedia/       ← análisis ya volcados en los outputs (congelados)
@@ -80,7 +78,6 @@ Agrupados por para qué sirven. Toda la documentación activa está en español.
 |---|---|---|
 | `NOTA-METODOLOGICA.md` | Decisiones metodológicas (MET-1…5): por qué medimos como medimos. | es |
 | `TESIS-CIUDAD.md` | Lectura integrada y *cauta* de la transformación + anexo de hallazgos por eje. | es |
-| `GUION-OUTPUTS.md` | **Plan de los relatos finales** (empieza por aquí para narrar). | es |
 
 **Análisis intermedio (`docs/intermedia/`)**
 
@@ -106,6 +103,8 @@ Conservados como referencia, no borrados. No forman parte del camino activo.
 | `archive/INSIGHTS.md` | Digest por eje; su contenido vive en el anexo de `TESIS-CIUDAD.md`. |
 | `archive/DATA-HANDOFF.md` | Resumen para revisión externa. En italiano. |
 | `archive/PROJECT-BRIEF.md` | Brief original (v1). Superado por v2. En italiano. |
+| `archive/GUION-OUTPUTS.md` | Plan de los relatos. Función cumplida: las 7 historias ya están escritas (cifras vigentes en `output/` y `TESIS-CIUDAD.md`). |
+| `archive/session-handoff-*.md` | Bitácoras de sesión (jul-2026): qué se hizo y por qué, sesión a sesión. |
 
 ---
 
@@ -119,25 +118,33 @@ reutilizables en cualquier stack. La carpeta [`datos/`](datos/README.md)
 documenta y organiza entrada (`datos/input`, con `FUENTES.md`) y salida
 (`datos/procesado`).
 
-Estado actual (**40 métricas coropléticas** por barrio, jul-2026): población,
+Estado actual (**41 métricas coropléticas** por barrio, jul-2026): población,
 origen (incl. **8 regiones de origen** `pct_origin_*` + **ficha de países** por
-barrio), estudios, renta, alquiler, **precio de venta €/m²** (idealista, REC-25),
-tensión, VUT, **densidad Airbnb**, escuelas y
+barrio), estudios, renta (total y **del trabajo**, REC-22), alquiler, **precio de
+venta €/m²** (idealista, REC-25), tensión, VUT, **densidad Airbnb**, escuelas y
 **servicios de salud** (accesibilidad, REC-18), **vivienda protegida** (Etxebide,
-REC-15) + **velocidad de cambio** (`velocity_*`) + **perfiles** (categórica) +
+REC-15), **hostelería sobre locales** (OSM, HU-3) + **velocidad de cambio**
+(`velocity_*`) + **perfiles** (categórica) +
 **estructura por edad** + **ruido nocturno** (GIS) + el **Índice de
 Transformación** (`transform_*`); **series mensuales** de ciudad (clima +
-pernoctaciones + reseñas Airbnb); **28 indicadores anuales** (MICE, reciclaje,
-fiscalidad, paro, comercio, movilidad laboral, modelos lingüísticos…). Cada
+pernoctaciones + reseñas Airbnb); **33 indicadores anuales** (MICE, reciclaje,
+fiscalidad, paro, comercio, movilidad laboral, modelos lingüísticos, seguridad
+—percepción y delito—…). Cada
 métrica lleva su **ficha de confianza** (observado / derivado / proxy +
 supuestos) y el mapa tiene **tabla-espejo accesible** (teclado / lector de
 pantalla). Geometría única de referencia: 19 barrios oficiales (`mapa_auzoak`),
 con `barrio_id` estable como clave de join.
 
+> **Vigencia de los datos:** última descarga completa de las fuentes el
+> **2026-07-10**; build online re-validado contra las fuentes vivas el
+> **2026-07-11** (todas responden; diffs aguas arriba mínimos, no aplicados —
+> ver BACKLOG §Datos crudos). Detalle por fuente en `datos/input/FUENTES.md`
+> y en la sección «Vigencia» de `output/datos.html`.
+
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al
 > usuario (el `barrio_id` interno sigue siendo `antigua` como clave de join).
 
-Además de las 40 métricas por barrio, hay una vista **sub-barrio** (grano
+Además de las 41 métricas por barrio, hay una vista **sub-barrio** (grano
 **calle**): *"Viviendas turísticas, calle a calle"* — un mapa de símbolos
 proporcionales de las **viviendas turísticas por calle** (301 calles), cruzando
 el censo VUT con el callejero municipal. Datos en `web/src/data/street_vut.json`
