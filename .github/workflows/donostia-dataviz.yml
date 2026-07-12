@@ -11,6 +11,7 @@ on:
       - "web/**"
       - "docs/**"
       - "output/**"
+      - "scripts/**"
       - "README.md"
       - ".github/workflows/donostia-dataviz.yml"
   pull_request:
@@ -20,6 +21,7 @@ on:
       - "web/**"
       - "docs/**"
       - "output/**"
+      - "scripts/**"
       - "README.md"
 
 jobs:

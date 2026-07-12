@@ -165,14 +165,18 @@ Todas las cifras citadas en la documentación y en `output/historias.html` son
 
 El proyecto se publica como un único sitio estático:
 
-- **Panel interactivo** (la app React): `https://stocastico.github.io/donostia-dataviz/`
-- **El relato** (las siete historias): `…/historias.html` · **metodología**:
-  `…/metodologia.html` · **datos y fuentes**: `…/datos.html`
+- **El relato** (las siete historias) es la **portada**:
+  `https://stocastico.github.io/donostia-dataviz/` (también `…/historias.html`)
+- **Metodología**: `…/metodologia.html` · **datos y fuentes**: `…/datos.html`
+- **Working paper** (DOC-6): `…/working-paper.html`, generado en cada deploy
+  desde `docs/WORKING-PAPER.md` por `scripts/build_working_paper.py`
+- **Panel interactivo** (la app React): `…/app/`
 
 El despliegue lo hace `.github/workflows/deploy-pages.yml` y es **solo manual**:
 pestaña *Actions → Deploy site (GitHub Pages) → Run workflow* (sobre `main`).
-Construye `web/` con `VITE_BASE=/donostia-dataviz/` y copia los HTML
-autocontenidos de `output/` como páginas hermanas. **Ningún merge ni push
+Construye `web/` con `VITE_BASE=/donostia-dataviz/app/`, copia los HTML
+autocontenidos de `output/` a la raíz (historias también como `index.html`) y
+convierte el working paper de markdown a HTML. **Ningún merge ni push
 publica nada por sí solo**: se revisan los textos y se lanza cuando se decide.
 
 > **Activación (una sola vez):** en *Settings → Pages*, poner **Source =
