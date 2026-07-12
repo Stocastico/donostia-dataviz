@@ -209,7 +209,14 @@ propagada a `resumen.md` y `README.md`.
   reproduciendo el SVG publicado. Resto de colores de texto verificados ≥4,5:1;
   las trazas grises del scatter quedan como contexto deliberadamente atenuado
   (la lectura vive en las 4 destacadas y en el texto).
-- ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
+- ✅ **DOC-6** working paper metodológico — hecho (2026-07-12, Code, petición del
+  usuario): `docs/WORKING-PAPER.md`. Síntesis autocontenida del método: diseño de
+  datos (geometría única, completo/parcial/proxy, provenance 17/19/5), MET-1…8
+  razonadas, métricas derivadas (presión, velocidad, índice AN-8, triangulación
+  REC-13, isla de calor REC-14), estrategia inferencial con N pequeño (LOO,
+  bootstrap, AN-9, AN-15, AN-11, el caso AN-6→AN-16 como retirada publicada,
+  AN-12), resultados, limitaciones, regla de parada y el patrón reutilizable
+  para otros municipios. Referencia cruzada a los docs operativos.
 - ✅ **Granularidad calle/punto (no barrio)** — hecho (jul-2026, Code): primera
   vista **sub-barrio** del proyecto. El censo VUT (`vtur_censo.csv`) trae la
   dirección (`helbidea`) y el **callejero municipal** de Donostia Open Data
