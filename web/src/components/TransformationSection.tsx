@@ -19,16 +19,18 @@ const COMPONENT_OPTIONS = [
 ];
 
 function useMetric(id: string): MetricData | null {
-  const [metric, setMetric] = useState<MetricData | null>(null);
+  // Store the id alongside the data: while a newly selected id is still
+  // loading, the stale metric simply stops matching and the caller sees null
+  // (no setMetric(null) reset needed inside the effect).
+  const [loaded, setLoaded] = useState<{ id: string; metric: MetricData } | null>(null);
   useEffect(() => {
     let active = true;
-    setMetric(null);
-    loadMetric(id).then((m) => active && setMetric(m));
+    loadMetric(id).then((m) => active && setLoaded({ id, metric: m }));
     return () => {
       active = false;
     };
   }, [id]);
-  return metric;
+  return loaded?.id === id ? loaded.metric : null;
 }
 
 /** One map of the VIZ-6 dashboard: a small choropleth + legend + confidence card,

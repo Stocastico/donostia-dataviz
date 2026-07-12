@@ -89,7 +89,6 @@ export function BarrioMap({ data }: { data: BarriosGeoJSON }) {
       map.remove();
       mapRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Recolor whenever the decorated data changes. If the source doesn't exist
