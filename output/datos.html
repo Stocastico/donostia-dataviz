@@ -83,9 +83,13 @@
       2026 se re-ejecutó el build contra las fuentes vivas como <strong>validación de
       reproducibilidad</strong>, sin refrescar los datos publicados: los únicos cambios aguas arriba
       eran junio de 2026 en la serie AEMET, −2 unidades en el censo VUT (registro vivo) y ±1
-      habitante del padrón en dos celdas de Aiete. La ventana temporal de cada dataset (serie o
+      habitante del padrón en dos celdas de Aiete. El 12 de julio de 2026 se refrescó
+      <strong>solo la fuente Inside Airbnb</strong> al snapshot 2026-06-30 (métricas
+      <code>airbnb_*</code>, serie de reseñas y componente turístico del Índice de
+      Transformación); el resto de fuentes se mantiene deliberadamente en el estado del
+      10 de julio. La ventana temporal de cada dataset (serie o
       snapshot) se indica fila a fila en las tablas de abajo; los snapshots puntuales
-      (Inside Airbnb 2025-09, censo VUT, equipamientos…) conservan su fecha propia.</p>
+      (Inside Airbnb 2026-06, censo VUT, equipamientos…) conservan su fecha propia.</p>
   </div>
 
   <div class="card" id="barrio">
@@ -109,8 +113,8 @@
         <tr><td><code>ageing_index</code></td><td>≥65 / &lt;15 × 100</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
         <tr><td><code>pct_youth_adults</code></td><td>% de 25–39 años</td><td>18 barrios, 2000–2025</td><td><span class="badge b-obs">observado</span></td><td>Padrón — pirámide de edad</td></tr>
         <tr><td><code>vut_density</code> / <code>vut_count</code> / <code>vut_plazas</code></td><td>VUT /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Censo VUT — Donostia Open Data</td></tr>
-        <tr><td><code>airbnb_density</code></td><td>anuncios /1.000 hab.</td><td>19 barrios, snapshot 2025-09</td><td><span class="badge b-der">derivado</span></td><td>Inside Airbnb (Euskadi), join espacial. Solo plataforma Airbnb: suelo del alquiler turístico online (Booking y otras fuera); incluye no registrados</td></tr>
-        <tr><td><code>airbnb_activity</code></td><td>reseñas/año /1.000 hab.</td><td>panel barrio×año, 2011–2025</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — reseñas como proxy de presencia turística. Sesgo de adopción de plataforma (MET-7, exageración ×1,18 cuantificada en REC-13); solo Airbnb</td></tr>
+        <tr><td><code>airbnb_density</code></td><td>anuncios /1.000 hab.</td><td>19 barrios, snapshot 2026-06</td><td><span class="badge b-der">derivado</span></td><td>Inside Airbnb (Euskadi), join espacial. Solo plataforma Airbnb: suelo del alquiler turístico online (Booking y otras fuera); incluye no registrados</td></tr>
+        <tr><td><code>airbnb_activity</code></td><td>reseñas/año /1.000 hab.</td><td>panel barrio×año, 2011–2026 (2026 parcial)</td><td><span class="badge b-pro">proxy</span></td><td>Inside Airbnb — reseñas como proxy de presencia turística. Sesgo de adopción de plataforma (MET-7, exageración ×1,22 cuantificada en REC-13); solo Airbnb</td></tr>
         <tr><td><code>schools_per_1000</code></td><td>centros /1.000 hab.</td><td>por barrio</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos educativos — Open Data (GeoJSON). Registro municipal de educación formal (157 centros públicos y privados; academias fuera)</td></tr>
         <tr><td><code>health_per_1000</code></td><td>servicios de salud /1.000 hab.</td><td>por barrio, snapshot</td><td><span class="badge b-der">derivado</span></td><td>Equipamientos de salud — Open Data (GeoJSON, REC-18; join espacial). Registro municipal (públicos y clínicas privadas; consultas privadas y farmacias fuera)</td></tr>
         <tr><td><code>noise_night_pct55</code></td><td>% área ≥55 dB (Lnight)</td><td>por barrio, 2022</td><td><span class="badge b-pro">proxy</span></td><td>Mapa estratégico de ruido (SHP, ruido de transporte)</td></tr>
@@ -184,8 +188,8 @@
         y Tablas de Mortalidad de Gipuzkoa (tabla 67235, riesgo de muerte ₅qx quinquenal) — solo alimenta el
         análisis AN-12 (descomposición por cohortes), no el pipeline.</li>
       <li><a href="https://insideairbnb.com/get-the-data/">Inside Airbnb</a> — snapshot Euskadi (anuncios
-        geolocalizados + reseñas), 2025-09; y la serie de 8 snapshots trimestrales 2023-12→2025-09
-        (anuncios activos, solo análisis REC-13).</li>
+        geolocalizados + reseñas), 2026-06; y la serie de 9 snapshots 2023-12→2026-06 (trimestrales
+        hasta 2025-09, sin snapshot intermedio hasta 2026-06; anuncios activos, solo análisis REC-13).</li>
       <li><a href="https://planetarycomputer.microsoft.com">Microsoft Planetary Computer</a> — Landsat 8/9
         Collection 2 Level-2 (banda térmica, 45 escenas de verano 2015–2025) — solo alimenta el análisis
         REC-14 (isla de calor por barrio), no el pipeline.</li>

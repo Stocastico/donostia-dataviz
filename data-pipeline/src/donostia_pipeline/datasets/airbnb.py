@@ -34,13 +34,13 @@ from ..spatial import BarrioIndex, rate_per_1000
 
 LISTINGS_GZ = "airbnb_listings.csv.gz"
 REVIEWS_GZ = "airbnb_reviews.csv.gz"
-SNAPSHOT = "2025-09"  # Inside Airbnb Euskadi snapshot 2025-09-29
+SNAPSHOT = "2026-06"  # Inside Airbnb Euskadi snapshot 2026-06-30
 SOURCE = (
-    "Inside Airbnb — Euskadi (snapshot 2025-09-29); join espacial punto→barrio"
+    "Inside Airbnb — Euskadi (snapshot 2026-06-30); join espacial punto→barrio"
 )
 SOURCE_REVIEWS = (
-    "Inside Airbnb — recensioni per mese (proxy di presenza turistica, "
-    "«modello San Francisco»: una recensione ≈ un soggiorno recensito); snapshot 2025-09-29"
+    "Inside Airbnb — reseñas por mes (proxy de presencia turística, "
+    "«modelo San Francisco»: una reseña ≈ una estancia reseñada); snapshot 2026-06-30"
 )
 
 

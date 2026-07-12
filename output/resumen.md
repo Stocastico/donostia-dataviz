@@ -42,7 +42,7 @@ el **2026-07-10**; build online re-validado contra las fuentes vivas el
 | `ageing_index` | ≥65/<15 ×100 | 18 barrios, 2000–2025 | observado | Padrón |
 | `pct_youth_adults` | % 25–39 | 18 barrios, 2000–2025 | observado | Padrón |
 | `vut_density` / `vut_count` / `vut_plazas` | VUT /1000 ab. | por barrio | derivado | Donostia Open Data |
-| `airbnb_density` | anuncios /1000 ab. | 19 barrios, snapshot 2025-09 | derivado | Inside Airbnb |
+| `airbnb_density` | anuncios /1000 ab. | 19 barrios, snapshot 2026-06 | derivado | Inside Airbnb |
 | `airbnb_activity` | reseñas/año /1000 ab. | panel barrio×año, 2011–2025 | proxy | Inside Airbnb (sesgo de adopción MET-7) |
 | `schools_per_1000` | centros /1000 ab. | por barrio | derivado | Open Data (equipamientos) |
 | `health_per_1000` | servicios de salud /1000 ab. | por barrio, snapshot | derivado | Open Data (equipamientos, REC-18) |
@@ -305,7 +305,7 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
 6. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
    centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel;
    parte es adopción de plataforma, MET-7 — cuantificado en REC-13: la oferta activa real solo sube
-   +2,0 % en 2023–2025 frente a +20,2 % de reseñas, ×1,18 de exageración; altas VUT del REATE 300/año→18). El indicio de que precedía al
+   +1,3 % en 2023–2026 frente a +23,6 % de reseñas, ×1,22 de exageración; altas VUT del REATE 300/año→18). El indicio de que precedía al
    alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,
    r≈0,10, p≈0,30), y el cruce con la curva REATE (refinamiento AN-6) tampoco
    lo reabre. El ruido nocturno es de **tráfico**, no de turismo (capa

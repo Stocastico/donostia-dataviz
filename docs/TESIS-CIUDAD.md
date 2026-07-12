@@ -225,7 +225,7 @@ y Gros **359** (de ~1.490 en la ciudad); densidad Erdialdea **29,9**/1000 hab.,
 Gros **20,7**, Antiguo 8,5. Estacionalidad hotelera (INE EOH 2005–2026): pico
 jul/ago ~245k, mínimo ene ~116k; desplome 2020 (COVID) y recuperación + ligera
 **desestacionalización** desde 2021; total 2025 ≈ **2,2 M** de pernoctaciones. Proxy de reseñas: exagera
-el crecimiento de oferta **×1,18** (2023–2025: oferta activa +2,0 % vs reseñas +20,2 %) y las altas nuevas de
+el crecimiento de oferta **×1,22** (2023–2026: oferta activa +1,3 % vs reseñas +23,6 %) y las altas nuevas de
 licencias VUT del registro REATE caen de **300/año (2017) a 18 (2025)** (REC-13/REC-12). Calle a calle
 (censo VUT × callejero municipal, 301 calles): Zabaleta **35** unidades, Urbieta 34, Easo 33, San Marcial 31;
 las 10 calles más cargadas = **19 %** del censo — la media de barrio borra los ejes saturados.

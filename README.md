@@ -138,7 +138,10 @@ con `barrio_id` estable como clave de join.
 > **Vigencia de los datos:** última descarga completa de las fuentes el
 > **2026-07-10**; build online re-validado contra las fuentes vivas el
 > **2026-07-11** (todas responden; diffs aguas arriba mínimos, no aplicados —
-> ver BACKLOG §Datos crudos). Detalle por fuente en `datos/input/FUENTES.md`
+> ver BACKLOG §Datos crudos). El **2026-07-12** se refrescó **solo Inside
+> Airbnb** al snapshot **2026-06-30** (métricas `airbnb_*`, serie de reseñas y
+> componente turístico del Índice de Transformación); el resto sigue en el
+> estado del 07-10. Detalle por fuente en `datos/input/FUENTES.md`
 > y en la sección «Vigencia» de `output/datos.html`.
 
 > **Nombre de barrio:** el barrio se escribe **Antiguo** en textos de cara al

@@ -131,14 +131,14 @@ RAW_DOWNLOADS: dict[str, str] = {
         "7c0f2bf4-00b6-44bf-bf24-c9bdbc9bd00c/resource/"
         "cde02a4c-8113-45b9-ba59-614855e18919/download/pfi_tasas_tipo_ciudad_ckan.csv"
     ),
-    # Inside Airbnb — Euskadi region snapshot 2025-09-29 (gzipped CSV). The full
+    # Inside Airbnb — Euskadi region snapshot 2026-06-30 (gzipped CSV). The full
     # `data/` files carry coordinates + per-review dates; we spatial-join to barrios
     # and keep only Donostia. License: Inside Airbnb (CC BY 4.0).
     "airbnb_listings.csv.gz": (
-        "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz"
+        "https://data.insideairbnb.com/spain/pv/euskadi/2026-06-30/data/listings.csv.gz"
     ),
     "airbnb_reviews.csv.gz": (
-        "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
+        "https://data.insideairbnb.com/spain/pv/euskadi/2026-06-30/data/reviews.csv.gz"
     ),
     # Gobierno Vasco REATE registry — tourist homes (VUT) + rooms (HUT) with the
     # original registration date. Living snapshot: bajas are not published, so

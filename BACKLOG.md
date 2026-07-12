@@ -35,9 +35,13 @@ estático de AN-18 en la historia #6, y huérfano del lead/lag corregido en el
 takeaway de #5. **REC de datos nuevos hechos (jul-2026, Code): REC-12
 (licencias REATE, 3 indicadores), REC-17 (movilidad Eustat + empleo
 localizado, 4 indicadores — H4 completada), REC-13 (snapshots Airbnb:
-oferta +2 % vs reseñas +20 %, MET-7 cuantificado ×1,18) y REC-14 (isla de
+oferta +1 % vs reseñas +24 %, MET-7 cuantificado ×1,22 — actualizado
+jul-2026 con el snapshot 2026-06-30) y REC-14 (isla de
 calor Landsat: Gros +4,8 °C, el mapa térmico coincide con el este denso).**
 Queda su integración narrativa (Cowork).
+**Snapshot Inside Airbnb refrescado a 2026-06-30 (2026-07-12, Code):**
+pipeline + app + docs al día; `historias.html` sigue citando la ventana
+2025-09 (×1,18 y blob `DONO`) → pasada editorial pendiente (Cowork).
 
 ---
 
@@ -490,14 +494,20 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   REC-8). Señal: las altas caen de 300/año (2017) a 18 (2025). Módulo
   `datasets/reate_licencias.py` + tests. **Sigue pendiente el uso analítico**
   (reabrir H1: lead/lag licencias→alquiler con la curva REATE, ver AN-6).
-- ✅ **REC-13 anuncios activos Inside Airbnb** — hecho (jul-2026):
-  `analysis/airbnb_snapshots.py` (+ tests) sobre los 8 snapshots trimestrales
-  accesibles (2023-12-29 → 2025-09-29; los 8 anteriores hasta 2021-12-30
+- ✅ **REC-13 anuncios activos Inside Airbnb** — hecho (jul-2026), **actualizado
+  el 2026-07-12 con el snapshot 2026-06-30** (9º accesible; entre 2025-09-29 y
+  2026-06-30 no se publicó ninguno — la cadencia trimestral se interrumpió):
+  `analysis/airbnb_snapshots.py` (+ tests) sobre los 9 snapshots accesibles
+  (2023-12-29 → 2026-06-30; los 8 anteriores hasta 2021-12-30
   dan 403, solo vía data request — fechas listadas en el script). **MET-7 con
-  número**: oferta activa +2,0 % vs reseñas-12m +20,2 % (el proxy exagera
-  ×1,18 en la ventana); % con licencia declarada 58,5→84,5 % con caída de
-  activos −10 % en 2025 (huella de purga); reparto espacial estable
+  número**: oferta activa +1,3 % vs reseñas-12m +23,6 % (el proxy exagera
+  ×1,22 en la ventana); % con licencia declarada 58,5→88,5 % con caída de
+  activos −10 % en 2025 (huella de purga) **y sin rebote en 2026** (1.605
+  activos, −0,7 % vs sep-2025); reparto espacial estable
   (confirma AN-20 con oferta). Detalle en `ANALISIS-INFERENCIAL.md` §REC-13.
+  ⬜ *Pendiente (Cowork):* los keynums de `historias.html` (×1,18, +2 %/+20 %,
+  58→85 %) y el blob `DONO` siguen en la ventana 2025-09 — refrescar en la
+  próxima pasada editorial del relato.
 - ✅ **REC-14 isla de calor superficial** — hecho (jul-2026):
   `analysis/heat_island.py` (+ tests; rasterio/pyproj solo para ese script)
   con 45 escenas de verano Landsat 8/9 C2 L2 (2015–2025, máscara qa_pixel)
