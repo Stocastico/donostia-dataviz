@@ -228,7 +228,9 @@ def _fetch_aemet_window(start: int, end: int, key: str) -> list[dict] | None:
         if datos:
             resp = requests.get(datos, timeout=60)
             if resp.status_code == 200:
-                resp.encoding = "latin-1"  # AEMET serves ISO-8859-15
+                # AEMET declares ISO-8859-15; latin-1 decodes these numeric
+                # payloads identically (the two differ only in €/Š-type chars).
+                resp.encoding = "latin-1"
                 return json.loads(resp.text)
         # throttled or transient → exponential backoff (3, 6, 12, 24s)
         time.sleep(3 * 2**attempt)
@@ -447,7 +449,7 @@ def ensure_eustat_renta_trabajo(offline: bool) -> bool:
 
 
 # Roadmap: per-barrio metrics whose sources are known but not yet wired. They
-# render disabled ("in arrivo") in the picker. Currently empty — the remaining
+# render disabled ("próximamente") in the picker. Currently empty — the remaining
 # roadmap items (MICE, Ibiltur spend) are city-grain, not barrio choropleths.
 PLANNED_METRICS: list[dict] = []
 

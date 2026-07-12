@@ -30,11 +30,11 @@ function usePanel(defaultId: string) {
   return { id, setId, metric };
 }
 
-/** Historia #5 ("la città turistica vs. la città vissuta") portata al dashboard
- * interattivo (VIZ-10): due mappe indipendenti affiancate — non una mappa
- * bivariata (VIZ-3), che fonde due assi in un'unica scala; qui ogni lato ha la
- * propria metrica e scala colore, per un confronto puramente geografico di
- * "dove sta cosa". */
+/** Story #5 ("the tourist city vs. the lived-in city") brought to the
+ * interactive dashboard (VIZ-10): two independent maps side by side — not a
+ * bivariate map (VIZ-3), which fuses two axes into a single scale; here each
+ * side keeps its own metric and color scale, for a purely geographic
+ * comparison of "what sits where". */
 export function TwoCitiesSection() {
   const tourismMetrics = useMemo(
     () => metricRegistry.filter((m) => TOURISM_IDS.includes(m.id) && m.status === "live"),

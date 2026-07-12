@@ -26,10 +26,10 @@ function indexed(series: SeriesData): Map<string, number> {
   return new Map(agg.map((d) => [d.year, (d.value / base) * 100]));
 }
 
-/** "Due turismi": Airbnb (reseñas, proxy) vs hotel (pernottamenti INE), entrambi
- * indicizzati a {BASE}=100 per confrontarne la *traiettoria* nonostante le unità
- * diverse. Mette in scena il relato #5: l'alloggio turistico cresce molto più in
- * fretta della capacità alberghiera. */
+/** "Two tourisms": Airbnb (reviews, a proxy) vs hotel (INE overnight stays),
+ * both indexed to {BASE}=100 to compare their *trajectory* despite the
+ * different units. Stages story #5: touristic lodging grows much faster than
+ * hotel capacity. */
 export function TourismCompareSection() {
   const [airbnb, setAirbnb] = useState<SeriesData | null>(null);
   const [hotel, setHotel] = useState<SeriesData | null>(null);

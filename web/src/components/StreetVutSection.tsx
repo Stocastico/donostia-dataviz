@@ -17,12 +17,15 @@ export function StreetVutSection() {
   const [measure, setMeasure] = useState<MeasureKey>("units");
   const data = streetVut;
   const m = MEASURES[measure];
-  const fc = useMemo(() => streetPointsGeoJSON(data, measure), [data, measure]);
-  const rows = useMemo(() => streetRows(data, measure), [data, measure]);
   const scale = useMemo(
     () => buildColorScale(data.streets.map((s) => s[m.key]), "sequential", "warm"),
     [data, m.key],
   );
+  const fc = useMemo(
+    () => streetPointsGeoJSON(data, measure, scale),
+    [data, measure, scale],
+  );
+  const rows = useMemo(() => streetRows(data, measure), [data, measure]);
 
   if (!data || data.streets.length === 0) return null;
 

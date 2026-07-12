@@ -3,7 +3,7 @@
 // WebGL canvas (opaque to screen readers), so — as with the barrio choropleth —
 // the same numbers are exposed as an ordered text table via streetRows().
 
-import { buildColorScale } from "./colorScale";
+import { buildColorScale, type ColorScale } from "./colorScale";
 import type { StreetVut, StreetVutData } from "./types";
 
 /** Selectable measures. ``rMin``/``rMax`` bound the circle radius in pixels. */
@@ -80,15 +80,18 @@ export interface StreetFeatureCollection {
 }
 
 /** Decorate each street as a Point feature carrying color (shared YlOrRd ramp,
- *  like the choropleths) and an area-proportional radius for the circle map. */
+ *  like the choropleths) and an area-proportional radius for the circle map.
+ *  Pass ``scale`` to reuse one already built for the same measure (e.g. the
+ *  legend's); omitted, an identical one is built here. */
 export function streetPointsGeoJSON(
   data: StreetVutData,
   measure: MeasureKey,
+  scale?: ColorScale,
 ): StreetFeatureCollection {
   const m = MEASURES[measure];
   const values = data.streets.map((s) => s[m.key]);
   const max = values.reduce((acc, v) => Math.max(acc, v), 0);
-  const scale = buildColorScale(values, "sequential", "warm");
+  scale ??= buildColorScale(values, "sequential", "warm");
 
   return {
     type: "FeatureCollection",

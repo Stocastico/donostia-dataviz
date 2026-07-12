@@ -32,14 +32,16 @@ export function StreetMap({ data }: { data: StreetFeatureCollection }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MlMap | null>(null);
   const popupRef = useRef<maplibregl.Popup | null>(null);
-  const initialRef = useRef<StreetFeatureCollection>(data);
+  // Latest decorated data; the "load" handler reads it so a data change that
+  // lands before the style finishes loading isn't lost (same as BarrioMap).
+  const dataRef = useRef<StreetFeatureCollection>(data);
 
   useEffect(() => {
     if (!containerRef.current) return;
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: BLANK_STYLE,
-      bounds: bounds(initialRef.current),
+      bounds: bounds(dataRef.current),
       fitBoundsOptions: { padding: 28 },
       attributionControl: false,
     });
@@ -47,7 +49,7 @@ export function StreetMap({ data }: { data: StreetFeatureCollection }) {
     popupRef.current = new maplibregl.Popup({ closeButton: false, closeOnClick: false });
 
     map.on("load", () => {
-      map.addSource(SOURCE_ID, { type: "geojson", data: initialRef.current });
+      map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
       map.addLayer({
         id: "streets-circle",
         type: "circle",
@@ -85,6 +87,7 @@ export function StreetMap({ data }: { data: StreetFeatureCollection }) {
   }, []);
 
   useEffect(() => {
+    dataRef.current = data;
     const map = mapRef.current;
     if (!map) return;
     const source = map.getSource(SOURCE_ID) as maplibregl.GeoJSONSource | undefined;
