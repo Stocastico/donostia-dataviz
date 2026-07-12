@@ -45,6 +45,18 @@ pipeline + app + docs + `historias.html` al día (keynums ×1,22 / 88,5 % /
 verificado en Chromium sin errores JS). También corregidos los dos restos
 de italiano del relato («Chi vive nel barrio · origini» → «Quién vive en el
 barrio · orígenes», tema «Sanità» → «Salud»).
+**Rediseño scrollytelling de `historias.html` (2026-07-12, Code, petición del
+usuario — cierra VIZ-9):** los cuatro mapas interactivos (presión, vejez,
+orígenes, turismo) pasan a figura fija + pasos de scroll que aplican el estado
+por los mismos setters que los controles manuales (degradación a artículo plano
+sin `IntersectionObserver` y en móvil); el scatter VUT×alquiler etiqueta los 13
+barrios y colorea por el perfil k-means (paleta categórica validada croma/CVD,
+`#1f6f8b`→`#1b7ba3`); cajas «La métrica, en claro» (z-scores/percentiles, Gini,
+k-means, Pearson/bootstrap, lead/lag + efectos fijos, beta-convergencia);
+transiciones entre capítulos reforzadas, coda en la nav, «Seis relatos»→«Siete
+historias» y matiz H7 en la coda (Erdialdea +29 % junto a Egia +28 %). 9 tests
+jsdom nuevos en `web/tests/historias.test.ts` (suite 97/97); coherencia
+propagada a `resumen.md` y `README.md`.
 
 ---
 
@@ -731,7 +743,15 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   testeada), no maplibre — métricas con 20+ años agotarían el límite de
   contextos WebGL concurrentes del navegador si cada mini-mapa fuera una
   instancia maplibre real.
-- ⬜ **VIZ-9** scrollytelling (solo tras cerrar contenido).
+- ✅ **VIZ-9** scrollytelling — hecho (2026-07-12, Code, petición del usuario),
+  en `output/historias.html` (no en el app): los cuatro mapas interactivos del
+  relato (presión MET-1, índice de vejez, orígenes por región, densidad
+  turística) pasan a figura *sticky* + pasos que aplican medida/año/capa con los
+  mismos setters que los controles manuales; sin `IntersectionObserver` o en
+  <900 px degrada a artículo plano. Cubierto por 9 tests jsdom en
+  `web/tests/historias.test.ts` (activación de pasos vía `__scrollyActivate`,
+  sincronía con los controles, etiquetas del scatter). Detalle completo en
+  «Estado en una línea».
 - ✅ **REC-21-web — ficha de país en el detalle de barrio** (Code, `web/`) —
   hecho (jul-2026): sección **«Chi vive nel barrio · origini»** en el app con
   selector de barrio → top-5 nacionalidades extranjeras del barrio, cada una con
