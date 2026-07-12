@@ -40,8 +40,13 @@
   nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
   nav.toc .brand{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}
   nav.toc a{color:var(--ink2);text-decoration:none;font-size:.85rem;font-weight:600;
-    padding:7px 12px;border-radius:999px}
+    padding:7px 12px;border-radius:999px;white-space:nowrap}
   nav.toc a:hover{background:#eef4f8;color:var(--sea-d)}
+  @media(max-width:900px){
+    nav.toc .wrap{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    nav.toc .brand{flex:0 0 auto;margin-right:10px}
+    nav.toc a{flex:0 0 auto}
+  }
 
   /* SECTIONS */
   section.story{padding:72px 0 24px;border-top:1px solid var(--line)}
@@ -147,6 +152,44 @@
   .conf b{font-weight:700} .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
   .dot.derived{background:var(--amber)} .dot.observed{background:var(--green)} .dot.proxy{background:var(--coral)}
 
+  /* SCROLLYTELLING */
+  .scrolly{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:30px;
+    align-items:start;margin:30px 0}
+  .scrolly .fig{margin:0}
+  .scrolly-fig{position:sticky;top:var(--navh,62px);z-index:5}
+  /* keep the sticky figure inside one viewport: the map letterboxes, never distorts */
+  .scrolly-fig .mapwrap svg.map{max-height:42vh}
+  .scrolly-steps{display:flex;flex-direction:column;gap:4vh;padding:4vh 0 22vh}
+  .step{min-height:52vh;display:flex;align-items:center}
+  .step>div{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--line);
+    border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);
+    opacity:.45;transition:opacity .25s,border-color .25s}
+  .step.active>div{opacity:1;border-left-color:var(--sea)}
+  .s1 .step.active>div{border-left-color:var(--coral)}
+  .s3 .step.active>div{border-left-color:var(--green)}
+  .sw .step.active>div{border-left-color:#4a5fa5}
+  .s5 .step.active>div{border-left-color:#8e7cc3}
+  .step p{margin:.45em 0;font-size:.95rem}
+  .step .steplab{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;
+    font-weight:700;color:var(--muted);margin-bottom:6px}
+  .scrolly-fig .rankwrap{max-height:190px;overflow:auto;margin-top:10px;border-top:1px solid var(--line)}
+  @media(max-width:900px){
+    /* on small screens the scrolly degrades to a plain article: figure, then steps */
+    .scrolly{grid-template-columns:1fr;gap:14px}
+    .scrolly-fig{position:static}
+    .scrolly-fig .mapwrap svg.map{max-height:none}
+    .step{min-height:0}
+    .step>div{opacity:1}
+    .scrolly-steps{gap:12px;padding:0 0 10px}
+  }
+
+  /* metric explainers */
+  .metric-expl{background:#f4f6fb;border:1px solid #dfe5f2;border-radius:12px;padding:12px 16px;
+    margin:14px 0;font-size:.85rem;color:var(--ink2);line-height:1.55}
+  .metric-expl b{color:var(--ink)}
+  .metric-expl .me-lab{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;
+    font-weight:700;color:#4a5fa5;margin-bottom:4px}
+
   table.rank{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:6px}
   table.rank th,table.rank td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
   table.rank th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
@@ -178,7 +221,9 @@
       <strong style="color:#fff">dos ciudades</strong> (la turística y la vivida) y la
       <strong style="color:#fff">síntesis</strong> — más un epílogo con lo que los datos aún no pueden responder.</p>
     <p class="lede" style="font-size:1rem;color:#bfe3ef">Cada gráfico se construye a partir de las tablas del
-      proyecto. Algunos son <strong style="color:#fff">interactivos</strong>: muévelos para poner a prueba los supuestos.</p>
+      proyecto. Los mapas principales se <strong style="color:#fff">recorren con el scroll</strong>: el mapa queda
+      fijo y va cambiando al hilo del texto que pasa a su lado. Todos los controles se pueden mover también
+      <strong style="color:#fff">a mano</strong>, para poner a prueba los supuestos.</p>
     <p class="meta">Fuentes: Donostia Open Data · Eustat · Gobierno Vasco (EMA) · INE · AEMET (Igeldo) · Inside Airbnb · 19 barrios oficiales</p>
   </div>
 </header>
@@ -194,6 +239,7 @@
     <a href="#s5">6 · Turística vs. vivida</a>
     <a href="#s6">7 · En transformación</a>
     <a href="#sx">+ · La ciudad de fondo</a>
+    <a href="#sp">≠ · Percepción vs. datos</a>
     <a href="#s7">? · Lo que no sabemos</a>
     <a href="metodologia.html" style="color:var(--sea-d)">Metodología</a>
     <a href="datos.html" style="color:var(--sea-d)">Datos</a>
@@ -220,52 +266,87 @@
         precio absoluto, sino qué parte de la renta se lleva. Y ahí el mapa <strong>se invierte</strong>.</p>
       <p>El indicador de presión mide el esfuerzo teórico del residente medio: el coste anual de alquilar
         una vivienda &mdash;a tantos metros cuadrados por persona&mdash; frente a su renta. El supuesto de
-        metros cuadrados es discutible, así que aquí <strong>lo puedes mover tú</strong> y ver si la historia aguanta.</p>
+        metros cuadrados es discutible, así que aquí <strong>lo puedes mover tú</strong> y ver si la historia
+        aguanta. El mapa que sigue se queda fijo mientras lees: cada bloque de texto lo va cambiando,
+        y los controles quedan a tu disposición para explorar por tu cuenta.</p>
+      <div class="metric-expl"><span class="me-lab">Las tres medidas, en claro</span>
+        <b>Cuota de renta</b>: qué porcentaje de la renta per cápita se llevaría el alquiler anual — la medida
+        más intuitiva. <b>z(alquiler)&nbsp;−&nbsp;z(renta)</b>: expresa el alquiler y la renta de cada barrio en
+        <b>desviaciones típicas</b> respecto a la media de la ciudad (cómo de atípico es cada uno) y resta ambas;
+        si sale positivo, el alquiler destaca más que la renta. <b>Percentil&nbsp;−&nbsp;percentil</b>: la misma
+        resta pero con la <b>posición en el ranking</b> (el 4.º más caro, el 9.º en renta…), que ignora las
+        magnitudes y por eso es inmune a los valores extremos.</div>
     </div>
 
-    <div class="fig">
-      <h3>Presión del alquiler sobre el residente medio, por barrio (2023)</h3>
-      <p class="cap">Esfuerzo teórico = alquiler €/m² × 12 × m²/persona ÷ renta per cápita. Mueve el supuesto y cambia la medida.</p>
-      <div class="controls">
-        <div class="control">
-          <label>m² por persona <span class="val" id="m2val">30</span></label>
-          <input type="range" id="m2" min="20" max="50" step="5" value="30">
-          <span class="hint" id="m2hint">El supuesto del proyecto es 30 m². Probar 20–50 muestra su sensibilidad.</span>
-        </div>
-        <div class="control">
-          <label>Medida</label>
-          <div class="segmented" id="measure">
-            <button data-m="cuota" class="active">Cuota de renta</button>
-            <button data-m="zgap">z(alquiler) − z(renta)</button>
-            <button data-m="pgap">percentil − percentil</button>
+    <div class="scrolly" data-scrolly="press">
+      <div class="scrolly-fig">
+        <div class="fig">
+          <h3>Presión del alquiler sobre el residente medio, por barrio (2023)</h3>
+          <p class="cap">Esfuerzo teórico = alquiler €/m² × 12 × m²/persona ÷ renta per cápita.
+            Cuanto más oscuro, más esfuerzo; en gris, los barrios sin dato de alquiler (mercados demasiado
+            pequeños para registrar contratos). Pasa el ratón por cualquier barrio para ver sus números.</p>
+          <div class="controls">
+            <div class="control">
+              <label>m² por persona <span class="val" id="m2val">30</span></label>
+              <input type="range" id="m2" min="20" max="50" step="5" value="30">
+              <span class="hint" id="m2hint">El supuesto del proyecto es 30 m². Probar 20–50 muestra su sensibilidad.</span>
+            </div>
+            <div class="control">
+              <label>Medida</label>
+              <div class="segmented" id="measure">
+                <button data-m="cuota" class="active">Cuota de renta</button>
+                <button data-m="zgap">z(alquiler) − z(renta)</button>
+                <button data-m="pgap">percentil − percentil</button>
+              </div>
+              <span class="hint" id="meashint">Cuota: cuánto pesa el alquiler en la renta. Las otras dos miden si el alquiler corre por delante de la renta.</span>
+            </div>
           </div>
-          <span class="hint" id="meashint">Cuota: cuánto pesa el alquiler en la renta. Las otras dos miden si el alquiler corre por delante de la renta.</span>
-        </div>
-      </div>
-      <div class="grid2">
-        <div>
           <div class="mapwrap"><svg class="map" id="map_press"></svg></div>
           <div class="legend" id="leg_press"></div>
-        </div>
-        <div>
-          <table class="rank" id="rank_press"><thead><tr><th>Barrio</th><th style="text-align:right" id="rankcol">Esfuerzo</th></tr></thead><tbody></tbody></table>
+          <div class="rankwrap">
+            <table class="rank" id="rank_press"><thead><tr><th>Barrio</th><th style="text-align:right" id="rankcol">Esfuerzo</th></tr></thead><tbody></tbody></table>
+          </div>
+          <p class="src">Fuente: Gobierno Vasco EMA (alquiler €/m² de nuevos contratos con fianza depositada — no el stock de alquileres vigentes) + Eustat/Donostia Open Data (renta per cápita). Métrica derivada.</p>
         </div>
       </div>
-      <p class="src">Fuente: Gobierno Vasco EMA (alquiler €/m² de nuevos contratos con fianza depositada — no el stock de alquileres vigentes) + Eustat/Donostia Open Data (renta per cápita). Métrica derivada.</p>
-    </div>
-
-    <div class="narrow">
-      <p>Con el supuesto base (30 m²), el esfuerzo máximo no está en el centro caro, sino en el
-        <strong>este obrero</strong>: Altza, Egia e Intxaurrondo. Cambia los metros y verás que el
-        <em>ranking</em> apenas se mueve &mdash; el mensaje es robusto al supuesto. Lo que sí cambia es la
-        <em>medida</em>: la cuota de renta señala el este pobre; los desajustes estandarizados también iluminan
-        el centro caro (Gros, Erdialdea), donde el alquiler corre por delante de la renta. <strong>Egia</strong>
-        es el único barrio que aparece arriba se mida como se mida.</p>
+      <div class="scrolly-steps">
+        <div class="step active" data-m2="30" data-measure="cuota"><div>
+          <span class="steplab">1 · La cuota de renta</span>
+          <p>Con el supuesto base (30 m² por persona), el esfuerzo máximo <strong>no</strong> está en el
+            centro caro, sino en el <strong>este obrero</strong>: Altza (21,9&nbsp;%), Egia (21,3&nbsp;%) e
+            Intxaurrondo (20,9&nbsp;%). El mapa del esfuerzo es casi el negativo del mapa del precio.</p>
+        </div></div>
+        <div class="step" data-m2="45" data-measure="cuota"><div>
+          <span class="steplab">2 · ¿Y si el supuesto es otro?</span>
+          <p>Subimos a 45 m² por persona: el color se oscurece &mdash;el esfuerzo teórico crece en todas
+            partes&mdash; pero el <em>orden</em> de los barrios apenas se mueve. La conclusión no depende
+            del supuesto de metros: es <strong>robusta</strong>. (Mueve tú el control y compruébalo con
+            cualquier otro valor.)</p>
+        </div></div>
+        <div class="step" data-m2="30" data-measure="zgap"><div>
+          <span class="steplab">3 · El desajuste estandarizado</span>
+          <p>Cambiamos de medida. <strong>z(alquiler)&nbsp;−&nbsp;z(renta)</strong> compara, para cada barrio,
+            a cuántas <em>desviaciones típicas</em> de la media de la ciudad están su alquiler y su renta
+            &mdash;es decir, cómo de raro es cada uno dentro de Donostia&mdash; y resta ambas cosas. Rojo:
+            el alquiler es más «alto para lo normal» que la renta; azul: al revés. Esta lente ilumina también
+            el <strong>centro caro</strong> (Gros, Erdialdea), donde el alquiler corre por delante de la renta.</p>
+        </div></div>
+        <div class="step" data-m2="30" data-measure="pgap"><div>
+          <span class="steplab">4 · Y en percentiles</span>
+          <p>La tercera medida hace lo mismo con <em>posiciones</em>: si un barrio es el 4.º más caro de 13
+            pero el 9.º en renta, su alquiler «va por delante». Es inmune a los valores extremos, porque solo
+            mira el orden. El resultado coincide &mdash; y deja un nombre: <strong>Egia</strong> es el único
+            barrio que aparece arriba <strong>se mida como se mida</strong>.</p>
+        </div></div>
+      </div>
     </div>
 
     <div class="fig">
       <h3>Renta × presión: el ángulo anómalo</h3>
-      <p class="cap">Mapa bivariado 3×3. Cada barrio se clasifica por su tercil de renta (eje horizontal) y de presión de alquiler (eje vertical).</p>
+      <p class="cap">Este mapa cruza <strong>dos variables a la vez</strong>. Los 13 barrios con dato se reparten
+        en tres tercios por renta (de menos a más) y en tres tercios por presión de alquiler, y cada combinación
+        recibe un color de la rejilla 3×3 de la derecha. No mide cantidades exactas: sitúa cada barrio en uno de
+        nueve cajones.</p>
       <div class="grid2">
         <div>
           <div class="mapwrap"><svg class="map" id="map_biv"></svg></div>
@@ -276,10 +357,13 @@
               <div class="bivleg" id="bivleg"></div>
             </div>
             <div>
-              <div style="font-weight:700;color:var(--ink);font-size:.84rem">Cómo leer</div>
+              <div style="font-weight:700;color:var(--ink);font-size:.84rem">Cómo leer la rejilla</div>
               <div>→ renta más alta &nbsp;·&nbsp; ↑ presión más alta</div>
               <div style="margin-top:8px;color:var(--coral-d);font-weight:600">El rojo intenso (arriba-izquierda)
                 = renta baja con presión alta: el este obrero.</div>
+              <div style="margin-top:8px">Las otras esquinas: gris claro (abajo-izquierda) = renta baja pero sin
+                presión; azul (abajo-derecha) = renta alta y alquiler asumible; azul-morado oscuro
+                (arriba-derecha) = caro <em>y</em> tensionado a la vez.</div>
             </div>
           </div>
         </div>
@@ -289,6 +373,12 @@
     <div class="fig">
       <h3>…pero la brecha de renta entre barrios no se ensancha</h3>
       <p class="cap">Índice de Gini de la renta por barrio (ponderado por población), 2016–2023. Más alto = más desigualdad territorial. La línea discontinua es el Gini sin ponderar.</p>
+      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+        El índice de <b>Gini</b> resume cuánto se desvía un reparto de la igualdad perfecta: <b>0</b> significaría
+        que los 13 barrios tienen exactamente la misma renta per cápita; <b>1</b>, que toda la renta está en uno
+        solo. Aquí ronda 0,10 — una brecha moderada y, sobre todo, <b>estable</b>. «Ponderado por población»
+        quiere decir que un barrio de 30.000 habitantes pesa en el cálculo más que uno de 500: así un exclave
+        diminuto y volátil no puede mover el índice de toda la ciudad.</div>
       <div class="mapwrap"><svg class="map" id="gini" style="max-width:680px;margin:0 auto"></svg></div>
       <p class="src">analysis/an5_polarizacion.csv (Eustat, renta por barrio). El pico de 2022 sin ponderar es un outlier de un barrio pequeño y volátil (Miramón-Zorroaga); ponderado por población, la brecha es estable (~0,10). Ojo: este índice mide la desigualdad <em>entre</em> los 13 barrios — no la desigualdad dentro de cada barrio ni la de quien se marcha del municipio. Si las rentas bajas salen de la ciudad, la brecha interna puede quedarse estable creando una ilusión de equidad.</p>
     </div>
@@ -347,15 +437,19 @@
         <div><p class="eyebrow">Capítulo 2 · El cambio: qué se mueve</p><h2 class="story-title">Qué barrios cambian más rápido</h2></div>
       </div>
       <p class="question">¿Qué barrios se están moviendo, y hacia qué perfil?</p>
-      <p>No todos los barrios cambian al mismo ritmo ni en la misma dirección. En lugar de mirar el valor de
-        hoy, este mapa mira la <strong>velocidad</strong>: cuánto sube o baja cada indicador por año desde 2016.
-        El alquiler sube en todas partes (3–4&nbsp;%/año), pero la población y la composición social se mueven
-        a dos velocidades.</p>
+      <p>El capítulo 1 dejó la foto fija: la presión de vivienda carga sobre el este de renta baja. Pero una
+        foto no dice si ese mapa se está consolidando o deshaciendo. Para eso hay que medir
+        <strong>velocidades</strong>: en lugar del valor de hoy, cuánto sube o baja cada indicador por año
+        desde 2016. El alquiler sube en todas partes (3–4&nbsp;%/año), pero la población y la composición
+        social se mueven a dos velocidades.</p>
     </div>
 
     <div class="fig">
       <h3>Velocidad de cambio por barrio (variación media anual desde 2016)</h3>
-      <p class="cap">Escala divergente: azul = baja / rojo = sube. Elige el indicador.</p>
+      <p class="cap">Este mapa pinta la <strong>pendiente, no el nivel</strong>: un barrio caro que ya no sube
+        aparece pálido; uno barato que sube deprisa, rojo intenso. La escala es divergente &mdash;azul = baja,
+        blanco = estable, rojo = sube&mdash; y el gris marca los barrios sin serie suficiente. Elige el
+        indicador con los botones.</p>
       <div class="controls">
         <div class="control" style="min-width:auto">
           <label>Indicador</label>
@@ -385,7 +479,12 @@
 
     <div class="fig">
       <h3>Perfiles de barrio</h3>
-      <p class="cap">Tipología descriptiva (k-means, k=4) sobre renta, % universitarios, densidad VUT y alquiler. 13 barrios con las cuatro variables.</p>
+      <p class="cap">Tipología descriptiva (k-means, k=4) sobre renta, % universitarios, densidad VUT y alquiler. 13 barrios con las cuatro variables. Aquí el color no ordena de más a menos: cada color es una <strong>familia</strong> de barrios parecidos entre sí.</p>
+      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+        <b>k-means</b> es un algoritmo que agrupa los barrios en un número fijo de grupos (aquí k=4) de manera
+        que cada barrio se parezca lo máximo posible &mdash;en renta, estudios, turismo y alquiler a la vez&mdash;
+        a los de su propio grupo y lo mínimo a los demás. No hay jerarquía ni «mejor perfil»: son familias de
+        parecido, y con solo 13 barrios deben leerse como descripción orientativa, no como clasificación dura.</div>
       <div class="grid2">
         <div><div class="mapwrap"><svg class="map" id="map_prof"></svg></div></div>
         <div><div class="swatches" id="prof_sw"></div>
@@ -398,8 +497,19 @@
 
     <div class="fig">
       <h3>Donde hay turismo, hay alquileres altos</h3>
-      <p class="cap">Cada punto es un barrio; el tamaño es su población. Densidad de vivienda turística (eje X) frente a alquiler €/m² (eje Y).</p>
+      <p class="cap">Cada punto es un barrio, con su nombre; el tamaño del círculo es su población y el
+        <strong>color repite el perfil del mapa anterior</strong>, para que puedas cruzar ambas lecturas.
+        Densidad de vivienda turística (eje X) frente a alquiler €/m² (eje Y): la nube sube hacia la derecha.</p>
       <div class="mapwrap"><svg class="map" id="scatter" style="max-width:680px;margin:0 auto"></svg></div>
+      <div class="swatches" id="scatter_sw"></div>
+      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+        La <b>correlación de Pearson (r)</b> resume cuánto se alinean dos variables: +1 sería una línea recta
+        perfecta hacia arriba, 0 ninguna relación, −1 una recta perfecta hacia abajo. Aquí r&nbsp;=&nbsp;0,64:
+        una relación clara pero con excepciones. El intervalo «IC95% bootstrap 0,42–0,87» sale de recalcular la
+        correlación miles de veces sorteando qué barrios entran: incluso en el escenario bajo la relación sigue
+        siendo positiva. Y como dos barrios extremos podrían fabricar una correlación ellos solos, se comprueba
+        quitando Erdialdea y Gros: r apenas baja (0,62). Correlación, en todo caso, no es causalidad — eso se
+        examina en el capítulo 6.</div>
       <p class="src">VUT (Donostia Open Data) × alquiler EMA. Pearson r = 0,64 (IC95% bootstrap 0,42–0,87); aguanta al quitar Erdialdea y Gros (0,62).</p>
     </div>
     <div class="fig">
@@ -437,31 +547,60 @@
         <div><p class="eyebrow">Capítulo 3 · Las personas: quién lo habita</p><h2 class="story-title">Quién vive Donostia</h2></div>
       </div>
       <p class="question">¿Está cambiando <em>quién</em> vive en cada barrio: su edad, su recambio?</p>
-      <p>El índice de vejez compara mayores de 65 con menores de 15: cuanto más alto, más envejecido el barrio.
-        Mueve la línea del tiempo y observa cómo el centro envejece mientras el este se mantiene joven.</p>
+      <p>El capítulo 2 midió que el centro pierde población mientras la periferia la gana. Este pregunta por
+        la cara humana de ese movimiento. El <strong>índice de vejez</strong> compara mayores de 65 con menores
+        de 15 &mdash;un índice de 200 significa dos mayores por cada menor&mdash;: cuanto más alto, más
+        envejecido el barrio. El recorrido que sigue viaja de 2000 a 2025; el control del año queda en tus
+        manos al terminar.</p>
     </div>
 
-    <div class="fig">
-      <h3>Índice de vejez por barrio (≥65 / &lt;15 × 100)</h3>
-      <p class="cap">Arrastra el control para recorrer 2000–2025. Cuanto más oscuro, más envejecido.</p>
-      <div class="controls">
-        <div class="control">
-          <label>Año <span class="val" id="yearval">2025</span></label>
-          <input type="range" id="year" min="2000" max="2025" step="1" value="2025">
-        </div>
-        <div class="control" style="min-width:auto">
-          <label>Indicador</label>
-          <div class="segmented" id="agesel">
-            <button data-k="ageing" class="active">Índice de vejez</button>
-            <button data-k="youth">% adultos jóvenes (25–39)</button>
+    <div class="scrolly" data-scrolly="age">
+      <div class="scrolly-fig">
+        <div class="fig">
+          <h3>Índice de vejez por barrio (≥65 / &lt;15 × 100)</h3>
+          <p class="cap">Arrastra el control para recorrer 2000–2025. Cuanto más oscuro, más envejecido; el
+            segundo indicador (% de adultos jóvenes) pinta la lectura inversa en verde.</p>
+          <div class="controls">
+            <div class="control">
+              <label>Año <span class="val" id="yearval">2025</span></label>
+              <input type="range" id="year" min="2000" max="2025" step="1" value="2025">
+            </div>
+            <div class="control" style="min-width:auto">
+              <label>Indicador</label>
+              <div class="segmented" id="agesel">
+                <button data-k="ageing" class="active">Índice de vejez</button>
+                <button data-k="youth">% adultos jóvenes (25–39)</button>
+              </div>
+            </div>
           </div>
+          <div class="mapwrap"><svg class="map" id="map_age"></svg></div>
+          <div class="legend" id="leg_age"></div>
+          <div class="rankwrap">
+            <table class="rank" id="rank_age"><thead><tr><th>Barrio</th><th style="text-align:right" id="agecol">Valor</th></tr></thead><tbody></tbody></table>
+          </div>
+          <p class="src">Donostia Open Data — padrón por edad y sexo (bandas quinquenales), 2000–2025.</p>
         </div>
       </div>
-      <div class="grid2">
-        <div><div class="mapwrap"><svg class="map" id="map_age"></svg></div><div class="legend" id="leg_age"></div></div>
-        <div><table class="rank" id="rank_age"><thead><tr><th>Barrio</th><th style="text-align:right" id="agecol">Valor</th></tr></thead><tbody></tbody></table></div>
+      <div class="scrolly-steps">
+        <div class="step active" data-year="2000" data-agek="ageing"><div>
+          <span class="steplab">1 · Año 2000: el punto de partida</span>
+          <p>Así era el mapa demográfico al empezar el siglo. Fíjate en el tono del centro &mdash;Gros,
+            Erdialdea, Antiguo&mdash; para poder compararlo con el final del recorrido.</p>
+        </div></div>
+        <div class="step" data-year="2025" data-agek="ageing"><div>
+          <span class="steplab">2 · 2025: el centro se oscurece</span>
+          <p>Un cuarto de siglo después, <strong>Gros llega a 370</strong> y Erdialdea a 350: más de tres
+            mayores por cada menor. <strong>Antiguo</strong> es el que más sube (+203 puntos). En la otra punta,
+            <strong>Miramón-Zorroaga</strong> &mdash;de construcción reciente&mdash; rejuvenece.</p>
+        </div></div>
+        <div class="step" data-year="2025" data-agek="youth"><div>
+          <span class="steplab">3 · La lectura inversa: los adultos jóvenes</span>
+          <p>Cambiamos el indicador: % de población de 25 a 39 años. El mapa casi se invierte:
+            <strong>Intxaurrondo roza el 21&nbsp;%</strong> y el este obrero concentra la población adulta más
+            joven de la ciudad &mdash;la misma geografía donde el capítulo 1 situaba el mayor esfuerzo de
+            alquiler.</p>
+        </div></div>
       </div>
-      <p class="src">Donostia Open Data — padrón por edad y sexo (bandas quinquenales), 2000–2025.</p>
     </div>
 
     <div class="keynums">
@@ -509,31 +648,63 @@
       <p>La cifra de «% de población extranjera» es cómoda pero engañosa: mete en el mismo saco a poblaciones que se mueven en sentido <strong>opuesto</strong> respecto a la renta del barrio. En 2025 el <strong>9,4 %</strong> de Donostia había nacido fuera de España (era el 5,2 % en 2015 y menos del 1 % en 2000), pero ese agregado esconde ritmos y perfiles muy distintos. Este capítulo separa el origen por regiones y lo cruza con la renta y los estudios; luego mira en qué trabaja la ciudad &mdash;mucha investigación, y un abanico salarial ancho&mdash; y termina con un aviso: <strong>no existe</strong> ninguna estadística pública que cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a este grano, así que todo lo que sigue es <em>triangulación</em>, nunca una foto individual.</p>
     </div>
 
-    <div class="fig">
-      <h3>De dónde viene la población extranjera, por barrio (2025)</h3>
-      <p class="cap">Elige la región de origen. Cuota sobre la población total del barrio; cuanto más oscuro, mayor presencia. Mismo padrón que alimenta «% extranjeros», aquí desglosado por origen. Oarain (exclave rural) sin dato.</p>
-      <div class="controls">
-        <div class="control" style="min-width:auto">
-          <label>Región de origen</label>
-          <div class="segmented" id="orgsel">
-            <button data-k="latam" class="active">América Latina</button>
-            <button data-k="norte_africa">Norte de África</button>
-            <button data-k="europa_occidental">Europa occidental</button>
-            <button data-k="asia">Asia</button>
-            <button data-k="europa_este">Europa del Este</button>
+    <div class="scrolly" data-scrolly="org">
+      <div class="scrolly-fig">
+        <div class="fig">
+          <h3>De dónde viene la población extranjera, por barrio (2025)</h3>
+          <p class="cap">Cuota de cada región de origen sobre la población total del barrio: cuanto más oscuro,
+            mayor presencia. Es el mismo padrón que alimenta el «% de extranjeros», aquí desglosado por origen.
+            Oarain (exclave rural) sin dato.</p>
+          <div class="controls">
+            <div class="control" style="min-width:auto">
+              <label>Región de origen</label>
+              <div class="segmented" id="orgsel">
+                <button data-k="latam" class="active">América Latina</button>
+                <button data-k="norte_africa">Norte de África</button>
+                <button data-k="europa_occidental">Europa occidental</button>
+                <button data-k="asia">Asia</button>
+                <button data-k="europa_este">Europa del Este</button>
+              </div>
+              <span class="hint" id="orghint">Más de la mitad de toda la población extranjera; se concentra en el este de renta baja.</span>
+            </div>
           </div>
-          <span class="hint" id="orghint">Más de la mitad de toda la población extranjera; se concentra en el este de renta baja.</span>
+          <div class="mapwrap"><svg class="map" id="map_org"></svg></div>
+          <div class="legend" id="leg_org"></div>
+          <div class="rankwrap">
+            <table class="rank" id="rank_org"><thead><tr><th>Barrio</th><th style="text-align:right">% del barrio</th></tr></thead><tbody></tbody></table>
+          </div>
+          <p class="src">Donostia Open Data &mdash; padrón por país de nacimiento (57 países agrupados en 8 regiones de origen), 2000&ndash;2025. Grano barrio.</p>
         </div>
       </div>
-      <div class="grid2">
-        <div><div class="mapwrap"><svg class="map" id="map_org"></svg></div><div class="legend" id="leg_org"></div></div>
-        <div><table class="rank" id="rank_org"><thead><tr><th>Barrio</th><th style="text-align:right">% del barrio</th></tr></thead><tbody></tbody></table></div>
+      <div class="scrolly-steps">
+        <div class="step active" data-orgk="latam"><div>
+          <span class="steplab">1 · América Latina: el grupo mayor</span>
+          <p>Es el origen más numeroso y el que más crece (×19 desde 2000: del 0,25&nbsp;% al 4,81&nbsp;% de la
+            población). Se concentra en los barrios de <strong>menor renta</strong> &mdash;Martutene, Altza,
+            Mirakruz-Bidebieta&mdash;: su cuota correlaciona <strong>−0,69</strong> con la renta per cápita del
+            barrio.</p>
+        </div></div>
+        <div class="step" data-orgk="norte_africa"><div>
+          <span class="steplab">2 · Norte de África: la misma geografía</span>
+          <p>Base pequeña pero ×27 desde 2000, con el máximo en <strong>Intxaurrondo</strong> (5,8&nbsp;% del
+            barrio). También se asienta donde la renta es menor (correlación −0,48): es el patrón de la
+            <strong>migración económica</strong>.</p>
+        </div></div>
+        <div class="step" data-orgk="europa_occidental"><div>
+          <span class="steplab">3 · Europa occidental: el mapa contrario</span>
+          <p>Este grupo hace justo lo opuesto: se asienta en el <strong>centro, Ategorrieta-Ulia y Gros</strong>
+            &mdash;los barrios más caros y turísticos&mdash; y correlaciona en positivo con la renta (+0,24) y
+            con los universitarios (+0,59). Un perfil de expatriado acomodado, jubilado o teletrabajador.
+            Dentro de «extranjero» conviven, literalmente, <strong>dos ciudades</strong>.</p>
+        </div></div>
+        <div class="step" data-orgk="europa_este"><div>
+          <span class="steplab">4 · Los grupos menores</span>
+          <p>Europa del Este (Ucrania y Rumanía, sobre todo) y Asia completan el cuadro con presencias más
+            difusas y sin un patrón fuerte de renta. Los botones del mapa te dejan recorrerlos; el panel
+            interactivo baja además al país concreto, barrio a barrio (ficha «Quién vive en el barrio ·
+            orígenes»).</p>
+        </div></div>
       </div>
-      <p class="src">Donostia Open Data &mdash; padrón por país de nacimiento (57 países agrupados en 8 regiones de origen), 2000&ndash;2025. Grano barrio.</p>
-    </div>
-
-    <div class="narrow">
-      <p>El mapa cambia de golpe al pasar de una región a otra, y ahí está el hallazgo central. La población de origen <strong>latinoamericano</strong> (el grupo mayor, y el que más crece: ×19 desde 2000) y la <strong>magrebí</strong> se concentran en los barrios de <strong>menor renta</strong> &mdash;Martutene, Altza, el este obrero, Intxaurrondo&mdash;: su cuota correlaciona <strong>−0,69</strong> (Latinoamérica) y −0,48 (Norte de África) con la renta per cápita del barrio. La población de <strong>Europa occidental</strong> hace justo lo contrario: correlaciona <strong>+0,24</strong> con la renta y <strong>+0,59</strong> con el porcentaje de universitarios, y se asienta en el centro, Ategorrieta-Ulia y Gros &mdash;los barrios más caros y turísticos&mdash;, un perfil de expatriado acomodado, jubilado o teletrabajador, no de migración económica. Dentro de «extranjero» conviven, literalmente, dos ciudades. <em>(El panel interactivo baja esta foto al país concreto: la ficha «Quién vive en el barrio · orígenes» enseña, barrio a barrio, el top-5 de nacionalidades con su cuota y su variación a diez años.)</em></p>
     </div>
 
     <div class="fig">
@@ -588,8 +759,11 @@
         <div><p class="eyebrow">Capítulo 5 · El telón de fondo</p><h2 class="story-title">El clima cambia</h2></div>
       </div>
       <p class="question">¿Cómo ha cambiado el clima de Donostia en 45 años?</p>
-      <p>La estación de Igeldo lleva registrando desde 1981. Cada franja vertical es un año, coloreada por su
-        temperatura media: del azul (frío) al rojo (cálido). La deriva hacia el rojo se lee de un vistazo.</p>
+      <p>Precios, movimientos y personas &mdash;los capítulos 1 a 4&mdash; ocurren sobre un escenario físico
+        que también se mueve. La estación de Igeldo lleva registrando desde 1981. Cada franja vertical es un
+        año, coloreada por su temperatura media: del azul (frío) al rojo (cálido). La deriva hacia el rojo se
+        lee de un vistazo &mdash;y al final del capítulo veremos que ese calor, sobre el plano, cae en los
+        mismos barrios que ya conocemos.</p>
     </div>
 
     <div class="fig">
@@ -661,41 +835,58 @@
         <div><p class="eyebrow">Capítulo 6 · Las dos ciudades</p><h2 class="story-title">La ciudad turística vs. la ciudad vivida</h2></div>
       </div>
       <p class="question">¿Conviven dos ciudades superpuestas — la del visitante y la del residente?</p>
-      <p>Donostia recibe cada verano muchos más visitantes que habitantes. Pero el turismo no ocupa la ciudad
-        de forma uniforme: se concentra donde la ciudad es más fotogénica. Este mapa mide la
-        <strong>densidad de alojamiento turístico</strong> por barrio &mdash;anuncios de Airbnb por cada 1.000
-        habitantes&mdash; y la compara con las viviendas de uso turístico (VUT) registradas.</p>
+      <p>El capítulo 2 dejó una pista: donde hay turismo, hay alquileres altos (r&nbsp;=&nbsp;0,64). Este
+        capítulo mira esa superposición de frente. Donostia recibe cada verano muchos más visitantes que
+        habitantes, pero el turismo no ocupa la ciudad de forma uniforme: se concentra donde la ciudad es más
+        fotogénica. El mapa que sigue mide la <strong>densidad de alojamiento turístico</strong> por barrio
+        &mdash;anuncios de Airbnb por cada 1.000 habitantes&mdash; y la compara con las viviendas de uso
+        turístico (VUT) registradas.</p>
       <p>Los datos de Airbnb (Inside Airbnb, foto de septiembre de 2025) capturan un universo <strong>más amplio
         que los VUT legales</strong>, porque incluyen alojamientos no registrados &mdash;aunque de una sola
         plataforma: son un <em>suelo</em> del alquiler turístico online, no su total (Booking y otras quedan
         fuera)&mdash;. Aun así, el patrón coincide: el turismo se agolpa en el centro.</p>
     </div>
 
-    <div class="fig">
-      <h3>Densidad de alojamiento turístico por barrio</h3>
-      <p class="cap">Elige la fuente. Cuanto más oscuro, más anuncios por cada 1.000 habitantes. Solo 13 barrios urbanos; los periféricos rurales quedan fuera para evitar artefactos per cápita.</p>
-      <div class="controls">
-        <div class="control" style="min-width:auto">
-          <label>Fuente</label>
-          <div class="segmented" id="toursel">
-            <button data-k="airbnb" class="active">Airbnb (2025)</button>
-            <button data-k="vut">VUT registradas</button>
+    <div class="scrolly" data-scrolly="tour">
+      <div class="scrolly-fig">
+        <div class="fig">
+          <h3>Densidad de alojamiento turístico por barrio</h3>
+          <p class="cap">Cuanto más oscuro, más alojamiento por cada 1.000 habitantes. Solo se pintan los 13
+            barrios urbanos: en los periféricos rurales, de población mínima, unas pocas viviendas dispararían
+            la cifra per cápita sin significar nada (quedan en gris).</p>
+          <div class="controls">
+            <div class="control" style="min-width:auto">
+              <label>Fuente</label>
+              <div class="segmented" id="toursel">
+                <button data-k="airbnb" class="active">Airbnb (2025)</button>
+                <button data-k="vut">VUT registradas</button>
+              </div>
+              <span class="hint">Airbnb incluye alojamiento no registrado; VUT son las licencias oficiales.</span>
+            </div>
           </div>
-          <span class="hint">Airbnb incluye alojamiento no registrado; VUT son las licencias oficiales.</span>
+          <div class="mapwrap"><svg class="map" id="map_tour"></svg></div>
+          <div class="legend" id="leg_tour"></div>
+          <div class="rankwrap">
+            <table class="rank" id="rank_tour"><thead><tr><th>Barrio</th><th style="text-align:right">/1000 hab.</th></tr></thead><tbody></tbody></table>
+          </div>
+          <p class="src">Inside Airbnb — Euskadi (snapshot 2026-06), join espacial punto→barrio · censo VUT / Donostia Open Data. Densidad derivada (per cápita).</p>
         </div>
       </div>
-      <div class="grid2">
-        <div><div class="mapwrap"><svg class="map" id="map_tour"></svg></div><div class="legend" id="leg_tour"></div></div>
-        <div><table class="rank" id="rank_tour"><thead><tr><th>Barrio</th><th style="text-align:right">/1000 hab.</th></tr></thead><tbody></tbody></table></div>
+      <div class="scrolly-steps">
+        <div class="step active" data-tourk="airbnb"><div>
+          <span class="steplab">1 · Los anuncios de Airbnb</span>
+          <p>La concentración es extrema: <strong>Erdialdea</strong> (el Centro y la Parte Vieja) roza los
+            <strong>33 anuncios por 1.000 habitantes</strong> y <strong>Gros</strong> ronda los 18. En el este
+            obrero (Altza, Intxaurrondo, Martutene) la presencia turística es casi anecdótica.</p>
+        </div></div>
+        <div class="step" data-tourk="vut"><div>
+          <span class="steplab">2 · Las licencias oficiales dicen lo mismo</span>
+          <p>Cambiamos a las <strong>VUT registradas</strong> &mdash;el censo legal&mdash; y el mapa apenas se
+            mueve: la concentración en el centro <strong>no es un artefacto de la plataforma</strong>. Airbnb
+            añade el alojamiento no registrado por encima, pero la geografía es la misma: la ciudad del
+            visitante ocupa el suelo de la ciudad-escaparate, y la ciudad vivida se reparte por la periferia.</p>
+        </div></div>
       </div>
-      <p class="src">Inside Airbnb — Euskadi (snapshot 2026-06), join espacial punto→barrio · censo VUT / Donostia Open Data. Densidad derivada (per cápita).</p>
-    </div>
-
-    <div class="narrow">
-      <p>La concentración es extrema: <strong>Erdialdea</strong> (el Centro y la Parte Vieja) roza los
-        <strong>33 anuncios por 1.000 habitantes</strong>, y <strong>Gros</strong> ronda los 18. En el este obrero
-        (Altza, Intxaurrondo, Martutene) la presencia turística es casi anecdótica. La ciudad del visitante ocupa
-        el mismo suelo que la ciudad-escaparate; la ciudad vivida se reparte por la periferia.</p>
     </div>
 
     <div class="narrow">
@@ -763,6 +954,14 @@
     <div class="fig">
       <h3>¿El turismo empuja al alquiler? Un primer indicio (AN-6)</h3>
       <p class="cap">Correlación entre la variación anual de la actividad Airbnb y la del alquiler, según el desfase temporal. Panel de 13 barrios, en primeras diferencias (descuenta la tendencia común).</p>
+      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+        Cada barra responde a una pregunta distinta: ¿la actividad Airbnb de un año se parece al alquiler de
+        <b>ese mismo año</b> (desfase 0), al de <b>un año después</b> (+1), al de un año antes (−1)…? Si el
+        turismo empujara al alquiler, la correlación debería ser mayor cuando el turismo va <em>por delante</em>.
+        «Primeras diferencias» significa que se correlacionan las <b>subidas y bajadas</b> anuales, no los
+        niveles: así dos series que simplemente crecen a la vez no aparentan relación. Aun así el resultado
+        puede deberse a la marea común de la ciudad — el control de esa marea (efectos fijos de año) se explica
+        en el texto siguiente, y es el que tumba el indicio.</div>
       <div class="mapwrap"><svg class="map" id="leadlag" style="max-width:560px;margin:0 auto"></svg></div>
       <p class="src">analysis/lead_lag.py · docs/ANALISIS-LEADLAG.md. Correlación débil (r≈0,27) y exploratoria: la señal está en la forma, no en la magnitud.</p>
     </div>
@@ -770,8 +969,10 @@
     <div class="narrow">
       <p>La correlación es máxima cuando el turismo <strong>precede al alquiler en un año</strong> (r≈0,27), y mayor
         que la del mismo año (0,19) o la del sentido inverso (≈0). Pero el blindaje posterior (AN-16) rebaja la
-        lectura: al descontar los <strong>shocks comunes de año</strong> (inflación, tipos, COVID &mdash;efectos fijos
-        de año&mdash;) la correlación cae a ≈0,10 y un test de permutación no la distingue del azar (p≈0,30). La mayor
+        lectura: al descontar los <strong>shocks comunes de año</strong> (inflación, tipos, COVID &mdash;los
+        «efectos fijos de año»: restar a cada barrio lo que ese año subió la ciudad entera&mdash;) la correlación
+        cae a ≈0,10, y un test de permutación &mdash;barajar miles de veces qué serie va con cuál y contar cuántas
+        veces sale por puro azar una correlación así de grande&mdash; no la distingue del azar (p≈0,30). La mayor
         parte de aquel 0,27 era covariación de toda la ciudad a la vez, no "sube después el alquiler donde más crece
         el turismo". Con estos datos el indicio direccional <strong>no se sostiene</strong>. La segunda señal
         turística ya se probó (jul-2026): el flujo de licencias VUT del registro REATE &mdash;independiente de las
@@ -870,7 +1071,8 @@
         </div>
         <div class="mini">
           <h4>2 · Presión turística</h4>
-          <p class="cap">Nivel de VUT + Airbnb + alquiler (z-score). Rojo = más presión.</p>
+          <p class="cap">Nivel de VUT + Airbnb + alquiler (z-score: cada variable se expresa como desviaciones
+            respecto a la media de la ciudad, para poder sumar magnitudes de unidades distintas). Rojo = más presión.</p>
           <div class="mapwrap"><svg class="map" id="map_ttour"></svg></div>
           <div class="legend" id="leg_ttour"></div>
         </div>
@@ -1149,6 +1351,8 @@
 
     <div class="narrow">
       <span class="conf"><span class="dot observed"></span><b>Observado / curado.</b>&nbsp;Indicadores de ciudad (no por barrio); los datos MICE están curados de notas de prensa citadas.</span>
+      <p class="nextcap">Los datos dibujan la ciudad; falta saber si coinciden con cómo la vive su gente.
+        <a href="#sp">Coda — lo que preocupa a la ciudad, contrastado →</a></p>
     </div>
   </div>
 </section>
@@ -1185,7 +1389,7 @@
 
       <p><strong>Ruido &mdash; es el tr&aacute;fico, no el turismo.</strong> La encuesta del ruido se&ntilde;ala como m&aacute;s ruidosos la Parte Vieja, Amara Berri, Egia, Gros y A&ntilde;orga. Cruzados con los datos del proyecto, esos barrios coinciden con la <strong>isla de calor</strong> y con el <strong>ruido medido</strong> (correlaciones &asymp;&nbsp;0,7) &mdash;la geograf&iacute;a del este denso&mdash;, pero <strong>no</strong> con la densidad de pisos tur&iacute;sticos (&asymp;&nbsp;0,47, y solo porque el centro tur&iacute;stico es adem&aacute;s el m&aacute;s denso). Amara Berri, Egia o A&ntilde;orga son ruidosos sin apenas turismo. Coincide con lo que el proyecto ya sab&iacute;a &mdash;el ruido es de tr&aacute;fico, no de turismo&mdash; y con lo que pide la propia encuesta: <strong>menos tr&aacute;fico</strong>.</p>
 
-      <p><strong>Vivienda &mdash; la presi&oacute;n no es uniforme, y ni siquiera se puede medir entera.</strong> El alquiler no sube igual en todas partes: entre los barrios con serie, el <strong>este obrero m&aacute;s barato sube m&aacute;s r&aacute;pido</strong> (Loiola +48&nbsp;%, Intxaurrondo +44&nbsp;% de 2016 a 2024) que el centro caro (Egia +28&nbsp;%) &mdash;converge en porcentaje, aunque la brecha en euros por metro persiste (v&eacute;ase el <a href="#s1">cap&iacute;tulo 1</a>)&mdash;. Y hay un punto ciego: <strong>seis de los diecinueve barrios no tienen ning&uacute;n dato</strong> de alquiler (Zubieta, Igeldo, A&ntilde;orga, Miram&oacute;n-Zorroaga y los dos exclaves rurales), porque su mercado de alquiler es demasiado peque&ntilde;o para registrar contratos. Sobre ellos, sencillamente, no se puede afirmar nada: un registro parcial no es el universo.</p>
+      <p><strong>Vivienda &mdash; la presi&oacute;n no es uniforme, y ni siquiera se puede medir entera.</strong> El alquiler no sube igual en todas partes: entre los barrios con serie, el <strong>este obrero m&aacute;s barato sube m&aacute;s r&aacute;pido</strong> (Loiola +48&nbsp;%, Intxaurrondo +44&nbsp;% de 2016 a 2024) que los barrios de alquiler ya caro (Erdialdea +29&nbsp;%, Egia +28&nbsp;%) &mdash;converge en porcentaje, aunque la brecha en euros por metro persiste (v&eacute;ase el <a href="#s1">cap&iacute;tulo 1</a>)&mdash;. Y hay un punto ciego: <strong>seis de los diecinueve barrios no tienen ning&uacute;n dato</strong> de alquiler (Zubieta, Igeldo, A&ntilde;orga, Miram&oacute;n-Zorroaga y los dos exclaves rurales), porque su mercado de alquiler es demasiado peque&ntilde;o para registrar contratos. Sobre ellos, sencillamente, no se puede afirmar nada: un registro parcial no es el universo.</p>
 
       <p class="nextcap">La percepci&oacute;n, contrastada, afina la agenda &mdash;y tambi&eacute;n marca d&oacute;nde se acaban los datos.
         <a href="#s7">Ep&iacute;logo &mdash; lo que a&uacute;n no podemos responder &rarr;</a></p>
@@ -1223,9 +1427,10 @@
         es público.</p>
 
       <p><strong>¿La desigualdad de verdad no crece?</strong> El Gini territorial estable solo mide la brecha
-        <em>entre</em> barrios, y un segundo test independiente apunta igual: la beta-convergencia (AN-13) no
-        encuentra ni convergencia ni divergencia — el nivel de partida de 2016 no predice cuánto sube después un
-        barrio. Pero la desigualdad dentro de cada barrio, y la de quien ya no puede vivir en la ciudad
+        <em>entre</em> barrios, y un segundo test independiente apunta igual: la beta-convergencia (AN-13)
+        &mdash;comprobar si los barrios que partían más abajo crecen después más deprisa, que es como las brechas
+        se cierran&mdash; no encuentra ni convergencia ni divergencia: el nivel de partida de 2016 no predice
+        cuánto sube después un barrio. Pero la desigualdad dentro de cada barrio, y la de quien ya no puede vivir en la ciudad
         y se marcha, quedan fuera del radar: la estabilidad podría ser una ilusión de equidad.</p>
 
       <p><strong>¿Cuánto del boom de Airbnb es real?</strong> El ×6 desde 2016 mezcla turistas nuevos con
@@ -1264,7 +1469,8 @@
     <div class="cols">
       <div>
         <h3>Sobre estas historias</h3>
-        <p>Seis relatos construidos sobre datos abiertos de Donostia y sus barrios. Todos los números son
+        <p>Siete historias construidas sobre datos abiertos de Donostia y sus barrios, más un apéndice de
+          contexto, una coda de percepción y un epílogo de límites. Todos los números son
           reproducibles desde el pipeline del proyecto y los scripts de análisis; cada métrica lleva su nivel
           de confianza (observado / derivado / proxy).</p>
         <p><b>Cómo leer los avisos:</b> <span class="dot observed"></span> observado · <span class="dot derived"></span> derivado · <span class="dot proxy"></span> proxy.</p>
@@ -1415,16 +1621,23 @@ function renderPress(){
     tb.innerHTML+=`<tr><td class="bar-cell" style="${hi}"><span class="bar" style="width:${w}%;background:${col}"></span>${PI[k].name}</td><td class="num">${fmt(v,MEASURE==='cuota'?1:2)}</td></tr>`;
   });
 }
-document.getElementById('m2').addEventListener('input',e=>{M2=+e.target.value;document.getElementById('m2val').textContent=M2;renderPress();});
-document.querySelectorAll('#measure button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#measure button').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');MEASURE=b.dataset.m;
-  const dis=MEASURE!=='cuota';
+function setM2(v){
+  M2=v;
+  const s=document.getElementById('m2');s.value=v;
+  document.getElementById('m2val').textContent=v;
+  renderPress();
+}
+function setMeasure(m){
+  MEASURE=m;
+  document.querySelectorAll('#measure button').forEach(x=>x.classList.toggle('active',x.dataset.m===m));
+  const dis=m!=='cuota';
   document.getElementById('m2').disabled=dis;
   document.getElementById('m2hint').parentElement.classList.toggle('disabled-note',dis);
   document.getElementById('m2hint').textContent=dis?'(El supuesto de m² no afecta a esta medida.)':'El supuesto del proyecto es 30 m². Probar 20–50 muestra su sensibilidad.';
   renderPress();
-}));
+}
+document.getElementById('m2').addEventListener('input',e=>setM2(+e.target.value));
+document.querySelectorAll('#measure button').forEach(b=>b.addEventListener('click',()=>setMeasure(b.dataset.m)));
 
 /* ============ STORY 1: bivariate ============ */
 const BIV=[['#e8e8e8','#b5c0da','#6c83b5'],['#dcb0c4','#aa9fc0','#5e76a8'],['#c85a8f','#9b5187','#3f4f8f']];
@@ -1477,7 +1690,7 @@ document.querySelectorAll('#velsel button').forEach(b=>b.addEventListener('click
 /* ============ STORY 2: profiles ============ */
 const PROF=D.profiles;
 const profColors={};const profOrder=[];
-(function(){const palette=['#1f6f8b','#7fb069','#e0902f','#d1495b','#8e7cc3'];
+(function(){const palette=['#1b7ba3','#7fb069','#e0902f','#d1495b','#8e7cc3']; // validated categorical set (chroma+CVD)
   Object.values(PROF).forEach(p=>{if(!(p in profColors)){profColors[p]=palette[profOrder.length%palette.length];profOrder.push(p);}});
   const mapProf=buildMap('map_prof');
   paintMap(mapProf,bid=>bid in PROF?profColors[PROF[bid]]:null,
@@ -1506,15 +1719,39 @@ const profColors={};const profOrder=[];
     const tx=add('text',{x:m.l-8,y:yy+4,'text-anchor':'end',fill:'#5f6e84','font-size':11});tx.textContent=g;}
   add('text',{x:(W)/2,y:H-8,'text-anchor':'middle',fill:'#3a4a63','font-size':12}).textContent='Densidad VUT (viviendas turísticas / 1000 hab.)';
   const yl=add('text',{x:16,y:H/2,'text-anchor':'middle',fill:'#3a4a63','font-size':12,transform:`rotate(-90 16 ${H/2})`});yl.textContent='Alquiler medio €/m²';
-  keys.forEach(k=>{
-    const r=6+(pops[keys.indexOf(k)]/pmax)*22;
-    const c=add('circle',{cx:X(vd[k].v),cy:Y(rent[k].v),r:r,fill:'rgba(31,111,139,.55)',stroke:'#0f4c5c','stroke-width':1});
+  // circles first (big ones behind), coloured by the profile of the previous figure
+  const radius=k=>6+(pops[keys.indexOf(k)]/pmax)*22;
+  keys.slice().sort((a,b)=>radius(b)-radius(a)).forEach(k=>{
+    const r=radius(k);
+    const col=(typeof profColors!=='undefined'&&PROF[k]&&profColors[PROF[k]])||'#1f6f8b';
+    const c=add('circle',{cx:X(vd[k].v),cy:Y(rent[k].v),r:r,fill:col,'fill-opacity':.6,stroke:col,'stroke-width':1.2});
     c._k=k;
-    c.addEventListener('mousemove',ev=>showTip(`<b>${D.barrios[k].name}</b><br>VUT <span class="t-val">${fmt(vd[k].v,1)}</span>/1000 · alquiler <span class="t-val">${fmt(rent[k].v,1)}</span> €/m²`,ev));
+    c.addEventListener('mousemove',ev=>showTip(`<b>${D.barrios[k].name}</b><br>VUT <span class="t-val">${fmt(vd[k].v,1)}</span>/1000 · alquiler <span class="t-val">${fmt(rent[k].v,1)}</span> €/m²${PROF[k]?`<br>Perfil: ${PROF[k]}`:''}`,ev));
     c.addEventListener('mouseleave',hideTip);
-    if(['erdialdea','gros','altza','egia'].includes(k)){
-      const t=add('text',{x:X(vd[k].v),y:Y(rent[k].v)-r-4,'text-anchor':'middle',fill:'#0f4c5c','font-size':11,'font-weight':700});t.textContent=D.barrios[k].name;}
   });
+  // then a label for EVERY point, dodging collisions greedily (biggest first)
+  const placed=[];
+  const overlaps=(a,b)=>!(a.x+a.w<b.x||b.x+b.w<a.x||a.y+a.h<b.y||b.y+b.h<a.y);
+  keys.slice().sort((a,b)=>radius(b)-radius(a)).forEach(k=>{
+    const name=D.barrios[k].name,r=radius(k);
+    const cx=X(vd[k].v),cy=Y(rent[k].v),w=name.length*5.6,h=11;
+    const cands=[
+      {x:cx-w/2,y:cy-r-4-h,tx:cx,ty:cy-r-6,anchor:'middle'},
+      {x:cx-w/2,y:cy+r+3,tx:cx,ty:cy+r+12,anchor:'middle'},
+      {x:cx+r+4,y:cy-h/2,tx:cx+r+5,ty:cy+3.5,anchor:'start'},
+      {x:cx-r-4-w,y:cy-h/2,tx:cx-r-5,ty:cy+3.5,anchor:'end'}
+    ].filter(c2=>c2.x>=2&&c2.x+w<=W-2&&c2.y>=m.t-2&&c2.y+h<=H-m.b+14);
+    const pick=cands.find(c2=>!placed.some(b=>overlaps(b,{x:c2.x,y:c2.y,w,h})))||cands[0]||{x:cx-w/2,y:cy-r-4-h,tx:cx,ty:cy-r-6,anchor:'middle'};
+    placed.push({x:pick.x,y:pick.y,w,h});
+    const t=add('text',{x:pick.tx,y:pick.ty,'text-anchor':pick.anchor,fill:'#33445c','font-size':9.5,
+      'font-weight':600,'paint-order':'stroke',stroke:'#fff','stroke-width':2.6,'stroke-linejoin':'round'});
+    t.textContent=name;
+  });
+  // legend: the same profile swatches as the previous figure (colour = identity, not decoration)
+  const sw=document.getElementById('scatter_sw');
+  if(sw&&typeof profOrder!=='undefined')
+    sw.innerHTML=profOrder.map(p=>`<span class="sw"><i style="background:${profColors[p]}"></i>${p}</span>`).join('')+
+      '<span class="sw" style="color:var(--muted)">tamaño = población</span>';
   // r annotation
   const an=add('text',{x:W-m.r-6,y:m.t+18,'text-anchor':'end',fill:'#a63446','font-size':14,'font-weight':700});an.textContent='r = 0,64';
 })();
@@ -1541,9 +1778,19 @@ function renderAge(){
   sorted.slice(0,12).forEach(([k,v])=>{const w=v/max*100;
     tb.innerHTML+=`<tr><td class="bar-cell"><span class="bar" style="width:${w}%;background:var(--green)"></span>${D.barrios[k].name}</td><td class="num">${fmt(v,AGEK==='ageing'?0:1)}</td></tr>`;});
 }
-document.getElementById('year').addEventListener('input',e=>{YEAR=+e.target.value;document.getElementById('yearval').textContent=YEAR;renderAge();});
-document.querySelectorAll('#agesel button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#agesel button').forEach(x=>x.classList.remove('active'));b.classList.add('active');AGEK=b.dataset.k;renderAge();}));
+function setYear(y){
+  YEAR=y;
+  document.getElementById('year').value=y;
+  document.getElementById('yearval').textContent=y;
+  renderAge();
+}
+function setAgeK(k){
+  AGEK=k;
+  document.querySelectorAll('#agesel button').forEach(x=>x.classList.toggle('active',x.dataset.k===k));
+  renderAge();
+}
+document.getElementById('year').addEventListener('input',e=>setYear(+e.target.value));
+document.querySelectorAll('#agesel button').forEach(b=>b.addEventListener('click',()=>setAgeK(b.dataset.k)));
 
 /* ============ STORY 4: climate ============ */
 const CL=D.climate;
@@ -1744,8 +1991,12 @@ function renderTour(){
   sorted.forEach(([k,v],i)=>{const w=v/max*100;const hi=i<3?'font-weight:700':'';
     tb.innerHTML+=`<tr><td class="bar-cell" style="${hi}"><span class="bar" style="width:${w}%;background:var(--coral)"></span>${D.barrios[k].name}</td><td class="num">${fmt(v,1)}</td></tr>`;});
 }
-document.querySelectorAll('#toursel button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#toursel button').forEach(x=>x.classList.remove('active'));b.classList.add('active');TOURK=b.dataset.k;renderTour();}));
+function setTourK(k){
+  TOURK=k;
+  document.querySelectorAll('#toursel button').forEach(x=>x.classList.toggle('active',x.dataset.k===k));
+  renderTour();
+}
+document.querySelectorAll('#toursel button').forEach(b=>b.addEventListener('click',()=>setTourK(b.dataset.k)));
 
 /* STORY 5: Airbnb vs hotel index (base 2016=100) */
 multiLineChart('tourindex',[
@@ -1910,9 +2161,13 @@ function renderOrigin(){
   sorted.slice(0,12).forEach(e=>{const k=e[0],v=e[1],w=v/max*100;
     tb.innerHTML+=`<tr><td class="bar-cell"><span class="bar" style="width:${w}%;background:#4a5fa5"></span>${D.barrios[k].name}</td><td class="num">${fmt(v,1)}</td></tr>`;});
 }
-document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#orgsel button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-  ORGK=b.dataset.k;document.getElementById('orghint').textContent=ORG_HINTS[ORGK];renderOrigin();}));
+function setOrgK(k){
+  ORGK=k;
+  document.querySelectorAll('#orgsel button').forEach(x=>x.classList.toggle('active',x.dataset.k===k));
+  document.getElementById('orghint').textContent=ORG_HINTS[k];
+  renderOrigin();
+}
+document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click',()=>setOrgK(b.dataset.k)));
 
 /* origin <-> income correlation (diverging bars) */
 (function orgCorr(){
@@ -1999,6 +2254,37 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 function renderSale(){const s=D.sale_price;if(!s)return;
   multiLineChart('sale_ts',s.series,{W:760,H:420,rpad:120,lo:s.lo,hi:s.hi,unit:'€/m²',dec:0,yticks:5,legend:false,endLabels:true});}
 renderPress();renderVel();renderAge();renderTour();renderLived();renderComp();renderOrigin();renderSale();
+
+/* ============ SCROLLYTELLING ============ */
+/* Each scrolly group pairs a sticky figure with steps; entering a step applies
+   its data-* state through the same setters the manual controls use, so the
+   two stay in sync. Without IntersectionObserver (old browsers, jsdom) the
+   page degrades to a plain article; __scrollyActivate drives steps manually. */
+const SCROLLY_APPLY={
+  press:s=>{if(s.dataset.m2)setM2(+s.dataset.m2);if(s.dataset.measure)setMeasure(s.dataset.measure);},
+  age:s=>{if(s.dataset.agek)setAgeK(s.dataset.agek);if(s.dataset.year)setYear(+s.dataset.year);},
+  org:s=>{if(s.dataset.orgk)setOrgK(s.dataset.orgk);},
+  tour:s=>{if(s.dataset.tourk)setTourK(s.dataset.tourk);}
+};
+function activateStep(step){
+  const grp=step.closest('[data-scrolly]');if(!grp)return;
+  grp.querySelectorAll('.step').forEach(x=>x.classList.toggle('active',x===step));
+  const fn=SCROLLY_APPLY[grp.dataset.scrolly];if(fn)fn(step);
+}
+window.__scrollyActivate=activateStep;
+/* the sticky offset must clear the nav, whose height depends on how its links wrap */
+function syncNavH(){
+  const nav=document.querySelector('nav.toc');
+  if(nav)document.documentElement.style.setProperty('--navh',(nav.offsetHeight+10)+'px');
+}
+syncNavH();
+window.addEventListener('resize',syncNavH);
+if(typeof IntersectionObserver!=='undefined'){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)activateStep(e.target);});
+  },{rootMargin:'-35% 0px -45% 0px',threshold:0});
+  document.querySelectorAll('[data-scrolly] .step').forEach(s=>io.observe(s));
+}
 </script>
 <!-- Donostia Dataviz · 7 historias -->
 </body>
