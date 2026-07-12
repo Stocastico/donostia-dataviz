@@ -2,7 +2,7 @@
 
 EXPLORATORIO. Cruza dos paneles barrio×año ya en el pipeline:
 
-  * ``airbnb_activity`` — recensioni/año por 1000 ab. (proxy de presión turística;
+  * ``airbnb_activity`` — reseñas/año por 1000 ab. (proxy de presión turística;
     derivado de Inside Airbnb reviews, REC-4),
   * ``rent_eur_m2``     — alquiler medio €/m² (EMA, anual).
 
@@ -73,16 +73,16 @@ def lead_lag(d_act: pd.DataFrame, d_rent: pd.DataFrame, lags=LAGS) -> pd.DataFra
                 ys.append(d_rent.at[b, year])
         r, n = _pearson(np.array(xs, float), np.array(ys, float))
         rows.append({"lag_anni": k, "r": round(r, 3), "n": n,
-                     "lettura": _read(k)})
+                     "lectura": _read(k)})
     return pd.DataFrame(rows)
 
 
 def _read(k: int) -> str:
     if k > 0:
-        return f"turismo precede l'affitto di {k} anno/i"
+        return f"turismo precede al alquiler en {k} año(s)"
     if k < 0:
-        return f"affitto precede il turismo di {abs(k)} anno/i"
-    return "stesso anno (contemporaneo)"
+        return f"alquiler precede al turismo en {abs(k)} año(s)"
+    return "mismo año (contemporáneo)"
 
 
 def city_series(df: pd.DataFrame) -> pd.DataFrame:
@@ -106,24 +106,24 @@ def main() -> None:
     table = lead_lag(d_act, d_rent)
 
     print("=" * 74)
-    print("AN-6 · LEAD/LAG turismo → alquiler  (Donostia Dataviz, ESPLORATIVO)")
+    print("AN-6 · LEAD/LAG turismo → alquiler  (Donostia Dataviz, EXPLORATORIO)")
     print("=" * 74)
     print(f"\nPanel: {len(set(act.index) & set(rent.index))} barrios · "
-          f"anni affitto {int(rent.columns.min())}–{int(rent.columns.max())}")
+          f"años de alquiler {int(rent.columns.min())}–{int(rent.columns.max())}")
     print("Primeras diferencias (Δ interanual), correlación de panel:\n")
     print(table.to_string(index=False))
 
     best = table.loc[table.r.abs().idxmax()] if table.r.notna().any() else None
     if best is not None:
         print(f"\nDesfase con |r| máximo: lag={int(best.lag_anni)} → r={best.r} "
-              f"(n={int(best.n)}) — {best.lettura}.")
+              f"(n={int(best.n)}) — {best.lectura}.")
 
     cs = city_series(df)
-    print("\n— Contesto città (livelli, NON detrended — solo descrittivo) —")
+    print("\n— Contexto ciudad (niveles, SIN detrend — solo descriptivo) —")
     print(cs.round(2).to_string())
 
-    print("\nAVVISI (MET-3): correlazione ≠ causalità; affitto annuale (pochi punti); "
-          "\nle recensioni crescono con la piattaforma → letto in differenze, esplorativo.")
+    print("\nAVISOS (MET-3): correlación ≠ causalidad; alquiler anual (pocos puntos); "
+          "\nlas reseñas crecen con la plataforma → leído en diferencias, exploratorio.")
 
     if args.save:
         OUTDIR.mkdir(exist_ok=True)

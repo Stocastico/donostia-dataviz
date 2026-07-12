@@ -39,7 +39,6 @@ export function Dashboard() {
   // Load the selected metric; default the slider to its latest period.
   useEffect(() => {
     let active = true;
-    setPlaying(false); // switching metric mid-animation would be jarring
     loadMetric(metricId).then((m) => {
       if (!active) return;
       setMetric(m);
@@ -49,6 +48,11 @@ export function Dashboard() {
       active = false;
     };
   }, [metricId]);
+
+  const selectMetric = (id: string) => {
+    setPlaying(false); // switching metric mid-animation would be jarring
+    setMetricId(id);
+  };
 
   // "▶ Play" (VIZ-8): step through every period, looping back to the start.
   useEffect(() => {
@@ -94,7 +98,7 @@ export function Dashboard() {
       </header>
 
       <div className="controls">
-        <MetricPicker metrics={metricRegistry} selectedId={metricId} onSelect={setMetricId} />
+        <MetricPicker metrics={metricRegistry} selectedId={metricId} onSelect={selectMetric} />
         {metric && (
           <TimeSlider
             periods={metric.periods}
