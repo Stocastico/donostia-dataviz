@@ -136,7 +136,7 @@ sea alto (extranjeros, edad), el aviso va **en el texto**, no solo en la ficha.
 *(jul-2026, consenso de las tres revisiones.)* Las reseñas/mes son un proxy de
 estancias con dos sesgos: la **tasa de reseña cambió en el tiempo** (creció con
 la adopción de la plataforma) y varía por tipo de viajero. Consecuencia
-directa: en la comparación "Airbnb ×6 vs hotel ×1,6 desde 2016", **parte del ×6
+directa: en la comparación "Airbnb ×6 vs hotel ×1,7 desde 2016", **parte del ×6
 es migración de canal y captura de cuota de la plataforma, no turistas nuevos**.
 El contraste sigue siendo válido como orden de magnitud (y el bache de 2020 lo
 ancla a la realidad), pero no se publica sin este aviso. Mitigación hecha

@@ -43,7 +43,7 @@ el **2026-07-10**; build online re-validado contra las fuentes vivas el
 | `pct_youth_adults` | % 25–39 | 18 barrios, 2000–2025 | observado | Padrón |
 | `vut_density` / `vut_count` / `vut_plazas` | VUT /1000 ab. | por barrio | derivado | Donostia Open Data |
 | `airbnb_density` | anuncios /1000 ab. | 19 barrios, snapshot 2026-06 | derivado | Inside Airbnb |
-| `airbnb_activity` | reseñas/año /1000 ab. | panel barrio×año, 2011–2025 | proxy | Inside Airbnb (sesgo de adopción MET-7) |
+| `airbnb_activity` | reseñas/año /1000 ab. | panel barrio×año, 2011–2026 (2026 parcial) | proxy | Inside Airbnb (sesgo de adopción MET-7) |
 | `schools_per_1000` | centros /1000 ab. | por barrio | derivado | Open Data (equipamientos) |
 | `health_per_1000` | servicios de salud /1000 ab. | por barrio, snapshot | derivado | Open Data (equipamientos, REC-18) |
 | `vpo_dwellings_per_1000` | viviendas Etxebide /1000 ab. | por barrio, snapshot | proxy | Etxebide / Open Data Euskadi (REC-15; ventana parcial: ≤~⅓ del solo alquiler protegido, patronato municipal ausente) |
@@ -65,7 +65,7 @@ el **2026-07-10**; build online re-validado contra las fuentes vivas el
 | `hot_days_30` (días ≥30 °C/año) | 1981–2025 | AEMET, Igeldo |
 | `overnight_stays` (pernoctaciones hotel, mensual) | 2005–2026 | INE EOH tabla 2078 |
 | `airbnb_reviews` (reseñas/mes, proxy de estancias) | 2011–2025 | Inside Airbnb |
-| `airbnb_activity` (reseñas/año/1000 ab., panel barrio×año) | 2011–2025 | Inside Airbnb |
+| `airbnb_activity` (reseñas/año/1000 ab., panel barrio×año) | 2011–2026 (2026 parcial) | Inside Airbnb |
 
 ### Indicadores anuales de ciudad
 
@@ -157,7 +157,7 @@ propósito: esa es la información.*
 ### Otras señales cuantificadas
 
 - **Turismo vs. hotel (índice base 2016=100):** la actividad Airbnb pasa de 100 a
-  **599** en 2024 (×6); las pernoctaciones hoteleras, de 100 a **162** (×1,6). El
+  **660** en 2025 (×6,6); las pernoctaciones hoteleras, de 100 a **175** (×1,7). El
   turismo reglado crece, el de plataforma se dispara. Bache visible en 2020 (COVID).
   ⚠️ Parte del ×6 es **adopción de plataforma** (migración de canal, mayor tasa de
   reseña), no turistas nuevos (MET-7); orden de magnitud válido, cifra exacta no.
@@ -303,7 +303,7 @@ transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
    Amara Berri +4,3, Egia +4,1 de temperatura de superficie sobre la media de ciudad — el este denso.
    *Serie temporal de una sola estación; la isla de calor es LST de superficie, rasgo estructural.*
 6. **La ciudad turística vs. la vivida.** *(nueva)* Airbnb se concentra en el
-   centro (Erdialdea ~34/1000, Gros ~19) y crece ×6 desde 2016 (vs ×1,6 el hotel;
+   centro (Erdialdea ~33/1000, Gros ~18) y crece ×6 desde 2016 (vs ×1,7 el hotel;
    parte es adopción de plataforma, MET-7 — cuantificado en REC-13: la oferta activa real solo sube
    +1,3 % en 2023–2026 frente a +23,6 % de reseñas, ×1,22 de exageración; altas VUT del REATE 300/año→18). El indicio de que precedía al
    alquiler ~1 año (r≈0,27) **no superó el blindaje AN-16** (con FE de año,

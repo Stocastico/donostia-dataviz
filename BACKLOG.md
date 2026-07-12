@@ -40,8 +40,11 @@ jul-2026 con el snapshot 2026-06-30) y REC-14 (isla de
 calor Landsat: Gros +4,8 °C, el mapa térmico coincide con el este denso).**
 Queda su integración narrativa (Cowork).
 **Snapshot Inside Airbnb refrescado a 2026-06-30 (2026-07-12, Code):**
-pipeline + app + docs al día; `historias.html` sigue citando la ventana
-2025-09 (×1,18 y blob `DONO`) → pasada editorial pendiente (Cowork).
+pipeline + app + docs + `historias.html` al día (keynums ×1,22 / 88,5 % /
+33/1000, blob `DONO` regenerado, gráfico dos-turismos extendido a 2025,
+verificado en Chromium sin errores JS). También corregidos los dos restos
+de italiano del relato («Chi vive nel barrio · origini» → «Quién vive en el
+barrio · orígenes», tema «Sanità» → «Salud»).
 
 ---
 
@@ -505,9 +508,10 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   activos −10 % en 2025 (huella de purga) **y sin rebote en 2026** (1.605
   activos, −0,7 % vs sep-2025); reparto espacial estable
   (confirma AN-20 con oferta). Detalle en `ANALISIS-INFERENCIAL.md` §REC-13.
-  ⬜ *Pendiente (Cowork):* los keynums de `historias.html` (×1,18, +2 %/+20 %,
-  58→85 %) y el blob `DONO` siguen en la ventana 2025-09 — refrescar en la
-  próxima pasada editorial del relato.
+  ✅ *Pasada editorial de `historias.html` hecha (2026-07-12, Code, petición
+  del usuario):* keynums (×1,22, +1,3 %/+23,6 %, 88,5 %, 33/1000) y blob
+  `DONO` (densidad, heatmap 2011–2026, dos-turismos 2013–2025, componente
+  turístico) en la ventana nueva; verificado en Chromium (0 errores JS).
 - ✅ **REC-14 isla de calor superficial** — hecho (jul-2026):
   `analysis/heat_island.py` (+ tests; rasterio/pyproj solo para ese script)
   con 45 escenas de verano Landsat 8/9 C2 L2 (2015–2025, máscara qa_pixel)
