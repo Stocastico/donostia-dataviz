@@ -17,9 +17,11 @@ export function indicatorBarData(ind: IndicatorData): IndicatorPoint[] {
   }));
 }
 
-/** The most recent year's value, or null if the indicator is empty. */
+/** The most recent year's value, or null if the indicator is empty (or its
+ * last listed year has no entry in ``values``). */
 export function latestPoint(ind: IndicatorData): { year: string; value: number } | null {
   const year = ind.years[ind.years.length - 1];
-  if (!year) return null;
-  return { year, value: ind.values[year].value };
+  const entry = year ? ind.values[year] : undefined;
+  if (!year || !entry) return null;
+  return { year, value: entry.value };
 }

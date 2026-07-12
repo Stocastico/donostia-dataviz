@@ -67,9 +67,10 @@ export function TwoCitiesSection() {
         <TwoCitiesPanel title="🏠 Ciudad vivida" metrics={residentMetrics} panel={right} />
       </div>
       <p className="scatter-sub leadlag-caveat">
-        ⚠️ El ruido nocturno (`noise_night_pct55`) está dominado por el tráfico, no
-        es un proxy de turismo — ver la corrección en `NOTA-METODOLOGICA.md`
-        (MET-5) y el análisis en `intermedia/ANALISIS-SPRINT-A.md`.
+        ⚠️ El ruido nocturno (<code>noise_night_pct55</code>) está dominado por el
+        tráfico, no es un proxy de turismo — ver la corrección en{" "}
+        <code>NOTA-METODOLOGICA.md</code> (MET-5) y el análisis en{" "}
+        <code>intermedia/ANALISIS-SPRINT-A.md</code>.
       </p>
     </section>
   );

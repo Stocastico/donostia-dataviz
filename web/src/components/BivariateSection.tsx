@@ -33,8 +33,20 @@ export function BivariateSection() {
   const [x, setX] = useState<MetricData | null>(null);
   const [y, setY] = useState<MetricData | null>(null);
 
-  useEffect(() => { loadMetric(xId).then(setX); }, [xId]);
-  useEffect(() => { loadMetric(yId).then(setY); }, [yId]);
+  useEffect(() => {
+    let active = true;
+    loadMetric(xId).then((m) => active && setX(m));
+    return () => {
+      active = false;
+    };
+  }, [xId]);
+  useEffect(() => {
+    let active = true;
+    loadMetric(yId).then((m) => active && setY(m));
+    return () => {
+      active = false;
+    };
+  }, [yId]);
 
   const xInfo = barrioMetrics.find((m) => m.id === xId) ?? null;
   const yInfo = barrioMetrics.find((m) => m.id === yId) ?? null;

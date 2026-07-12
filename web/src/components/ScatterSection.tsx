@@ -18,8 +18,10 @@ import type { MetricData, MetricInfo } from "../lib/types";
 const DEFAULT_X = "vut_density";
 const DEFAULT_Y = "rent_eur_m2";
 
+// Numeric per-barrio metrics only: a categorical metric's values are category
+// indices, meaningless as scatter coordinates or in a Pearson correlation.
 const barrioMetrics: MetricInfo[] = metricRegistry.filter(
-  (m) => m.geoGrain === "barrio" && m.status === "live",
+  (m) => m.geoGrain === "barrio" && m.status === "live" && m.kind !== "categorical",
 );
 
 const namesById: Record<string, string> = Object.fromEntries(
@@ -36,10 +38,18 @@ export function ScatterSection() {
   const [pop, setPop] = useState<MetricData | null>(null);
 
   useEffect(() => {
-    loadMetric(xId).then(setX);
+    let active = true;
+    loadMetric(xId).then((m) => active && setX(m));
+    return () => {
+      active = false;
+    };
   }, [xId]);
   useEffect(() => {
-    loadMetric(yId).then(setY);
+    let active = true;
+    loadMetric(yId).then((m) => active && setY(m));
+    return () => {
+      active = false;
+    };
   }, [yId]);
   useEffect(() => {
     loadMetric("population").then(setPop).catch(() => setPop(null));
