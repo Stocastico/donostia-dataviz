@@ -80,8 +80,9 @@ def test_documented_classes_and_scores():
 
     tour = out["transform_tourism_score"]
     # Consolidated with Airbnb density (REC-4): the two touristic centres lead.
-    assert tour.values["erdialdea"][tr.PERIOD] == 2.40
-    assert tour.values["gros"][tr.PERIOD] == 1.37
+    # (Values on the Inside Airbnb 2026-06-30 snapshot; 2025-09 gave 2.40/1.37.)
+    assert tour.values["erdialdea"][tr.PERIOD] == 2.48
+    assert tour.values["gros"][tr.PERIOD] == 1.39
     # diverging scores carry negatives (e.g. Martutene)
     assert tour.values["martutene"][tr.PERIOD] < 0
     # "expensive but not touristic": Aiete (high rent, low Airbnb) now scores near

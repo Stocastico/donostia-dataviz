@@ -136,13 +136,14 @@ sea alto (extranjeros, edad), el aviso va **en el texto**, no solo en la ficha.
 *(jul-2026, consenso de las tres revisiones.)* Las reseñas/mes son un proxy de
 estancias con dos sesgos: la **tasa de reseña cambió en el tiempo** (creció con
 la adopción de la plataforma) y varía por tipo de viajero. Consecuencia
-directa: en la comparación "Airbnb ×6 vs hotel ×1,6 desde 2016", **parte del ×6
+directa: en la comparación "Airbnb ×6 vs hotel ×1,7 desde 2016", **parte del ×6
 es migración de canal y captura de cuota de la plataforma, no turistas nuevos**.
 El contraste sigue siendo válido como orden de magnitud (y el bache de 2020 lo
-ancla a la realidad), pero no se publica sin este aviso. Mitigación pendiente:
-triangular con el histórico de licencias VUT (REC-12) y con la serie de
-anuncios activos de Inside Airbnb (REC-13); si divergen de las reseñas,
-cuantificar el sesgo.
+ancla a la realidad), pero no se publica sin este aviso. Mitigación hecha
+(REC-13, actualizada con el snapshot 2026-06-30): triangulado con la serie de
+anuncios activos de Inside Airbnb — en 2023–2026 la oferta activa sube +1,3 %
+frente a +23,6 % de las reseñas-12m (el proxy exagera el crecimiento ×1,22 en
+esa ventana) — y con el histórico de licencias REATE (REC-12, altas 300→18).
 
 ## MET-8 — Estado, cambio y trayectoria son tres lecturas distintas
 

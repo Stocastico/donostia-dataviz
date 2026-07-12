@@ -1,7 +1,7 @@
 """REC-13 — Serie de snapshots de anuncios activos Inside Airbnb (MET-7).
 
 El proxy Airbnb del proyecto se construye desde las *reseñas* de un único
-snapshot (2025-09-29), con el sesgo de adopción documentado en MET-7: las
+snapshot (2026-06-30), con el sesgo de adopción documentado en MET-7: las
 reseñas miden actividad reseñada, no oferta. Este análisis trae la serie de
 snapshots trimestrales de Inside Airbnb (anuncios *activos* en cada fecha) y
 la contrasta con las reseñas de los 12 meses previos a cada snapshot sobre el
@@ -18,8 +18,9 @@ para contar activos por barrio (punto-en-polígono, como el pipeline) sin
 descargar los ficheros completos.
 
 Lecturas honestas: "activo" = presente en el scrape de esa fecha (criterio de
-Inside Airbnb, no de Airbnb); la ventana comparable es corta (2023-12→2025-09);
-el campo ``license`` es autodeclarado por el anfitrión.
+Inside Airbnb, no de Airbnb); la ventana comparable es corta (2023-12→2026-06,
+con un hueco de tres trimestres: entre 2025-09-29 y 2026-06-30 no se publicó
+ningún snapshot); el campo ``license`` es autodeclarado por el anfitrión.
 
 Solo pandas + numpy (+ shapely vía tourism_seasonality). Requiere los crudos
 (bash datos/input/descargar_raw.sh). Uso:
@@ -41,10 +42,13 @@ REVIEWS_GZ = RAW / "airbnb_reviews.csv.gz"
 GEOJSON = ROOT / "web" / "src" / "data" / "barrios.geojson"
 OUTDIR = Path(__file__).resolve().parent / "output"
 
-# Snapshots trimestrales aún descargables (verificado jul-2026).
+# Snapshots aún descargables (verificado 2026-07-12). Trimestrales hasta
+# 2025-09-29; después la cadencia se interrumpió y el siguiente es 2026-06-30
+# (sondeados todos los días de oct-2025…may-2026: ninguno publicado).
 SNAPSHOTS = [
     "2023-12-29", "2024-03-31", "2024-06-30", "2024-09-29",
     "2024-12-31", "2025-03-27", "2025-06-28", "2025-09-29",
+    "2026-06-30",
 ]
 # Existieron pero el servidor ya no los sirve (403) — solo vía data request.
 UNAVAILABLE_SNAPSHOTS = [

@@ -97,25 +97,29 @@ Ordenados por score.
 
 ## Resultados — Modo B (presión turística, consolidado con Airbnb)
 
+*(Densidades Airbnb y scores del snapshot Inside Airbnb **2026-06-30**; la
+versión anterior del cuaderno usaba 2025-09-29 — mismo ranking, decimales algo
+distintos: Erdialdea +2,40→+2,48, Gros +1,37→+1,39, Aiete +0,07→+0,06.)*
+
 | Barrio | Densidad VUT | Densidad Airbnb | Alquiler €/m² | Score |
 |---|---|---|---|---|
-| **Erdialdea** | 29,9 | 33,6 | 16,6 | **+2,40** |
-| **Gros** | 20,7 | 19,1 | 15,9 | **+1,37** |
-| Antigua | 8,5 | 7,9 | 15,3 | +0,35 |
-| Aiete | 2,3 | 3,4 | 16,2 | **+0,07** |
-| Ibaeta | 3,1 | 4,0 | 15,4 | −0,00 |
-| Egia | 4,8 | 5,6 | 14,5 | −0,04 |
-| Amara Berri | 3,9 | 3,4 | 14,4 | −0,16 |
-| Loiola | 2,6 | 2,4 | 13,6 | −0,38 |
-| Ategorrieta-Ulia | 2,3 | 9,8 | 11,7 | −0,46 |
-| Intxaurrondo | 1,5 | 1,5 | 12,9 | −0,59 |
-| Mirakruz-Bidebieta | 1,7 | 2,6 | 12,1 | −0,67 |
-| Altza | 0,4 | 0,5 | 11,7 | −0,88 |
-| Martutene | 0,8 | 0,4 | 10,6 | −1,05 |
+| **Erdialdea** | 29,9 | 32,8 | 16,6 | **+2,48** |
+| **Gros** | 20,7 | 18,2 | 15,9 | **+1,39** |
+| Antigua | 8,5 | 7,8 | 15,3 | +0,37 |
+| Aiete | 2,3 | 2,9 | 16,2 | **+0,06** |
+| Ibaeta | 3,1 | 3,7 | 15,4 | −0,00 |
+| Egia | 4,8 | 5,9 | 14,5 | −0,00 |
+| Amara Berri | 3,9 | 3,6 | 14,4 | −0,14 |
+| Loiola | 2,6 | 4,4 | 13,6 | −0,30 |
+| Ategorrieta-Ulia | 2,3 | 12,1 | 11,7 | −0,34 |
+| Intxaurrondo | 1,5 | 1,5 | 12,9 | −0,58 |
+| Mirakruz-Bidebieta | 1,7 | 3,0 | 12,1 | −0,65 |
+| Altza | 0,4 | 0,4 | 11,7 | −0,88 |
+| Martutene | 0,8 | 0,8 | 10,6 | −1,03 |
 
 **Lectura:** Erdialdea y Gros siguen dominando con claridad (VUT **y** Airbnb
 extremos). ✅ **El caveat de Aiete queda resuelto:** con Airbnb integrado, Aiete
-**baja de 0,37 a 0,07** — su alquiler es alto pero su presencia turística es baja,
+**baja de 0,37 a 0,06** — su alquiler es alto pero su presencia turística es baja,
 y ahora el score lo refleja. La densidad Airbnb (universo más amplio que los VUT)
 confirma además el patrón VUT sin invertirlo. *Nota: las densidades Airbnb se
 calculan sobre la población del último año; los barrios periféricos diminutos

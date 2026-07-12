@@ -49,8 +49,8 @@ dl ruido_noche_2022.zip       "https://www.donostia.eus/ide/INGURUMENA-MEDIO_AMB
 dl impuestos_ciudad.csv       "https://www.donostia.eus/datosabiertos/dataset/36ef69b9-b2f9-4ebc-b5e9-a7e6e8f32d37/resource/8b821f48-2add-4d61-a0bc-98f1749925da/download/pfi_impuestos_tipo_ciudad_ckan.csv"
 dl tasas_ciudad.csv           "https://www.donostia.eus/datosabiertos/dataset/7c0f2bf4-00b6-44bf-bf24-c9bdbc9bd00c/resource/cde02a4c-8113-45b9-ba59-614855e18919/download/pfi_tasas_tipo_ciudad_ckan.csv"
 
-dl airbnb_listings.csv.gz     "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/listings.csv.gz"
-dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/2025-09-29/data/reviews.csv.gz"
+dl airbnb_listings.csv.gz     "https://data.insideairbnb.com/spain/pv/euskadi/2026-06-30/data/listings.csv.gz"
+dl airbnb_reviews.csv.gz      "https://data.insideairbnb.com/spain/pv/euskadi/2026-06-30/data/reviews.csv.gz"
 
 # Gobierno Vasco REATE (REC-12): viviendas (VUT) y habitaciones (HUT) de uso
 # turístico con fecha de alta en el registro. Snapshot vivo: las bajas no se
@@ -108,7 +108,9 @@ dl_post eustat_poblacion_ocupada_total.json \
 # Inside Airbnb snapshots trimestrales (REC-13): anuncios activos por fecha
 # (CSV resumen, uno por snapshot). Solo lo usa analysis/airbnb_snapshots.py.
 # Los snapshots 2021-12-30…2023-09-24 ya no se sirven (403; data request).
-for d in 2023-12-29 2024-03-31 2024-06-30 2024-09-29 2024-12-31 2025-03-27 2025-06-28 2025-09-29; do
+# Entre 2025-09-29 y 2026-06-30 no hubo snapshot intermedio (sondeados
+# oct-2025…may-2026: la cadencia trimestral se interrumpió esos meses).
+for d in 2023-12-29 2024-03-31 2024-06-30 2024-09-29 2024-12-31 2025-03-27 2025-06-28 2025-09-29 2026-06-30; do
   dl "airbnb_snapshot_$d.csv" "https://data.insideairbnb.com/spain/pv/euskadi/$d/visualisations/listings.csv"
 done
 

@@ -10,9 +10,10 @@ export default defineConfig({
       output: {
         // The two heavy libraries dwarf the app code; splitting them out keeps
         // the main chunk small and lets the browser cache them across deploys.
-        manualChunks: {
-          maplibre: ["maplibre-gl"],
-          recharts: ["recharts"],
+        // Function form: Vite 8 (Rolldown) no longer accepts the object form.
+        manualChunks(id: string) {
+          if (id.includes("node_modules/maplibre-gl/")) return "maplibre";
+          if (id.includes("node_modules/recharts/")) return "recharts";
         },
       },
     },

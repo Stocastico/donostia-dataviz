@@ -57,7 +57,7 @@ CONFIDENCE: dict[str, tuple[str, list[str]]] = {
     "airbnb_density": ("derived", [
         "Join espacial punto→barrio.",
         _PER_1000,
-        "Anuncios de Inside Airbnb (snapshot 2025-09, incluidos no registrados): universo más amplio que las VUT legales, no el mismo dato.",
+        "Anuncios de Inside Airbnb (snapshot 2026-06, incluidos no registrados): universo más amplio que las VUT legales, no el mismo dato.",
         "Solo plataforma Airbnb: un suelo del alquiler turístico online (Booking/Vrbo y otras plataformas excluidas).",
     ]),
     # --- proxy (approximation) ---

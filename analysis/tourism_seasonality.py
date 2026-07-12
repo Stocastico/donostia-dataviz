@@ -41,8 +41,8 @@ REVIEWS_GZ = RAW / "airbnb_reviews.csv.gz"
 GEOJSON = ROOT / "web" / "src" / "data" / "barrios.geojson"
 OUTDIR = Path(__file__).resolve().parent / "output"
 
-# Snapshot Inside Airbnb 2025-09-29 → 2025 está incompleto.
-LAST_COMPLETE_YEAR = 2024
+# Snapshot Inside Airbnb 2026-06-30 → 2026 está incompleto.
+LAST_COMPLETE_YEAR = 2025
 VERANO = (6, 7, 8, 9)
 INVIERNO = (11, 12, 1, 2)
 MIN_REVIEWS = 300          # por debajo, el perfil mensual es ruido
