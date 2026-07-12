@@ -272,8 +272,8 @@ de confianza → vista interactiva.
 Desde jul-2026 se presentan como **capítulos de un solo relato** (estado → cambio
 → personas → trabajo/origen → telón de fondo → dos ciudades → síntesis → epílogo), con
 transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
-Los cuatro mapas interactivos principales (presión, vejez, orígenes, turismo) se
-recorren en **formato scrollytelling** — el mapa queda fijo y los pasos de texto
+Los cinco mapas interactivos principales (presión, velocidad, vejez, orígenes,
+turismo) se recorren en **formato scrollytelling** — el mapa queda fijo y los pasos de texto
 van cambiando la medida, el año o la capa; los controles manuales siguen operativos
 y sin `IntersectionObserver` (o en móvil) la página degrada a artículo plano — y
 las métricas complejas (Gini, k-means, Pearson/bootstrap, z-scores, lead/lag,

@@ -56,9 +56,9 @@ describe("scatter «Donde hay turismo, hay alquileres altos»", () => {
 });
 
 describe("scrollytelling", () => {
-  it("has at least four scrolly groups, each with steps and a sticky figure", () => {
+  it("has at least five scrolly groups, each with steps and a sticky figure", () => {
     const groups = [...doc.querySelectorAll("[data-scrolly]")];
-    expect(groups.length).toBeGreaterThanOrEqual(4);
+    expect(groups.length).toBeGreaterThanOrEqual(5);
     for (const g of groups) {
       expect(g.querySelectorAll(".step").length, `steps in ${g.getAttribute("data-scrolly")}`).toBeGreaterThanOrEqual(2);
       expect(g.querySelector(".scrolly-fig"), `figure in ${g.getAttribute("data-scrolly")}`).toBeTruthy();
@@ -81,6 +81,14 @@ describe("scrollytelling", () => {
     win.__scrollyActivate!(step);
     expect(doc.getElementById("yearval")!.textContent).toBe("2000");
     expect((doc.getElementById("year") as HTMLInputElement).value).toBe("2000");
+  });
+
+  it("a velocity step switches the indicator", () => {
+    const step = doc.querySelector('[data-scrolly="vel"] .step[data-velk="population"]')!;
+    expect(step).toBeTruthy();
+    win.__scrollyActivate!(step);
+    expect(doc.querySelector<HTMLElement>("#velsel button.active")!.dataset.k).toBe("population");
+    expect(step.classList.contains("active")).toBe(true);
   });
 
   it("an origins step switches the region and a tourism step switches the source", () => {
