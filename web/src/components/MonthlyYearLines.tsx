@@ -60,7 +60,7 @@ export function MonthlyYearLines({ series }: { series: SeriesData }) {
                   <strong>{label}</strong>
                   <div>{last}: {formatValue(lastVal, series.unit)}</div>
                   <div style={{ color: "#888" }}>
-                    storico: {formatValue(min, series.unit)} – {formatValue(max, series.unit)}
+                    histórico: {formatValue(min, series.unit)} – {formatValue(max, series.unit)}
                   </div>
                 </div>
               );

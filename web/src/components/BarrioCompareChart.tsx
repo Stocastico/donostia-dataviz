@@ -38,7 +38,7 @@ export function BarrioCompareChart({ geojson, metric, barrioIds }: Props) {
 
   return (
     <div className="compare-chart">
-      <h3>Confronto barrios — {metric.label}</h3>
+      <h3>Comparación de barrios — {metric.label}</h3>
       <ResponsiveContainer width="100%" height={260}>
         <LineChart data={data} margin={{ top: 8, right: 16, bottom: 8, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#eee" />

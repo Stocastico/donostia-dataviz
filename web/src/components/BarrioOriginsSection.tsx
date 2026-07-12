@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { originPaises } from "../lib/data";
 import { barrioOptions, originDelta, regionInfo } from "../lib/origins";
 
-/** REC-21-web — "chi vive nel barrio · origini": the top foreign nationalities
+/** REC-21-web — "quién vive en el barrio · orígenes": the top foreign nationalities
  * in a chosen barrio and how each has moved over the last decade.
  *
  * ⚠️ MET-5: country of origin is NOT a proxy for income, tourism or

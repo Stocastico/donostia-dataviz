@@ -35,8 +35,10 @@ export function BarrioMap({ data }: { data: BarriosGeoJSON }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MlMap | null>(null);
   const popupRef = useRef<maplibregl.Popup | null>(null);
-  // Bounds are fixed by the geometry; capture the first data to fit once.
-  const initialRef = useRef<BarriosGeoJSON>(data);
+  // Latest decorated data. The "load" handler reads it (not a captured value)
+  // so a data change landing before the style finishes loading isn't lost;
+  // bounds are fixed by the geometry, so any snapshot fits the same.
+  const dataRef = useRef<BarriosGeoJSON>(data);
 
   // Create the map once.
   useEffect(() => {
@@ -44,7 +46,7 @@ export function BarrioMap({ data }: { data: BarriosGeoJSON }) {
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: BLANK_STYLE,
-      bounds: bounds(initialRef.current),
+      bounds: bounds(dataRef.current),
       fitBoundsOptions: { padding: 24 },
       attributionControl: false,
     });
@@ -52,7 +54,7 @@ export function BarrioMap({ data }: { data: BarriosGeoJSON }) {
     popupRef.current = new maplibregl.Popup({ closeButton: false, closeOnClick: false });
 
     map.on("load", () => {
-      map.addSource(SOURCE_ID, { type: "geojson", data: initialRef.current });
+      map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
       map.addLayer({
         id: "barrios-fill",
         type: "fill",
@@ -90,8 +92,10 @@ export function BarrioMap({ data }: { data: BarriosGeoJSON }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Recolor whenever the decorated data changes.
+  // Recolor whenever the decorated data changes. If the source doesn't exist
+  // yet (style still loading), the "load" handler picks dataRef up instead.
   useEffect(() => {
+    dataRef.current = data;
     const map = mapRef.current;
     if (!map) return;
     const source = map.getSource(SOURCE_ID) as maplibregl.GeoJSONSource | undefined;

@@ -4,7 +4,7 @@
 
 import type { OriginPaisesData } from "./types";
 
-/** Region key → { short Italian label, colour }. Same grouping as the
+/** Region key → { short label, colour }. Same grouping as the
  *  pct_origin_* choropleth metrics; colour is a *secondary* channel — the card
  *  always prints the region name too, so it reads without colour (a11y). */
 export const ORIGIN_REGIONS: Record<string, { label: string; color: string }> = {
@@ -19,7 +19,7 @@ export const ORIGIN_REGIONS: Record<string, { label: string; color: string }> = 
   otros: { label: "Otro", color: "#878787" },
 };
 
-const FALLBACK = { label: "Altro", color: "#878787" };
+const FALLBACK = { label: "Otro", color: "#878787" };
 
 export function regionInfo(region: string): { label: string; color: string } {
   return ORIGIN_REGIONS[region] ?? FALLBACK;
@@ -32,7 +32,7 @@ export interface OriginDelta {
    *  (the group was absent then). */
   pct: number | null;
   direction: Direction;
-  /** Human label, e.g. "+100%", "−50%", "nuovo" (new), "=" (flat). */
+  /** Human label, e.g. "+100%", "−50%", "nuevo" (new), "=" (flat). */
   label: string;
 }
 
@@ -41,7 +41,7 @@ export function originDelta(latest: number, past: number): OriginDelta {
   if (past === 0) {
     return latest === 0
       ? { pct: 0, direction: "flat", label: "=" }
-      : { pct: null, direction: "new", label: "nuovo" };
+      : { pct: null, direction: "new", label: "nuevo" };
   }
   if (latest === past) return { pct: 0, direction: "flat", label: "=" };
   const pct = ((latest - past) / past) * 100;

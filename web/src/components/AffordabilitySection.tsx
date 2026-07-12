@@ -12,12 +12,12 @@ import { affordability } from "../lib/data";
 import { affordabilityRows } from "../lib/affordability";
 
 const fmtIdx = (v: number | undefined) =>
-  v == null ? "" : v.toLocaleString("it-IT", { maximumFractionDigits: 0 });
+  v == null ? "" : v.toLocaleString("es-ES", { maximumFractionDigits: 0 });
 const fmtPct = (v: number | null) => (v == null ? "—" : `${v > 0 ? "+" : ""}${v}%`);
 
-/** HU-7 — comprare/affittare vs. salario vs. IPC, città, base 2016 = 100.
- * Porta nel dashboard ciò che l'analisi housing_affordability e la Storia 1
- * raccontano: casa e affitto corrono più del salario e dell'inflazione. */
+/** HU-7 — buying/renting vs. wages vs. CPI, city grain, base 2016 = 100.
+ * Brings to the dashboard what the housing_affordability analysis and Story 1
+ * tell: home prices and rents outrun wages and inflation. */
 export function AffordabilitySection() {
   const d = affordability;
   const rows = affordabilityRows(d);
@@ -90,7 +90,7 @@ export function AffordabilitySection() {
         En la ventana común <strong>{d.baseYear}–{d.commonEnd}</strong> el orden es
         claro: <strong>venta &gt; alquiler &gt; salario &gt; IPC</strong>. Comprar
         vivienda es la partida que más ha crecido &mdash; y, mirando más allá de 2023, el
-        precio de venta acumula un <strong>+{d.series.find((s) => s.id === "sale")?.growth.full}%</strong>{" "}
+        precio de venta acumula un <strong>{fmtPct(d.series.find((s) => s.id === "sale")?.growth.full ?? null)}</strong>{" "}
         a {d.series.find((s) => s.id === "sale")?.lastYear}, mientras el salario se
         paró mucho antes. Es la misma asequibilidad de la Historia 1, vista en un
         índice único.

@@ -19,7 +19,7 @@ interface Props {
   color: string;
 }
 
-const DEC = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 2 });
+const DEC = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 2 });
 
 /** Annual aggregate line + OLS linear-regression trend, with the per-decade
  * slope — the brief's "temperatura media annuale con trend (regressione)". */
@@ -43,10 +43,11 @@ export function AnnualTrendChart({ series, mode, color }: Props) {
 
   const perDecade = fit ? fit.slope * 10 : null;
   const sign = perDecade != null && perDecade >= 0 ? "+" : "−";
+  const aggLabel = mode === "mean" ? "media anual" : "total anual";
 
   return (
     <div className="trend-chart">
-      <h3>Media anual y tendencia</h3>
+      <h3>{mode === "mean" ? "Media anual y tendencia" : "Total anual y tendencia"}</h3>
       {fit && perDecade != null && (
         <p className="trend-caption">
           Tendencia lineal: <strong>{sign}{DEC.format(Math.abs(perDecade))} {series.unit}/década</strong>{" "}
@@ -67,10 +68,10 @@ export function AnnualTrendChart({ series, mode, color }: Props) {
           <Tooltip
             formatter={(v: number, name) => [
               `${DEC.format(v)} ${series.unit}`,
-              name === "trend" ? "tendencia" : "media anual",
+              name === "trend" ? "tendencia" : aggLabel,
             ]}
           />
-          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} name="media anual" />
+          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2} dot={false} name={aggLabel} />
           <Line type="monotone" dataKey="trend" stroke="#666" strokeWidth={1.5} strokeDasharray="6 4" dot={false} name="tendencia" />
         </ComposedChart>
       </ResponsiveContainer>

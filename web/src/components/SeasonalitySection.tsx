@@ -19,7 +19,7 @@ function presentation(id: string, unit: string): {
   return { palette: "warm", mode: "sum", trendColor: "#d62728" };
 }
 
-/** "Stagionalità" section: a city-grain month × year heatmap. Hidden if no
+/** Seasonality section: a city-grain month × year heatmap. Hidden if no
  * series have been built yet. */
 export function SeasonalitySection() {
   const available = seriesRegistry;
