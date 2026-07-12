@@ -209,7 +209,14 @@ propagada a `resumen.md` y `README.md`.
   reproduciendo el SVG publicado. Resto de colores de texto verificados ≥4,5:1;
   las trazas grises del scatter quedan como contexto deliberadamente atenuado
   (la lectura vive en las 4 destacadas y en el texto).
-- ⬜ **DOC-6 (opcional):** working paper metodológico (pipeline, supuestos, índice).
+- ✅ **DOC-6** working paper metodológico — hecho (2026-07-12, Code, petición del
+  usuario): `docs/WORKING-PAPER.md`. Síntesis autocontenida del método: diseño de
+  datos (geometría única, completo/parcial/proxy, provenance 17/19/5), MET-1…8
+  razonadas, métricas derivadas (presión, velocidad, índice AN-8, triangulación
+  REC-13, isla de calor REC-14), estrategia inferencial con N pequeño (LOO,
+  bootstrap, AN-9, AN-15, AN-11, el caso AN-6→AN-16 como retirada publicada,
+  AN-12), resultados, limitaciones, regla de parada y el patrón reutilizable
+  para otros municipios. Referencia cruzada a los docs operativos.
 - ✅ **Granularidad calle/punto (no barrio)** — hecho (jul-2026, Code): primera
   vista **sub-barrio** del proyecto. El censo VUT (`vtur_censo.csv`) trae la
   dirección (`helbidea`) y el **callejero municipal** de Donostia Open Data
@@ -623,7 +630,9 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   `isla_calor_barrio.csv` reproducción de REC-14). **Hallazgo:** el ruido
   percibido va con el calor (r≈0,73) y el ruido medido (r≈0,75), **no** con la
   VUT (r≈0,47, confundida por el centro) → ruido = densidad/tráfico, no turismo
-  (MET-5/VIZ-5). ⬜ *Pendiente (opcional, Cowork):* llevarlo a la narrativa.
+  (MET-5/VIZ-5). ✅ *Narrativa hecha (flag rancio, detectado 2026-07-12):* la coda
+  «Percepción vs. datos» de `historias.html` lo cuenta en el bloque «Ruido — es el
+  tráfico, no el turismo» (correlaciones ≈0,7 con calor/ruido medido vs ≈0,47 con VUT).
 - ✅ **H7 (heterogeneidad del alquiler / «Zubieta barato»)** — hecho (jul-2026,
   analysis-only): `analysis/rent_heterogeneity.py` (7 tests). (1) El «Zubieta
   barato» **no es verificable**: 6/19 barrios sin dato EMA (Zubieta, Igeldo,
@@ -631,13 +640,19 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   (MET-5). (2) Entre los 11 con serie, subida heterogénea pero al revés: el este
   obrero barato sube más (Loiola +48 %) que el centro caro (Egia +28 %),
   corr(nivel, crec.)≈−0,5 → convergencia en % (brecha en €/m² persiste, AN-13).
-  ⬜ *Opcional (Cowork):* narrativa (une con HU-7).
+  ✅ *Narrativa hecha (flag rancio, detectado 2026-07-12):* coda «Percepción vs.
+  datos», bloque «Vivienda — la presión no es uniforme» (heterogeneidad + 6/19 sin
+  dato como punto ciego declarado); matiz Erdialdea +29 %/Egia +28 % sincronizado
+  el 2026-07-12 con `resumen.md`.
 - ✅ **H8 (turismo↑ / altas VUT↓)** — hecho (jul-2026, analysis-only):
   `analysis/tourism_concern_flow_stock.py` (7 tests). Flujo de altas −94 % desde
   2017 (300→18) y crecimiento del parque 171 %→1,4 %, pero stock (1.329 lic.,
   5.706 plazas) y volumen (pernoctaciones récord 2,2 M) en máximos → la
   preocupación de 2026 va con el stock/masificación, no con el flujo. Descriptivo
-  (encuesta de un solo año). ⬜ *Opcional (Cowork):* narrativa.
+  (encuesta de un solo año). ✅ *Narrativa hecha (flag rancio, detectado
+  2026-07-12):* coda «Percepción vs. datos», bloque «Turismo — preocupa el stock,
+  no el goteo de licencias» (300→18, stock 1.329/5.706 en máximos, 2,2 M
+  pernoctaciones récord).
 - 🚫 **H5** (inseguridad percibida por barrio) — **NO SE HACE** (jul-2026,
   decisión del usuario): no aparece el desglose por barrio de la encuesta de
   seguridad 2026. Sin ese dato la hipótesis no es evaluable; se retira del plan.
@@ -648,8 +663,10 @@ correlaciones, lead/lag) y van antes que las ampliaciones.
   sostenida (%verano 35,9→32,9 %, CV 0,32→0,26; 2023–25 los años menos
   estacionales); la temporada baja crece +44 % más rápido que agosto.
   **HU-6:** cruce MICE×mes **imposible** (MICE solo anual) → contribuyente
-  plausible pero no aislable; limitación declarada. ⬜ *Opcional (Cowork):*
-  narrativa (encaja con la historia turística, cap. 6).
+  plausible pero no aislable; limitación declarada. ✅ *Narrativa hecha (flag
+  rancio, detectado 2026-07-12):* coda «Percepción vs. datos» (verano 36 %→32 %,
+  temporada baja +44 % más rápido, MICE como contribuyente no aislable) y
+  heatmap de estacionalidad del apéndice.
 
 #### Batería de hipótesis del usuario (HU-1…HU-7, jul-2026)
 

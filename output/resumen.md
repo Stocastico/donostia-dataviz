@@ -210,7 +210,7 @@ propósito: esa es la información.*
   Urbieta (34), Easo (33), San Marcial (31). La media de barrio borra estos ejes.
 - **Dos transformaciones, dos geografías:** correlación entre el score
   socioeconómico y el turístico ≈ **0,25** (débil, N=13) → **no coinciden**.
-  Turismo en el centro acomodado (Erdialdea +2,40, Gros +1,37); cambio social en la
+  Turismo en el centro acomodado (Erdialdea +2,48, Gros +1,39); cambio social en la
   periferia interior (Loiola +1,02, único "en transformación"; Egia incipiente).
 - **Brecha de renta entre barrios estable:** Gini territorial ponderado ~0,10 en
   2016 y ~0,10 en 2023 (el pico de 2022 sin ponderar es un outlier de
@@ -329,7 +329,7 @@ cubierto por tests jsdom (`web/tests/historias.test.ts`).
    reseñas = proxy.*
 7. **Donostia en transformación.** *(nueva)* Índice AN-8 con 3 mapas + scatter: la
    presión turística (centro) y la transformación social (Loiola/Egia, periferia)
-   **no coinciden** (r≈0,25). Con Airbnb integrado, Aiete baja de 0,37 a 0,07: caro
+   **no coinciden** (r≈0,25). Con Airbnb integrado, Aiete baja de 0,37 a 0,06: caro
    pero no turístico. Las trayectorias 2000→2025 (AN-18, connected scatter
    estático nuevo) añaden la lectura MET-8: universitarización como marea
    (17/17), tres formas de envejecer y la **V de Egia** (su momento joven ya

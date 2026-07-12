@@ -78,8 +78,9 @@ Agrupados por para qué sirven. Toda la documentación activa está en español.
 
 | Documento | Qué es | Idioma |
 |---|---|---|
-| `NOTA-METODOLOGICA.md` | Decisiones metodológicas (MET-1…5): por qué medimos como medimos. | es |
+| `NOTA-METODOLOGICA.md` | Decisiones metodológicas (MET-1…8): por qué medimos como medimos. | es |
 | `TESIS-CIUDAD.md` | Lectura integrada y *cauta* de la transformación + anexo de hallazgos por eje. | es |
+| `WORKING-PAPER.md` | El *working paper* (DOC-6): método completo — datos, supuestos, inferencia con N pequeño, límites y patrón reutilizable. | es |
 
 **Análisis intermedio (`docs/intermedia/`)**
 
