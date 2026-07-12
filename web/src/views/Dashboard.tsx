@@ -204,9 +204,12 @@ export function Dashboard() {
       <footer className="app-footer">
         <p>
           Este panel acompaña el relato del proyecto:{" "}
-          <a href={`${import.meta.env.BASE_URL}historias.html`}>las siete historias</a> ·{" "}
-          <a href={`${import.meta.env.BASE_URL}metodologia.html`}>metodología</a> ·{" "}
-          <a href={`${import.meta.env.BASE_URL}datos.html`}>datos y fuentes</a>. Código y
+          {/* La app vive en BASE_URL (= <sitio>/app/); las páginas estáticas
+              son sus hermanas un nivel más arriba, de ahí el ../ */}
+          <a href={`${import.meta.env.BASE_URL}../historias.html`}>las siete historias</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}../metodologia.html`}>metodología</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}../datos.html`}>datos y fuentes</a> ·{" "}
+          <a href={`${import.meta.env.BASE_URL}../working-paper.html`}>working paper</a>. Código y
           pipeline reproducible:{" "}
           <a href="https://github.com/Stocastico/donostia-dataviz">GitHub</a>.
         </p>

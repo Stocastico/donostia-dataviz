@@ -1,6 +1,9 @@
-# Publica el sitio en GitHub Pages: el panel interactivo (web/) en la raíz y
-# el relato autocontenido (output/historias|metodologia|datos.html) como
-# páginas hermanas, de modo que los enlaces relativos entre ellas funcionan.
+# Publica el sitio en GitHub Pages: el relato (output/historias.html) como
+# portada en la raíz — copiado también como index.html —, metodologia|datos
+# como páginas hermanas, el working paper generado desde docs/WORKING-PAPER.md
+# (scripts/build_working_paper.py, así nunca diverge del markdown) y el panel
+# interactivo (web/) bajo app/. Los enlaces relativos entre páginas funcionan
+# porque todas viven en la raíz salvo la app, que enlaza hacia arriba.
 #
 # Despliegue SOLO MANUAL (decisión del usuario, jul-2026): se lanza desde la
 # pestaña Actions → "Deploy site (GitHub Pages)" → Run workflow, sobre main.
@@ -38,15 +41,22 @@ jobs:
       - name: Install
         run: npm ci
         working-directory: web
-      - name: Build (base = /<repo>/)
+      - name: Build (base = /<repo>/app/)
         run: npm run build
         working-directory: web
         env:
-          VITE_BASE: "/${{ github.event.repository.name }}/"
-      - name: Assemble site (app en la raíz + relato como hermanas)
+          VITE_BASE: "/${{ github.event.repository.name }}/app/"
+      - name: Build working paper (md -> html)
         run: |
-          mkdir -p _site
-          cp -r web/dist/* _site/
+          pip install "markdown>=3.5"
+          python scripts/build_working_paper.py --out _site/working-paper.html
+      - name: Assemble site (historias como portada + app bajo app/)
+        run: |
+          mkdir -p _site/app
+          cp -r web/dist/* _site/app/
+          # historias.html es la portada; se mantiene también con su nombre
+          # para que los enlaces existentes entre páginas sigan funcionando.
+          cp output/historias.html _site/index.html
           cp output/historias.html output/metodologia.html output/datos.html _site/
       - uses: actions/configure-pages@v5
         with:
