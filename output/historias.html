@@ -444,37 +444,64 @@
         social se mueven a dos velocidades.</p>
     </div>
 
-    <div class="fig">
-      <h3>Velocidad de cambio por barrio (variación media anual desde 2016)</h3>
-      <p class="cap">Este mapa pinta la <strong>pendiente, no el nivel</strong>: un barrio caro que ya no sube
-        aparece pálido; uno barato que sube deprisa, rojo intenso. La escala es divergente &mdash;azul = baja,
-        blanco = estable, rojo = sube&mdash; y el gris marca los barrios sin serie suficiente. Elige el
-        indicador con los botones.</p>
-      <div class="controls">
-        <div class="control" style="min-width:auto">
-          <label>Indicador</label>
-          <div class="segmented" id="velsel">
-            <button data-k="rent_eur_m2" class="active">Alquiler €/m²</button>
-            <button data-k="population">Población</button>
-            <button data-k="pct_foreign">% extranjeros</button>
-            <button data-k="pct_university">% universitarios</button>
-            <button data-k="income_total">Renta</button>
+    <div class="scrolly" data-scrolly="vel">
+      <div class="scrolly-fig">
+        <div class="fig">
+          <h3>Velocidad de cambio por barrio (variación media anual desde 2016)</h3>
+          <p class="cap">Este mapa pinta la <strong>pendiente, no el nivel</strong>: un barrio caro que ya no sube
+            aparece pálido; uno barato que sube deprisa, rojo intenso. La escala es divergente &mdash;azul = baja,
+            blanco = estable, rojo = sube&mdash; y el gris marca los barrios sin serie suficiente.</p>
+          <div class="controls">
+            <div class="control" style="min-width:auto">
+              <label>Indicador</label>
+              <div class="segmented" id="velsel">
+                <button data-k="rent_eur_m2" class="active">Alquiler €/m²</button>
+                <button data-k="population">Población</button>
+                <button data-k="pct_foreign">% extranjeros</button>
+                <button data-k="pct_university">% universitarios</button>
+                <button data-k="income_total">Renta</button>
+              </div>
+              <span class="hint" id="velhint"></span>
+            </div>
           </div>
-          <span class="hint" id="velhint"></span>
+          <div class="mapwrap"><svg class="map" id="map_vel"></svg></div>
+          <div class="legend" id="leg_vel"></div>
+          <div class="rankwrap">
+            <table class="rank" id="rank_vel"><thead><tr><th>Barrio</th><th style="text-align:right" id="velcol">Δ/año</th></tr></thead><tbody></tbody></table>
+          </div>
+          <p class="src">Tasas anualizadas 2016→último año (analysis/velocity.csv). Barrios periféricos de nueva construcción se interpretan aparte.</p>
         </div>
       </div>
-      <div class="grid2">
-        <div><div class="mapwrap"><svg class="map" id="map_vel"></svg></div><div class="legend" id="leg_vel"></div></div>
-        <div><table class="rank" id="rank_vel"><thead><tr><th>Barrio</th><th style="text-align:right" id="velcol">Δ/año</th></tr></thead><tbody></tbody></table></div>
+      <div class="scrolly-steps">
+        <div class="step active" data-velk="rent_eur_m2"><div>
+          <span class="steplab">1 · El alquiler: una marea</span>
+          <p>El alquiler sube en <strong>todos</strong> los barrios con serie, entre el +3 y el +4&nbsp;% anual
+            &mdash;Loiola, +4,3&nbsp;%, el más rápido&mdash;. Aquí apenas hay geografía: el mapa es casi
+            uniforme. Es la marea de fondo sobre la que se mueve todo lo demás.</p>
+        </div></div>
+        <div class="step" data-velk="population"><div>
+          <span class="steplab">2 · La población: dos velocidades</span>
+          <p>La población sí tiene geografía. El <strong>centro pierde</strong> habitantes año tras año
+            (Gros −0,60&nbsp;%, Antiguo −0,45, Egia −0,33) mientras la periferia los gana. El porqué de esa
+            pérdida &mdash;envejecimiento, no expulsión&mdash; lo desmonta el capítulo 3.</p>
+        </div></div>
+        <div class="step" data-velk="pct_foreign"><div>
+          <span class="steplab">3 · El % de extranjeros: crece en el este</span>
+          <p>La población extranjera crece más rápido en el <strong>este obrero</strong> (Intxaurrondo,
+            +0,92 puntos al año): señal de inmigración económica, no de gentrificación &mdash;ver la nota
+            final&mdash;. El capítulo 4 desglosa ese agregado por origen, porque esconde perfiles opuestos.</p>
+        </div></div>
+        <div class="step" data-velk="pct_university"><div>
+          <span class="steplab">4 · Los estudios: sube en todas partes, Egia a la cabeza</span>
+          <p>El % de universitarios crece en toda la ciudad &mdash;es otra marea&mdash;, pero con
+            <strong>Egia</strong> al frente: el mayor crecimiento de Donostia, la seña del barrio
+            «en movimiento». El quinto botón (renta) queda para que lo explores tú.</p>
+        </div></div>
       </div>
-      <p class="src">Tasas anualizadas 2016→último año (analysis/velocity.csv). Barrios periféricos de nueva construcción se interpretan aparte.</p>
     </div>
 
     <div class="narrow">
-      <p>El <strong>centro pierde población</strong> (Gros −0,60&nbsp;%/año, Antiguo −0,45, Egia −0,33) mientras
-        gana renta y estudios. El <strong>% de extranjeros crece más rápido en el este</strong> (Intxaurrondo
-        +0,92 pp/año), señal de inmigración económica &mdash;no de gentrificación, ver nota final&mdash;.
-        Cruzando renta, estudios, alquiler y densidad turística, los barrios se agrupan en cuatro perfiles.</p>
+      <p>Cruzando renta, estudios, alquiler y densidad turística, los barrios se agrupan en cuatro perfiles.</p>
     </div>
 
     <div class="fig">
@@ -1684,8 +1711,12 @@ function renderVel(){
   sorted.forEach(([k,v],i)=>{const w=Math.abs(v)/max*100;const col=v>=0?'var(--coral)':'var(--sea)';
     tb.innerHTML+=`<tr><td class="bar-cell"><span class="bar" style="width:${w}%;background:${col}"></span>${D.barrios[k].name}</td><td class="num">${v>0?'+':''}${fmt(v,2)}</td></tr>`;});
 }
-document.querySelectorAll('#velsel button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#velsel button').forEach(x=>x.classList.remove('active'));b.classList.add('active');VK=b.dataset.k;renderVel();}));
+function setVelK(k){
+  VK=k;
+  document.querySelectorAll('#velsel button').forEach(x=>x.classList.toggle('active',x.dataset.k===k));
+  renderVel();
+}
+document.querySelectorAll('#velsel button').forEach(b=>b.addEventListener('click',()=>setVelK(b.dataset.k)));
 
 /* ============ STORY 2: profiles ============ */
 const PROF=D.profiles;
@@ -2262,6 +2293,7 @@ renderPress();renderVel();renderAge();renderTour();renderLived();renderComp();re
    page degrades to a plain article; __scrollyActivate drives steps manually. */
 const SCROLLY_APPLY={
   press:s=>{if(s.dataset.m2)setM2(+s.dataset.m2);if(s.dataset.measure)setMeasure(s.dataset.measure);},
+  vel:s=>{if(s.dataset.velk)setVelK(s.dataset.velk);},
   age:s=>{if(s.dataset.agek)setAgeK(s.dataset.agek);if(s.dataset.year)setYear(+s.dataset.year);},
   org:s=>{if(s.dataset.orgk)setOrgK(s.dataset.orgk);},
   tour:s=>{if(s.dataset.tourk)setTourK(s.dataset.tourk);}

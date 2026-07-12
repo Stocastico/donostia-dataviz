@@ -19,8 +19,10 @@ los datos en historias sobre cómo cambia la ciudad.
    **siete historias** (la ciudad que se encarece · qué barrios cambian más rápido ·
    quién vive Donostia · quién trabaja Donostia · el clima cambia · turística vs.
    vivida · en transformación)
-   con texto y **visualizaciones interactivas** (mueve el supuesto de m²/persona,
-   recorre los años, cambia de indicador). Ábrelo en cualquier navegador; es
+   en formato **scrollytelling**: los mapas principales quedan fijos y van
+   cambiando al hilo del texto, y todos los controles se pueden mover también a
+   mano (el supuesto de m²/persona, el año, el indicador). Las métricas complejas
+   llevan cajas «La métrica, en claro». Ábrelo en cualquier navegador; es
    autocontenido, sin dependencias.
 2. **[`output/resumen.md`](output/resumen.md)** — síntesis del proyecto (datos,
    análisis, correlaciones e historias) pensada para revisión externa.
@@ -223,6 +225,11 @@ El documento narrativo embebe sus datos en una única línea `<script>window.DON
 tras refrescar el pipeline: parsea esa línea, funde las métricas desde
 `web/src/data/metric_*.json` / `series_*.json` (y `barrios.geojson` para la
 geometría) y reescríbela. Es autocontenido: no depende de ficheros externos en runtime.
+
+El DOM renderizado (scrollytelling, etiquetas del scatter, sincronía de los
+controles, explicadores) está cubierto por `web/tests/historias.test.ts`, que
+ejecuta el HTML completo bajo jsdom: tras regenerar el documento, correr
+`npm test` en `web/` verifica que nada se rompió.
 
 ---
 

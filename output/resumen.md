@@ -10,7 +10,8 @@
 > ciudad* en varios ejes: vivienda, demografía, origen migratorio y empleo, turismo, clima, transformación.
 > Todos los números son reproducibles desde el pipeline (`data-pipeline/`) y los
 > scripts de `analysis/*.py`. El entregable narrativo es `historias.html`
-> (autocontenido, con mapas y gráficos interactivos generados en el navegador).
+> (autocontenido, con mapas y gráficos interactivos generados en el navegador;
+> desde jul-2026 los mapas principales se recorren en formato **scrollytelling**).
 >
 > **Nota de nomenclatura.** El barrio se llama **Antiguo** (no "Antigua").
 > Corregido en el entregable narrativo; el `barrio_id` interno sigue siendo
@@ -232,8 +233,9 @@ propósito: esa es la información.*
 - **La estacionalidad hotelera baja (HU-5):** % verano 35,9→32,9 % y CV
   0,32→0,26 (2005–2025); la temporada baja crece +44 % más rápido que agosto.
   El alquiler sube de forma heterogénea pero convergente en % (H7): el este
-  barato sube más (Loiola +48 %) que el centro caro (Egia +28 %); la brecha en
-  €/m² persiste (coherente con AN-13).
+  barato sube más (Loiola +48 %, Intxaurrondo +44 %) que los barrios de
+  alquiler ya caro (Erdialdea +29 %, Egia +28 %); la brecha en €/m² persiste
+  (coherente con AN-13).
 
 ### Tesis integradora (cauta)
 
@@ -270,6 +272,13 @@ de confianza → vista interactiva.
 Desde jul-2026 se presentan como **capítulos de un solo relato** (estado → cambio
 → personas → trabajo/origen → telón de fondo → dos ciudades → síntesis → epílogo), con
 transiciones entre capítulos y enlaces a `metodologia.html` y `datos.html`.
+Los cinco mapas interactivos principales (presión, velocidad, vejez, orígenes,
+turismo) se recorren en **formato scrollytelling** — el mapa queda fijo y los pasos de texto
+van cambiando la medida, el año o la capa; los controles manuales siguen operativos
+y sin `IntersectionObserver` (o en móvil) la página degrada a artículo plano — y
+las métricas complejas (Gini, k-means, Pearson/bootstrap, z-scores, lead/lag,
+beta-convergencia) llevan cajas «La métrica, en claro». El DOM renderizado está
+cubierto por tests jsdom (`web/tests/historias.test.ts`).
 
 1. **La ciudad que se encarece.** ¿Dónde es insostenible vivir? El esfuerzo
    alquiler/renta **se invierte** respecto al precio: máximo en el este obrero
