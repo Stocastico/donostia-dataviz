@@ -84,9 +84,9 @@
   /* SECTIONS */
   section.story{padding:72px 0 24px;border-top:1px solid var(--line);scroll-margin-top:var(--navh,62px)}
   section.story:first-of-type{border-top:none}
-  .story-head{display:flex;gap:20px;align-items:flex-start;margin-bottom:8px}
+  .story-head{display:flex;gap:20px;align-items:flex-end;margin-bottom:8px}
   .badge-num{flex:0 0 auto;font-family:"Libre Franklin","Inter",sans-serif;font-weight:800;
-    font-size:2.9rem;line-height:.82;letter-spacing:-.03em;color:var(--sea)}
+    font-size:2.9rem;line-height:.82;letter-spacing:-.03em;color:var(--sea);margin-bottom:8px}
   .s1 .badge-num{color:var(--coral)} .s2 .badge-num{color:var(--sea)}
   .s3 .badge-num{color:var(--green)} .s4 .badge-num{color:var(--amber)}
   .eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;font-weight:700;color:var(--muted);margin:0 0 6px}
@@ -98,9 +98,10 @@
   p{margin:1.05em 0;color:var(--ink2);text-wrap:pretty}
   p strong,li strong{color:var(--ink)}
   .big{font-variant-numeric:tabular-nums}
-  /* Capitular editorial al abrir cada historia: primer párrafo tras la pregunta. */
-  .question + p::first-letter{float:left;font-family:"Libre Franklin","Inter",sans-serif;
-    font-weight:800;font-size:3.1em;line-height:.68;margin:.02em .09em 0 0;color:var(--sea-d)}
+  /* Capitular editorial al abrir cada historia: primer párrafo tras la pregunta.
+     Es una capital «alzada»: el pie se apoya en la línea base de la 1.ª línea. */
+  .question + p::first-letter{font-family:"Libre Franklin","Inter",sans-serif;
+    font-weight:800;font-size:3em;line-height:.9;margin:0 .06em 0 0;vertical-align:baseline;color:var(--sea-d)}
   .nextcap{margin:30px 0 10px;font-size:.98rem;color:var(--muted);font-style:italic;
     border-top:1px dashed var(--line);padding-top:16px}
   .nextcap a{font-style:normal;font-weight:700;text-decoration:none}
