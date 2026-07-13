@@ -49,15 +49,31 @@
   /* NAV */
   nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
     backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
-  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
+  nav.toc .wrap{display:flex;gap:2px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
   nav.toc .brand{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}
-  nav.toc a{color:var(--ink2);text-decoration:none;font-size:.85rem;font-weight:600;
-    padding:7px 12px;border-radius:999px;white-space:nowrap}
+  nav.toc a{color:var(--ink2);text-decoration:none;font-size:.82rem;font-weight:600;
+    padding:7px 10px;border-radius:999px;white-space:nowrap}
   nav.toc a:hover{background:#eef4f8;color:var(--sea-d)}
+  /* «Más ▾»: agrupa las páginas hermanas en un desplegable para aliviar la barra.
+     En móvil la barra ya es de scroll horizontal, así que ahí se muestran como
+     enlaces planos y el desplegable se oculta (un menú absolute quedaría
+     recortado por el overflow). */
+  nav.toc details.more{position:relative}
+  nav.toc details.more>summary{list-style:none;cursor:pointer;color:var(--sea-d);font-size:.85rem;
+    font-weight:700;padding:7px 12px;border-radius:999px;white-space:nowrap;user-select:none}
+  nav.toc details.more>summary::-webkit-details-marker{display:none}
+  nav.toc details.more>summary:hover,nav.toc details.more[open]>summary{background:#eef4f8}
+  nav.toc details.more .menu{position:absolute;right:0;top:calc(100% + 8px);background:#fff;
+    border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;
+    display:flex;flex-direction:column;min-width:190px}
+  nav.toc details.more .menu a{color:var(--sea-d);padding:8px 12px;border-radius:8px}
+  nav.toc .pages-inline{display:none}
   @media(max-width:900px){
     nav.toc .wrap{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
     nav.toc .brand{flex:0 0 auto;margin-right:10px}
     nav.toc a{flex:0 0 auto}
+    nav.toc details.more{display:none}
+    nav.toc .pages-inline{display:contents}
   }
 
   /* SECTIONS */
@@ -197,12 +213,37 @@
     .scrolly-steps{gap:12px;padding:0 0 10px}
   }
 
-  /* metric explainers */
-  .metric-expl{background:#f4f6fb;border:1px solid #dfe5f2;border-radius:12px;padding:12px 16px;
+  /* metric explainers — desplegables: la explicación técnica solo la abre quien
+     la quiere; el resumen (la etiqueta) queda siempre a la vista */
+  .me-tgl{margin-left:auto;font-size:.72rem;color:var(--muted);white-space:nowrap}
+  .me-tgl:before{content:"+ "}
+  details[open]>summary .me-tgl:before{content:"− "}
+  .me-tgl:after{content:"desplegar"}
+  details[open]>summary .me-tgl:after{content:"plegar"}
+  .metric-expl{background:#f4f6fb;border:1px solid #dfe5f2;border-radius:12px;
     margin:14px 0;font-size:.85rem;color:var(--ink2);line-height:1.55}
   .metric-expl b{color:var(--ink)}
-  .metric-expl .me-lab{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;
-    font-weight:700;color:#4a5fa5;margin-bottom:4px}
+  .metric-expl>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+    padding:11px 16px;user-select:none}
+  .metric-expl>summary::-webkit-details-marker{display:none}
+  .metric-expl>summary:hover .me-tgl{color:var(--sea-d)}
+  .metric-expl .me-lab{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;
+    font-weight:700;color:#4a5fa5}
+  .metric-expl .me-body{padding:0 16px 12px}
+  /* deep dives / blindaje — bloques que comprueban la robustez del argumento;
+     plegados por defecto para no romper el ritmo de lectura */
+  details.deep{background:#f7f8fb;border:1px solid #e3e8f2;border-radius:12px;margin:26px 0}
+  details.deep>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:10px;
+    padding:13px 18px;font-size:.92rem;color:var(--ink2);line-height:1.5;user-select:none}
+  details.deep>summary::-webkit-details-marker{display:none}
+  details.deep>summary:hover .me-tgl{color:var(--sea-d)}
+  details.deep>summary b{color:var(--ink)}
+  details.deep .d-lab{flex:0 0 auto;font-size:.64rem;text-transform:uppercase;letter-spacing:.12em;
+    font-weight:700;color:#4a5fa5;background:#eef1f9;border:1px solid #dfe5f2;border-radius:999px;
+    padding:3px 10px;position:relative;top:-1px}
+  details.deep .d-body{padding:2px 18px 16px}
+  details.deep .d-body .fig{margin:12px 0;box-shadow:none}
+  details.deep .d-body>p{font-size:.95rem}
 
   table.rank{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:6px}
   table.rank th,table.rank td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
@@ -242,21 +283,32 @@
 <nav class="toc">
   <div class="wrap">
     <span class="brand">Donostia en datos</span>
-    <a href="#intro">0 · Introducción</a>
-    <a href="#s1">1 · La ciudad que se encarece</a>
-    <a href="#s2">2 · Qué barrios cambian más rápido</a>
-    <a href="#s3">3 · Quién vive Donostia</a>
-    <a href="#sw">4 · Quién trabaja Donostia</a>
-    <a href="#s4">5 · El clima cambia</a>
-    <a href="#s5">6 · Turística vs. vivida</a>
-    <a href="#s6">7 · En transformación</a>
-    <a href="#sx">+ · La ciudad de fondo</a>
-    <a href="#sp">≠ · Percepción vs. datos</a>
-    <a href="#s7">? · Lo que no sabemos</a>
-    <a href="metodologia.html" style="color:var(--sea-d)">Metodología</a>
-    <a href="datos.html" style="color:var(--sea-d)">Datos</a>
-    <a href="working-paper.html" style="color:var(--sea-d)">Working paper</a>
-    <a href="app/" style="color:var(--sea-d)">Panel interactivo</a>
+    <a href="#intro">0 · Intro</a>
+    <a href="#s1">1 · Vivienda</a>
+    <a href="#s2">2 · Velocidad</a>
+    <a href="#s3">3 · Quién vive</a>
+    <a href="#sw">4 · Quién trabaja</a>
+    <a href="#s4">5 · Clima</a>
+    <a href="#s5">6 · Turismo</a>
+    <a href="#s6">7 · Síntesis</a>
+    <a href="#sx">+ · Contexto</a>
+    <a href="#sp">≠ · Percepción</a>
+    <a href="#s7">? · Límites</a>
+    <details class="more">
+      <summary>Más ▾</summary>
+      <div class="menu">
+        <a href="metodologia.html">Metodología</a>
+        <a href="datos.html">Datos</a>
+        <a href="working-paper.html">Working paper</a>
+        <a href="app/">Panel interactivo</a>
+      </div>
+    </details>
+    <span class="pages-inline">
+      <a href="metodologia.html" style="color:var(--sea-d)">Metodología</a>
+      <a href="datos.html" style="color:var(--sea-d)">Datos</a>
+      <a href="working-paper.html" style="color:var(--sea-d)">Working paper</a>
+      <a href="app/" style="color:var(--sea-d)">Panel interactivo</a>
+    </span>
   </div>
 </nav>
 
@@ -325,7 +377,9 @@
         que contrasta la percepción vecinal con los datos y un epílogo con lo que aún no se puede
         responder. Los mapas principales se <strong>recorren con el scroll</strong> &mdash;quedan
         fijos y cambian al hilo del texto&mdash; y todos los controles se pueden mover también
-        <strong>a mano</strong>, para poner a prueba los supuestos.</p>
+        <strong>a mano</strong>, para poner a prueba los supuestos. Las explicaciones técnicas y los
+        análisis de blindaje van <strong>plegados</strong> &mdash;un clic los abre&mdash;: el relato
+        se sigue igual sin tocarlos.</p>
 
       <p class="nextcap">Empieza el relato donde más duele: la vivienda.
         <a href="#s1">Capítulo 1 — la ciudad que se encarece →</a></p>
@@ -353,13 +407,13 @@
         metros cuadrados es discutible, así que aquí <strong>lo puedes mover tú</strong> y ver si la historia
         aguanta. El mapa que sigue se queda fijo mientras lees: cada bloque de texto lo va cambiando,
         y los controles quedan a tu disposición para explorar por tu cuenta.</p>
-      <div class="metric-expl"><span class="me-lab">Las tres medidas, en claro</span>
+      <details class="metric-expl"><summary><span class="me-lab">Las tres medidas, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
         <b>Cuota de renta</b>: qué porcentaje de la renta per cápita se llevaría el alquiler anual — la medida
         más intuitiva. <b>z(alquiler)&nbsp;−&nbsp;z(renta)</b>: expresa el alquiler y la renta de cada barrio en
         <b>desviaciones típicas</b> respecto a la media de la ciudad (cómo de atípico es cada uno) y resta ambas;
         si sale positivo, el alquiler destaca más que la renta. <b>Percentil&nbsp;−&nbsp;percentil</b>: la misma
         resta pero con la <b>posición en el ranking</b> (el 4.º más caro, el 9.º en renta…), que ignora las
-        magnitudes y por eso es inmune a los valores extremos.</div>
+        magnitudes y por eso es inmune a los valores extremos.</div></details>
     </div>
 
     <div class="scrolly" data-scrolly="press">
@@ -454,18 +508,24 @@
       </div>
       <p class="src">Renta 2023 (Eustat) × presión de alquiler 2023 (derivada). Paleta bivariada de terciles.</p>
     </div>
+    <details class="deep">
+      <summary><span class="d-lab">Blindaje</span><span>¿Se está ensanchando la brecha de renta <em>entre</em> barrios?
+        El índice de Gini dice que <b>no</b> — la comprobación, desplegada</span><span class="me-tgl"></span></summary>
+      <div class="d-body">
     <div class="fig">
       <h3>…pero la brecha de renta entre barrios no se ensancha</h3>
       <p class="cap">Índice de Gini de la renta por barrio (ponderado por población), 2016–2023. Más alto = más desigualdad territorial. La línea discontinua es el Gini sin ponderar.</p>
-      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+      <details class="metric-expl"><summary><span class="me-lab">La métrica, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
         El índice de <b>Gini</b> resume cuánto se desvía un reparto de la igualdad perfecta: <b>0</b> significaría
         que los 13 barrios tienen exactamente la misma renta per cápita; <b>1</b>, que toda la renta está en uno
         solo. Aquí ronda 0,10 — una brecha moderada y, sobre todo, <b>estable</b>. «Ponderado por población»
         quiere decir que un barrio de 30.000 habitantes pesa en el cálculo más que uno de 500: así un exclave
-        diminuto y volátil no puede mover el índice de toda la ciudad.</div>
+        diminuto y volátil no puede mover el índice de toda la ciudad.</div></details>
       <div class="mapwrap"><svg class="map" id="gini" style="max-width:680px;margin:0 auto"></svg></div>
       <p class="src">analysis/an5_polarizacion.csv (Eustat, renta por barrio). El pico de 2022 sin ponderar es un outlier de un barrio pequeño y volátil (Miramón-Zorroaga); ponderado por población, la brecha es estable (~0,10). Ojo: este índice mide la desigualdad <em>entre</em> los 13 barrios — no la desigualdad dentro de cada barrio ni la de quien se marcha del municipio. Si las rentas bajas salen de la ciudad, la brecha interna puede quedarse estable creando una ilusión de equidad.</p>
     </div>
+      </div>
+    </details>
 
     <div class="narrow">
       <p>El esfuerzo del alquiler dibuja el este obrero. Pero «encarecerse» también tiene
@@ -591,11 +651,11 @@
     <div class="fig">
       <h3>Perfiles de barrio</h3>
       <p class="cap">Tipología descriptiva (k-means, k=4) sobre renta, % universitarios, densidad VUT y alquiler. 13 barrios con las cuatro variables. Aquí el color no ordena de más a menos: cada color es una <strong>familia</strong> de barrios parecidos entre sí.</p>
-      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+      <details class="metric-expl"><summary><span class="me-lab">La métrica, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
         <b>k-means</b> es un algoritmo que agrupa los barrios en un número fijo de grupos (aquí k=4) de manera
         que cada barrio se parezca lo máximo posible &mdash;en renta, estudios, turismo y alquiler a la vez&mdash;
         a los de su propio grupo y lo mínimo a los demás. No hay jerarquía ni «mejor perfil»: son familias de
-        parecido, y con solo 13 barrios deben leerse como descripción orientativa, no como clasificación dura.</div>
+        parecido, y con solo 13 barrios deben leerse como descripción orientativa, no como clasificación dura.</div></details>
       <div class="grid2">
         <div><div class="mapwrap"><svg class="map" id="map_prof"></svg></div></div>
         <div><div class="swatches" id="prof_sw"></div>
@@ -613,14 +673,14 @@
         Densidad de vivienda turística (eje X) frente a alquiler €/m² (eje Y): la nube sube hacia la derecha.</p>
       <div class="mapwrap"><svg class="map" id="scatter" style="max-width:680px;margin:0 auto"></svg></div>
       <div class="swatches" id="scatter_sw"></div>
-      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+      <details class="metric-expl"><summary><span class="me-lab">La métrica, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
         La <b>correlación de Pearson (r)</b> resume cuánto se alinean dos variables: +1 sería una línea recta
         perfecta hacia arriba, 0 ninguna relación, −1 una recta perfecta hacia abajo. Aquí r&nbsp;=&nbsp;0,64:
         una relación clara pero con excepciones. El intervalo «IC95% bootstrap 0,42–0,87» sale de recalcular la
         correlación miles de veces sorteando qué barrios entran: incluso en el escenario bajo la relación sigue
         siendo positiva. Y como dos barrios extremos podrían fabricar una correlación ellos solos, se comprueba
         quitando Erdialdea y Gros: r apenas baja (0,62). Correlación, en todo caso, no es causalidad — eso se
-        examina en el capítulo 6.</div>
+        examina en el capítulo 6.</div></details>
       <p class="src">VUT (Donostia Open Data) × alquiler EMA. Pearson r = 0,64 (IC95% bootstrap 0,42–0,87); aguanta al quitar Erdialdea y Gros (0,62).</p>
     </div>
     <div class="fig">
@@ -1023,6 +1083,10 @@
     </div>
 
     <div class="narrow">
+    <details class="deep">
+      <summary><span class="d-lab">En detalle</span><span>Dentro del ×6: el cráter de la pandemia (AN-20) y la
+        oferta real, que <b>apenas crece</b> (REC-13)</span><span class="me-tgl"></span></summary>
+      <div class="d-body">
       <p>El bache de 2020 tampoco cambió el rumbo: fue <strong>un cráter, no un cambio de régimen</strong> (AN-20).
         Todas las series recuperan el nivel de 2019 en 2021–2022 y salen con <em>más</em> pendiente de la que
         traían: la actividad Airbnb pasa de +125 a +231 puntos/año (×1,9) y el alquiler medio, de +0,35 a
@@ -1030,11 +1094,10 @@
         crecimiento pre y post correlacionan 0,67), pero las mayores aceleraciones relativas caen en barrios antes
         poco turísticos &mdash;Ibaeta ×7,5, Mirakruz-Bidebieta ×3,8&mdash;: la pandemia no enfrió la
         turistificación; la aceleró y la <strong>difundió</strong> desde el centro saturado.</p>
-    </div>
-
-    <div class="narrow">
       <p>¿Cuánto de ese ×6 es oferta nueva? Con datos de oferta <em>real</em> &mdash;no reseñas&mdash;, el sesgo de MET-7 deja de ser una advertencia y tiene número. Nueve fotos de anuncios activos de Inside Airbnb (dic-2023 → jun-2026, REC-13) muestran la <strong>oferta activa plana (+1,3 %)</strong> mientras las reseñas de los 12 meses previos crecían <strong>+23,6 %</strong>: leer reseñas como oferta <strong>exagera el crecimiento ×1,22</strong>. Lo que crece no es el parque, es la actividad por anuncio.</p>
       <p>Y asoma una purga: el % de anuncios con licencia declarada saltó de 58,5 % a <strong>84,5 %</strong> justo cuando los activos caían un −10 % en 2025 &mdash;regularización, no demanda&mdash;, y <strong>no hay rebote</strong>: nueve meses después (jun-2026) la oferta sigue en ese nivel (1.605 activos) y la licencia declarada alcanza el <strong>88,5 %</strong>. Encaja con el registro REATE, donde las altas nuevas de licencias caen de <strong>300 al año (2017) a 18 (2025)</strong>: oferta legal madura, parque estable &mdash;el mismo "cráter, no cambio de régimen" que dejó la pandemia&mdash;.</p>
+      </div>
+    </details>
     </div>
 
     <div class="keynums">
@@ -1062,17 +1125,21 @@
         <em>desbordamiento</em> estival: solo se llena cuando el centro no da más de sí.</p>
     </div>
 
+    <details class="deep">
+      <summary><span class="d-lab">Blindaje</span><span>¿El turismo <em>empuja</em> al alquiler? El indicio (AN-6)
+        y el control que lo tumba (AN-16): con estos datos, <b>no se sostiene</b></span><span class="me-tgl"></span></summary>
+      <div class="d-body">
     <div class="fig">
       <h3>¿El turismo empuja al alquiler? Un primer indicio (AN-6)</h3>
       <p class="cap">Correlación entre la variación anual de la actividad Airbnb y la del alquiler, según el desfase temporal. Panel de 13 barrios, en primeras diferencias (descuenta la tendencia común).</p>
-      <div class="metric-expl"><span class="me-lab">La métrica, en claro</span>
+      <details class="metric-expl"><summary><span class="me-lab">La métrica, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
         Cada barra responde a una pregunta distinta: ¿la actividad Airbnb de un año se parece al alquiler de
         <b>ese mismo año</b> (desfase 0), al de <b>un año después</b> (+1), al de un año antes (−1)…? Si el
         turismo empujara al alquiler, la correlación debería ser mayor cuando el turismo va <em>por delante</em>.
         «Primeras diferencias» significa que se correlacionan las <b>subidas y bajadas</b> anuales, no los
         niveles: así dos series que simplemente crecen a la vez no aparentan relación. Aun así el resultado
         puede deberse a la marea común de la ciudad — el control de esa marea (efectos fijos de año) se explica
-        en el texto siguiente, y es el que tumba el indicio.</div>
+        en el texto siguiente, y es el que tumba el indicio.</div></details>
       <div class="mapwrap"><svg class="map" id="leadlag" style="max-width:560px;margin:0 auto"></svg></div>
       <p class="src">analysis/lead_lag.py · docs/ANALISIS-LEADLAG.md. Correlación débil (r≈0,27) y exploratoria: la señal está en la forma, no en la magnitud.</p>
     </div>
@@ -1091,6 +1158,8 @@
         ningún desfase significativo. La pregunta solo la reabriría un dato más fino que el anual (alquiler o
         licencias trimestrales), que hoy no es público.</p>
     </div>
+      </div>
+    </details>
 
     <div class="fig">
       <h3>La ciudad vivida: escuelas, salud y ruido</h3>
@@ -2397,6 +2466,11 @@ function syncNavH(){
 }
 syncNavH();
 window.addEventListener('resize',syncNavH);
+// el desplegable «Más» de la nav se cierra al hacer clic fuera de él
+document.addEventListener('click',e=>{
+  const more=document.querySelector('nav.toc details.more');
+  if(more&&more.open&&!more.contains(e.target))more.open=false;
+});
 if(typeof IntersectionObserver!=='undefined'){
   const io=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting)activateStep(e.target);});
