@@ -4,8 +4,12 @@
   --muted: #6b7686;
   --border: #e2e6ec;
   --accent: #1f77b4;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Libre Franklin", "Inter", system-ui, sans-serif;
+  font-family: var(--font-sans);
   color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -15,6 +19,16 @@
 body {
   margin: 0;
   background: var(--bg);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .dashboard {
