@@ -565,8 +565,6 @@
           que el alquiler bajo. La presión más dura recae sobre los barrios obreros del este, no sobre el centro caro.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Índice relativo, no % real de gasto familiar. Supuesto de m²/persona explícito y regulable arriba. Las correlaciones son a nivel de barrio, no de hogares (falacia ecológica).</span>
-      <p class="nextcap">La foto fija dice dónde aprieta hoy. Pero una foto no dice hacia dónde va la ciudad:
-        para eso hay que medir velocidades. <a href="#s2">Capítulo 2 — qué barrios se mueven →</a></p>
     </div>
   </div>
 </section>
@@ -577,7 +575,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">2</div>
-        <div><p class="eyebrow">Capítulo 2 · El cambio: qué se mueve</p><h2 class="story-title">Qué barrios cambian más rápido</h2></div>
+        <div><p class="eyebrow">Capítulo 2 · El cambio: qué se mueve</p><h2 class="story-title">Como cambian los barrios</h2></div>
       </div>
       <p class="question">¿Qué barrios se están moviendo, y hacia qué perfil?</p>
       <p>El capítulo 1 dejó la foto fija: la presión de vivienda carga sobre el este de renta baja. Pero una
@@ -592,8 +590,8 @@
         <div class="fig">
           <h3>Velocidad de cambio por barrio (variación media anual desde 2016)</h3>
           <p class="cap">Este mapa pinta la <strong>pendiente, no el nivel</strong>: un barrio caro que ya no sube
-            aparece pálido; uno barato que sube deprisa, rojo intenso. La escala es divergente &mdash;azul = baja,
-            blanco = estable, rojo = sube&mdash; y el gris marca los barrios sin serie suficiente.</p>
+            aparece pálido; uno barato que sube deprisa, rojo intenso. La escala es divergente: azul = baja,
+            blanco = estable, rojo = sube. El gris marca los barrios sin datos suficientes.</p>
           <div class="controls">
             <div class="control" style="min-width:auto">
               <label>Indicador</label>
@@ -625,20 +623,19 @@
         <div class="step" data-velk="population"><div>
           <span class="steplab">2 · La población: dos velocidades</span>
           <p>La población sí tiene geografía. El <strong>centro pierde</strong> habitantes año tras año
-            (Gros −0,60&nbsp;%, Antiguo −0,45, Egia −0,33) mientras la periferia los gana. El porqué de esa
-            pérdida &mdash;envejecimiento, no expulsión&mdash; lo desmonta el capítulo 3.</p>
+            (Gros −0,60&nbsp;%, Antiguo −0,45&nbsp;%, Egia −0,33&nbsp;%) mientras la periferia los gana. El porqué de esa
+            pérdida (envejecimiento, no expulsión) se comenta en el capítulo 3.</p>
         </div></div>
         <div class="step" data-velk="pct_foreign"><div>
           <span class="steplab">3 · El % de extranjeros: crece en el este</span>
           <p>La población extranjera crece más rápido en el <strong>este obrero</strong> (Intxaurrondo,
-            +0,92 puntos al año): señal de inmigración económica, no de gentrificación &mdash;ver la nota
-            final&mdash;. El capítulo 4 desglosa ese agregado por origen, porque esconde perfiles opuestos.</p>
+            +0,92 puntos al año): señal de inmigración económica, no de gentrificación. El capítulo 4 desglosa ese agregado por origen, porque esconde perfiles opuestos.</p>
         </div></div>
         <div class="step" data-velk="pct_university"><div>
-          <span class="steplab">4 · Los estudios: sube en todas partes, Egia a la cabeza</span>
-          <p>El % de universitarios crece en toda la ciudad &mdash;es otra marea&mdash;, pero con
-            <strong>Egia</strong> al frente: el mayor crecimiento de Donostia, la seña del barrio
-            «en movimiento». El quinto botón (renta) queda para que lo explores tú.</p>
+          <span class="steplab">4 · Estudiantes: el % sube en todas partes</span>
+          <p>El % de universitarios crece en toda la ciudad, pero con
+            <strong>Egia</strong> (y Añorga) al frente: el mayor crecimiento de Donostia, la seña del barrio
+            «en movimiento».</p>
         </div></div>
       </div>
     </div>
@@ -649,17 +646,17 @@
 
     <div class="fig">
       <h3>Perfiles de barrio</h3>
-      <p class="cap">Tipología descriptiva (k-means, k=4) sobre renta, % universitarios, densidad VUT y alquiler. 13 barrios con las cuatro variables. Aquí el color no ordena de más a menos: cada color es una <strong>familia</strong> de barrios parecidos entre sí.</p>
+      <p class="cap">Tipología descriptiva sobre renta, % universitarios, densidad VUT y alquiler. 13 barrios con las cuatro variables. Aquí el color no ordena de más a menos: cada color es una <strong>familia</strong> de barrios parecidos entre sí.</p>
       <details class="metric-expl"><summary><span class="me-lab">La métrica, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
         <b>k-means</b> es un algoritmo que agrupa los barrios en un número fijo de grupos (aquí k=4) de manera
-        que cada barrio se parezca lo máximo posible &mdash;en renta, estudios, turismo y alquiler a la vez&mdash;
+        que cada barrio se parezca lo máximo posible (en renta, estudios, turismo y alquiler a la vez)
         a los de su propio grupo y lo mínimo a los demás. No hay jerarquía ni «mejor perfil»: son familias de
-        parecido, y con solo 13 barrios deben leerse como descripción orientativa, no como clasificación dura.</div></details>
+        parecido, y con solo 13 barrios deben leerse como descripción orientativa.</div></details>
       <div class="grid2">
         <div><div class="mapwrap"><svg class="map" id="map_prof"></svg></div></div>
         <div><div class="swatches" id="prof_sw"></div>
           <p style="font-size:.9rem;margin-top:14px">El caso a vigilar es <strong>Egia</strong>: transicional, con el
-            mayor crecimiento de universitarios de la ciudad &mdash; el candidato más claro a "moverse" hacia el perfil del centro.</p>
+            mayor crecimiento de universitarios de la ciudad: Es el candidato más claro a "moverse" hacia el perfil del centro.</p>
         </div>
       </div>
       <p class="src">Derivada — perfiles descriptivos, no clasificación dura (N=13).</p>
@@ -684,14 +681,14 @@
     </div>
     <div class="fig">
       <h3>Barato y calentándose: nivel de alquiler × velocidad de subida</h3>
-      <p class="cap">Cada barrio según su alquiler actual (eje X) y cuánto sube al año (eje Y). El cuadrante de arriba-izquierda — barato pero subiendo rápido (resaltado) — es el este obrero: asequible aún, pero erosionándose.</p>
+      <p class="cap">Cada barrio según su alquiler actual (eje X) y cuánto sube al año (eje Y). El cuadrante de arriba-izquierda (barato pero subiendo rápido) es el este obrero: asequible aún, pero erosionándose.</p>
       <div class="mapwrap"><svg class="map" id="an4" style="max-width:680px;margin:0 auto"></svg></div>
       <p class="src">analysis/an4_alquiler_nivel_x_crecimiento.csv. Líneas divisorias en la mediana de cada eje.</p>
     </div>
 
     <div class="keynums">
       <div class="kn"><div class="big">+4,3 %</div><div class="lbl">Subida anual del alquiler en Loiola, la mayor. Aiete e Intxaurrondo +3,9 %; es una marea general.</div></div>
-      <div class="kn"><div class="big">+0,92</div><div class="lbl">Puntos/año de crecimiento de % extranjeros en Intxaurrondo, el más rápido — todo en el este.</div></div>
+      <div class="kn"><div class="big">+0,92</div><div class="lbl">Puntos/año de crecimiento de % extranjeros en Intxaurrondo, el más rápido.</div></div>
       <div class="kn"><div class="big">−0,60 %</div><div class="lbl">Población/año que pierde Gros. El centro se vacía y se transforma; la periferia gana habitantes.</div></div>
     </div>
 
@@ -702,8 +699,6 @@
           social. Turismo y cambio social ocurren en <strong>barrios distintos</strong>.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Clusters con N=13 → perfiles descriptivos, no clasificación dura.</span>
-      <p class="nextcap">Los barrios cambian de precio y de composición. La siguiente pregunta es quién vive
-        ese cambio: la edad, el recambio. <a href="#s3">Capítulo 3 — quién vive Donostia →</a></p>
     </div>
   </div>
 </section>
@@ -800,8 +795,6 @@
           inmigración. La cautela sigue en pie: el envejecimiento del centro <strong>es anterior al boom turístico</strong> de 2016 y común a muchas ciudades europeas — el turismo se implanta sobre una estructura demográfica preexistente, no la crea.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;El saldo vegetativo/migratorio por barrio es una <em>estimación por residuo</em> (pirámide del padrón + mortalidad provincial): reparte con supuestos, no observa mudanzas. Sin microdatos de rotación sigue sin demostrarse desplazamiento individual; no se interpola edad mediana sobre datos en bandas.</span>
-      <p class="nextcap">Ya sabemos quién <em>vive</em> en cada barrio. Falta de dónde viene y en qué trabaja.
-        <a href="#sw">Capítulo 4 — quién trabaja Donostia →</a></p>
     </div>
   </div>
 </section>
@@ -914,8 +907,6 @@
         <p>Donostia no atrae «un» perfil de extranjero, sino al menos <strong>dos</strong> que ni viven en los mismos barrios ni tienen la misma renta: una migración económica &mdash;sobre todo latinoamericana, y magrebí&mdash; asentada en el este de renta baja, y un goteo europeo-occidental cualificado en el centro caro. La ciudad, a la vez, tiene una intensidad investigadora que dobla la media española <em>y</em> una base amplia de empleo de servicios mal pagado. Leer «% de extranjeros» como una sola cosa &mdash;o como señal de gentrificación&mdash; borra justamente esta doble estructura.</p>
       </div>
       <span class="conf"><span class="dot observed"></span><b>Observado + derivado.</b>&nbsp;El origen por barrio es padrón (registro completo); el empleo por nacionalidad/continente es <strong>EPA: encuesta con submuestras pequeñas</strong> a nivel Gipuzkoa (el orden entre grupos es robusto; las cifras exactas llevan error de muestreo). Las correlaciones son agregados de barrio o de Gipuzkoa (falacia ecológica), <strong>nunca</strong> lecturas individuales. No existe cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a grano municipal ni provincial; todo el vínculo origen↔trabajo es triangulación, no medición.</span>
-      <p class="nextcap">Precios, personas y trabajo se mueven sobre un escenario que también se mueve.
-        <a href="#s4">Capítulo 5 — el clima que lo enmarca →</a></p>
     </div>
   </div>
 </section>
@@ -989,8 +980,6 @@
           la ciudad &mdash;el mismo este denso donde aprieta la vivienda&mdash;, mientras el anillo verde queda 3&ndash;5 °C por debajo.</p>
       </div>
       <span class="conf"><span class="dot observed"></span><b>Observado.</b>&nbsp;La serie temporal es de una sola estación (Igeldo). La capa espacial (isla de calor) es temperatura de <em>superficie</em> por satélite &mdash;no del aire ni nocturna&mdash;: un rasgo estructural de la morfología urbana, no una tendencia.</span>
-      <p class="nextcap">Con el telón de fondo puesto, queda la fuerza que más presiona el suelo urbano.
-        <a href="#s5">Capítulo 6 — la ciudad turística y la vivida →</a></p>
     </div>
   </div>
 </section>
@@ -1214,8 +1203,6 @@
           control por shocks comunes de año.</p>
       </div>
       <span class="conf"><span class="dot proxy"></span><b>Derivado / proxy.</b>&nbsp;La densidad Airbnb es derivada (join espacial + per cápita); las reseñas son un <em>proxy</em> de ocupación que infraestima las estancias reales y crece con la adopción de la plataforma (en 2023&ndash;2026 exageran el crecimiento de oferta ×1,22).</span>
-      <p class="nextcap">Precio, velocidad, edad, trabajo y turismo son piezas del mismo puzle. El último capítulo
-        las encaja. <a href="#s6">Capítulo 7 — Donostia en transformación →</a></p>
     </div>
   </div>
 </section>
@@ -1428,8 +1415,6 @@
           es común a toda la ciudad; lo que de verdad distingue a los barrios es <strong>cómo envejecen</strong>. Y el hilo que recorre las siete historias es la <strong>tensión residencial</strong>: la presión se concentra en el este de renta baja &mdash;donde se solapan alquiler gravoso, migración económica y calor urbano&mdash;, aunque <em>quién</em> acaba desplazado siga sin poder demostrarse con datos abiertos. El contrapeso público existe &mdash;el alquiler protegido ya es la cuarta parte del alquiler ocupado de la ciudad&mdash;, pero su mapa completo por barrio no es público: la única ventana abierta (las promociones de Etxebide, ~⅓ de ese parque como mucho) apunta al este obrero, sin poder decir dónde falta.</p>
       </div>
       <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;«Transformación», no «gentrificación» (falta rotación de residentes). N=13 barrios; pesos iguales y umbrales = medianas de la ciudad, todo a la vista. El podio no depende de los pesos elegidos: en 1.000 combinaciones aleatorias, Loiola nunca baja del 3.º puesto en lo social y Erdialdea es 1.º en presión turística el 100&nbsp;% de las veces.</span>
-      <p class="nextcap">Y como todo relato con datos, este termina diciendo exactamente dónde acaba lo que
-        sabe. <a href="#s7">Epílogo — lo que aún no podemos responder →</a></p>
     </div>
   </div>
 </section>
@@ -1484,8 +1469,6 @@
 
     <div class="narrow">
       <span class="conf"><span class="dot observed"></span><b>Observado / curado.</b>&nbsp;Indicadores de ciudad (no por barrio); los datos MICE están curados de notas de prensa citadas.</span>
-      <p class="nextcap">Los datos dibujan la ciudad; falta saber si coinciden con cómo la vive su gente.
-        <a href="#sp">Coda — lo que preocupa a la ciudad, contrastado →</a></p>
     </div>
   </div>
 </section>
@@ -1523,9 +1506,6 @@
       <p><strong>Ruido &mdash; es el tr&aacute;fico, no el turismo.</strong> La encuesta del ruido se&ntilde;ala como m&aacute;s ruidosos la Parte Vieja, Amara Berri, Egia, Gros y A&ntilde;orga. Cruzados con los datos del proyecto, esos barrios coinciden con la <strong>isla de calor</strong> y con el <strong>ruido medido</strong> (correlaciones &asymp;&nbsp;0,7) &mdash;la geograf&iacute;a del este denso&mdash;, pero <strong>no</strong> con la densidad de pisos tur&iacute;sticos (&asymp;&nbsp;0,47, y solo porque el centro tur&iacute;stico es adem&aacute;s el m&aacute;s denso). Amara Berri, Egia o A&ntilde;orga son ruidosos sin apenas turismo. Coincide con lo que el proyecto ya sab&iacute;a &mdash;el ruido es de tr&aacute;fico, no de turismo&mdash; y con lo que pide la propia encuesta: <strong>menos tr&aacute;fico</strong>.</p>
 
       <p><strong>Vivienda &mdash; la presi&oacute;n no es uniforme, y ni siquiera se puede medir entera.</strong> El alquiler no sube igual en todas partes: entre los barrios con serie, el <strong>este obrero m&aacute;s barato sube m&aacute;s r&aacute;pido</strong> (Loiola +48&nbsp;%, Intxaurrondo +44&nbsp;% de 2016 a 2024) que los barrios de alquiler ya caro (Erdialdea +29&nbsp;%, Egia +28&nbsp;%) &mdash;converge en porcentaje, aunque la brecha en euros por metro persiste (v&eacute;ase el <a href="#s1">cap&iacute;tulo 1</a>)&mdash;. Y hay un punto ciego: <strong>seis de los diecinueve barrios no tienen ning&uacute;n dato</strong> de alquiler (Zubieta, Igeldo, A&ntilde;orga, Miram&oacute;n-Zorroaga y los dos exclaves rurales), porque su mercado de alquiler es demasiado peque&ntilde;o para registrar contratos. Sobre ellos, sencillamente, no se puede afirmar nada: un registro parcial no es el universo.</p>
-
-      <p class="nextcap">La percepci&oacute;n, contrastada, afina la agenda &mdash;y tambi&eacute;n marca d&oacute;nde se acaban los datos.
-        <a href="#s7">Ep&iacute;logo &mdash; lo que a&uacute;n no podemos responder &rarr;</a></p>
     </div>
   </div>
 </section>
