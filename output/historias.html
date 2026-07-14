@@ -637,6 +637,15 @@
             <strong>Egia</strong> (y Añorga) al frente: el mayor crecimiento de Donostia, la seña del barrio
             «en movimiento».</p>
         </div></div>
+        <div class="step" data-velk="income_total"><div>
+          <span class="steplab">5 · La renta: sube en todas partes, pero no al mismo compás</span>
+          <p>La renta per cápita crece en <strong>todos</strong> los barrios con serie (+3 a +4&nbsp;% anual
+            en los centrales), a un ritmo parecido al del alquiler. Pero acelera más donde ya es alta:
+            el <strong>centro</strong> encabeza (Gros&nbsp;+4,4&nbsp;%), donde la renta corre por delante del
+            alquiler. En el <strong>este obrero</strong> pasa lo contrario &mdash;el alquiler sube más rápido
+            que la renta (Intxaurrondo, Altza)&mdash;, y ahí es donde la brecha de esfuerzo se ensancha. Los
+            barrios periféricos pequeños (Añorga, Igeldo) marcan tasas altísimas, pero volátiles.</p>
+        </div></div>
       </div>
     </div>
 
@@ -1875,7 +1884,7 @@ const profColors={};const profOrder=[];
     sw.innerHTML=profOrder.map(p=>`<span class="sw"><i style="background:${profColors[p]}"></i>${p}</span>`).join('')+
       '<span class="sw" style="color:var(--muted)">tamaño = población</span>';
   // r annotation
-  const an=add('text',{x:W-m.r-6,y:m.t+18,'text-anchor':'end',fill:'#a63446','font-size':14,'font-weight':700});an.textContent='r = 0,64';
+  const an=add('text',{x:W-m.r-6,y:H-m.b-10,'text-anchor':'end',fill:'#a63446','font-size':14,'font-weight':700});an.textContent='r de Pearson = 0,64';
 })();
 
 /* ============ STORY 3: age ============ */
