@@ -145,7 +145,15 @@ _LABEL_OFFSET = {"egia": (8, 4), "antigua": (8, -6),
                  "miramon-zorroaga": (8, 12), "loiola": (8, 4)}
 EXCLUDE = {"zubieta", "landerbaso"}   # ruido de denominador (AN-18)
 GRAY = "#c9d2de"
+# Color de foco al pasar el ratón por una traza gris (distinto de los cuatro
+# colores destacados): la traza «se enciende» sin necesidad de 17 colores fijos.
+FOCUS = "#7a3ca6"
 MARKER_YEARS = (2005, 2010, 2015, 2020)
+
+
+def _esc(s: str) -> str:
+    return (s.replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
 
 
 def _sx(v: float) -> float:
@@ -165,15 +173,25 @@ def _trace(g: pd.DataFrame, smooth: int) -> tuple[np.ndarray, np.ndarray, list[i
     return x, y, list(g.index)
 
 
-def svg_connected_scatter(panel: pd.DataFrame, smooth: int = SMOOTH) -> str:
-    """El connected scatter de la historia #6 como SVG standalone."""
+def svg_connected_scatter(panel: pd.DataFrame, names: dict[str, str] | None = None,
+                          smooth: int = SMOOTH) -> str:
+    """El connected scatter de la historia #6 como SVG standalone.
+
+    Cada traza se envuelve en un `<g class="traj" data-…>` con una banda de
+    impacto transparente (`.hit`) más ancha que la línea y los datos de inicio
+    y fin: la interactividad (resaltar al pasar el ratón, tooltip con nombre y
+    cifras 2000→2025) la conecta el JS de `historias.html`, así que **todas**
+    las trazas —no solo las cuatro destacadas— son identificables.
+    """
+    names = names or {}
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {VIEW_W} {VIEW_H}" '
         'role="img" aria-label="Trayectorias de los barrios 2000–2025 en el '
         'plano envejecimiento × universitarios">'
     ]
-    # rejilla + ejes
-    v = X_DOMAIN[0] + X_STEP
+    # rejilla + ejes (primera marca en el múltiplo de X_STEP dentro del dominio)
+    import math
+    v = math.ceil(X_DOMAIN[0] / X_STEP) * X_STEP
     while v < X_DOMAIN[1] + 1e-9:
         parts.append(f'<line x1="{_sx(v):.1f}" y1="{_PY[1]}" x2="{_sx(v):.1f}" '
                      f'y2="{_PY[0]}" stroke="#eef1f6"/>')
@@ -205,36 +223,52 @@ def svg_connected_scatter(panel: pd.DataFrame, smooth: int = SMOOTH) -> str:
     grays = sorted(b for b in barrios if b not in HIGHLIGHTS)
     colored = [b for b in HIGHLIGHTS if b in barrios]
     labels = []
+    # grises primero, destacadas después (se dibujan encima); cada una es un
+    # grupo con su banda de impacto para que sea fácil de señalar y su tooltip.
     for barrio in grays + colored:
         x, y, years = _trace(panel.loc[[barrio]], smooth)
         if len(x) < 2:
             continue
-        color = HIGHLIGHTS.get(barrio, (None, GRAY))[1]
-        d = " L".join(f"{_sx(a):.1f},{_sy(b):.1f}" for a, b in zip(x, y))
         hi = barrio in HIGHLIGHTS
+        color = HIGHLIGHTS.get(barrio, (None, GRAY))[1]
+        hover = color if hi else FOCUS
+        name = HIGHLIGHTS[barrio][0] if hi else names.get(barrio, barrio.title())
+        d = " L".join(f"{_sx(a):.1f},{_sy(b):.1f}" for a, b in zip(x, y))
         width, opacity = ("2.4", "1") if hi else ("1.1", "0.75")
-        parts.append(f'<path d="M{d}" fill="none" stroke="{color}" '
-                     f'stroke-width="{width}" stroke-linejoin="round" '
-                     f'stroke-linecap="round" opacity="{opacity}"/>')
+        g = [f'<g class="traj" data-name="{_esc(name)}" data-color="{color}" '
+             f'data-hover="{hover}" data-hi="{1 if hi else 0}" '
+             f'data-xi="{x[0]:.0f}" data-xf="{x[-1]:.0f}" '
+             f'data-yi="{y[0]:.1f}" data-yf="{y[-1]:.1f}" '
+             f'data-yr0="{years[0]}" data-yr1="{years[-1]}">']
+        g.append(f'<path class="line" d="M{d}" fill="none" stroke="{color}" '
+                 f'stroke-width="{width}" stroke-linejoin="round" '
+                 f'stroke-linecap="round" opacity="{opacity}"/>')
         if hi:
             for year in MARKER_YEARS:
                 if year in years:
                     i = years.index(year)
-                    parts.append(f'<circle cx="{_sx(x[i]):.1f}" cy="{_sy(y[i]):.1f}" '
-                                 f'r="2.2" fill="{color}"/>')
+                    g.append(f'<circle class="mk" cx="{_sx(x[i]):.1f}" '
+                             f'cy="{_sy(y[i]):.1f}" r="2.2" fill="{color}"/>')
         r0, r1 = ("4.4", "4.6") if hi else ("2.6", "2.8")
         w0 = "2" if hi else "1.4"
-        parts.append(f'<circle cx="{_sx(x[0]):.1f}" cy="{_sy(y[0]):.1f}" r="{r0}" '
-                     f'fill="#fff" stroke="{color}" stroke-width="{w0}"/>')
-        parts.append(f'<circle cx="{_sx(x[-1]):.1f}" cy="{_sy(y[-1]):.1f}" r="{r1}" '
-                     f'fill="{color}"/>')
+        g.append(f'<circle class="p0" cx="{_sx(x[0]):.1f}" cy="{_sy(y[0]):.1f}" '
+                 f'r="{r0}" fill="#fff" stroke="{color}" stroke-width="{w0}"/>')
+        g.append(f'<circle class="p1" cx="{_sx(x[-1]):.1f}" cy="{_sy(y[-1]):.1f}" '
+                 f'r="{r1}" fill="{color}"/>')
+        # banda de impacto transparente, más ancha que la línea (fácil de señalar)
+        g.append(f'<path class="hit" d="M{d}" fill="none" stroke="transparent" '
+                 f'stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>')
+        g.append('</g>')
+        parts.append("".join(g))
         if hi:
-            name = HIGHLIGHTS[barrio][0]
             ox, oy = _LABEL_OFFSET.get(barrio, (8, 4))
             label_fill = LABEL_COLORS.get(barrio, color)
             labels.append(f'<text x="{_sx(x[-1]) + ox:.1f}" y="{_sy(y[-1]) + oy:.1f}" '
                           f'font-size="11.5" font-weight="700" '
                           f'fill="{label_fill}">{name}</text>')
+    # capa superior (etiquetas fijas + leyenda): se mantiene por encima aunque
+    # el JS suba una traza al frente al resaltarla.
+    parts.append('<g class="overlay">')
     parts.extend(labels)
     # leyenda: círculo hueco = 2000, lleno = 2025
     parts.append('<circle cx="66" cy="28" r="4" fill="#fff" stroke="#5f6e84" '
@@ -243,6 +277,7 @@ def svg_connected_scatter(panel: pd.DataFrame, smooth: int = SMOOTH) -> str:
     parts.append('<circle cx="118" cy="28" r="4" fill="#5f6e84"/>'
                  '<text x="127" y="31.5" font-size="10.5" fill="#5f6e84">2025 · '
                  'puntos intermedios = 2005/10/15/20</text>')
+    parts.append('</g>')
     parts.append("</svg>")
     return "\n".join(parts) + "\n"
 
@@ -293,7 +328,9 @@ def main() -> None:
 
     if args.svg:
         OUTDIR.mkdir(exist_ok=True)
-        svg = svg_connected_scatter(panel)
+        names = (df.drop_duplicates("barrio_id")
+                 .set_index("barrio_id")["barrio_name"].to_dict())
+        svg = svg_connected_scatter(panel, names)
         (OUTDIR / "trajectories_an18.svg").write_text(svg, encoding="utf-8")
         print(f"[guardado] {OUTDIR / 'trajectories_an18.svg'} "
               "(connected scatter de la historia #6)")
