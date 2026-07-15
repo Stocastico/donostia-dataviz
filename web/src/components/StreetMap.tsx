@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import maplibregl, { type LngLatBoundsLike, type Map as MlMap } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { barriosGeoJSON } from "../lib/data";
 import type { StreetFeatureCollection } from "../lib/streets";
 
 const SOURCE_ID = "streets";
+const BARRIOS_SOURCE_ID = "streets-barrios-basemap";
 // Blank style: no external tiles, so the map works offline and without keys
 // (same choice as BarrioMap).
 const BLANK_STYLE: maplibregl.StyleSpecification = {
@@ -49,6 +51,23 @@ export function StreetMap({ data }: { data: StreetFeatureCollection }) {
     popupRef.current = new maplibregl.Popup({ closeButton: false, closeOnClick: false });
 
     map.on("load", () => {
+      // City-shape basemap (barrio outlines) so the circles aren't floating
+      // on a blank background — same trick BarrioMap uses, but neutral-toned
+      // since here the barrio isn't the thing being measured.
+      map.addSource(BARRIOS_SOURCE_ID, { type: "geojson", data: barriosGeoJSON });
+      map.addLayer({
+        id: "streets-barrios-fill",
+        type: "fill",
+        source: BARRIOS_SOURCE_ID,
+        paint: { "fill-color": "#e6e9ee", "fill-opacity": 1 },
+      });
+      map.addLayer({
+        id: "streets-barrios-line",
+        type: "line",
+        source: BARRIOS_SOURCE_ID,
+        paint: { "line-color": "#c7ccd6", "line-width": 1 },
+      });
+
       map.addSource(SOURCE_ID, { type: "geojson", data: dataRef.current });
       map.addLayer({
         id: "streets-circle",
