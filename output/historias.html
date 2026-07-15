@@ -869,9 +869,9 @@
         <div class="step" data-orgk="europa_este"><div>
           <span class="steplab">4 · Los grupos menores</span>
           <p>Europa del Este (Ucrania y Rumanía, sobre todo) y Asia completan el cuadro con presencias más
-            difusas y sin un patrón fuerte de renta. Los botones del mapa te dejan recorrerlos; el panel
-            interactivo baja además al país concreto, barrio a barrio (ficha «Quién vive en el barrio ·
-            orígenes»).</p>
+            difusas y sin un patrón fuerte de renta. Los botones del mapa te dejan recorrerlos por región; el
+            <a href="app/">panel interactivo</a> baja además al país concreto, barrio a barrio (ficha «Quién
+            vive en el barrio · orígenes»).</p>
         </div></div>
       </div>
     </div>
@@ -883,14 +883,14 @@
       <p class="src">analysis/perfil_extranjeros_empleo.py · docs/intermedia/ANALISIS-EXTRANJEROS-EMPLEO.md §1.3. Correlación entre barrios: describe geografía, no hogares.</p>
     </div>
 
+    <div class="narrow">
+      <p>La estabilidad laboral también se reparte de forma desigual por origen. Con la EPA vasca desagregada por continente (Gipuzkoa, 2024), la tasa de paro de la población <strong>africana (18,4 %)</strong> casi triplica la europea (6,7 %); la población de nacionalidad extranjera tiene, en conjunto, más del doble de paro que la española (9,4 % vs 4,3 %) pese a una tasa de actividad más alta: busca empleo con más intensidad y lo encuentra menos. Dos avisos de fuente: es una <strong>encuesta</strong>, no un registro, y a nivel de Gipuzkoa las submuestras por continente son pequeñas (la brecha (África ≫ Europa es robusta; el decimal, no). Y lo que estos datos <strong>no</strong> ven, y por eso no se afirma: el sinhogarismo y la economía informal, que ninguna encuesta de actividad capta por diseño (hogares con domicilio). Se deja como vacío declarado, no se rellena con un proxy.</p>
+    </div>
+
     <div class="keynums">
       <div class="kn"><div class="big">×19</div><div class="lbl">Crecimiento de la cuota latinoamericana desde 2000 (0,25 %→4,81 % de la población). El Magreb crece ×27 desde una base casi nula; Europa occidental solo ×2,6.</div></div>
       <div class="kn"><div class="big">−0,69 / +0,59</div><div class="lbl">América Latina correlaciona −0,69 con la renta del barrio; Europa occidental, +0,59 con el % de universitarios. La misma cifra de «extranjeros» esconde relaciones opuestas.</div></div>
       <div class="kn"><div class="big">18,4 %</div><div class="lbl">Paro de la población africana en Gipuzkoa (2024), casi 3× la europea (6,7 %) y 6× la americana (3,2 %). La población extranjera dobla en paro a la española (9,4 % vs 4,3 %). Ojo: EPA = encuesta, y la submuestra por continente es pequeña — el <em>orden</em> es robusto, la cifra exacta no.</div></div>
-    </div>
-
-    <div class="narrow">
-      <p>La estabilidad laboral también se reparte de forma desigual por origen. Con la EPA vasca desagregada por continente (Gipuzkoa, 2024), la tasa de paro de la población <strong>africana (18,4 %)</strong> casi triplica la europea (6,7 %); la población de nacionalidad extranjera tiene, en conjunto, más del doble de paro que la española (9,4 % vs 4,3 %) pese a una tasa de actividad más alta: busca empleo con más intensidad y lo encuentra menos. Dos avisos de fuente: es una <strong>encuesta</strong>, no un registro, y a nivel de Gipuzkoa las submuestras por continente son pequeñas (la brecha (África ≫ Europa es robusta; el decimal, no). Y lo que estos datos <strong>no</strong> ven, y por eso no se afirma: el sinhogarismo y la economía informal, que ninguna encuesta de actividad capta por diseño (hogares con domicilio). Se deja como vacío declarado, no se rellena con un proxy.</p>
     </div>
 
     <div class="fig">
@@ -958,6 +958,13 @@
       <p class="cap">Temperatura media por mes (columnas) y año (filas). El calor reciente se "estira" hacia los meses de transición.</p>
       <div class="mapwrap"><svg class="map" id="heatmap"></svg></div>
       <div class="legend" id="leg_heat"></div>
+    </div>
+
+    <div class="fig">
+      <h3>Curvas mensuales por año: el pasado como fondo, el presente en rojo</h3>
+      <p class="cap" id="cycles_cap">Cada línea es un año, de enero a diciembre. Cuanto más arriba se sitúan las líneas recientes sobre el fondo gris de los años anteriores, más cálido resulta el año.</p>
+      <div class="mapwrap"><svg class="map" id="cycles"></svg></div>
+      <div class="legend" id="leg_cycles"></div>
     </div>
 
     <div class="narrow">
@@ -1988,6 +1995,47 @@ lineChart('hotdays',CL.hot_days_annual,{bars:true,color:'#e0902f',unit:'días',d
       rect.addEventListener('mousemove',ev=>showTip(`<b>${MN[mo-1]} ${y}</b><br><span class="t-val">${fmt(v,1)} °C</span>`,ev));rect.addEventListener('mouseleave',hideTip);}
   });
   document.getElementById('leg_heat').innerHTML=`<div><div class="scale">${hRamp(['#2166ac','#67a9cf','#d1e5f0','#fddbc7','#ef8a62','#b2182b'])}</div><div class="ticks"><span>${fmt(lo,0)} °C</span><span>${fmt(hi,0)} °C</span></div></div><span>temperatura media mensual</span>`;
+})();
+
+(function monthlyCycles(){
+  const RECENT=10;
+  const monthly=CL.temp_avg_monthly;const years=Object.keys(monthly).map(Number).sort((a,b)=>a-b);
+  const n=years.length,last=years[n-1];
+  const MN=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const W=1000,H=320,m={l:44,r:16,t:14,b:28};
+  const svg=document.getElementById('cycles');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  let allv=[];years.forEach(y=>{for(let mo=1;mo<=12;mo++){const v=monthly[y][mo];if(v!=null)allv.push(v);}});
+  const lo=Math.min(...allv),hi=Math.max(...allv);
+  const X=mo=>m.l+(mo-1)/11*(W-m.l-m.r);
+  const Y=v=>H-m.b-(v-lo)/(hi-lo)*(H-m.t-m.b);
+  function add(t,a){const nd=el(t,a);svg.appendChild(nd);return nd;}
+  const ticks=4;
+  for(let i=0;i<=ticks;i++){const v=lo+(hi-lo)*i/ticks;const yy=Y(v);
+    add('line',{x1:m.l,y1:yy,x2:W-m.r,y2:yy,stroke:'#eef1f5'});
+    add('text',{x:m.l-7,y:yy+4,'text-anchor':'end',fill:'#5f6e84','font-size':10}).textContent=fmt(v,0);}
+  MN.forEach((mnm,i)=>add('text',{x:X(i+1),y:H-8,'text-anchor':'middle',fill:'#5f6e84','font-size':10}).textContent=mnm);
+  function colorFor(y,i){
+    if(y===last)return{stroke:'#b30000',w:3,op:1};
+    if(i>=n-RECENT){const t=(i-(n-RECENT))/Math.max(1,RECENT-1);return{stroke:rampColor(SEQ,0.35+0.5*t),w:1.4,op:0.9};}
+    return{stroke:'#c7ccd6',w:1,op:0.6};
+  }
+  years.forEach((y,i)=>{
+    const data=monthly[y];const pts=[];for(let mo=1;mo<=12;mo++){if(data[mo]!=null)pts.push(mo);}
+    if(!pts.length)return;
+    let d='';pts.forEach((mo,idx)=>{d+=(idx?'L':'M')+X(mo)+' '+Y(data[mo]);});
+    const c=colorFor(y,i);
+    const path=add('path',{d,fill:'none',stroke:c.stroke,'stroke-width':c.w,'stroke-opacity':c.op,'stroke-linejoin':'round','stroke-linecap':'round'});
+    if(y===last){
+      pts.forEach(mo=>{const pt=add('circle',{cx:X(mo),cy:Y(data[mo]),r:2.6,fill:c.stroke});
+        pt.addEventListener('mousemove',ev=>showTip(`<b>${MN[mo-1]} ${y}</b><br><span class="t-val">${fmt(data[mo],1)} °C</span>`,ev));
+        pt.addEventListener('mouseleave',hideTip);});
+    }else{
+      path.addEventListener('mousemove',ev=>showTip(`<b>${y}</b>`,ev));
+      path.addEventListener('mouseleave',hideTip);
+    }
+  });
+  document.getElementById('cycles_cap').innerHTML=`Cada línea es un año, de enero a diciembre: en <span style="color:#9aa4b2">gris</span> el pasado, en tonos cálidos los últimos ${RECENT} años, en <strong style="color:#b30000">rojo</strong> ${last} (el más reciente). Cuanto más arriba se sitúan las líneas recientes, más cálido resulta el año.`;
+  document.getElementById('leg_cycles').innerHTML=`<span><span style="display:inline-block;width:16px;height:2px;background:#c7ccd6;vertical-align:middle;margin-right:5px"></span>años anteriores</span><span><span style="display:inline-block;width:16px;height:2px;background:linear-gradient(90deg,#fdcab5,#a63446);vertical-align:middle;margin-right:5px"></span>últimos ${RECENT} años</span><span><span style="display:inline-block;width:16px;height:3px;background:#b30000;vertical-align:middle;margin-right:5px"></span>${last}</span>`;
 })();
 
 
