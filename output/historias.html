@@ -385,6 +385,12 @@
         que contrasta la percepción vecinal con los datos y un epílogo con lo que aún no se puede
         responder. Las explicaciones técnicas van <strong>plegados</strong> y son opcionales. Se pueden abrir con un clic, pero el relato sigue igual si prefieres ignorarlos.</p>
 
+      <p>Este es el documento principal, donde se cuenta con calma la evolución de Donostia a través
+        de los datos. Quien prefiera explorar por su cuenta puede recorrer todas las visualizaciones
+        de forma interactiva en el <a href="app/">panel interactivo</a>, revisar cómo se ha construido
+        cada indicador en la <a href="metodologia.html">metodología</a>, o entrar en el detalle técnico
+        completo en el <a href="working-paper.html">working paper</a>.</p>
+
     </div>
   </div>
 </section>
@@ -950,13 +956,6 @@
         <p class="cap">Recuento anual.</p>
         <div class="mapwrap"><svg class="map" id="hotdays"></svg></div>
       </div>
-    </div>
-
-    <div class="fig">
-      <h3>Ciclo mensual a lo largo de los años</h3>
-      <p class="cap">Temperatura media por mes (columnas) y año (filas). El calor reciente se "estira" hacia los meses de transición.</p>
-      <div class="mapwrap"><svg class="map" id="heatmap"></svg></div>
-      <div class="legend" id="leg_heat"></div>
     </div>
 
     <div class="fig">
@@ -1995,25 +1994,6 @@ function lineChart(svgId,data,opts){
 }
 lineChart('trend',CL.temp_avg_annual,{color:'#1f6f8b',unit:'°C',dec:1,lo:12,hi:16,yticks:4,reg:CL.reg.temp_avg,regUnit:' °C/década'});
 lineChart('hotdays',CL.hot_days_annual,{bars:true,color:'#e0902f',unit:'días',dec:0,lo:0,reg:CL.reg.hot_days,regColor:'#a63446',regUnit:' días/década'});
-
-(function heatmap(){
-  const monthly=CL.temp_avg_monthly;const years=Object.keys(monthly).map(Number).sort((a,b)=>a-b);
-  const W=1000,m={l:38,r:10,t:22,b:10};const cellW=(W-m.l-m.r)/12;const cellH=11;const H=m.t+years.length*cellH+m.b;
-  const svg=document.getElementById('heatmap');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  let allv=[];years.forEach(y=>{for(let mo=1;mo<=12;mo++){const v=monthly[y][mo];if(v!=null)allv.push(v);}});
-  const lo=Math.min(...allv),hi=Math.max(...allv);
-  const sc=v=>rampColor(['#2166ac','#67a9cf','#d1e5f0','#fddbc7','#ef8a62','#b2182b'],(v-lo)/(hi-lo));
-  const MN=['E','F','M','A','M','J','J','A','S','O','N','D'];
-  function add(t,a){const n=el(t,a);svg.appendChild(n);return n;}
-  for(let mo=0;mo<12;mo++)add('text',{x:m.l+mo*cellW+cellW/2,y:14,'text-anchor':'middle',fill:'#5f6e84','font-size':10}).textContent=MN[mo];
-  years.forEach((y,r)=>{
-    if(y%5===0)add('text',{x:m.l-6,y:m.t+r*cellH+cellH-1,'text-anchor':'end',fill:'#5f6e84','font-size':9}).textContent=y;
-    for(let mo=1;mo<=12;mo++){const v=monthly[y][mo];if(v==null)continue;
-      const rect=add('rect',{x:m.l+(mo-1)*cellW,y:m.t+r*cellH,width:cellW+.5,height:cellH+.5,fill:sc(v)});
-      rect.addEventListener('mousemove',ev=>showTip(`<b>${MN[mo-1]} ${y}</b><br><span class="t-val">${fmt(v,1)} °C</span>`,ev));rect.addEventListener('mouseleave',hideTip);}
-  });
-  document.getElementById('leg_heat').innerHTML=`<div><div class="scale">${hRamp(['#2166ac','#67a9cf','#d1e5f0','#fddbc7','#ef8a62','#b2182b'])}</div><div class="ticks"><span>${fmt(lo,0)} °C</span><span>${fmt(hi,0)} °C</span></div></div><span>temperatura media mensual</span>`;
-})();
 
 (function monthlyCycles(){
   const RECENT=10;
