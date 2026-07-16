@@ -2501,34 +2501,62 @@ renderPress();renderVel();renderAge();renderTour();renderLived();renderComp();re
 
 /* trajectories (ch.7): make every trace identifiable on hover — it lights up,
    rises to the front and shows a tooltip with the barrio and its 2000→2025
-   numbers. The four story lines keep their permanent colour + label as anchors. */
+   numbers. The four story lines keep their permanent colour + label as anchors.
+
+   Single-owner state machine driven by delegation on the <svg>: instead of
+   per-trace pointerenter/pointerleave (which desync when the DOM node is
+   raised under the pointer, or when the wide .hit bands overlap — leaving a
+   trace stuck coloured and the tooltip pinned), we recompute the hovered
+   trace on every pointermove. Only one trace is ever active; a missed event
+   self-heals on the next move, and a single pointerleave on the <svg> guarantees
+   a full reset the moment the pointer leaves the chart. */
 (function trajInteractive(){
   const svg=document.getElementById('traj_an18');if(!svg)return;
   const overlay=svg.querySelector('.overlay');
   const n1=(v,d)=>Number(v).toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
   svg.querySelectorAll('.traj').forEach(g=>{
-    const line=g.querySelector('.line'),d=g.dataset;
-    const baseC=line.getAttribute('stroke'),baseW=line.getAttribute('stroke-width');
-    const hi=d.hi==='1';
-    function tip(ev){
-      const dAge=(+d.xf)-(+d.xi),dUni=(+d.yf)-(+d.yi),sg=v=>(v>=0?'+':'−');
-      showTip(`<b>${d.name}</b> <span style="opacity:.7">${d.yr0}→${d.yr1}</span>`+
-        `<br>Envejecimiento <span class="t-val">${n1(d.xi,0)}</span> → <span class="t-val">${n1(d.xf,0)}</span> (${sg(dAge)}${n1(Math.abs(dAge),0)})`+
-        `<br>Universitarios <span class="t-val">${n1(d.yi,1)}</span>% → <span class="t-val">${n1(d.yf,1)}</span>% (${sg(dUni)}${n1(Math.abs(dUni),1)})`,ev);
-    }
-    g.addEventListener('pointerenter',ev=>{
-      svg.classList.add('focusing');g.classList.add('active');
-      line.setAttribute('stroke',d.hover);line.setAttribute('stroke-width',hi?'3.2':'2.6');line.setAttribute('opacity','1');
-      if(overlay)svg.insertBefore(g,overlay);else svg.appendChild(g); // raise, keep labels/legend on top
-      tip(ev);
-    });
-    g.addEventListener('pointermove',tip);
-    g.addEventListener('pointerleave',()=>{
-      svg.classList.remove('focusing');g.classList.remove('active');
-      line.setAttribute('stroke',baseC);line.setAttribute('stroke-width',baseW);
-      line.setAttribute('opacity',hi?'1':'0.75');hideTip();
-    });
+    const line=g.querySelector('.line');
+    g._line=line;
+    g._baseC=line.getAttribute('stroke');
+    g._baseW=line.getAttribute('stroke-width');
+    g._hi=g.dataset.hi==='1';
+    g._baseO=g._hi?'1':'0.75';
+    g._next=g.nextSibling; // original stacking slot, restored on deactivate
   });
+  const tipHTML=d=>{
+    const dAge=(+d.xf)-(+d.xi),dUni=(+d.yf)-(+d.yi),sg=v=>(v>=0?'+':'−');
+    return `<b>${d.name}</b> <span style="opacity:.7">${d.yr0}→${d.yr1}</span>`+
+      `<br>Envejecimiento <span class="t-val">${n1(d.xi,0)}</span> → <span class="t-val">${n1(d.xf,0)}</span> (${sg(dAge)}${n1(Math.abs(dAge),0)})`+
+      `<br>Universitarios <span class="t-val">${n1(d.yi,1)}</span>% → <span class="t-val">${n1(d.yf,1)}</span>% (${sg(dUni)}${n1(Math.abs(dUni),1)})`;
+  };
+  let active=null;
+  function deactivate(g){
+    if(!g)return;
+    g.classList.remove('active');
+    g._line.setAttribute('stroke',g._baseC);
+    g._line.setAttribute('stroke-width',g._baseW);
+    g._line.setAttribute('opacity',g._baseO);
+    if(g._next&&g._next.parentNode===svg)svg.insertBefore(g,g._next);else svg.appendChild(g);
+  }
+  function activate(g){
+    g.classList.add('active');
+    g._line.setAttribute('stroke',g.dataset.hover);
+    g._line.setAttribute('stroke-width',g._hi?'3.2':'2.6');
+    g._line.setAttribute('opacity','1');
+    if(overlay)svg.insertBefore(g,overlay);else svg.appendChild(g); // raise, keep labels on top
+  }
+  function reset(){
+    if(active){deactivate(active);active=null;}
+    svg.classList.remove('focusing');hideTip();
+  }
+  svg.addEventListener('pointermove',ev=>{
+    const g=ev.target&&ev.target.closest?ev.target.closest('.traj'):null;
+    if(!g){reset();return;}
+    if(g!==active){deactivate(active);active=g;svg.classList.add('focusing');activate(g);showTip(tipHTML(g.dataset),ev);}
+    else moveTip(ev);
+  });
+  svg.addEventListener('pointerleave',reset);
+  svg.addEventListener('pointercancel',reset);
 })();
 
 /* ============ SCROLLYTELLING ============ */
