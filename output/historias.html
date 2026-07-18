@@ -2134,19 +2134,27 @@ function multiLineChart(svgId,seriesArr,opts){
     add('line',{x1:m.l,y1:yy,x2:W-m.r,y2:yy,stroke:'#eef1f5'});
     add('text',{x:m.l-7,y:yy+4,'text-anchor':'end',fill:'#5f6e84','font-size':10}).textContent=fmt(v,opts.dec||0);}
   [x0,Math.round((x0+x1)/2),x1].forEach(yr=>add('text',{x:X(yr),y:H-8,'text-anchor':'middle',fill:'#5f6e84','font-size':10}).textContent=yr);
+  // per-series visual parts, so hovering one zone can highlight it and dim the rest
+  const parts=seriesArr.map(s=>({els:[],context:!!s.context,path:null}));
+  function setFocus(i){parts.forEach((pp,j)=>{
+    const dim=(i!=null&&j!==i);
+    pp.els.forEach(e=>e.setAttribute('opacity',dim?0.13:1));
+    if(pp.path)pp.path.setAttribute('stroke-width',(j===i)?3.2:(pp.context?1:2.2));});}
   // context series (thin, grey, no markers) drawn first so highlighted lines sit on top
-  seriesArr.forEach(s=>{
+  seriesArr.forEach((s,si)=>{
     const pts=years.filter(y=>s.data[y]!=null);if(!pts.length)return;
     let d='';pts.forEach((y,i)=>{d+=(i?'L':'M')+X(y)+' '+Y(s.data[y]);});
     const path=add('path',{d,fill:'none',stroke:s.color,'stroke-width':s.context?1:2.2,
       'stroke-linejoin':'round','stroke-linecap':'round','stroke-dasharray':s.dash||'0',
       'stroke-opacity':s.context?0.9:1});
+    parts[si].path=path;parts[si].els.push(path);
     if(opts.crosshair)return; // a shared crosshair layer (below) handles hover for every series
     if(s.context){
       path.addEventListener('mousemove',ev=>showTip(`<b>${s.label}</b>`,ev));
       path.addEventListener('mouseleave',hideTip);
     }else{
       pts.forEach(y=>{const c=add('circle',{cx:X(y),cy:Y(s.data[y]),r:2.4,fill:s.color});
+        parts[si].els.push(c);
         c.addEventListener('mousemove',ev=>showTip(`<b>${s.label} · ${y}</b><br><span class="t-val">${fmt(s.data[y],opts.dec||0)}</span> ${opts.unit||''}`,ev));
         c.addEventListener('mouseleave',hideTip);});
     }
@@ -2168,9 +2176,18 @@ function multiLineChart(svgId,seriesArr,opts){
     if(L.length&&L[0].ty<top){L[0].ty=top;
       for(let i=1;i<L.length;i++){if(L[i].ty-L[i-1].ty<GAP)L[i].ty=L[i-1].ty+GAP;}}
     L.forEach(o=>{
-      add('circle',{cx:o.x,cy:o.cy,r:3,fill:o.s.color});
-      if(Math.abs(o.ty-o.cy)>1.5)add('line',{x1:o.x+3.5,y1:o.cy,x2:o.x+7,y2:o.ty-3,stroke:o.s.color,'stroke-width':1,'stroke-opacity':.55});
-      add('text',{x:o.x+9,y:o.ty,fill:'#33445c','font-size':10.5,'font-weight':600}).textContent=o.s.label;});}
+      const si=seriesArr.indexOf(o.s);
+      const dot=add('circle',{cx:o.x,cy:o.cy,r:3,fill:o.s.color});
+      if(si>=0)parts[si].els.push(dot);
+      if(Math.abs(o.ty-o.cy)>1.5){const ld=add('line',{x1:o.x+3.5,y1:o.cy,x2:o.x+7,y2:o.ty-3,stroke:o.s.color,'stroke-width':1,'stroke-opacity':.55});if(si>=0)parts[si].els.push(ld);}
+      const lab=add('text',{x:o.x+9,y:o.ty,fill:'#33445c','font-size':10.5,'font-weight':600,style:'cursor:pointer'});
+      lab.textContent=o.s.label;
+      // hover the zone name (or its dot) to isolate that line and dim the rest
+      if(si>=0){parts[si].els.push(lab);
+        [lab,dot].forEach(node=>{
+          node.addEventListener('mouseenter',()=>setFocus(si));
+          node.addEventListener('mouseleave',()=>setFocus(null));});}
+      });}
   if(opts.legend!==false){const lx=m.l+8,ly=m.t+6;seriesArr.filter(s=>!s.context).forEach((s,i)=>{
     add('rect',{x:lx,y:ly+i*16-8,width:14,height:3,fill:s.color});
     add('text',{x:lx+20,y:ly+i*16-4,fill:'#3a4a63','font-size':11}).textContent=s.label;});}
