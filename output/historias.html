@@ -151,6 +151,9 @@
   .nodata{fill:#eef1f5}
   .blabel{font-size:9px;fill:#33445c;font-weight:600;pointer-events:none;paint-order:stroke;
     stroke:#fff;stroke-width:2.4px;stroke-linejoin:round}
+  /* la brújula de barrios rotula todos los nombres, así que necesita más cuerpo */
+  #map_orient .blabel{font-size:14px;stroke-width:3px}
+  #map_orient path.barrio{cursor:default}
   /* legend */
   .legend{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:.8rem;color:var(--ink2)}
   .legend .scale{display:flex;height:12px;border-radius:3px;overflow:hidden;width:220px}
@@ -363,7 +366,7 @@
         España pasa del 5,2&nbsp;% (2015) al <strong>9,4&nbsp;%</strong> (2025), mientras el centro
         envejece: Gros roza los 370 mayores por cada 100 menores. Y el escenario
         físico: la temperatura media ha subido <strong>+1,6&nbsp;°C</strong> desde los años 80.
-        La pregunta es: ¿qué relación existe (si hay) entre estas tendencias?</p>
+        La pregunta es: ¿qué relación existe (si es que la hay) entre estas tendencias?</p>
 
       <p><strong>Las hipótesis y el objetivo.</strong> La hipótesis de partida era un tema del que se habla mucho en la ciudad: que la turistificación empuja los alquileres, expulsa residentes del centro y ensancha la brecha entre barrios. El objetivo de este trabajo es ponerla a prueba pieza a
         pieza con datos abiertos, bajo dos reglas: cada número es <strong>reproducible</strong> (todo gráfico
@@ -391,6 +394,23 @@
         vivida) frente a frente (6); y la síntesis que encaja las piezas (7). Cierran un apéndice
         que suma el contexto de ciudad y contrasta la percepción vecinal con los datos, y un epílogo con lo
         que aún no se puede responder. Las explicaciones técnicas van <strong>plegados</strong> y son opcionales. Se pueden abrir con un clic, pero el relato sigue igual si prefieres ignorarlos.</p>
+
+      <div class="fig">
+        <h3>Para ubicarte: el mapa de los barrios</h3>
+        <p class="cap">Los 19 barrios oficiales de Donostia. El relato los nombra a menudo por su posición
+          en la ciudad —«el&nbsp;centro» (Erdialdea, Gros, Antiguo), «el&nbsp;este obrero» (Altza, Egia,
+          Intxaurrondo…), «la&nbsp;periferia interior» (Loiola…) y «el&nbsp;anillo verde» rural—; este mapa es
+          la chuleta para situar cada uno. Pasa el ratón o toca un barrio para ver su nombre.</p>
+        <div class="mapwrap"><svg class="map" id="map_orient" style="max-width:660px;margin:0 auto"></svg></div>
+        <p class="src">Geometría oficial de barrios (Donostia Open Data, <code>mapa_auzoak</code>). Sin datos: es
+          solo una referencia de ubicación.</p>
+      </div>
+
+      <p style="font-size:.95rem;color:var(--ink2);border-left:3px solid var(--sea);padding-left:16px;background:#f4f8fb;border-radius:0 8px 8px 0;padding-top:10px;padding-bottom:10px">
+        <strong>Un apunte de vocabulario.</strong> A lo largo del texto, «<strong>presión</strong>»,
+        «<strong>tensión</strong>» y «<strong>esfuerzo</strong>» de vivienda nombran lo mismo: qué parte de la
+        renta se llevaría el alquiler (el indicador que abre el capítulo&nbsp;1). No es el gasto real de una
+        familia concreta, sino una medida comparable entre barrios y entre años.</p>
 
       <p>Este es el documento principal, donde se cuenta con calma la evolución de Donostia a través
         de los datos. Quien prefiera explorar por su cuenta puede recorrer todas las visualizaciones
@@ -1749,6 +1769,26 @@ function paintMap(map,colorFor,tipFor){
     p._tip=tipFor(bid);
   }
 }
+/* Brújula de barrios: mapa de referencia con todos los nombres. No lleva datos;
+   solo ayuda a ubicar los barrios que el relato nombra por su posición. */
+(function(){
+  const svg=document.getElementById('map_orient');
+  if(!svg)return;
+  const om=buildMap('map_orient');
+  const g=svg.querySelector('g');
+  // pequeños empujones verticales para las etiquetas que se pisan en el centro denso
+  const LABEL_DY={aiete:-13,amaraberri:6,'miramon-zorroaga':-9,martutene:13};
+  for(const bid in D.barrios){
+    const b=D.barrios[bid];
+    om.paths[bid].setAttribute('fill','#e7eef3');
+    om.paths[bid]._tip=`<b>${b.name}</b>`;
+    if(b.cx!=null&&b.cy!=null){
+      const t=el('text',{x:b.cx,y:b.cy+(LABEL_DY[bid]||0),class:'blabel','text-anchor':'middle','dominant-baseline':'middle'});
+      t.textContent=b.name.replace(/\s*\(.*\)$/,'');   // etiqueta compacta; el tooltip mantiene el nombre completo
+      g.appendChild(t);
+    }
+  }
+})();
 function hRamp(stops){let s='';const N=24;for(let i=0;i<N;i++)s+=`<span style="background:${rampColor(stops,i/(N-1))}"></span>`;return s;}
 function legendSeq(id,stops,dmin,dmax,unit,dec){
   dec=dec||0;
