@@ -122,6 +122,16 @@ describe("blindaje renta del trabajo (cap. 1)", () => {
   });
 });
 
+describe("quién trabaja: la ciudad que importa trabajadores", () => {
+  it("dibuja la serie de empleos localizados con un punto por año", () => {
+    const svg = doc.getElementById("jobs_ts");
+    expect(svg, "falta el gráfico #jobs_ts").toBeTruthy();
+    // 1995–2025 = 31 años, un círculo por año.
+    expect(svg!.querySelectorAll("circle").length).toBeGreaterThanOrEqual(31);
+    expect(svg!.querySelectorAll("path").length).toBeGreaterThanOrEqual(1);
+  });
+});
+
 describe("accesibilidad", () => {
   // Cada gráfico es un <svg> dibujado por JS; para un lector de pantalla debe
   // anunciar QUÉ es (role="img" + aria-label). Un gráfico añadido más tarde que

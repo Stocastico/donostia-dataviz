@@ -33,6 +33,11 @@ interface Dono {
   climate: { reg: Record<string, number[]> };
   an5: { year: number; gini: number; gini_pond: number }[];
   leadlag: { lag: number; r: number }[];
+  work: {
+    jobs_located: Record<string, number>;
+    concentration: Record<string, number>;
+    resident_work_pct: Record<string, number>;
+  };
 }
 
 let D: Dono;
@@ -147,6 +152,38 @@ describe("cap. 3 — quién vive Donostia", () => {
 
   it("adultos jóvenes 2025: Intxaurrondo 21 %", () => {
     expect(r0(D.youth_series.intxaurrondo["2025"])).toBe(21);
+  });
+});
+
+describe("cap. 4 — quién trabaja Donostia", () => {
+  it("empleos localizados: crecen de ~66.000 (1995) a ~103.000 (2025)", () => {
+    const w = D.work.jobs_located;
+    const years = Object.keys(w).sort();
+    expect(w[years[0]]).toBeGreaterThan(60000);
+    expect(w[years[0]]).toBeLessThan(70000);
+    expect(w[years[years.length - 1]]).toBe(103446);
+  });
+
+  it("ratio de concentración de empleo > 1 siempre y ~1,20 en 2024 (importa trabajadores)", () => {
+    const c = D.work.concentration;
+    for (const y of Object.keys(c)) expect(c[y], `ratio ${y}`).toBeGreaterThan(1);
+    expect(r2(c["2024"])).toBe(1.2);
+  });
+
+  it("~66 % de los ocupados residentes trabajan en la propia ciudad (2024)", () => {
+    expect(r0(D.work.resident_work_pct["2024"])).toBe(66);
+  });
+
+  it("brecha de renta de género (2023): mínima en los barrios densos y jóvenes, máxima en los pequeños/residenciales", () => {
+    const g = D.metrics.income_gender_gap;
+    const val = (k: string) => g[k].v;
+    // El menor gap de toda la ciudad es Egia; Igeldo (rural, muestra pequeña) el mayor.
+    const sorted = Object.keys(g).sort((a, b) => val(a) - val(b));
+    expect(sorted[0]).toBe("egia");
+    expect(sorted[sorted.length - 1]).toBe("igeldo");
+    // Patrón robusto entre barrios urbanos: joven/mixto < acomodado/tradicional.
+    expect(val("egia")).toBeLessThan(val("aiete"));
+    expect(val("intxaurrondo")).toBeLessThan(val("antigua"));
   });
 });
 
