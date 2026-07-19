@@ -33,6 +33,11 @@
   h1,h2,h3{font-family:"Libre Franklin","Inter",system-ui,sans-serif;font-weight:700;line-height:1.18;letter-spacing:-.015em;text-wrap:balance;color:var(--ink)}
   a{color:var(--sea)}
   ::selection{background:rgba(31,111,139,.16);color:var(--ink)}
+  /* Enlace para saltar la nav pegajosa: oculto hasta recibir el foco por teclado. */
+  .skip{position:absolute;left:12px;top:-48px;z-index:100;background:var(--sea-d);color:#fff;
+    padding:10px 16px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:700;font-size:.9rem;
+    transition:top .15s ease}
+  .skip:focus{top:0;outline:3px solid #e7b57e;outline-offset:2px}
   table{font-variant-numeric:tabular-nums}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .narrow{max-width:760px}
@@ -296,6 +301,8 @@
 </head>
 <body>
 
+<a class="skip" href="#main">Saltar al contenido</a>
+
 <header class="hero">
   <div class="wrap">
     <p class="eyebrow">Donostia / San Sebastián · datos abiertos</p>
@@ -310,7 +317,7 @@
   <p class="credit">Foto: bahía de La Concha desde Igeldo — <a href="https://commons.wikimedia.org/wiki/File:San_Sebastian_Bay_Panorama.jpg">Phillip Maiwald</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
 </header>
 
-<nav class="toc">
+<nav class="toc" aria-label="Secciones del relato">
   <div class="wrap">
     <span class="brand">Donostia en datos</span>
     <a href="#intro">0 · Intro</a>
@@ -341,7 +348,7 @@
   </div>
 </nav>
 
-<main>
+<main id="main">
 
 <!-- ====================== INTRODUCCIÓN ====================== -->
 <section class="story sx" id="intro">
@@ -2913,6 +2920,26 @@ if(typeof IntersectionObserver!=='undefined'){
   for(const id in GEN)addLink(id,()=>{const a=document.createElement('a');a.href='#';
     a.title='Descargar los datos de este gráfico (generado desde los datos del propio gráfico)';
     a.addEventListener('click',ev=>{ev.preventDefault();const g=GEN[id].get();download(GEN[id].name,toCSV(g.cols,g.rows));});return a;});
+})();
+
+/* ============ accesibilidad: etiquetar todos los SVG ============
+   Cada gráfico es un <svg> dibujado por JS; para un lector de pantalla debe
+   anunciar QUÉ es. Los constructores más nuevos ya ponen su role/aria-label a
+   mano; esta pasada final cubre el resto de forma consistente, derivando la
+   etiqueta del encabezado (h3/h4) o del pie (.cap) de su figura, para que
+   cualquier gráfico que se añada en el futuro quede etiquetado sin tocar aquí.
+   No pisa las etiquetas específicas ya puestas. */
+(function(){
+  const clean=s=>(s||'').replace(/\s+/g,' ').trim();
+  document.querySelectorAll('svg.map').forEach(svg=>{
+    if(!svg.getAttribute('role'))svg.setAttribute('role','img');
+    if(clean(svg.getAttribute('aria-label')))return;              // ya etiquetado
+    const fig=svg.closest('.fig, .mini')||svg.parentElement;
+    const head=fig&&fig.querySelector('h3,h4');
+    const cap=fig&&fig.querySelector('.cap');
+    const label=clean(head&&head.textContent)||clean(cap&&cap.textContent).slice(0,120);
+    svg.setAttribute('aria-label',label?('Gráfico: '+label):'Gráfico de datos de Donostia');
+  });
 })();
 </script>
 <!-- Donostia Dataviz · 7 historias -->

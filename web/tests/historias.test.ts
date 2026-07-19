@@ -110,6 +110,33 @@ describe("scrollytelling", () => {
   });
 });
 
+describe("accesibilidad", () => {
+  // Cada gráfico es un <svg> dibujado por JS; para un lector de pantalla debe
+  // anunciar QUÉ es (role="img" + aria-label). Un gráfico añadido más tarde que
+  // olvide su etiqueta falla aquí.
+  it("gives every svg.map role=\"img\" and a non-empty aria-label", () => {
+    const maps = [...doc.querySelectorAll("svg.map")];
+    expect(maps.length).toBeGreaterThanOrEqual(40);
+    const missing = maps
+      .filter((s) => s.getAttribute("role") !== "img" || !(s.getAttribute("aria-label") ?? "").trim())
+      .map((s) => s.id || "(sin id)");
+    expect(missing, `SVGs sin role/aria-label: ${missing.join(", ")}`).toEqual([]);
+  });
+
+  it("offers a skip link that targets the main landmark", () => {
+    const skip = doc.querySelector('a[href="#main"]');
+    expect(skip, "falta el enlace «saltar al contenido»").toBeTruthy();
+    expect((skip!.textContent ?? "").trim().length).toBeGreaterThan(0);
+    expect(doc.getElementById("main"), 'el <main> necesita id="main"').toBeTruthy();
+  });
+
+  it("labels the sticky section nav", () => {
+    const nav = doc.querySelector("nav.toc");
+    expect(nav).toBeTruthy();
+    expect((nav!.getAttribute("aria-label") ?? "").trim().length).toBeGreaterThan(0);
+  });
+});
+
 describe("metric explainers and text", () => {
   it("explains the complex metrics in plain language boxes", () => {
     const expl = doc.querySelectorAll(".metric-expl");
