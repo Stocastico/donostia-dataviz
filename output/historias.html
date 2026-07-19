@@ -120,6 +120,12 @@
   .fig h3{margin:0 0 4px;font-size:1.06rem}
   .fig .cap{font-size:.86rem;color:var(--muted);margin:0 0 16px}
   .fig .src{font-size:.76rem;color:#9aa7ba;margin-top:14px}
+  /* descarga de datos por gráfico (5d) */
+  a.dl-csv{display:inline-flex;align-items:center;gap:4px;margin-left:10px;font-size:.72rem;font-weight:700;
+    color:var(--sea-d);text-decoration:none;border:1px solid var(--line);border-radius:999px;
+    padding:2px 9px;white-space:nowrap;vertical-align:middle}
+  a.dl-csv:hover{background:#eef4f8;border-color:#cfe0ea}
+  #data-download a{font-weight:700;text-decoration:none}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   @media(max-width:820px){.grid2{grid-template-columns:1fr}}
 
@@ -1644,6 +1650,13 @@
           el <a href="datos.html">catálogo de datos y fuentes</a>, el
           <a href="working-paper.html">working paper metodológico</a> (DOC-6) y el
           <a href="app/">panel interactivo</a>.</p>
+        <p id="data-download">Datos completos (tablas tidy, CSV):
+          <a href="datos/procesado/tablas/metrics_long.csv" download>métricas por barrio</a> ·
+          <a href="datos/procesado/tablas/series_long.csv" download>series temporales</a> ·
+          <a href="datos/procesado/tablas/indicators_long.csv" download>indicadores de ciudad</a> ·
+          <a href="datos/procesado/tablas/calles_vut.csv" download>viviendas turísticas por calle</a> ·
+          <a href="datos/procesado/tablas/barrios.csv" download>barrios</a>.
+          Cada gráfico con dato canónico lleva además su propio «↓&nbsp;CSV».</p>
       </div>
       <div>
         <h3>Lo que no se afirma</h3>
@@ -2694,6 +2707,37 @@ if(typeof IntersectionObserver!=='undefined'){
   },{rootMargin:'-35% 0px -45% 0px',threshold:0});
   document.querySelectorAll('[data-scrolly] .step').forEach(s=>io.observe(s));
 }
+
+/* ============ 5d · descarga de datos por gráfico ============
+   Cada gráfico enlaza a la tabla tidy canónica que contiene sus datos (copiada a
+   la raíz del sitio en el deploy). Los gráficos de análisis puro que no tienen
+   tabla canónica (sale_ts, salary, gini, an4, orgcorr, heat_bars, leadlag,
+   traj_an18) se cubrirán con CSV generado en el navegador en un paso posterior. */
+(function(){
+  const DIR='datos/procesado/tablas/';
+  const CANON={
+    map_press:'metrics_long.csv',map_biv:'metrics_long.csv',map_vel:'metrics_long.csv',
+    map_prof:'metrics_long.csv',scatter:'metrics_long.csv',map_age:'metrics_long.csv',
+    map_org:'metrics_long.csv',map_tour:'metrics_long.csv',map_lived:'metrics_long.csv',
+    map_tclass:'metrics_long.csv',map_ttour:'metrics_long.csv',map_tcomp:'metrics_long.csv',
+    map_vpo:'metrics_long.csv',map_vpotension:'metrics_long.csv',scatter_tt:'metrics_long.csv',
+    map_streets:'calles_vut.csv',
+    stripes:'series_long.csv',trend:'series_long.csv',hotdays:'series_long.csv',cycles:'series_long.csv',
+    season:'series_long.csv',airbnb_season:'series_long.csv',tourindex:'series_long.csv',
+    recycling:'indicators_long.csv',fiscal:'indicators_long.csv',icca:'indicators_long.csv',
+    randd:'indicators_long.csv',perc_chart:'indicators_long.csv',crime_chart:'indicators_long.csv'
+  };
+  for(const id in CANON){
+    const svg=document.getElementById(id);if(!svg)continue;
+    const fig=svg.closest('.fig');if(!fig||fig.querySelector('a.dl-csv'))continue;
+    const a=document.createElement('a');
+    a.className='dl-csv';a.href=DIR+CANON[id];a.setAttribute('download','');
+    a.setAttribute('title','Descargar los datos de este gráfico (tabla tidy canónica)');
+    a.textContent='↓ CSV';
+    const src=fig.querySelector('.src');
+    if(src)src.appendChild(a);else fig.appendChild(a);
+  }
+})();
 </script>
 <!-- Donostia Dataviz · 7 historias -->
 </body>
