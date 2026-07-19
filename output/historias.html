@@ -984,6 +984,41 @@
     </div>
 
     <div class="narrow">
+      <p>Y hay una desigualdad del trabajo que el mapa hace evidente: la <strong>brecha de renta entre hombres y
+        mujeres</strong>. En los diecisiete barrios con dato la renta media de ellas queda <strong>siempre</strong>
+        por debajo de la de ellos; lo que cambia mucho de un barrio a otro es <em>cuánto</em>.</p>
+    </div>
+
+    <div class="fig">
+      <h3>La brecha de renta de género, barrio a barrio (2023)</h3>
+      <p class="cap">Cuánto supera la renta media masculina a la femenina, en&nbsp;% (Eustat). Más oscuro, más brecha;
+        en gris, barrios sin dato. Pasa el ratón por cada barrio; la tabla de la derecha lo repite en orden.</p>
+      <div class="grid2">
+        <div>
+          <div class="mapwrap"><svg class="map" id="map_gender"></svg></div>
+          <div class="legend" id="leg_gender"></div>
+        </div>
+        <div>
+          <div class="rankwrap"><table class="rank" id="rank_gender"><thead><tr><th>Barrio</th><th style="text-align:right">Brecha&nbsp;%</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </div>
+      <p class="src">Eustat &mdash; renta personal media por sexo y barrio (vía Donostia Open Data). Derivado. Los
+        barrios pequeños y rurales (Igeldo, Miramón-Zorroaga, Añorga…) tienen <strong>muestras reducidas</strong>:
+        su brecha es más volátil y debe leerse como señal, no como cifra fina.</p>
+    </div>
+
+    <div class="narrow">
+      <p>Lo que aguanta la lectura: la brecha es <strong>universal</strong> —en ningún barrio la renta femenina
+        alcanza a la masculina— pero su tamaño va del <strong>~20&nbsp;%</strong> al <strong>~44&nbsp;%</strong>. Los
+        mínimos claros están en los barrios centrales y jóvenes —<strong>Egia</strong> e <strong>Intxaurrondo</strong>,
+        en torno al 20&nbsp;%, los más bajos de la ciudad—. Los máximos (Igeldo 44&nbsp;%, Miramón 42&nbsp;%, Añorga
+        37&nbsp;%) caen en barrios pequeños de muestra reducida, donde la cifra es volátil. Y en medio, sin un
+        gradiente limpio de renta: barrios acomodados (Antiguo 32&nbsp;%, Aiete 30&nbsp;%) y obreros (Altza 34&nbsp;%)
+        comparten brechas altas. Como siempre, es el barrio, no la persona &mdash;y donde la muestra es pequeña,
+        cautela&mdash;.</p>
+    </div>
+
+    <div class="narrow">
       <p>Hasta aquí, <em>quiénes</em> trabajan. Pero «quién trabaja Donostia» tiene otra cara literal: la ciudad
         emplea a <strong>más gente de la que reside y trabaja en ella</strong>. Cada mañana <em>importa</em>
         trabajadores de su entorno metropolitano.</p>
@@ -2731,6 +2766,23 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
   lineChart('jobs_ts',D.work.jobs_located,{W:720,H:360,unit:'empleos',dec:0,lo:60000,hi:105000,yticks:5,color:'#33468f'});
 })();
 
+/* brecha de renta de género por barrio (Eustat) — la desigualdad del trabajo,
+   con su tabla-espejo accesible (como presión/velocidad/edad). */
+(function gender(){
+  const svg=document.getElementById('map_gender');if(!svg)return;
+  const GG=D.metrics.income_gender_gap;if(!GG)return;
+  const keys=Object.keys(GG).filter(k=>GG[k]&&GG[k].v!=null);
+  const vals=keys.map(k=>GG[k].v),dmin=Math.min(...vals),dmax=Math.max(...vals);
+  const sc=seqScale(SEQ,dmin,dmax),map=buildMap('map_gender');
+  paintMap(map,bid=>GG[bid]&&GG[bid].v!=null?sc(GG[bid].v):null,
+    bid=>GG[bid]&&GG[bid].v!=null?`<b>${D.barrios[bid].name}</b><br>Brecha H/M: <span class="t-val">${fmt(GG[bid].v,1)} %</span>`:`<b>${D.barrios[bid].name}</b><br>sin dato`);
+  legendSeq('leg_gender',SEQ,dmin,dmax,'% brecha',0);
+  const sorted=keys.slice().sort((a,b)=>GG[b].v-GG[a].v),max=Math.max(...vals);
+  const tb=document.querySelector('#rank_gender tbody');tb.innerHTML='';
+  sorted.forEach(k=>{const v=GG[k].v,w=v/max*100;
+    tb.innerHTML+=`<tr><td class="bar-cell"><span class="bar" style="width:${w}%;background:var(--coral)"></span>${D.barrios[k].name}</td><td class="num">${fmt(v,1)}</td></tr>`;});
+})();
+
 /* heat island anomaly by barrio (REC-14, diverging bars) */
 (function heatBars(){
   // Dato congelado (REC-14, Landsat): cableado, no viene de window.DONO ni se
@@ -2979,6 +3031,7 @@ if(typeof IntersectionObserver!=='undefined'){
     map_press:'metrics_long.csv',map_biv:'metrics_long.csv',map_vel:'metrics_long.csv',
     map_prof:'metrics_long.csv',scatter:'metrics_long.csv',map_age:'metrics_long.csv',
     map_org:'metrics_long.csv',map_tour:'metrics_long.csv',map_lived:'metrics_long.csv',
+    map_gender:'metrics_long.csv',
     map_tclass:'metrics_long.csv',map_ttour:'metrics_long.csv',map_tcomp:'metrics_long.csv',
     map_vpo:'metrics_long.csv',map_vpotension:'metrics_long.csv',scatter_tt:'metrics_long.csv',
     map_streets:'calles_vut.csv',

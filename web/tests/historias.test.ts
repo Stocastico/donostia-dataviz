@@ -122,6 +122,23 @@ describe("blindaje renta del trabajo (cap. 1)", () => {
   });
 });
 
+describe("quién trabaja: brecha de renta de género", () => {
+  it("pinta el mapa coroplético y su tabla-espejo por barrio", () => {
+    const svg = doc.getElementById("map_gender");
+    expect(svg, "falta el mapa #map_gender").toBeTruthy();
+    // Barrios pintados (con color), no solo el fondo sin dato.
+    const painted = [...svg!.querySelectorAll("path.barrio")].filter(
+      (p) => (p.getAttribute("fill") ?? "") !== "#eef1f5" && !p.classList.contains("nodata"),
+    );
+    expect(painted.length).toBeGreaterThanOrEqual(13);
+    // Tabla-espejo accesible (teclado / lector de pantalla), como en presión/velocidad.
+    const rows = doc.querySelectorAll("#rank_gender tbody tr");
+    expect(rows.length).toBeGreaterThanOrEqual(13);
+    const names = [...rows].map((r) => r.textContent ?? "");
+    expect(names.some((n) => n.includes("Egia"))).toBe(true);
+  });
+});
+
 describe("quién trabaja: la ciudad que importa trabajadores", () => {
   it("dibuja la serie de empleos localizados con un punto por año", () => {
     const svg = doc.getElementById("jobs_ts");
