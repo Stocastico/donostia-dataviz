@@ -1319,6 +1319,34 @@
       <p class="src">Derivado — Índice de Transformación Urbana (AN-8), analysis/transformation_index.py · docs/INDICE-TRANSFORMACION.md. Componentes a la vista, pesos iguales, año base 2016.</p>
     </div>
 
+    <details class="deep">
+      <summary><span class="d-lab">Blindaje</span><span>El índice usa <b>pesos iguales</b>. ¿El podio depende de esa
+        elección? Con <b>1.000</b> combinaciones de pesos al azar, <b>no</b> — la comprobación, desplegada</span><span class="me-tgl"></span></summary>
+      <div class="d-body">
+        <div class="fig">
+          <h3>Estabilidad del ranking bajo 1.000 pesos al azar</h3>
+          <p class="cap">Cada barra recorre el <strong>rango de puestos</strong> (del mejor al peor) que ocupa el barrio
+            al sortear 1.000 combinaciones de pesos entre los componentes del índice; el punto marca el puesto
+            <strong>mediano</strong>. Barras cortas y arriba = posición robusta. El puesto 1 es el barrio más transformado
+            (modo social) o de mayor presión (modo turístico).</p>
+          <div class="controls">
+            <div class="control" style="min-width:auto">
+              <label>Modo del índice</label>
+              <div class="segmented" id="sens_sel">
+                <button data-k="socio" class="active">Socioeconómico</button>
+                <button data-k="tourism">Presión turística</button>
+              </div>
+              <span class="hint" id="sens_hint">Componentes: exceso de universitarios + exceso de alquiler (base 2016).</span>
+            </div>
+          </div>
+          <div class="mapwrap"><svg class="map" id="idx_sens" style="max-width:680px;margin:0 auto"></svg></div>
+          <p class="src">analysis/index_sensitivity.py (AN-9) — 1.000 pesos Dirichlet (uniforme en el símplex, semilla 42);
+            componentes en z-score, N=13 barrios. Loiola no baja del 3.º en lo social; Erdialdea es 1.º en presión turística
+            el 100&nbsp;% de las veces.</p>
+        </div>
+      </div>
+    </details>
+
     <div class="narrow">
       <p>Lo más revelador aparece al cruzar las dos lecturas: <strong>no coinciden</strong>. Los centros turísticos
         (Erdialdea +2,48, Gros +1,39) lideran la presión turística pero salen <em>consolidados</em> en lo social: ya
@@ -2711,6 +2739,59 @@ if(typeof IntersectionObserver!=='undefined'){
   document.querySelectorAll('[data-scrolly] .step').forEach(s=>io.observe(s));
 }
 
+/* ============ 5b · sensibilidad de pesos del Índice de Transformación (AN-9) ============
+   Rango de puestos de cada barrio al sortear 1.000 combinaciones de pesos.
+   Cifras reproducibles de analysis/index_sensitivity.py (Dirichlet, semilla 42). */
+(function(){
+  const svg=document.getElementById('idx_sens');if(!svg)return;
+  // [barrio_id, rank_mediano, rank_min, rank_max]
+  const SENS={
+    socio:{hint:'Componentes: exceso de universitarios + exceso de alquiler (base 2016).',rows:[
+      ['loiola',1,1,3],['egia',2,1,10],['erdialdea',3,2,11],['antigua',5,3,8],['gros',5,4,10],
+      ['aiete',6,2,8],['mirakruz-bidebieta',7,6,9],['intxaurrondo',8,3,12],['amaraberri',9,5,11],
+      ['altza',10,4,13],['ibaeta',10,6,11],['martutene',12,9,13],['ategorrieta-ulia',13,6,13]]},
+    tourism:{hint:'Componentes: densidad VUT + densidad Airbnb + nivel de alquiler.',rows:[
+      ['erdialdea',1,1,1],['gros',2,2,3],['antigua',3,3,5],['aiete',4,2,9],['ibaeta',5,4,8],
+      ['egia',5,4,6],['amaraberri',7,5,9],['loiola',8,6,9],['ategorrieta-ulia',9,3,11],
+      ['intxaurrondo',10,9,11],['mirakruz-bidebieta',11,10,11],['altza',12,12,13],['martutene',13,12,13]]}
+  };
+  const name=id=>((D.barrios[id]&&D.barrios[id].name)||id).replace(/\s*\(.*\)$/,'');
+  const W=680,H=430,m={l:150,r:20,t:20,b:34},N=13;
+  const X=r=>m.l+(r-1)/(N-1)*(W-m.l-m.r);
+  let MODE='socio';
+  function render(){
+    const data=SENS[MODE].rows.slice().sort((a,b)=>a[1]-b[1]||a[3]-b[3]);
+    (window.__CSV=window.__CSV||{}).idx_sens={cols:['barrio','modo','rank_mediano','rank_min','rank_max'],
+      rows:data.map(d=>[name(d[0]),MODE,d[1],d[2],d[3]])};
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML='';
+    const bandH=(H-m.t-m.b)/N;
+    [1,4,7,10,13].forEach(r=>{const x=X(r);
+      svg.appendChild(el('line',{x1:x,y1:m.t,x2:x,y2:H-m.b,stroke:'#eef1f5'}));
+      const tx=el('text',{x,y:H-m.b+16,'text-anchor':'middle','font-size':10,fill:'#5f6e84'});tx.textContent=r;svg.appendChild(tx);});
+    const cap=el('text',{x:(m.l+W-m.r)/2,y:H-6,'text-anchor':'middle','font-size':10,fill:'#5f6e84'});
+    cap.textContent='puesto en el ranking (1 = el primero)  →  13 (el último)';svg.appendChild(cap);
+    data.forEach((d,i)=>{
+      const [id,med,lo,hi]=d,cy=m.t+bandH*i+bandH/2,top3=i<3;
+      const col=top3?'#0f4c5c':'#8aa0b4';
+      const g=el('g',{class:'srow'});g.setAttribute('data-name',name(id));
+      g.appendChild(el('line',{x1:X(lo),y1:cy,x2:X(hi),y2:cy,stroke:col,'stroke-width':top3?5:3,'stroke-linecap':'round','stroke-opacity':top3?.35:.28}));
+      g.appendChild(el('circle',{cx:X(med),cy,r:top3?5.5:4.5,fill:col}));
+      const lab=el('text',{x:m.l-10,y:cy+4,'text-anchor':'end','font-size':11,fill:top3?'#0f4c5c':'#3a4a63','font-weight':top3?700:600});
+      lab.textContent=name(id);g.appendChild(lab);
+      g._tip=`<b>${name(id)}</b><br>puesto mediano <span class="t-val">${med}</span> · rango ${lo}–${hi} de ${N}`;
+      g.addEventListener('mousemove',ev=>showTip(g._tip,ev));g.addEventListener('mouseleave',hideTip);
+      svg.appendChild(g);
+    });
+    const h=document.getElementById('sens_hint');if(h)h.textContent=SENS[MODE].hint;
+  }
+  render();
+  document.querySelectorAll('#sens_sel button').forEach(btn=>btn.addEventListener('click',()=>{
+    MODE=btn.dataset.k;
+    document.querySelectorAll('#sens_sel button').forEach(b=>b.classList.toggle('active',b===btn));
+    render();
+  }));
+})();
+
 /* ============ 5d · descarga de datos por gráfico ============
    Cada gráfico enlaza a la tabla tidy canónica que contiene sus datos (copiada a
    la raíz del sitio en el deploy). Los gráficos de análisis puro que no tienen
@@ -2750,7 +2831,8 @@ if(typeof IntersectionObserver!=='undefined'){
     salary:{name:'renta_por_ocupacion.csv',get:()=>cw((window.__CSV||{}).salary||{cols:[],rows:[]})},
     heat_bars:{name:'isla_calor_por_barrio.csv',get:()=>cw((window.__CSV||{}).heat_bars||{cols:[],rows:[]})},
     traj_an18:{name:'trayectorias_barrios.csv',get:()=>{const cols=['barrio','envejecimiento_2000','envejecimiento_2025','pct_univ_2000','pct_univ_2025'],rows=[];
-      document.querySelectorAll('#traj_an18 g.traj').forEach(g=>rows.push([g.dataset.name,g.dataset.xi,g.dataset.xf,g.dataset.yi,g.dataset.yf]));return {cols,rows};}}
+      document.querySelectorAll('#traj_an18 g.traj').forEach(g=>rows.push([g.dataset.name,g.dataset.xi,g.dataset.xf,g.dataset.yi,g.dataset.yf]));return {cols,rows};}},
+    idx_sens:{name:'sensibilidad_indice_pesos.csv',get:()=>cw((window.__CSV||{}).idx_sens||{cols:[],rows:[]})}
   };
   function addLink(id,make){
     const svg=document.getElementById(id);if(!svg)return;
