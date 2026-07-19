@@ -1461,6 +1461,34 @@
     </div>
 
     <div class="fig">
+      <h3>Cuando las presiones se suman: el índice de convergencia</h3>
+      <p class="cap">La prueba visual de esa frase. Suma <strong>tres capas normalizadas</strong> (z-score, pesos iguales,
+        <strong>componentes a la vista</strong>): el <strong>esfuerzo de vivienda</strong>, la <strong>migración
+        económica</strong> (cuota de origen latinoamericano&nbsp;+&nbsp;magrebí) y la <strong>isla de calor</strong> de
+        verano. Rojo = las tres aprietan a la vez sobre el mismo barrio; azul = las tres aflojan. Pasa el ratón por el mapa
+        o por una fila.</p>
+      <div class="grid2">
+        <div>
+          <div class="mapwrap"><svg class="map" id="conv_map"></svg></div>
+          <div class="legend" id="leg_conv"></div>
+        </div>
+        <div>
+          <div class="rankwrap" style="max-height:none">
+            <table class="rank" id="conv_table">
+              <thead><tr><th>Barrio</th><th style="text-align:right">Esfuerzo</th><th style="text-align:right">Migr. econ.</th><th style="text-align:right">Calor</th><th style="text-align:right">Convergencia</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <p class="src">Derivado <strong>nuevo y descriptivo</strong> — media de z-scores (pesos iguales) de: esfuerzo alquiler/renta
+        (MET-1), cuota de origen latino&nbsp;+&nbsp;magrebí (padrón) e isla de calor LST (REC-14). <strong>N=10</strong> barrios con las
+        tres capas (la isla de calor por satélite falta en Antiguo, Ibaeta y Martutene). Es una <em>síntesis visual</em> de tres
+        presiones ya contadas, no un índice causal nuevo; se calcula en el navegador desde los datos del propio documento.
+        Correlación ≠ causalidad.</p>
+    </div>
+
+    <div class="fig">
       <h3>El contrapeso público: una ventana parcial</h3>
       <p class="cap">Izquierda: viviendas de las <strong>promociones de Etxebide</strong> por 1.000 habitantes (snapshot
         acumulado) &mdash;una <em>ventana parcial</em> del parque protegido, no su censo (ver texto). Derecha: el esfuerzo
@@ -2792,6 +2820,44 @@ if(typeof IntersectionObserver!=='undefined'){
   }));
 })();
 
+/* ============ 5a · índice de convergencia de presiones ============
+   Suma descriptiva de tres presiones ya contadas (esfuerzo de vivienda, migración
+   económica, isla de calor), normalizadas a z-score y a pesos iguales. Se calcula
+   en el navegador desde los datos ya embebidos (housing_tension, ORG_DATA, la capa
+   de calor de heat_bars). Componentes a la vista; N=10 barrios con las tres capas. */
+(function(){
+  const map=document.getElementById('conv_map');if(!map)return;
+  const HT={};for(const b in D.metrics.housing_tension)HT[b]=D.metrics.housing_tension[b].v;
+  const ECON={};for(const b in ORG_DATA.latam){const l=ORG_DATA.latam[b],n=ORG_DATA.norte_africa[b];if(l!=null&&n!=null)ECON[b]=l+n;}
+  const nameToId={};for(const b in D.barrios)nameToId[D.barrios[b].name.replace(/\s*\(.*\)$/,'')]=b;
+  const HEAT={},hb=(window.__CSV&&window.__CSV.heat_bars&&window.__CSV.heat_bars.rows)||[];
+  hb.forEach(r=>{const id=nameToId[String(r[0]).replace(/\s*\(.*\)$/,'')];if(id)HEAT[id]=r[1];});
+  const ids=Object.keys(HT).filter(b=>ECON[b]!=null&&HEAT[b]!=null);
+  const zof=obj=>{const xs=ids.map(b=>obj[b]),m=xs.reduce((a,c)=>a+c,0)/xs.length,
+    sd=Math.sqrt(xs.reduce((a,c)=>a+(c-m)*(c-m),0)/xs.length)||1,o={};ids.forEach(b=>o[b]=(obj[b]-m)/sd);return o;};
+  const zH=zof(HT),zE=zof(ECON),zC=zof(HEAT);
+  const rows=ids.map(b=>({id:b,name:D.barrios[b].name.replace(/\s*\(.*\)$/,''),
+    zh:zH[b],ze:zE[b],zc:zC[b],score:(zH[b]+zE[b]+zC[b])/3})).sort((a,b)=>b.score-a.score);
+  const byId={};rows.forEach(r=>byId[r.id]=r);
+  const dabs=Math.max(...rows.map(r=>Math.abs(r.score)))||1;
+  const sc=divScale(dabs);
+  const cm=buildMap('conv_map');
+  paintMap(cm,b=>byId[b]?sc(byId[b].score):null,
+    b=>{const r=byId[b];return r?`<b>${r.name}</b><br>Convergencia <span class="t-val">${fmt(r.score,2)}</span> (z medio)<br>esfuerzo ${fmt(r.zh,2)} · migr. econ. ${fmt(r.ze,2)} · calor ${fmt(r.zc,2)}`:`<b>${D.barrios[b].name}</b><br>sin las tres capas`;});
+  legendDiv('leg_conv',dabs,'índice (z medio) · rojo = convergen');
+  const SOFT=['#8bb8d8','#d9e8f3','#f4f4f4','#f6d5c9','#e39a86'];
+  const tcol=z=>rampColor(SOFT,(z+dabs)/(2*dabs||1));
+  const sgn=v=>(v>=0?'+':'−')+fmt(Math.abs(v),2);
+  const cell=z=>`<td class="num" style="background:${tcol(z)};color:#14233a">${sgn(z)}</td>`;
+  const tb=document.querySelector('#conv_table tbody');tb.innerHTML='';
+  rows.forEach(r=>{const g=document.createElement('tr');
+    g.innerHTML=`<td>${r.name}</td>${cell(r.zh)}${cell(r.ze)}${cell(r.zc)}<td class="num" style="font-weight:800">${sgn(r.score)}</td>`;
+    g.addEventListener('mousemove',ev=>showTip(`<b>${r.name}</b><br>Convergencia <span class="t-val">${sgn(r.score)}</span>`,ev));
+    g.addEventListener('mouseleave',hideTip);tb.appendChild(g);});
+  (window.__CSV=window.__CSV||{}).conv={cols:['barrio','z_esfuerzo','z_migracion_economica','z_isla_calor','convergencia'],
+    rows:rows.map(r=>[r.name,r.zh.toFixed(3),r.ze.toFixed(3),r.zc.toFixed(3),r.score.toFixed(3)])};
+})();
+
 /* ============ 5d · descarga de datos por gráfico ============
    Cada gráfico enlaza a la tabla tidy canónica que contiene sus datos (copiada a
    la raíz del sitio en el deploy). Los gráficos de análisis puro que no tienen
@@ -2832,7 +2898,8 @@ if(typeof IntersectionObserver!=='undefined'){
     heat_bars:{name:'isla_calor_por_barrio.csv',get:()=>cw((window.__CSV||{}).heat_bars||{cols:[],rows:[]})},
     traj_an18:{name:'trayectorias_barrios.csv',get:()=>{const cols=['barrio','envejecimiento_2000','envejecimiento_2025','pct_univ_2000','pct_univ_2025'],rows=[];
       document.querySelectorAll('#traj_an18 g.traj').forEach(g=>rows.push([g.dataset.name,g.dataset.xi,g.dataset.xf,g.dataset.yi,g.dataset.yf]));return {cols,rows};}},
-    idx_sens:{name:'sensibilidad_indice_pesos.csv',get:()=>cw((window.__CSV||{}).idx_sens||{cols:[],rows:[]})}
+    idx_sens:{name:'sensibilidad_indice_pesos.csv',get:()=>cw((window.__CSV||{}).idx_sens||{cols:[],rows:[]})},
+    conv_map:{name:'indice_convergencia.csv',get:()=>cw((window.__CSV||{}).conv||{cols:[],rows:[]})}
   };
   function addLink(id,make){
     const svg=document.getElementById(id);if(!svg)return;
