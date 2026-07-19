@@ -110,6 +110,18 @@ describe("scrollytelling", () => {
   });
 });
 
+describe("blindaje renta del trabajo (cap. 1)", () => {
+  it("dibuja el ranking de esfuerzo con renta del trabajo, con una barra por barrio", () => {
+    const svg = doc.getElementById("press_labor")!;
+    expect(svg, "falta el gráfico #press_labor").toBeTruthy();
+    expect(svg.querySelectorAll("rect").length).toBeGreaterThanOrEqual(13);
+    const labels = [...svg.querySelectorAll("text")].map((t) => t.textContent ?? "");
+    // El centro encabeza cuando se mide con renta del trabajo.
+    expect(labels.some((l) => l.includes("Erdialdea"))).toBe(true);
+    expect(labels.some((l) => l.includes("Gros"))).toBe(true);
+  });
+});
+
 describe("accesibilidad", () => {
   // Cada gráfico es un <svg> dibujado por JS; para un lector de pantalla debe
   // anunciar QUÉ es (role="img" + aria-label). Un gráfico añadido más tarde que

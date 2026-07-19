@@ -22,7 +22,7 @@ const htmlPath = resolve(here, "../../output/historias.html");
 
 interface MetricValue { v: number; period: string }
 interface Dono {
-  pressure_inputs: Record<string, { rent: number; income: number; name: string }>;
+  pressure_inputs: Record<string, { rent: number; income: number; income_labor: number; name: string }>;
   velocity: Record<string, Record<string, number>>;
   ageing_series: Record<string, Record<string, number>>;
   youth_series: Record<string, Record<string, number>>;
@@ -76,6 +76,29 @@ describe("cap. 1 — la ciudad que se encarece", () => {
   it("el este obrero encabeza el ranking de esfuerzo (paso 1 del scrolly)", () => {
     const sorted = Object.keys(D.pressure_inputs).sort((a, b) => cuota(b) - cuota(a));
     expect(sorted.slice(0, 3).sort()).toEqual(["altza", "egia", "intxaurrondo"]);
+  });
+
+  // Blindaje MET-1: la renta per cápita total incluye pensiones y capital, muy
+  // presentes en el centro envejecido. Re-derivar el esfuerzo con la renta *del
+  // trabajo* invierte el ranking — el centro pasa a encabezarlo. El dato debe
+  // estar embebido y el hallazgo debe mantenerse mientras el blob no cambie.
+  const cuotaLabor = (k: string, m2 = 30) => {
+    const o = D.pressure_inputs[k];
+    return (o.rent * 12 * m2) / o.income_labor * 100;
+  };
+  it("embebe income_labor (renta del trabajo) para cada barrio con presión", () => {
+    for (const k of Object.keys(D.pressure_inputs)) {
+      expect(typeof D.pressure_inputs[k].income_labor, `income_labor de ${k}`).toBe("number");
+      expect(D.pressure_inputs[k].income_labor).toBeGreaterThan(0);
+      // La renta del trabajo es un subconjunto de la total.
+      expect(D.pressure_inputs[k].income_labor).toBeLessThanOrEqual(D.pressure_inputs[k].income);
+    }
+  });
+  it("con renta del trabajo el esfuerzo se invierte: Erdialdea y Gros encabezan", () => {
+    const sorted = Object.keys(D.pressure_inputs).sort((a, b) => cuotaLabor(b) - cuotaLabor(a));
+    expect(sorted.slice(0, 2).sort()).toEqual(["erdialdea", "gros"]);
+    expect(r1(cuotaLabor("erdialdea"))).toBe(35.7);
+    expect(r1(cuotaLabor("gros"))).toBe(34.9);
   });
 
   it("Gini ponderado «estable (~0,10)»", () => {
