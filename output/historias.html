@@ -7,7 +7,11 @@
 <title>Donostia en datos · Siete historias de una ciudad que cambia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- Fuentes cargadas de forma no bloqueante: la página se pinta al instante con la
+     pila del sistema y, si hay red, sustituye por Inter/Libre Franklin al llegar.
+     Offline funciona igual (system-ui). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&display=swap"></noscript>
 <style>
   :root{
     --ink:#14233a; --ink2:#3a4a63; --muted:#5f6e84; --line:#e2e7ef;
@@ -19,6 +23,10 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition-duration:.001ms !important;animation-duration:.001ms !important;scroll-behavior:auto !important}
+  }
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:17px}
@@ -112,6 +120,12 @@
   .fig h3{margin:0 0 4px;font-size:1.06rem}
   .fig .cap{font-size:.86rem;color:var(--muted);margin:0 0 16px}
   .fig .src{font-size:.76rem;color:#9aa7ba;margin-top:14px}
+  /* descarga de datos por gráfico (5d) */
+  a.dl-csv{display:inline-flex;align-items:center;gap:4px;margin-left:10px;font-size:.72rem;font-weight:700;
+    color:var(--sea-d);text-decoration:none;border:1px solid var(--line);border-radius:999px;
+    padding:2px 9px;white-space:nowrap;vertical-align:middle}
+  a.dl-csv:hover{background:#eef4f8;border-color:#cfe0ea}
+  #data-download a{font-weight:700;text-decoration:none}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   @media(max-width:820px){.grid2{grid-template-columns:1fr}}
 
@@ -143,6 +157,9 @@
   .nodata{fill:#eef1f5}
   .blabel{font-size:9px;fill:#33445c;font-weight:600;pointer-events:none;paint-order:stroke;
     stroke:#fff;stroke-width:2.4px;stroke-linejoin:round}
+  /* la brújula de barrios rotula todos los nombres, así que necesita más cuerpo */
+  #map_orient .blabel{font-size:14px;stroke-width:3px}
+  #map_orient path.barrio{cursor:default}
   /* legend */
   .legend{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:.8rem;color:var(--ink2)}
   .legend .scale{display:flex;height:12px;border-radius:3px;overflow:hidden;width:220px}
@@ -285,7 +302,7 @@
     <h1>Siete historias de una ciudad que cambia</h1>
     <p class="lede">Cómo se transforma Donostia, contado con datos abiertos, verificados y
       reproducibles: la <strong style="color:#fff">vivienda</strong> que se encarece, los
-      <strong style="color:#fff">barrios</strong> que se cambian, las <strong style="color:#fff">personas</strong>
+      <strong style="color:#fff">barrios</strong> que cambian, las <strong style="color:#fff">personas</strong>
       que los habitan y las <strong style="color:#fff">dos ciudades</strong>, la turística y la vivida,
       que conviven sobre el mismo plano.</p>
     <p class="meta">Fuentes: Donostia Open Data · Eustat · Gobierno Vasco (EMA) · INE · AEMET (Igeldo) · Inside Airbnb</p>
@@ -355,7 +372,7 @@
         España pasa del 5,2&nbsp;% (2015) al <strong>9,4&nbsp;%</strong> (2025), mientras el centro
         envejece: Gros roza los 370 mayores por cada 100 menores. Y el escenario
         físico: la temperatura media ha subido <strong>+1,6&nbsp;°C</strong> desde los años 80.
-        La pregunta es: ¿qué relación existe (si hay) entre estas tendencias?</p>
+        La pregunta es: ¿qué relación existe (si es que la hay) entre estas tendencias?</p>
 
       <p><strong>Las hipótesis y el objetivo.</strong> La hipótesis de partida era un tema del que se habla mucho en la ciudad: que la turistificación empuja los alquileres, expulsa residentes del centro y ensancha la brecha entre barrios. El objetivo de este trabajo es ponerla a prueba pieza a
         pieza con datos abiertos, bajo dos reglas: cada número es <strong>reproducible</strong> (todo gráfico
@@ -383,6 +400,23 @@
         vivida) frente a frente (6); y la síntesis que encaja las piezas (7). Cierran un apéndice
         que suma el contexto de ciudad y contrasta la percepción vecinal con los datos, y un epílogo con lo
         que aún no se puede responder. Las explicaciones técnicas van <strong>plegados</strong> y son opcionales. Se pueden abrir con un clic, pero el relato sigue igual si prefieres ignorarlos.</p>
+
+      <div class="fig">
+        <h3>Para ubicarte: el mapa de los barrios</h3>
+        <p class="cap">Los 19 barrios oficiales de Donostia. El relato los nombra a menudo por su posición
+          en la ciudad —«el&nbsp;centro» (Erdialdea, Gros, Antiguo), «el&nbsp;este obrero» (Altza, Egia,
+          Intxaurrondo…), «la&nbsp;periferia interior» (Loiola…) y «el&nbsp;anillo verde» rural—; este mapa es
+          la chuleta para situar cada uno. Pasa el ratón o toca un barrio para ver su nombre.</p>
+        <div class="mapwrap"><svg class="map" id="map_orient" style="max-width:660px;margin:0 auto"></svg></div>
+        <p class="src">Geometría oficial de barrios (Donostia Open Data, <code>mapa_auzoak</code>). Sin datos: es
+          solo una referencia de ubicación.</p>
+      </div>
+
+      <p style="font-size:.95rem;color:var(--ink2);border-left:3px solid var(--sea);padding-left:16px;background:#f4f8fb;border-radius:0 8px 8px 0;padding-top:10px;padding-bottom:10px">
+        <strong>Un apunte de vocabulario.</strong> A lo largo del texto, «<strong>presión</strong>»,
+        «<strong>tensión</strong>» y «<strong>esfuerzo</strong>» de vivienda nombran lo mismo: qué parte de la
+        renta se llevaría el alquiler (el indicador que abre el capítulo&nbsp;1). No es el gasto real de una
+        familia concreta, sino una medida comparable entre barrios y entre años.</p>
 
       <p>Este es el documento principal, donde se cuenta con calma la evolución de Donostia a través
         de los datos. Quien prefiera explorar por su cuenta puede recorrer todas las visualizaciones
@@ -557,7 +591,7 @@
     </div>
 
     <div class="keynums">
-      <div class="kn"><div class="big">−0,89</div><div class="lbl">Correlación presión ↔ renta (quitando el centro turístico). Una correlación muy fuerte y robusta.</div></div>
+      <div class="kn"><div class="big">−0,89</div><div class="lbl">Correlación presión ↔ renta quitando el centro turístico. Con los 13 barrios es −0,81 (IC95&nbsp;% bootstrap −0,96 a −0,67; AN-10, 2.000 remuestreos): muy fuerte, y robusta al centro.</div></div>
       <div class="kn"><div class="big">21,9 %</div><div class="lbl">Esfuerzo de alquiler en Altza, el más alto. Le siguen Egia (21,3 %) e Intxaurrondo (20,9 %).</div></div>
       <div class="kn"><div class="big">+29 %</div><div class="lbl">Subida del alquiler en Erdialdea desde 2016. El precio absoluto manda en el centro; el esfuerzo, en el este.</div></div>
       <div class="kn"><div class="big">+60 %</div><div class="lbl">Subida del precio de venta por m² desde 2016 (media de barrios; +43 % Gros a +69 % Intxaurrondo). Comprar corrió por delante del alquiler, el salario y el IPC.</div></div>
@@ -569,7 +603,7 @@
         <p>El esfuerzo de vivienda <strong>se invierte</strong> respecto al precio: pesa más la renta baja
           que el alquiler bajo. La presión más dura recae sobre los barrios obreros del este, no sobre el centro caro.</p>
       </div>
-      <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Índice relativo, no % real de gasto familiar. Supuesto de m²/persona explícito y regulable arriba. Las correlaciones son a nivel de barrio, no de hogares (falacia ecológica).</span>
+      <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;Índice relativo, no % real de gasto familiar. Supuesto de m²/persona explícito y regulable arriba. <b>Limitación conocida:</b> ese supuesto es <em>uniforme</em>, pero el tamaño medio del hogar varía con la demografía del barrio —hogares de 1–2 personas en el centro envejecido frente a hogares mayores en el este joven—, así que un m²/persona igual para todos puede sesgar justo la comparación centro↔este que sostiene el argumento; la corrección de fondo espera al catastro foral. Las correlaciones son a nivel de barrio, no de hogares (falacia ecológica).</span>
     </div>
   </div>
 </section>
@@ -580,7 +614,7 @@
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">2</div>
-        <div><p class="eyebrow">Capítulo 2 · El cambio: qué se mueve</p><h2 class="story-title">Como cambian los barrios</h2></div>
+        <div><p class="eyebrow">Capítulo 2 · El cambio: qué se mueve</p><h2 class="story-title">Cómo cambian los barrios</h2></div>
       </div>
       <p class="question">¿Qué barrios se están moviendo, y hacia qué perfil?</p>
       <p>El capítulo 1 dejó la foto fija: la presión de vivienda carga sobre el este de renta baja. Pero una
@@ -1009,7 +1043,7 @@
         fotogénica. El mapa que sigue mide la <strong>densidad de alojamiento turístico</strong> por barrio
         (anuncios de Airbnb por cada 1.000 habitantes) y la compara con las viviendas de uso
         turístico (VUT) registradas.</p>
-      <p>Los datos de Airbnb (Inside Airbnb, foto de septiembre de 2025) capturan un universo <strong>más amplio
+      <p>Los datos de Airbnb (Inside Airbnb, foto de junio de 2026) capturan un universo <strong>más amplio
         que los VUT legales</strong>, porque incluyen alojamientos no registrados (aunque de una sola plataforma: son un <em>suelo</em> del alquiler turístico online, no su total, ya que Booking y otras quedan fuera). Aun así, el patrón coincide: el turismo se agolpa en el centro.</p>
     </div>
 
@@ -1024,7 +1058,7 @@
             <div class="control" style="min-width:auto">
               <label>Fuente</label>
               <div class="segmented" id="toursel">
-                <button data-k="airbnb" class="active">Airbnb (2025)</button>
+                <button data-k="airbnb" class="active">Airbnb (2026)</button>
                 <button data-k="vut">VUT registradas</button>
               </div>
               <span class="hint">Airbnb incluye alojamiento no registrado; VUT son las licencias oficiales.</span>
@@ -1285,6 +1319,34 @@
       <p class="src">Derivado — Índice de Transformación Urbana (AN-8), analysis/transformation_index.py · docs/INDICE-TRANSFORMACION.md. Componentes a la vista, pesos iguales, año base 2016.</p>
     </div>
 
+    <details class="deep">
+      <summary><span class="d-lab">Blindaje</span><span>El índice usa <b>pesos iguales</b>. ¿El podio depende de esa
+        elección? Con <b>1.000</b> combinaciones de pesos al azar, <b>no</b> — la comprobación, desplegada</span><span class="me-tgl"></span></summary>
+      <div class="d-body">
+        <div class="fig">
+          <h3>Estabilidad del ranking bajo 1.000 pesos al azar</h3>
+          <p class="cap">Cada barra recorre el <strong>rango de puestos</strong> (del mejor al peor) que ocupa el barrio
+            al sortear 1.000 combinaciones de pesos entre los componentes del índice; el punto marca el puesto
+            <strong>mediano</strong>. Barras cortas y arriba = posición robusta. El puesto 1 es el barrio más transformado
+            (modo social) o de mayor presión (modo turístico).</p>
+          <div class="controls">
+            <div class="control" style="min-width:auto">
+              <label>Modo del índice</label>
+              <div class="segmented" id="sens_sel">
+                <button data-k="socio" class="active">Socioeconómico</button>
+                <button data-k="tourism">Presión turística</button>
+              </div>
+              <span class="hint" id="sens_hint">Componentes: exceso de universitarios + exceso de alquiler (base 2016).</span>
+            </div>
+          </div>
+          <div class="mapwrap"><svg class="map" id="idx_sens" style="max-width:680px;margin:0 auto"></svg></div>
+          <p class="src">analysis/index_sensitivity.py (AN-9) — 1.000 pesos Dirichlet (uniforme en el símplex, semilla 42);
+            componentes en z-score, N=13 barrios. Loiola no baja del 3.º en lo social; Erdialdea es 1.º en presión turística
+            el 100&nbsp;% de las veces.</p>
+        </div>
+      </div>
+    </details>
+
     <div class="narrow">
       <p>Lo más revelador aparece al cruzar las dos lecturas: <strong>no coinciden</strong>. Los centros turísticos
         (Erdialdea +2,48, Gros +1,39) lideran la presión turística pero salen <em>consolidados</em> en lo social: ya
@@ -1399,6 +1461,34 @@
     </div>
 
     <div class="fig">
+      <h3>Cuando las presiones se suman: el índice de convergencia</h3>
+      <p class="cap">La prueba visual de esa frase. Suma <strong>tres capas normalizadas</strong> (z-score, pesos iguales,
+        <strong>componentes a la vista</strong>): el <strong>esfuerzo de vivienda</strong>, la <strong>migración
+        económica</strong> (cuota de origen latinoamericano&nbsp;+&nbsp;magrebí) y la <strong>isla de calor</strong> de
+        verano. Rojo = las tres aprietan a la vez sobre el mismo barrio; azul = las tres aflojan. Pasa el ratón por el mapa
+        o por una fila.</p>
+      <div class="grid2">
+        <div>
+          <div class="mapwrap"><svg class="map" id="conv_map"></svg></div>
+          <div class="legend" id="leg_conv"></div>
+        </div>
+        <div>
+          <div class="rankwrap" style="max-height:none">
+            <table class="rank" id="conv_table">
+              <thead><tr><th>Barrio</th><th style="text-align:right">Esfuerzo</th><th style="text-align:right">Migr. econ.</th><th style="text-align:right">Calor</th><th style="text-align:right">Convergencia</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <p class="src">Derivado <strong>nuevo y descriptivo</strong> — media de z-scores (pesos iguales) de: esfuerzo alquiler/renta
+        (MET-1), cuota de origen latino&nbsp;+&nbsp;magrebí (padrón) e isla de calor LST (REC-14). <strong>N=10</strong> barrios con las
+        tres capas (la isla de calor por satélite falta en Antiguo, Ibaeta y Martutene). Es una <em>síntesis visual</em> de tres
+        presiones ya contadas, no un índice causal nuevo; se calcula en el navegador desde los datos del propio documento.
+        Correlación ≠ causalidad.</p>
+    </div>
+
+    <div class="fig">
       <h3>El contrapeso público: una ventana parcial</h3>
       <p class="cap">Izquierda: viviendas de las <strong>promociones de Etxebide</strong> por 1.000 habitantes (snapshot
         acumulado) &mdash;una <em>ventana parcial</em> del parque protegido, no su censo (ver texto). Derecha: el esfuerzo
@@ -1441,7 +1531,7 @@
           ocultado justo este contraste. La trayectoria de 25 años añade la tercera lectura: la universitarización
           es común a toda la ciudad; lo que de verdad distingue a los barrios es <strong>cómo envejecen</strong>. Y el hilo que recorre las siete historias es la <strong>tensión residencial</strong>: la presión se concentra en el este de renta baja &mdash;donde se solapan alquiler gravoso, migración económica y calor urbano&mdash;, aunque <em>quién</em> acaba desplazado siga sin poder demostrarse con datos abiertos. El contrapeso público existe, pero su mapa completo por barrio no es público: la única ventana abierta (las promociones de Etxebide, ~⅓ de ese parque como mucho) apunta al este obrero, sin poder decir dónde falta.</p>
       </div>
-      <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;«Transformación», no «gentrificación» (falta rotación de residentes). N=13 barrios; pesos iguales y umbrales = medianas de la ciudad, todo a la vista. El podio no depende de los pesos elegidos: en 1.000 combinaciones aleatorias, Loiola nunca baja del 3.º puesto en lo social y Erdialdea es 1.º en presión turística el 100&nbsp;% de las veces.</span>
+      <span class="conf"><span class="dot derived"></span><b>Derivado.</b>&nbsp;«Transformación», no «gentrificación» (falta rotación de residentes). N=13 barrios; pesos iguales y umbrales = medianas de la ciudad, todo a la vista. El podio no depende de los pesos elegidos: en 1.000 combinaciones aleatorias, Loiola nunca baja del 3.º puesto en lo social y Erdialdea es 1.º en presión turística el 100&nbsp;% de las veces. <b>Limitación conocida:</b> dentro del componente socioeconómico, la renta y el % de universitarios correlacionan fuerte (r≈0,75), así que en parte <em>miden lo mismo</em> —hay un posible <b>doble conteo</b> del capital socioeconómico que el índice de pesos iguales no descuenta.</span>
     </div>
   </div>
 </section>
@@ -1616,6 +1706,13 @@
           el <a href="datos.html">catálogo de datos y fuentes</a>, el
           <a href="working-paper.html">working paper metodológico</a> (DOC-6) y el
           <a href="app/">panel interactivo</a>.</p>
+        <p id="data-download">Datos completos (tablas tidy, CSV):
+          <a href="datos/procesado/tablas/metrics_long.csv" download>métricas por barrio</a> ·
+          <a href="datos/procesado/tablas/series_long.csv" download>series temporales</a> ·
+          <a href="datos/procesado/tablas/indicators_long.csv" download>indicadores de ciudad</a> ·
+          <a href="datos/procesado/tablas/calles_vut.csv" download>viviendas turísticas por calle</a> ·
+          <a href="datos/procesado/tablas/barrios.csv" download>barrios</a>.
+          Cada gráfico con dato canónico lleva además su propio «↓&nbsp;CSV».</p>
       </div>
       <div>
         <h3>Lo que no se afirma</h3>
@@ -1655,13 +1752,50 @@
 "use strict";
 const D = window.DONO;
 const TIP = document.getElementById('tip');
+let TIP_TOUCH=false;               // true only while positioning from a finger tap
 function showTip(html,e){TIP.innerHTML=html;TIP.style.opacity=1;moveTip(e);}
-function moveTip(e){const pad=14;let x=e.clientX+pad,y=e.clientY+pad;
-  const r=TIP.getBoundingClientRect();
+function moveTip(e){const pad=14;const r=TIP.getBoundingClientRect();
+  if(TIP_TOUCH){                   // anchor above the finger so the tap doesn't cover it
+    let x=e.clientX-r.width/2,y=e.clientY-r.height-18;
+    if(x<4)x=4;if(x+r.width>innerWidth)x=innerWidth-r.width-4;
+    if(y<4)y=e.clientY+18;
+    TIP.style.left=x+'px';TIP.style.top=y+'px';return;}
+  let x=e.clientX+pad,y=e.clientY+pad;
   if(x+r.width>innerWidth)x=e.clientX-r.width-pad;
   if(y+r.height>innerHeight)y=e.clientY-r.height-pad;
   TIP.style.left=x+'px';TIP.style.top=y+'px';}
-function hideTip(){TIP.style.opacity=0;}
+function hideTip(){TIP.style.opacity=0;TIP_TOUCH=false;}
+
+/* Touch support. The charts reveal their tooltips on mouse hover; a touch screen
+   has no hover, so a tap on a mark went nowhere. Here a one-finger tap is bridged
+   to the same tooltip: we replay it as a `mousemove` on the tapped element, and
+   every chart already builds its tooltip from `mousemove`, so this needs no change
+   per chart and leaves the desktop mouse path untouched. Tapping empty space or
+   scrolling dismisses the pinned tooltip. Two-finger gestures (pinch-zoom) pass
+   through untouched. */
+(function(){
+  let pinned=false,shieldUntil=0;
+  /* Right after a tap some browsers (e.g. Chromium on Android) fire a synthetic
+     `mouseleave` on the mark as the finger lifts, which would hide the tooltip we
+     just pinned. Block it for a short window, in the capture phase so this runs
+     before each chart's own `mouseleave` handler. */
+  document.addEventListener('mouseleave',function(e){
+    if(performance.now()<shieldUntil)e.stopImmediatePropagation();
+  },true);
+  document.addEventListener('touchstart',function(ev){
+    if(ev.touches.length!==1){return;}
+    const t=ev.touches[0];
+    const target=document.elementFromPoint(t.clientX,t.clientY);
+    if(target&&target.closest('svg.map')&&target.tagName.toLowerCase()!=='svg'){
+      shieldUntil=performance.now()+800;
+      TIP_TOUCH=true;
+      target.dispatchEvent(new MouseEvent('mousemove',{clientX:t.clientX,clientY:t.clientY,bubbles:true}));
+      TIP_TOUCH=false;
+      pinned=true;
+    }else if(pinned){hideTip();pinned=false;}
+  },{passive:true});
+  window.addEventListener('scroll',function(){if(pinned){hideTip();pinned=false;}},{passive:true});
+})();
 const SVGNS="http://www.w3.org/2000/svg";
 function el(tag,attrs){const n=document.createElementNS(SVGNS,tag);for(const k in attrs)n.setAttribute(k,attrs[k]);return n;}
 const fmt=(v,d=1)=>v==null?'—':v.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -1704,6 +1838,26 @@ function paintMap(map,colorFor,tipFor){
     p._tip=tipFor(bid);
   }
 }
+/* Brújula de barrios: mapa de referencia con todos los nombres. No lleva datos;
+   solo ayuda a ubicar los barrios que el relato nombra por su posición. */
+(function(){
+  const svg=document.getElementById('map_orient');
+  if(!svg)return;
+  const om=buildMap('map_orient');
+  const g=svg.querySelector('g');
+  // pequeños empujones verticales para las etiquetas que se pisan en el centro denso
+  const LABEL_DY={aiete:-13,amaraberri:6,'miramon-zorroaga':-9,martutene:13};
+  for(const bid in D.barrios){
+    const b=D.barrios[bid];
+    om.paths[bid].setAttribute('fill','#e7eef3');
+    om.paths[bid]._tip=`<b>${b.name}</b>`;
+    if(b.cx!=null&&b.cy!=null){
+      const t=el('text',{x:b.cx,y:b.cy+(LABEL_DY[bid]||0),class:'blabel','text-anchor':'middle','dominant-baseline':'middle'});
+      t.textContent=b.name.replace(/\s*\(.*\)$/,'');   // etiqueta compacta; el tooltip mantiene el nombre completo
+      g.appendChild(t);
+    }
+  }
+})();
 function hRamp(stops){let s='';const N=24;for(let i=0;i<N;i++)s+=`<span style="background:${rampColor(stops,i/(N-1))}"></span>`;return s;}
 function legendSeq(id,stops,dmin,dmax,unit,dec){
   dec=dec||0;
@@ -2049,19 +2203,27 @@ function multiLineChart(svgId,seriesArr,opts){
     add('line',{x1:m.l,y1:yy,x2:W-m.r,y2:yy,stroke:'#eef1f5'});
     add('text',{x:m.l-7,y:yy+4,'text-anchor':'end',fill:'#5f6e84','font-size':10}).textContent=fmt(v,opts.dec||0);}
   [x0,Math.round((x0+x1)/2),x1].forEach(yr=>add('text',{x:X(yr),y:H-8,'text-anchor':'middle',fill:'#5f6e84','font-size':10}).textContent=yr);
+  // per-series visual parts, so hovering one zone can highlight it and dim the rest
+  const parts=seriesArr.map(s=>({els:[],context:!!s.context,path:null}));
+  function setFocus(i){parts.forEach((pp,j)=>{
+    const dim=(i!=null&&j!==i);
+    pp.els.forEach(e=>e.setAttribute('opacity',dim?0.13:1));
+    if(pp.path)pp.path.setAttribute('stroke-width',(j===i)?3.2:(pp.context?1:2.2));});}
   // context series (thin, grey, no markers) drawn first so highlighted lines sit on top
-  seriesArr.forEach(s=>{
+  seriesArr.forEach((s,si)=>{
     const pts=years.filter(y=>s.data[y]!=null);if(!pts.length)return;
     let d='';pts.forEach((y,i)=>{d+=(i?'L':'M')+X(y)+' '+Y(s.data[y]);});
     const path=add('path',{d,fill:'none',stroke:s.color,'stroke-width':s.context?1:2.2,
       'stroke-linejoin':'round','stroke-linecap':'round','stroke-dasharray':s.dash||'0',
       'stroke-opacity':s.context?0.9:1});
+    parts[si].path=path;parts[si].els.push(path);
     if(opts.crosshair)return; // a shared crosshair layer (below) handles hover for every series
     if(s.context){
       path.addEventListener('mousemove',ev=>showTip(`<b>${s.label}</b>`,ev));
       path.addEventListener('mouseleave',hideTip);
     }else{
       pts.forEach(y=>{const c=add('circle',{cx:X(y),cy:Y(s.data[y]),r:2.4,fill:s.color});
+        parts[si].els.push(c);
         c.addEventListener('mousemove',ev=>showTip(`<b>${s.label} · ${y}</b><br><span class="t-val">${fmt(s.data[y],opts.dec||0)}</span> ${opts.unit||''}`,ev));
         c.addEventListener('mouseleave',hideTip);});
     }
@@ -2083,9 +2245,18 @@ function multiLineChart(svgId,seriesArr,opts){
     if(L.length&&L[0].ty<top){L[0].ty=top;
       for(let i=1;i<L.length;i++){if(L[i].ty-L[i-1].ty<GAP)L[i].ty=L[i-1].ty+GAP;}}
     L.forEach(o=>{
-      add('circle',{cx:o.x,cy:o.cy,r:3,fill:o.s.color});
-      if(Math.abs(o.ty-o.cy)>1.5)add('line',{x1:o.x+3.5,y1:o.cy,x2:o.x+7,y2:o.ty-3,stroke:o.s.color,'stroke-width':1,'stroke-opacity':.55});
-      add('text',{x:o.x+9,y:o.ty,fill:'#33445c','font-size':10.5,'font-weight':600}).textContent=o.s.label;});}
+      const si=seriesArr.indexOf(o.s);
+      const dot=add('circle',{cx:o.x,cy:o.cy,r:3,fill:o.s.color});
+      if(si>=0)parts[si].els.push(dot);
+      if(Math.abs(o.ty-o.cy)>1.5){const ld=add('line',{x1:o.x+3.5,y1:o.cy,x2:o.x+7,y2:o.ty-3,stroke:o.s.color,'stroke-width':1,'stroke-opacity':.55});if(si>=0)parts[si].els.push(ld);}
+      const lab=add('text',{x:o.x+9,y:o.ty,fill:'#33445c','font-size':10.5,'font-weight':600,style:'cursor:pointer'});
+      lab.textContent=o.s.label;
+      // hover the zone name (or its dot) to isolate that line and dim the rest
+      if(si>=0){parts[si].els.push(lab);
+        [lab,dot].forEach(node=>{
+          node.addEventListener('mouseenter',()=>setFocus(si));
+          node.addEventListener('mouseleave',()=>setFocus(null));});}
+      });}
   if(opts.legend!==false){const lx=m.l+8,ly=m.t+6;seriesArr.filter(s=>!s.context).forEach((s,i)=>{
     add('rect',{x:lx,y:ly+i*16-8,width:14,height:3,fill:s.color});
     add('text',{x:lx+20,y:ly+i*16-4,fill:'#3a4a63','font-size':11}).textContent=s.label;});}
@@ -2413,6 +2584,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* origin <-> income correlation (diverging bars) */
 (function orgCorr(){
   const rows=[['Europa occidental',0.24,0.59],['Europa del Este',-0.13,-0.12],['Asia',-0.28,0.16],['Norte de África',-0.48,-0.37],['América Latina',-0.69,-0.29]];
+  (window.__CSV=window.__CSV||{}).orgcorr={cols:['region','r_renta','r_universitarios'],rows};
   const W=680,H=250,padT=30,padB=26,namesR=150,x0=168,x1=498,gut=512;const svg=mkSvg('orgcorr',W,H,'Correlación entre la cuota de cada región de origen y la renta del barrio; positiva se asienta donde hay más renta, negativa donde hay menos.');if(!svg)return;
   const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=0.8,sx=r=>cx+(r/SS)*plotW;
   const n=rows.length,bandH=(H-padT-padB)/n;
@@ -2429,6 +2601,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* salary gradient (horizontal bars) */
 (function salaryChart(){
   const rows=[['Directores y gerentes',65657],['Téc. y prof. científicos',39359],['Téc. y prof. de apoyo',32512],['Administrativos / oficina',30054],['Operadores de instalaciones',28815],['Artesanos y cualificados',27333],['Agrario / pesquero',24781],['Ocupaciones elementales',21488],['Servicios, ventas',18044]];
+  (window.__CSV=window.__CSV||{}).salary={cols:['ocupacion','renta_trabajo_anual_eur'],rows};
   const W=560,H=280,padT=8,padB=14,x0=155,x1=W-52;const svg=mkSvg('salary',W,H);if(!svg)return;
   const max=70000,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Renta media anual del trabajo por grupo de ocupación, de dirección 65.657 € a servicios 18.044 €.');
   rows.forEach((r,i)=>{const name=r[0],v=r[1],cyb=padT+bandH*i+bandH/2,t=(v-18000)/48000;
@@ -2453,6 +2626,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* heat island anomaly by barrio (REC-14, diverging bars) */
 (function heatBars(){
   const rows=[['Gros',4.8],['Amara Berri',4.3],['Egia',4.1],['Intxaurrondo',3.6],['Erdialdea (Centro)',3.0],['Aiete',2.7],['Loiola',2.5],['Altza',0.4],['Zubieta',-0.4],['Mirakruz-Bidebieta',-1.9],['Ategorrieta-Ulia',-2.7],['Igeldo',-3.1],['Oarain',-4.3],['Landerbaso',-4.6]];
+  (window.__CSV=window.__CSV||{}).heat_bars={cols:['barrio','lst_anomalia_c'],rows};
   const W=640,H=380,padT=28,padB=22,x0=160,x1=W-52;const svg=mkSvg('heat_bars',W,H);if(!svg)return;
   const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=5,sx=v=>cx+(v/SS)*plotW,n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Anomalía de temperatura de superficie por barrio respecto a la media de la ciudad; Gros +4,8 grados, anillo verde hasta -4,6.');
   mk(svg,'line',{x1:cx,y1:padT-8,x2:cx,y2:H-padB,stroke:'#c8d0dc','stroke-width':1});
@@ -2592,6 +2766,154 @@ if(typeof IntersectionObserver!=='undefined'){
   },{rootMargin:'-35% 0px -45% 0px',threshold:0});
   document.querySelectorAll('[data-scrolly] .step').forEach(s=>io.observe(s));
 }
+
+/* ============ 5b · sensibilidad de pesos del Índice de Transformación (AN-9) ============
+   Rango de puestos de cada barrio al sortear 1.000 combinaciones de pesos.
+   Cifras reproducibles de analysis/index_sensitivity.py (Dirichlet, semilla 42). */
+(function(){
+  const svg=document.getElementById('idx_sens');if(!svg)return;
+  // [barrio_id, rank_mediano, rank_min, rank_max]
+  const SENS={
+    socio:{hint:'Componentes: exceso de universitarios + exceso de alquiler (base 2016).',rows:[
+      ['loiola',1,1,3],['egia',2,1,10],['erdialdea',3,2,11],['antigua',5,3,8],['gros',5,4,10],
+      ['aiete',6,2,8],['mirakruz-bidebieta',7,6,9],['intxaurrondo',8,3,12],['amaraberri',9,5,11],
+      ['altza',10,4,13],['ibaeta',10,6,11],['martutene',12,9,13],['ategorrieta-ulia',13,6,13]]},
+    tourism:{hint:'Componentes: densidad VUT + densidad Airbnb + nivel de alquiler.',rows:[
+      ['erdialdea',1,1,1],['gros',2,2,3],['antigua',3,3,5],['aiete',4,2,9],['ibaeta',5,4,8],
+      ['egia',5,4,6],['amaraberri',7,5,9],['loiola',8,6,9],['ategorrieta-ulia',9,3,11],
+      ['intxaurrondo',10,9,11],['mirakruz-bidebieta',11,10,11],['altza',12,12,13],['martutene',13,12,13]]}
+  };
+  const name=id=>((D.barrios[id]&&D.barrios[id].name)||id).replace(/\s*\(.*\)$/,'');
+  const W=680,H=430,m={l:150,r:20,t:20,b:34},N=13;
+  const X=r=>m.l+(r-1)/(N-1)*(W-m.l-m.r);
+  let MODE='socio';
+  function render(){
+    const data=SENS[MODE].rows.slice().sort((a,b)=>a[1]-b[1]||a[3]-b[3]);
+    (window.__CSV=window.__CSV||{}).idx_sens={cols:['barrio','modo','rank_mediano','rank_min','rank_max'],
+      rows:data.map(d=>[name(d[0]),MODE,d[1],d[2],d[3]])};
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML='';
+    const bandH=(H-m.t-m.b)/N;
+    [1,4,7,10,13].forEach(r=>{const x=X(r);
+      svg.appendChild(el('line',{x1:x,y1:m.t,x2:x,y2:H-m.b,stroke:'#eef1f5'}));
+      const tx=el('text',{x,y:H-m.b+16,'text-anchor':'middle','font-size':10,fill:'#5f6e84'});tx.textContent=r;svg.appendChild(tx);});
+    const cap=el('text',{x:(m.l+W-m.r)/2,y:H-6,'text-anchor':'middle','font-size':10,fill:'#5f6e84'});
+    cap.textContent='puesto en el ranking (1 = el primero)  →  13 (el último)';svg.appendChild(cap);
+    data.forEach((d,i)=>{
+      const [id,med,lo,hi]=d,cy=m.t+bandH*i+bandH/2,top3=i<3;
+      const col=top3?'#0f4c5c':'#8aa0b4';
+      const g=el('g',{class:'srow'});g.setAttribute('data-name',name(id));
+      g.appendChild(el('line',{x1:X(lo),y1:cy,x2:X(hi),y2:cy,stroke:col,'stroke-width':top3?5:3,'stroke-linecap':'round','stroke-opacity':top3?.35:.28}));
+      g.appendChild(el('circle',{cx:X(med),cy,r:top3?5.5:4.5,fill:col}));
+      const lab=el('text',{x:m.l-10,y:cy+4,'text-anchor':'end','font-size':11,fill:top3?'#0f4c5c':'#3a4a63','font-weight':top3?700:600});
+      lab.textContent=name(id);g.appendChild(lab);
+      g._tip=`<b>${name(id)}</b><br>puesto mediano <span class="t-val">${med}</span> · rango ${lo}–${hi} de ${N}`;
+      g.addEventListener('mousemove',ev=>showTip(g._tip,ev));g.addEventListener('mouseleave',hideTip);
+      svg.appendChild(g);
+    });
+    const h=document.getElementById('sens_hint');if(h)h.textContent=SENS[MODE].hint;
+  }
+  render();
+  document.querySelectorAll('#sens_sel button').forEach(btn=>btn.addEventListener('click',()=>{
+    MODE=btn.dataset.k;
+    document.querySelectorAll('#sens_sel button').forEach(b=>b.classList.toggle('active',b===btn));
+    render();
+  }));
+})();
+
+/* ============ 5a · índice de convergencia de presiones ============
+   Suma descriptiva de tres presiones ya contadas (esfuerzo de vivienda, migración
+   económica, isla de calor), normalizadas a z-score y a pesos iguales. Se calcula
+   en el navegador desde los datos ya embebidos (housing_tension, ORG_DATA, la capa
+   de calor de heat_bars). Componentes a la vista; N=10 barrios con las tres capas. */
+(function(){
+  const map=document.getElementById('conv_map');if(!map)return;
+  const HT={};for(const b in D.metrics.housing_tension)HT[b]=D.metrics.housing_tension[b].v;
+  const ECON={};for(const b in ORG_DATA.latam){const l=ORG_DATA.latam[b],n=ORG_DATA.norte_africa[b];if(l!=null&&n!=null)ECON[b]=l+n;}
+  const nameToId={};for(const b in D.barrios)nameToId[D.barrios[b].name.replace(/\s*\(.*\)$/,'')]=b;
+  const HEAT={},hb=(window.__CSV&&window.__CSV.heat_bars&&window.__CSV.heat_bars.rows)||[];
+  hb.forEach(r=>{const id=nameToId[String(r[0]).replace(/\s*\(.*\)$/,'')];if(id)HEAT[id]=r[1];});
+  const ids=Object.keys(HT).filter(b=>ECON[b]!=null&&HEAT[b]!=null);
+  const zof=obj=>{const xs=ids.map(b=>obj[b]),m=xs.reduce((a,c)=>a+c,0)/xs.length,
+    sd=Math.sqrt(xs.reduce((a,c)=>a+(c-m)*(c-m),0)/xs.length)||1,o={};ids.forEach(b=>o[b]=(obj[b]-m)/sd);return o;};
+  const zH=zof(HT),zE=zof(ECON),zC=zof(HEAT);
+  const rows=ids.map(b=>({id:b,name:D.barrios[b].name.replace(/\s*\(.*\)$/,''),
+    zh:zH[b],ze:zE[b],zc:zC[b],score:(zH[b]+zE[b]+zC[b])/3})).sort((a,b)=>b.score-a.score);
+  const byId={};rows.forEach(r=>byId[r.id]=r);
+  const dabs=Math.max(...rows.map(r=>Math.abs(r.score)))||1;
+  const sc=divScale(dabs);
+  const cm=buildMap('conv_map');
+  paintMap(cm,b=>byId[b]?sc(byId[b].score):null,
+    b=>{const r=byId[b];return r?`<b>${r.name}</b><br>Convergencia <span class="t-val">${fmt(r.score,2)}</span> (z medio)<br>esfuerzo ${fmt(r.zh,2)} · migr. econ. ${fmt(r.ze,2)} · calor ${fmt(r.zc,2)}`:`<b>${D.barrios[b].name}</b><br>sin las tres capas`;});
+  legendDiv('leg_conv',dabs,'índice (z medio) · rojo = convergen');
+  const SOFT=['#8bb8d8','#d9e8f3','#f4f4f4','#f6d5c9','#e39a86'];
+  const tcol=z=>rampColor(SOFT,(z+dabs)/(2*dabs||1));
+  const sgn=v=>(v>=0?'+':'−')+fmt(Math.abs(v),2);
+  const cell=z=>`<td class="num" style="background:${tcol(z)};color:#14233a">${sgn(z)}</td>`;
+  const tb=document.querySelector('#conv_table tbody');tb.innerHTML='';
+  rows.forEach(r=>{const g=document.createElement('tr');
+    g.innerHTML=`<td>${r.name}</td>${cell(r.zh)}${cell(r.ze)}${cell(r.zc)}<td class="num" style="font-weight:800">${sgn(r.score)}</td>`;
+    g.addEventListener('mousemove',ev=>showTip(`<b>${r.name}</b><br>Convergencia <span class="t-val">${sgn(r.score)}</span>`,ev));
+    g.addEventListener('mouseleave',hideTip);tb.appendChild(g);});
+  (window.__CSV=window.__CSV||{}).conv={cols:['barrio','z_esfuerzo','z_migracion_economica','z_isla_calor','convergencia'],
+    rows:rows.map(r=>[r.name,r.zh.toFixed(3),r.ze.toFixed(3),r.zc.toFixed(3),r.score.toFixed(3)])};
+})();
+
+/* ============ 5d · descarga de datos por gráfico ============
+   Cada gráfico enlaza a la tabla tidy canónica que contiene sus datos (copiada a
+   la raíz del sitio en el deploy). Los gráficos de análisis puro que no tienen
+   tabla canónica (sale_ts, salary, gini, an4, orgcorr, heat_bars, leadlag,
+   traj_an18) se cubrirán con CSV generado en el navegador en un paso posterior. */
+(function(){
+  const DIR='datos/procesado/tablas/';
+  const CANON={
+    map_press:'metrics_long.csv',map_biv:'metrics_long.csv',map_vel:'metrics_long.csv',
+    map_prof:'metrics_long.csv',scatter:'metrics_long.csv',map_age:'metrics_long.csv',
+    map_org:'metrics_long.csv',map_tour:'metrics_long.csv',map_lived:'metrics_long.csv',
+    map_tclass:'metrics_long.csv',map_ttour:'metrics_long.csv',map_tcomp:'metrics_long.csv',
+    map_vpo:'metrics_long.csv',map_vpotension:'metrics_long.csv',scatter_tt:'metrics_long.csv',
+    map_streets:'calles_vut.csv',
+    stripes:'series_long.csv',trend:'series_long.csv',hotdays:'series_long.csv',cycles:'series_long.csv',
+    season:'series_long.csv',airbnb_season:'series_long.csv',tourindex:'series_long.csv',
+    recycling:'indicators_long.csv',fiscal:'indicators_long.csv',icca:'indicators_long.csv',
+    randd:'indicators_long.csv',perc_chart:'indicators_long.csv',crime_chart:'indicators_long.csv'
+  };
+  // los gráficos de análisis puro (sin tabla canónica) generan su CSV en el
+  // navegador desde el dato ya embebido, así que también son descargables y
+  // coinciden exactamente con lo pintado.
+  const csvField=v=>{const s=v==null?'':String(v);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  function toCSV(cols,rows){return [cols.join(','),...rows.map(r=>r.map(csvField).join(','))].join('\n');}
+  function download(name,text){const blob=new Blob([text],{type:'text/csv;charset=utf-8'});
+    const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),0);}
+  const cw=o=>({cols:o.cols,rows:o.rows.map(r=>Array.isArray(r)?r:o.cols.map(c=>r[c]))});
+  const GEN={
+    sale_ts:{name:'precio_venta_por_zona.csv',get:()=>{const cols=['zona','anio','precio_venta_eur_m2'],rows=[];
+      (D.sale_price&&D.sale_price.series||[]).forEach(s=>Object.keys(s.data).forEach(y=>rows.push([s.label,y,s.data[y]])));return {cols,rows};}},
+    gini:{name:'gini_renta_barrios.csv',get:()=>{const cols=Object.keys((D.an5||[])[0]||{});return {cols,rows:(D.an5||[]).map(o=>cols.map(c=>o[c]))};}},
+    an4:{name:'alquiler_nivel_x_crecimiento.csv',get:()=>{const cols=['barrio_id','alquiler_eur_m2','crecimiento_pct_anual','cuadrante'];
+      return {cols,rows:Object.keys(D.an4||{}).map(b=>[b,D.an4[b].alquiler,D.an4[b].crec,D.an4[b].cuad])};}},
+    leadlag:{name:'lead_lag_turismo_alquiler.csv',get:()=>({cols:['desfase_anios','r'],rows:(D.leadlag||[]).map(d=>[d.lag,d.r])})},
+    orgcorr:{name:'origen_x_renta_correlacion.csv',get:()=>cw((window.__CSV||{}).orgcorr||{cols:[],rows:[]})},
+    salary:{name:'renta_por_ocupacion.csv',get:()=>cw((window.__CSV||{}).salary||{cols:[],rows:[]})},
+    heat_bars:{name:'isla_calor_por_barrio.csv',get:()=>cw((window.__CSV||{}).heat_bars||{cols:[],rows:[]})},
+    traj_an18:{name:'trayectorias_barrios.csv',get:()=>{const cols=['barrio','envejecimiento_2000','envejecimiento_2025','pct_univ_2000','pct_univ_2025'],rows=[];
+      document.querySelectorAll('#traj_an18 g.traj').forEach(g=>rows.push([g.dataset.name,g.dataset.xi,g.dataset.xf,g.dataset.yi,g.dataset.yf]));return {cols,rows};}},
+    idx_sens:{name:'sensibilidad_indice_pesos.csv',get:()=>cw((window.__CSV||{}).idx_sens||{cols:[],rows:[]})},
+    conv_map:{name:'indice_convergencia.csv',get:()=>cw((window.__CSV||{}).conv||{cols:[],rows:[]})}
+  };
+  function addLink(id,make){
+    const svg=document.getElementById(id);if(!svg)return;
+    const fig=svg.closest('.fig');if(!fig||fig.querySelector('a.dl-csv'))return;
+    const a=make();a.className='dl-csv';a.textContent='↓ CSV';
+    const src=fig.querySelector('.src');if(src)src.appendChild(a);else fig.appendChild(a);
+  }
+  for(const id in CANON)addLink(id,()=>{const a=document.createElement('a');
+    a.href=DIR+CANON[id];a.setAttribute('download','');
+    a.title='Descargar los datos de este gráfico (tabla tidy canónica)';return a;});
+  for(const id in GEN)addLink(id,()=>{const a=document.createElement('a');a.href='#';
+    a.title='Descargar los datos de este gráfico (generado desde los datos del propio gráfico)';
+    a.addEventListener('click',ev=>{ev.preventDefault();const g=GEN[id].get();download(GEN[id].name,toCSV(g.cols,g.rows));});return a;});
+})();
 </script>
 <!-- Donostia Dataviz · 7 historias -->
 </body>

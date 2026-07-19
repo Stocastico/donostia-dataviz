@@ -6,7 +6,11 @@
 <title>Donostia en datos · Datos y fuentes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- Fuentes cargadas de forma no bloqueante: la página se pinta al instante con la
+     pila del sistema y, si hay red, sustituye por Inter/Libre Franklin al llegar.
+     Offline funciona igual (system-ui). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@600;700;800&display=swap"></noscript>
 <style>
   :root{
     --ink:#14233a; --ink2:#3a4a63; --muted:#5f6e84; --line:#e2e7ef;
@@ -17,6 +21,10 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition-duration:.001ms !important;animation-duration:.001ms !important;scroll-behavior:auto !important}
+  }
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:16px}
@@ -226,8 +234,10 @@
         fondo — no baja a barrio ni a municipio.</li>
       <li><strong>Catastro foral de Gipuzkoa</strong> — descargable, pero sin coordenadas ni barrio en los
         ficheros; aparcado hasta decidir geocodificación.</li>
-      <li><strong>Precios de venta €/m² (portales inmobiliarios)</strong> — descartado el scraping por
-        condiciones de uso; solo entraría vía catastro.</li>
+      <li><strong>Scraping de precios de venta en portales inmobiliarios</strong> — descartado por sus
+        condiciones de uso. El precio de venta €/m² <em>sí</em> entra finalmente, pero por otra vía: la serie
+        pública de la <strong>sala de prensa de idealista</strong> (REC-25, <code>sale_price_eur_m2</code>,
+        arriba), no el scraping. Un dato de transacción real (no de oferta) seguiría exigiendo el catastro foral.</li>
     </ul>
   </div>
 

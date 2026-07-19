@@ -58,6 +58,10 @@ jobs:
           # para que los enlaces existentes entre páginas sigan funcionando.
           cp output/historias.html _site/index.html
           cp output/historias.html output/metodologia.html output/datos.html _site/
+          # tablas tidy canónicas: alimentan los enlaces «↓ CSV» de cada gráfico
+          # y el bloque «datos completos» del pie (rutas datos/procesado/tablas/*.csv).
+          mkdir -p _site/datos/procesado/tablas
+          cp datos/procesado/tablas/*.csv _site/datos/procesado/tablas/
       - uses: actions/configure-pages@v5
         with:
           enablement: true
