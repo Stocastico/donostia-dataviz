@@ -2528,6 +2528,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* origin <-> income correlation (diverging bars) */
 (function orgCorr(){
   const rows=[['Europa occidental',0.24,0.59],['Europa del Este',-0.13,-0.12],['Asia',-0.28,0.16],['Norte de África',-0.48,-0.37],['América Latina',-0.69,-0.29]];
+  (window.__CSV=window.__CSV||{}).orgcorr={cols:['region','r_renta','r_universitarios'],rows};
   const W=680,H=250,padT=30,padB=26,namesR=150,x0=168,x1=498,gut=512;const svg=mkSvg('orgcorr',W,H,'Correlación entre la cuota de cada región de origen y la renta del barrio; positiva se asienta donde hay más renta, negativa donde hay menos.');if(!svg)return;
   const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=0.8,sx=r=>cx+(r/SS)*plotW;
   const n=rows.length,bandH=(H-padT-padB)/n;
@@ -2544,6 +2545,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* salary gradient (horizontal bars) */
 (function salaryChart(){
   const rows=[['Directores y gerentes',65657],['Téc. y prof. científicos',39359],['Téc. y prof. de apoyo',32512],['Administrativos / oficina',30054],['Operadores de instalaciones',28815],['Artesanos y cualificados',27333],['Agrario / pesquero',24781],['Ocupaciones elementales',21488],['Servicios, ventas',18044]];
+  (window.__CSV=window.__CSV||{}).salary={cols:['ocupacion','renta_trabajo_anual_eur'],rows};
   const W=560,H=280,padT=8,padB=14,x0=155,x1=W-52;const svg=mkSvg('salary',W,H);if(!svg)return;
   const max=70000,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Renta media anual del trabajo por grupo de ocupación, de dirección 65.657 € a servicios 18.044 €.');
   rows.forEach((r,i)=>{const name=r[0],v=r[1],cyb=padT+bandH*i+bandH/2,t=(v-18000)/48000;
@@ -2568,6 +2570,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 /* heat island anomaly by barrio (REC-14, diverging bars) */
 (function heatBars(){
   const rows=[['Gros',4.8],['Amara Berri',4.3],['Egia',4.1],['Intxaurrondo',3.6],['Erdialdea (Centro)',3.0],['Aiete',2.7],['Loiola',2.5],['Altza',0.4],['Zubieta',-0.4],['Mirakruz-Bidebieta',-1.9],['Ategorrieta-Ulia',-2.7],['Igeldo',-3.1],['Oarain',-4.3],['Landerbaso',-4.6]];
+  (window.__CSV=window.__CSV||{}).heat_bars={cols:['barrio','lst_anomalia_c'],rows};
   const W=640,H=380,padT=28,padB=22,x0=160,x1=W-52;const svg=mkSvg('heat_bars',W,H);if(!svg)return;
   const cx=(x0+x1)/2,plotW=(x1-x0)/2,SS=5,sx=v=>cx+(v/SS)*plotW,n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Anomalía de temperatura de superficie por barrio respecto a la media de la ciudad; Gros +4,8 grados, anillo verde hasta -4,6.');
   mk(svg,'line',{x1:cx,y1:padT-8,x2:cx,y2:H-padB,stroke:'#c8d0dc','stroke-width':1});
@@ -2727,16 +2730,40 @@ if(typeof IntersectionObserver!=='undefined'){
     recycling:'indicators_long.csv',fiscal:'indicators_long.csv',icca:'indicators_long.csv',
     randd:'indicators_long.csv',perc_chart:'indicators_long.csv',crime_chart:'indicators_long.csv'
   };
-  for(const id in CANON){
-    const svg=document.getElementById(id);if(!svg)continue;
-    const fig=svg.closest('.fig');if(!fig||fig.querySelector('a.dl-csv'))continue;
-    const a=document.createElement('a');
-    a.className='dl-csv';a.href=DIR+CANON[id];a.setAttribute('download','');
-    a.setAttribute('title','Descargar los datos de este gráfico (tabla tidy canónica)');
-    a.textContent='↓ CSV';
-    const src=fig.querySelector('.src');
-    if(src)src.appendChild(a);else fig.appendChild(a);
+  // los gráficos de análisis puro (sin tabla canónica) generan su CSV en el
+  // navegador desde el dato ya embebido, así que también son descargables y
+  // coinciden exactamente con lo pintado.
+  const csvField=v=>{const s=v==null?'':String(v);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  function toCSV(cols,rows){return [cols.join(','),...rows.map(r=>r.map(csvField).join(','))].join('\n');}
+  function download(name,text){const blob=new Blob([text],{type:'text/csv;charset=utf-8'});
+    const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),0);}
+  const cw=o=>({cols:o.cols,rows:o.rows.map(r=>Array.isArray(r)?r:o.cols.map(c=>r[c]))});
+  const GEN={
+    sale_ts:{name:'precio_venta_por_zona.csv',get:()=>{const cols=['zona','anio','precio_venta_eur_m2'],rows=[];
+      (D.sale_price&&D.sale_price.series||[]).forEach(s=>Object.keys(s.data).forEach(y=>rows.push([s.label,y,s.data[y]])));return {cols,rows};}},
+    gini:{name:'gini_renta_barrios.csv',get:()=>{const cols=Object.keys((D.an5||[])[0]||{});return {cols,rows:(D.an5||[]).map(o=>cols.map(c=>o[c]))};}},
+    an4:{name:'alquiler_nivel_x_crecimiento.csv',get:()=>{const cols=['barrio_id','alquiler_eur_m2','crecimiento_pct_anual','cuadrante'];
+      return {cols,rows:Object.keys(D.an4||{}).map(b=>[b,D.an4[b].alquiler,D.an4[b].crec,D.an4[b].cuad])};}},
+    leadlag:{name:'lead_lag_turismo_alquiler.csv',get:()=>({cols:['desfase_anios','r'],rows:(D.leadlag||[]).map(d=>[d.lag,d.r])})},
+    orgcorr:{name:'origen_x_renta_correlacion.csv',get:()=>cw((window.__CSV||{}).orgcorr||{cols:[],rows:[]})},
+    salary:{name:'renta_por_ocupacion.csv',get:()=>cw((window.__CSV||{}).salary||{cols:[],rows:[]})},
+    heat_bars:{name:'isla_calor_por_barrio.csv',get:()=>cw((window.__CSV||{}).heat_bars||{cols:[],rows:[]})},
+    traj_an18:{name:'trayectorias_barrios.csv',get:()=>{const cols=['barrio','envejecimiento_2000','envejecimiento_2025','pct_univ_2000','pct_univ_2025'],rows=[];
+      document.querySelectorAll('#traj_an18 g.traj').forEach(g=>rows.push([g.dataset.name,g.dataset.xi,g.dataset.xf,g.dataset.yi,g.dataset.yf]));return {cols,rows};}}
+  };
+  function addLink(id,make){
+    const svg=document.getElementById(id);if(!svg)return;
+    const fig=svg.closest('.fig');if(!fig||fig.querySelector('a.dl-csv'))return;
+    const a=make();a.className='dl-csv';a.textContent='↓ CSV';
+    const src=fig.querySelector('.src');if(src)src.appendChild(a);else fig.appendChild(a);
   }
+  for(const id in CANON)addLink(id,()=>{const a=document.createElement('a');
+    a.href=DIR+CANON[id];a.setAttribute('download','');
+    a.title='Descargar los datos de este gráfico (tabla tidy canónica)';return a;});
+  for(const id in GEN)addLink(id,()=>{const a=document.createElement('a');a.href='#';
+    a.title='Descargar los datos de este gráfico (generado desde los datos del propio gráfico)';
+    a.addEventListener('click',ev=>{ev.preventDefault();const g=GEN[id].get();download(GEN[id].name,toCSV(g.cols,g.rows));});return a;});
 })();
 </script>
 <!-- Donostia Dataviz · 7 historias -->
