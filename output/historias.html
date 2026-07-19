@@ -455,7 +455,7 @@
         metros cuadrados es discutible, así que <strong>lo puedes modificar</strong> y ver si la situación
         cambia.</p>
       <details class="metric-expl"><summary><span class="me-lab">Las tres medidas, en claro</span><span class="me-tgl"></span></summary><div class="me-body">
-        <b>Cuota de renta</b>: qué porcentaje de la renta per cápita se llevaría el alquiler anual. la medida
+        <b>Cuota de renta</b>: qué porcentaje de la renta per cápita se llevaría el alquiler anual. La medida
         más intuitiva. <b>z(alquiler)&nbsp;−&nbsp;z(renta)</b>: expresa el alquiler y la renta de cada barrio en
         <b>desviaciones típicas</b> respecto a la media de la ciudad (cómo de atípico es cada uno) y resta ambas;
         si sale positivo, el alquiler destaca más que la renta. <b>Percentil&nbsp;−&nbsp;percentil</b>: la misma
@@ -2073,13 +2073,16 @@ function renderAge(){
   const entries=Object.keys(S).map(k=>[k,S[k][y]]).filter(e=>e[1]!=null);
   const vals=entries.map(e=>e[1]);
   const dmin=Math.min(...vals),dmax=Math.max(...vals);
-  const stops=AGEK==='ageing'?SEQ_G:['#fff5f0','#fdcab5','#fc8d59','#e34a33','#a63446'];
-  // for ageing, higher = older -> darker green; we want intuitive: use purple-ish? keep green ramp dark=old
-  const sc=seqScale(AGEK==='ageing'?['#f1f8f4','#9ecae1','#4292c6','#08519c','#08306b']:SEQ_G,dmin,dmax);
+  // Índice de vejez: rampa morada secuencial (oscuro = más viejo), neutral y no
+  // asociada a «bueno/malo». Juventud: rampa coral, para distinguirlas de un vistazo.
+  const AGE_RAMP=['#f4f0f9','#d7c6e6','#b394cf','#8a5fb0','#5d2e8c'];
+  const YOUTH_RAMP=['#fff5f0','#fdcab5','#fc8d59','#e34a33','#a63446'];
+  const ramp=AGEK==='ageing'?AGE_RAMP:YOUTH_RAMP;
+  const sc=seqScale(ramp,dmin,dmax);
   const unit=AGEK==='ageing'?'índice':'%';
   paintMap(mapAge,bid=>{const v=S[bid]&&S[bid][y];return v!=null?sc(v):null;},
     bid=>{const v=S[bid]&&S[bid][y];return v!=null?`<b>${D.barrios[bid].name}</b> · ${y}<br><span class="t-val">${fmt(v,AGEK==='ageing'?0:1)}</span> ${unit}`:`<b>${D.barrios[bid].name}</b><br>sin dato`;});
-  legendSeq('leg_age',AGEK==='ageing'?['#f1f8f4','#9ecae1','#4292c6','#08519c','#08306b']:SEQ_G,dmin,dmax,unit);
+  legendSeq('leg_age',ramp,dmin,dmax,unit);
   document.getElementById('agecol').textContent=AGEK==='ageing'?'Índice':'%';
   const sorted=entries.sort((a,b)=>b[1]-a[1]);const max=Math.max(...vals);
   const tb=document.querySelector('#rank_age tbody');tb.innerHTML='';
@@ -2607,6 +2610,8 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 
 /* salary gradient (horizontal bars) */
 (function salaryChart(){
+  // Dato congelado: cifras de Eustat/análisis cableadas aquí, NO derivadas de
+  // window.DONO; un refresco del pipeline no las actualiza (revisar a mano).
   const rows=[['Directores y gerentes',65657],['Téc. y prof. científicos',39359],['Téc. y prof. de apoyo',32512],['Administrativos / oficina',30054],['Operadores de instalaciones',28815],['Artesanos y cualificados',27333],['Agrario / pesquero',24781],['Ocupaciones elementales',21488],['Servicios, ventas',18044]];
   (window.__CSV=window.__CSV||{}).salary={cols:['ocupacion','renta_trabajo_anual_eur'],rows};
   const W=560,H=280,padT=8,padB=14,x0=155,x1=W-52;const svg=mkSvg('salary',W,H);if(!svg)return;
@@ -2619,6 +2624,7 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 
 /* R&D intensity (Gipuzkoa vs Spain) */
 (function randdChart(){
+  // Dato congelado (Eustat, REC-21): cableado, no viene de window.DONO.
   const rows=[['Gipuzkoa',31.0,'#33468f'],['España',13.6,'#b3bdd6']];
   const W=360,H=200,padT=30,padB=42,x0=88,x1=W-46;const svg=mkSvg('randd',W,H);if(!svg)return;
   const max=36,sx=v=>x0+(v/max)*(x1-x0),n=rows.length,bandH=(H-padT-padB)/n;svg.setAttribute('role','img');svg.setAttribute('aria-label','Personal de I+D por 1.000 ocupados: Gipuzkoa 31,0 frente a España 13,6.');
@@ -2632,6 +2638,8 @@ document.querySelectorAll('#orgsel button').forEach(b=>b.addEventListener('click
 
 /* heat island anomaly by barrio (REC-14, diverging bars) */
 (function heatBars(){
+  // Dato congelado (REC-14, Landsat): cableado, no viene de window.DONO ni se
+  // refresca con el pipeline. Alimenta también el índice de convergencia (5a).
   const rows=[['Gros',4.8],['Amara Berri',4.3],['Egia',4.1],['Intxaurrondo',3.6],['Erdialdea (Centro)',3.0],['Aiete',2.7],['Loiola',2.5],['Altza',0.4],['Zubieta',-0.4],['Mirakruz-Bidebieta',-1.9],['Ategorrieta-Ulia',-2.7],['Igeldo',-3.1],['Oarain',-4.3],['Landerbaso',-4.6]];
   (window.__CSV=window.__CSV||{}).heat_bars={cols:['barrio','lst_anomalia_c'],rows};
   const W=640,H=380,padT=28,padB=22,x0=160,x1=W-52;const svg=mkSvg('heat_bars',W,H);if(!svg)return;

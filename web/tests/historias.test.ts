@@ -152,4 +152,10 @@ describe("metric explainers and text", () => {
   it("keeps the story count consistent (no stale «Seis relatos»)", () => {
     expect(doc.body.textContent).not.toContain("Seis relatos");
   });
+
+  it("no arranca frases en minúscula tras punto (explicador de la cuota)", () => {
+    const text = doc.body.textContent ?? "";
+    expect(text).not.toContain("alquiler anual. la medida");
+    expect(text).toContain("alquiler anual. La medida");
+  });
 });
