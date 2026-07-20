@@ -4,6 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Donostia en datos · Datos y fuentes</title>
+<meta name="description" content="Catálogo completo de las métricas, series e indicadores que alimentan las historias de Donostia, con su cobertura, nivel de confianza y fuente original.">
+<link rel="canonical" href="https://stocastico.github.io/donostia-dataviz/datos.html">
+<!-- Tarjeta social (Open Graph + Twitter); imagen absoluta, copiada a la raíz en el deploy. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Donostia en datos">
+<meta property="og:title" content="Los datos: qué se usa y de dónde sale">
+<meta property="og:description" content="Catálogo de las métricas, series e indicadores de «Donostia en datos», con su cobertura, nivel de confianza y fuente — incluidas las fuentes descartadas.">
+<meta property="og:url" content="https://stocastico.github.io/donostia-dataviz/datos.html">
+<meta property="og:image" content="https://stocastico.github.io/donostia-dataviz/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bahía de La Concha con el título «Siete historias de una ciudad que cambia».">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Los datos: qué se usa y de dónde sale">
+<meta name="twitter:description" content="Catálogo de las métricas, series e indicadores de «Donostia en datos», con su confianza y su fuente.">
+<meta name="twitter:image" content="https://stocastico.github.io/donostia-dataviz/og-cover.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Fuentes cargadas de forma no bloqueante: la página se pinta al instante con la
@@ -58,6 +75,12 @@
   ul{padding-left:1.2em}
   li{margin:.4em 0;color:var(--ink2);font-size:.95rem}
   .fine{font-size:.8rem;color:#7d93a8;margin-top:36px;border-top:1px solid var(--line);padding-top:16px}
+  /* Compartir: fila discreta al pie. Enlaces de intent (sin scripts ni rastreo). */
+  .share{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+  .share .share-lab{font-size:.82rem;font-weight:700;color:var(--muted);margin-right:2px}
+  .share a.share-btn{display:inline-flex;align-items:center;font-size:.82rem;font-weight:600;text-decoration:none;
+    color:var(--sea-d);border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:#fff}
+  .share a.share-btn:hover{background:#eef4f8;border-color:var(--sea)}
 </style>
 </head>
 <body>
@@ -243,6 +266,12 @@
 
   <p class="fine">Donostia Dataviz · catálogo de datos y fuentes. Acompaña a <a href="historias.html">las historias</a>
     y a la <a href="metodologia.html">metodología</a>. Cada portal tiene sus propias condiciones de reutilización.</p>
+  <div class="share" aria-label="Compartir esta página">
+    <span class="share-lab">Compartir</span>
+    <a class="share-btn" href="https://twitter.com/intent/tweet?text=Los%20datos%20que%20alimentan%20%C2%ABDonostia%20en%20datos%C2%BB%3A%20m%C3%A9tricas%2C%20series%20y%20fuentes&url=https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2Fdatos.html" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X (Twitter)">X</a>
+    <a class="share-btn" href="https://bsky.app/intent/compose?text=Los%20datos%20que%20alimentan%20%C2%ABDonostia%20en%20datos%C2%BB%3A%20m%C3%A9tricas%2C%20series%20y%20fuentes%20https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2Fdatos.html" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Bluesky">Bluesky</a>
+    <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2Fdatos.html" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">LinkedIn</a>
+  </div>
 </div>
 </main>
 
