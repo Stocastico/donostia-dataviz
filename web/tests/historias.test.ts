@@ -110,6 +110,72 @@ describe("scrollytelling", () => {
   });
 });
 
+describe("blindaje renta del trabajo (cap. 1)", () => {
+  it("dibuja el ranking de esfuerzo con renta del trabajo, con una barra por barrio", () => {
+    const svg = doc.getElementById("press_labor")!;
+    expect(svg, "falta el gráfico #press_labor").toBeTruthy();
+    expect(svg.querySelectorAll("rect").length).toBeGreaterThanOrEqual(13);
+    const labels = [...svg.querySelectorAll("text")].map((t) => t.textContent ?? "");
+    // El centro encabeza cuando se mide con renta del trabajo.
+    expect(labels.some((l) => l.includes("Erdialdea"))).toBe(true);
+    expect(labels.some((l) => l.includes("Gros"))).toBe(true);
+  });
+});
+
+describe("quién trabaja: brecha de renta de género", () => {
+  it("pinta el mapa coroplético y su tabla-espejo por barrio", () => {
+    const svg = doc.getElementById("map_gender");
+    expect(svg, "falta el mapa #map_gender").toBeTruthy();
+    // Barrios pintados (con color), no solo el fondo sin dato.
+    const painted = [...svg!.querySelectorAll("path.barrio")].filter(
+      (p) => (p.getAttribute("fill") ?? "") !== "#eef1f5" && !p.classList.contains("nodata"),
+    );
+    expect(painted.length).toBeGreaterThanOrEqual(13);
+    // Tabla-espejo accesible (teclado / lector de pantalla), como en presión/velocidad.
+    const rows = doc.querySelectorAll("#rank_gender tbody tr");
+    expect(rows.length).toBeGreaterThanOrEqual(13);
+    const names = [...rows].map((r) => r.textContent ?? "");
+    expect(names.some((n) => n.includes("Egia"))).toBe(true);
+  });
+});
+
+describe("quién trabaja: la ciudad que importa trabajadores", () => {
+  it("dibuja la serie de empleos localizados con un punto por año", () => {
+    const svg = doc.getElementById("jobs_ts");
+    expect(svg, "falta el gráfico #jobs_ts").toBeTruthy();
+    // 1995–2025 = 31 años, un círculo por año.
+    expect(svg!.querySelectorAll("circle").length).toBeGreaterThanOrEqual(31);
+    expect(svg!.querySelectorAll("path").length).toBeGreaterThanOrEqual(1);
+  });
+});
+
+describe("accesibilidad", () => {
+  // Cada gráfico es un <svg> dibujado por JS; para un lector de pantalla debe
+  // anunciar QUÉ es (role="img" + aria-label). Un gráfico añadido más tarde que
+  // olvide su etiqueta falla aquí.
+  it("gives every svg.map role=\"img\" and a non-empty aria-label", () => {
+    const maps = [...doc.querySelectorAll("svg.map")];
+    expect(maps.length).toBeGreaterThanOrEqual(40);
+    const missing = maps
+      .filter((s) => s.getAttribute("role") !== "img" || !(s.getAttribute("aria-label") ?? "").trim())
+      .map((s) => s.id || "(sin id)");
+    expect(missing, `SVGs sin role/aria-label: ${missing.join(", ")}`).toEqual([]);
+  });
+
+  it("offers a skip link that targets the main landmark", () => {
+    const skip = doc.querySelector('a[href="#main"]');
+    expect(skip, "falta el enlace «saltar al contenido»").toBeTruthy();
+    expect((skip!.textContent ?? "").trim().length).toBeGreaterThan(0);
+    expect(doc.getElementById("main"), 'el <main> necesita id="main"').toBeTruthy();
+  });
+
+  it("labels the sticky section nav", () => {
+    const nav = doc.querySelector("nav.toc");
+    expect(nav).toBeTruthy();
+    expect((nav!.getAttribute("aria-label") ?? "").trim().length).toBeGreaterThan(0);
+  });
+});
+
 describe("metric explainers and text", () => {
   it("explains the complex metrics in plain language boxes", () => {
     const expl = doc.querySelectorAll(".metric-expl");
@@ -124,5 +190,11 @@ describe("metric explainers and text", () => {
 
   it("keeps the story count consistent (no stale «Seis relatos»)", () => {
     expect(doc.body.textContent).not.toContain("Seis relatos");
+  });
+
+  it("no arranca frases en minúscula tras punto (explicador de la cuota)", () => {
+    const text = doc.body.textContent ?? "";
+    expect(text).not.toContain("alquiler anual. la medida");
+    expect(text).toContain("alquiler anual. La medida");
   });
 });

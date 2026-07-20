@@ -22,7 +22,7 @@ const htmlPath = resolve(here, "../../output/historias.html");
 
 interface MetricValue { v: number; period: string }
 interface Dono {
-  pressure_inputs: Record<string, { rent: number; income: number; name: string }>;
+  pressure_inputs: Record<string, { rent: number; income: number; income_labor: number; name: string }>;
   velocity: Record<string, Record<string, number>>;
   ageing_series: Record<string, Record<string, number>>;
   youth_series: Record<string, Record<string, number>>;
@@ -33,6 +33,11 @@ interface Dono {
   climate: { reg: Record<string, number[]> };
   an5: { year: number; gini: number; gini_pond: number }[];
   leadlag: { lag: number; r: number }[];
+  work: {
+    jobs_located: Record<string, number>;
+    concentration: Record<string, number>;
+    resident_work_pct: Record<string, number>;
+  };
 }
 
 let D: Dono;
@@ -76,6 +81,29 @@ describe("cap. 1 — la ciudad que se encarece", () => {
   it("el este obrero encabeza el ranking de esfuerzo (paso 1 del scrolly)", () => {
     const sorted = Object.keys(D.pressure_inputs).sort((a, b) => cuota(b) - cuota(a));
     expect(sorted.slice(0, 3).sort()).toEqual(["altza", "egia", "intxaurrondo"]);
+  });
+
+  // Blindaje MET-1: la renta per cápita total incluye pensiones y capital, muy
+  // presentes en el centro envejecido. Re-derivar el esfuerzo con la renta *del
+  // trabajo* invierte el ranking — el centro pasa a encabezarlo. El dato debe
+  // estar embebido y el hallazgo debe mantenerse mientras el blob no cambie.
+  const cuotaLabor = (k: string, m2 = 30) => {
+    const o = D.pressure_inputs[k];
+    return (o.rent * 12 * m2) / o.income_labor * 100;
+  };
+  it("embebe income_labor (renta del trabajo) para cada barrio con presión", () => {
+    for (const k of Object.keys(D.pressure_inputs)) {
+      expect(typeof D.pressure_inputs[k].income_labor, `income_labor de ${k}`).toBe("number");
+      expect(D.pressure_inputs[k].income_labor).toBeGreaterThan(0);
+      // La renta del trabajo es un subconjunto de la total.
+      expect(D.pressure_inputs[k].income_labor).toBeLessThanOrEqual(D.pressure_inputs[k].income);
+    }
+  });
+  it("con renta del trabajo el esfuerzo se invierte: Erdialdea y Gros encabezan", () => {
+    const sorted = Object.keys(D.pressure_inputs).sort((a, b) => cuotaLabor(b) - cuotaLabor(a));
+    expect(sorted.slice(0, 2).sort()).toEqual(["erdialdea", "gros"]);
+    expect(r1(cuotaLabor("erdialdea"))).toBe(35.7);
+    expect(r1(cuotaLabor("gros"))).toBe(34.9);
   });
 
   it("Gini ponderado «estable (~0,10)»", () => {
@@ -124,6 +152,38 @@ describe("cap. 3 — quién vive Donostia", () => {
 
   it("adultos jóvenes 2025: Intxaurrondo 21 %", () => {
     expect(r0(D.youth_series.intxaurrondo["2025"])).toBe(21);
+  });
+});
+
+describe("cap. 4 — quién trabaja Donostia", () => {
+  it("empleos localizados: crecen de ~66.000 (1995) a ~103.000 (2025)", () => {
+    const w = D.work.jobs_located;
+    const years = Object.keys(w).sort();
+    expect(w[years[0]]).toBeGreaterThan(60000);
+    expect(w[years[0]]).toBeLessThan(70000);
+    expect(w[years[years.length - 1]]).toBe(103446);
+  });
+
+  it("ratio de concentración de empleo > 1 siempre y ~1,20 en 2024 (importa trabajadores)", () => {
+    const c = D.work.concentration;
+    for (const y of Object.keys(c)) expect(c[y], `ratio ${y}`).toBeGreaterThan(1);
+    expect(r2(c["2024"])).toBe(1.2);
+  });
+
+  it("~66 % de los ocupados residentes trabajan en la propia ciudad (2024)", () => {
+    expect(r0(D.work.resident_work_pct["2024"])).toBe(66);
+  });
+
+  it("brecha de renta de género (2023): mínima en los barrios densos y jóvenes, máxima en los pequeños/residenciales", () => {
+    const g = D.metrics.income_gender_gap;
+    const val = (k: string) => g[k].v;
+    // El menor gap de toda la ciudad es Egia; Igeldo (rural, muestra pequeña) el mayor.
+    const sorted = Object.keys(g).sort((a, b) => val(a) - val(b));
+    expect(sorted[0]).toBe("egia");
+    expect(sorted[sorted.length - 1]).toBe("igeldo");
+    // Patrón robusto entre barrios urbanos: joven/mixto < acomodado/tradicional.
+    expect(val("egia")).toBeLessThan(val("aiete"));
+    expect(val("intxaurrondo")).toBeLessThan(val("antigua"));
   });
 });
 

@@ -58,6 +58,9 @@ jobs:
           # para que los enlaces existentes entre páginas sigan funcionando.
           cp output/historias.html _site/index.html
           cp output/historias.html output/metodologia.html output/datos.html _site/
+          # imagen de la tarjeta social (Open Graph/Twitter): las tres páginas la
+          # referencian por URL absoluta, así que debe vivir en la raíz del sitio.
+          cp output/og-cover.png _site/
           # tablas tidy canónicas: alimentan los enlaces «↓ CSV» de cada gráfico
           # y el bloque «datos completos» del pie (rutas datos/procesado/tablas/*.csv).
           mkdir -p _site/datos/procesado/tablas
