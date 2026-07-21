@@ -126,5 +126,8 @@ describe("Dashboard (smoke, real data)", () => {
       expect(screen.getByRole("img", { name: /Mapa coroplético/ })).toBeTruthy();
     });
     expect(screen.getAllByRole("rowheader").length).toBeGreaterThan(10); // 19 barrios
-  });
+    // 15s (vs. el default de 5s): monta el Dashboard real y carga la métrica por
+    // defecto vía import.meta.glob; bajo la suite completa en paralelo la
+    // contención de CPU lo empujaba por encima de 5s de forma intermitente.
+  }, 15000);
 });
