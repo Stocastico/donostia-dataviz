@@ -86,6 +86,15 @@
   .hero h1{font-size:clamp(2.1rem,5vw,3.5rem);margin:0 0 18px;color:#fff;max-width:16ch}
   .hero p.lede{font-size:1.18rem;max-width:62ch;color:#dcf0f6;margin:0 0 6px}
   .hero .meta{margin-top:26px;font-size:.86rem;color:#a9d6e3}
+  /* Enlaces principales del proyecto, visibles desde el primer pantallazo
+     (en la barra de navegación quedan plegados tras «Más ▾» en escritorio). */
+  .hero .quicklinks{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+  .hero .quicklinks a{display:inline-block;padding:8px 16px;border-radius:999px;
+    font-size:.85rem;font-weight:700;text-decoration:none;color:#eaf6fb;
+    border:1px solid rgba(234,246,251,.45);background:rgba(255,255,255,.08)}
+  .hero .quicklinks a:hover{background:rgba(255,255,255,.18);border-color:rgba(234,246,251,.8)}
+  .hero .quicklinks a.primary{background:#e7b57e;border-color:#e7b57e;color:#0a313d}
+  .hero .quicklinks a.primary:hover{background:#f0c795;border-color:#f0c795}
 
   /* NAV */
   nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
@@ -355,6 +364,12 @@
       que los habitan y las <strong style="color:#fff">dos ciudades</strong>, la turística y la vivida,
       que conviven sobre el mismo plano.</p>
     <p class="meta">Fuentes: Donostia Open Data · Eustat · Gobierno Vasco (EMA) · INE · AEMET (Igeldo) · Inside Airbnb</p>
+    <p class="quicklinks">
+      <a class="primary" href="app/">Panel interactivo: todas las visualizaciones</a>
+      <a href="metodologia.html">Metodología</a>
+      <a href="datos.html">Datos</a>
+      <a href="working-paper.html">Working paper</a>
+    </p>
   </div>
   <p class="credit">Foto: bahía de La Concha desde Igeldo, <a href="https://commons.wikimedia.org/wiki/File:San_Sebastian_Bay_Panorama.jpg">Phillip Maiwald</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></p>
 </header>
@@ -370,7 +385,7 @@
     <a href="#s4">5 · Clima</a>
     <a href="#s5">6 · Turismo</a>
     <a href="#s6">7 · Síntesis</a>
-    <a href="#sx">+ · Contexto y percepción</a>
+    <a href="#sx">+ · Percepción y datos</a>
     <a href="#s7">? · Límites</a>
     <details class="more">
       <summary>Más ▾</summary>
@@ -933,7 +948,7 @@
         <div><p class="eyebrow">Capítulo 4 · Las personas: quién trabaja</p><h2 class="story-title">Quién trabaja Donostia</h2></div>
       </div>
       <p class="question">Si el capítulo anterior contó quién <em>vive</em> en cada barrio, este pregunta de dónde viene esa población y en qué trabaja la ciudad, sin reducir «lo extranjero» a un solo perfil.</p>
-      <p>La cifra de «% de población extranjera» es cómoda pero engañosa: mete en el mismo saco a poblaciones que se mueven en sentido <strong>opuesto</strong> respecto a la renta del barrio. En 2025 el <strong>9,4 %</strong> de Donostia había nacido fuera de España (era el 5,2 % en 2015 y menos del 1 % en 2000), pero ese agregado esconde ritmos y perfiles muy distintos. Este capítulo separa el origen por regiones y lo cruza con la renta y los estudios; luego mira en qué trabaja la ciudad (mucha investigación, y un abanico salarial ancho) y termina con un aviso: <strong>no existe</strong> ninguna estadística pública que cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a este grano, así que todo lo que sigue es <em>triangulación</em>, nunca una foto individual.</p>
+      <p>La cifra de «% de población extranjera» es cómoda pero engañosa: mete en el mismo saco a poblaciones que se mueven en sentido <strong>opuesto</strong> respecto a la renta del barrio. En 2025 el <strong>9,4 %</strong> de Donostia había nacido fuera de España (era el 5,2 % en 2015 y menos del 1 % en 2000), pero ese agregado esconde ritmos y perfiles muy distintos. Este capítulo separa el origen por regiones y lo cruza con la renta y los estudios; luego mira en qué trabaja la ciudad (mucha investigación, y un abanico salarial ancho) y en cómo se reparte ese trabajo, donde aparecen dos desigualdades más, transversales a todos los barrios: la brecha de renta entre hombres y mujeres, y la frontera diaria entre quien vive en la ciudad y quien solo viene a trabajarla cada mañana. Y termina con un aviso: <strong>no existe</strong> ninguna estadística pública que cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a este grano, así que todo lo que sigue es <em>triangulación</em>, nunca una foto individual.</p>
     </div>
 
     <div class="scrolly" data-scrolly="org">
@@ -1026,9 +1041,11 @@
     </div>
 
     <div class="narrow">
-      <p>Y hay una desigualdad del trabajo que el mapa hace evidente: la <strong>brecha de renta entre hombres y
-        mujeres</strong>. En los diecisiete barrios con dato la renta media de ellas queda <strong>siempre</strong>
-        por debajo de la de ellos; lo que cambia mucho de un barrio a otro es <em>cuánto</em>.</p>
+      <p>El abanico salarial anterior repartía por ocupación. Pero hay una desigualdad del trabajo que atraviesa
+        todas las ocupaciones y todos los orígenes, y que el mapa hace evidente: la <strong>brecha de renta entre
+        hombres y mujeres</strong>. En los diecisiete barrios con dato la renta media de ellas queda
+        <strong>siempre</strong> por debajo de la de ellos; lo que cambia mucho de un barrio a otro es
+        <em>cuánto</em>.</p>
     </div>
 
     <div class="fig">
@@ -1085,7 +1102,7 @@
     <div class="narrow">
       <div class="takeaway">
         <span class="t-lab">La conclusión</span>
-        <p>Donostia no atrae «un» perfil de extranjero, sino al menos <strong>dos</strong> que ni viven en los mismos barrios ni tienen la misma renta: una migración económica, sobre todo latinoamericana, y magrebí, asentada en el este de renta baja, y un goteo europeo-occidental cualificado en el centro caro. La ciudad, a la vez, tiene una intensidad investigadora que dobla la media española <em>y</em> una base amplia de empleo de servicios mal pagado, y funciona como <strong>polo de empleo metropolitano</strong>: ofrece más puestos de los que tienen sus residentes e importa trabajadores cada mañana. Leer «% de extranjeros» como una sola cosa (o como señal de gentrificación) borra justamente esta doble estructura.</p>
+        <p>Donostia no atrae «un» perfil de extranjero, sino al menos <strong>dos</strong> que ni viven en los mismos barrios ni tienen la misma renta: una migración económica, sobre todo latinoamericana, y magrebí, asentada en el este de renta baja, y un goteo europeo-occidental cualificado en el centro caro. La ciudad, a la vez, tiene una intensidad investigadora que dobla la media española <em>y</em> una base amplia de empleo de servicios mal pagado, y funciona como <strong>polo de empleo metropolitano</strong>: ofrece más puestos de los que tienen sus residentes e importa trabajadores cada mañana. Y una desigualdad atraviesa todo lo anterior sin distinguir barrio ni origen: en los diecisiete barrios con dato, la renta media de las mujeres nunca alcanza a la de los hombres; lo que varía (del ~20 % al ~44 %) es el tamaño de la brecha. Leer «% de extranjeros» como una sola cosa (o como señal de gentrificación) borra justamente esta doble estructura.</p>
       </div>
       <span class="conf"><span class="dot observed"></span><b>Observado + derivado.</b>&nbsp;El origen por barrio es padrón (registro completo); el empleo por nacionalidad/continente es <strong>EPA: encuesta con submuestras pequeñas</strong> a nivel Gipuzkoa (el orden entre grupos es robusto; las cifras exactas llevan error de muestreo). Las correlaciones son agregados de barrio o de Gipuzkoa (falacia ecológica), <strong>nunca</strong> lecturas individuales. No existe cruce nacionalidad&nbsp;×&nbsp;ocupación&nbsp;×&nbsp;salario a grano municipal ni provincial; todo el vínculo origen↔trabajo es triangulación, no medición.</span>
     </div>
@@ -1180,7 +1197,7 @@
         (anuncios de Airbnb por cada 1.000 habitantes) y la compara con las viviendas de uso
         turístico (VUT) registradas.</p>
       <p>Los datos de Airbnb (Inside Airbnb, foto de junio de 2026) capturan un universo <strong>más amplio
-        que los VUT legales</strong>, porque incluyen alojamientos no registrados (aunque de una sola plataforma: son un <em>suelo</em> del alquiler turístico online, no su total, ya que Booking y otras quedan fuera). Aun así, el patrón coincide: el turismo se agolpa en el centro.</p>
+        que los VUT legales</strong>, porque incluyen alojamientos no registrados (aunque de una sola plataforma: son un <em>suelo</em> del alquiler turístico online, no su total, ya que Booking y otras quedan fuera). Aun así, el patrón coincide: el turismo se agolpa en el centro. El capítulo recorre esa geografía y termina poniendo a prueba las dos acusaciones más repetidas contra el turismo: que empuja el alquiler, y que no deja dormir.</p>
     </div>
 
     <div class="scrolly" data-scrolly="tour">
@@ -1380,11 +1397,12 @@
     </div>
 
     <div class="narrow">
-      <p>El ruido nocturno se puede bajar del barrio a la <strong>trama urbana</strong>. El mapa
-        estratégico municipal (Lnight, 2022) dibuja las zonas donde el nivel nocturno iguala o supera
-        los umbrales de la OMS y la directiva europea (<strong>55, 60, 65 y 70 dB</strong>), a partir
-        de los cuales se documenta alteración del sueño. Sobre OpenStreetMap, con zoom, se ve calle a
-        calle qué ejes concentran el ruido.</p>
+      <p>Queda por juzgar la segunda acusación, la molestia más citada contra la ciudad turística: el
+        <strong>ruido</strong>. ¿La ciudad que no deja dormir es la del visitante? El mapa estratégico
+        municipal (Lnight, 2022) permite responder calle a calle: dibuja las zonas donde el nivel nocturno
+        iguala o supera los umbrales de la OMS y la directiva europea (<strong>55, 60, 65 y 70 dB</strong>),
+        a partir de los cuales se documenta alteración del sueño. Sobre OpenStreetMap, con zoom, se ve
+        qué ejes concentran el ruido.</p>
     </div>
 
     <div class="fig">
@@ -1394,10 +1412,10 @@
         anidados: cada uno cubre por completo a los más ruidosos.</p>
       <div class="leafmap tall" id="map_noise"></div>
       <div class="legend" id="leg_noise"></div>
-      <p style="font-size:.92rem;margin-top:14px">El ruido nocturno <strong>no</strong> es un proxy de vida
-        turística: el mapa está dominado por el <strong>tráfico</strong>, con los máximos sobre los grandes
-        ejes viarios (la variante, Amara, el corredor ferroviario), no sobre las zonas de ocio. Es una capa
-        ambiental de calidad de vida, no una medida de turismo.</p>
+      <p style="font-size:.92rem;margin-top:14px">La respuesta del mapa es una absolución: el ruido nocturno
+        <strong>no</strong> sigue a la vida turística sino al <strong>tráfico</strong>, con los máximos sobre
+        los grandes ejes viarios (la variante, Amara, el corredor ferroviario), no sobre las zonas de ocio.
+        La segunda acusación tampoco se sostiene: quien quita el sueño en Donostia es, sobre todo, el coche.</p>
       <p class="src">Donostia Open Data: mapa estratégico de ruido nocturno (Lnight) 2022: contornos de
         iso-nivel reproyectados a WGS84 y simplificados para la web. Umbrales 55/60/65/70 dB (noche). El nivel
         de 50 dB, mucho más extenso, se omite para no saturar el mapa.</p>
@@ -1416,8 +1434,9 @@
           concentra en Parte Vieja, Centro y Gros, mientras la ciudad vivida (escuelas, residentes) se reparte por
           la periferia. El turismo crece mucho más rápido que la hotelería tradicional, aunque buena parte de ese ×6 es actividad y adopción de plataforma, no camas nuevas: la oferta real apenas se movió. Cada zona vive el turismo a su
           manera: presión <strong>crónica</strong> de todo el año en el centro, dependencia del verano en la
-          periferia. Que además empuje al alquiler no quedó demostrado: el indicio direccional no superó el
-          control por shocks comunes de año.</p>
+          periferia. Y las dos acusaciones habituales salen absueltas con estos datos: que el turismo empuje al
+          alquiler no quedó demostrado (el indicio direccional no superó el control por shocks comunes de año),
+          y el ruido nocturno tampoco es suyo: lo dominan el tráfico y los grandes ejes viarios, no el ocio.</p>
       </div>
       <span class="conf"><span class="dot proxy"></span><b>Derivado / proxy.</b>&nbsp;La densidad Airbnb es derivada (join espacial + per cápita); las reseñas son un <em>proxy</em> de ocupación que infraestima las estancias reales y crece con la adopción de la plataforma (en 2023&ndash;2026 exageran el crecimiento de oferta ×1,22).</span>
     </div>
@@ -1692,61 +1711,21 @@
   </div>
 </section>
 
-<!-- ====================== APÉNDICE FINAL: CONTEXTO Y PERCEPCIÓN ====================== -->
+<!-- ====================== APÉNDICE FINAL: PERCEPCIÓN Y DATOS ====================== -->
 <section class="story sx" id="sx">
   <div class="wrap">
     <div class="narrow">
       <div class="story-head">
         <div class="badge-num">+</div>
-        <div><p class="eyebrow">Apéndice · contexto y percepción</p><h2 class="story-title">La ciudad de fondo, y lo que preocupa a quien la vive</h2></div>
+        <div><p class="eyebrow">Apéndice · percepción y datos</p><h2 class="story-title">Lo que preocupa a la ciudad, contrastado con sus datos</h2></div>
       </div>
-      <p>Más allá de los barrios, algunos indicadores de ciudad enmarcan las siete historias: la
-        estacionalidad turística que presiona el alquiler, y la evolución de los servicios y los ingresos
-        municipales. No tienen detalle por barrio, pero dan el contexto. La segunda mitad de este apéndice
-        cierra el círculo por el otro lado: no lo que miden los datos, sino lo que preocupa a quien vive la
-        ciudad, y si ambas cosas coinciden.</p>
-    </div>
-
-    <div class="fig">
-      <h3>Estacionalidad turística: pernoctaciones por mes y año</h3>
-      <p class="cap">Cada fila es un año (2005–2026), cada columna un mes. Verano intenso, franja pálida en 2020 (COVID) y meses de hombro calentándose con los años: la desestacionalización.</p>
-      <div class="mapwrap"><svg class="map" id="season"></svg></div>
-      <div class="legend" id="leg_season"></div>
-      <p class="src">INE EOH (tabla 2078): pernoctaciones España + extranjero. Solo establecimientos hoteleros: pensiones y apartamentos turísticos no incluidos.</p>
-    </div>
-
-    <div class="grid2">
-      <div class="fig" style="margin-top:0">
-        <h3>Reciclaje: recogida selectiva</h3>
-        <p class="cap">% de residuos urbanos recogidos de forma selectiva.</p>
-        <div class="mapwrap"><svg class="map" id="recycling"></svg></div>
-        <p class="src">Donostia Open Data: residuos (ámbito urbano). Objetivo UE: 55 %.</p>
-      </div>
-      <div class="fig" style="margin-top:0">
-        <h3>Fiscalidad municipal</h3>
-        <p class="cap">Impuestos y tasas emitidos (M€ nominales).</p>
-        <div class="mapwrap"><svg class="map" id="fiscal"></svg></div>
-        <p class="src">Donostia Open Data: importes emitidos, € nominales.</p>
-      </div>
-    </div>
-
-    <div class="fig">
-      <h3>Turismo de congresos (MICE)</h3>
-      <p class="cap">Congresos internacionales ICCA por año, y el récord de actividad de 2024.</p>
-      <div class="grid2">
-        <div><div class="mapwrap"><svg class="map" id="icca" style="max-width:520px;margin:0 auto"></svg></div></div>
-        <div>
-          <div class="kn" style="margin-top:6px"><div class="big">188</div><div class="lbl">Eventos profesionales en 2024 (récord), con <b>259.000</b> participantes y un 50 % internacionales.</div></div>
-        </div>
-      </div>
-      <p class="src">DSS Convention Bureau / ICCA Statistics Report.</p>
-    </div>
-
-    <div class="narrow">
-      <span class="conf"><span class="dot observed"></span><b>Observado / curado.</b>&nbsp;Indicadores de ciudad (no por barrio); los datos MICE están curados de notas de prensa citadas.</span>
-
-      <h3 style="margin-top:38px">Lo que preocupa a la ciudad, y lo que dicen los datos</h3>
-      <p>En 2026 el Ayuntamiento preguntó a 1.213 vecinos qué les preocupa. El podio: <strong>1.º la vivienda, 2.º la inseguridad</strong> (que sube con fuerza) <strong>y 3.º el turismo</strong>, que entra nuevo al top-3 (un 82&nbsp;% pide «que no crezca más»). Son percepciones; con los datos abiertos de este mismo proyecto se pueden contrastar una a una, capítulo a capítulo. A veces la percepción acierta (y a veces cuenta otra historia).</p>
+      <p>Las siete historias miden la ciudad; este apéndice la escucha. En 2026 el Ayuntamiento preguntó a
+        <strong>1.213 vecinos</strong> qué les preocupa, y el podio quedó así: <strong>1.º la vivienda, 2.º la
+        inseguridad</strong> (que sube con fuerza) <strong>y 3.º el turismo</strong>, que entra nuevo al top-3
+        (un 82&nbsp;% pide «que no crezca más»). Son percepciones; con los datos abiertos de este mismo
+        proyecto se pueden contrastar una a una. A veces la percepción acierta (y a veces cuenta otra
+        historia). Se comprueban aquí las tres preocupaciones del podio, más una cuarta que la propia encuesta
+        señala: el ruido. Empezando por la que más ha cambiado.</p>
 
       <p><strong>Inseguridad: falso a largo plazo, real hace poco.</strong> La sensación de que «la seguridad ha bajado mucho» es <strong>falsa</strong> si se mira lejos: las familias que declaran algún problema de seguridad eran el <strong>35,4&nbsp;% en 1989</strong> y bajaron hasta el <strong>14,6&nbsp;% en 2019</strong>. Pero el <strong>repunte reciente es real</strong>: 2024 sube al <strong>21,5&nbsp;%</strong>, y esta vez el delito acompaña. La serie oficial de criminalidad de <strong>Gipuzkoa</strong> estuvo plana toda la década de 2010 y <strong>sube un 34&nbsp;% entre 2019 y 2024</strong> (25.016&nbsp;→&nbsp;33.425 infracciones), tirada por el patrimonio y los hurtos (+30/+32&nbsp;%) y por los delitos contra la libertad sexual (+78&nbsp;%) y contra las personas (+53&nbsp;%).</p>
     </div>
@@ -1765,9 +1744,33 @@
       <p>El titular es de <strong>dos tiempos</strong>: la alarma «de toda la vida» no se sostiene (la ciudad se percibe hoy mucho más segura que en los años 80 y 90), pero el empeoramiento de los últimos años no es solo una impresión.</p>
       <span class="conf"><span class="dot observed"></span><b>Observado / curado, ojo a la escala.</b>&nbsp;La percepción es una <strong>encuesta</strong> (Eustat) de la <strong>zona comarcal</strong> de Donostia, cada cinco años. La criminalidad completa es de <strong>Gipuzkoa entera</strong> (Donostia ≈ un tercio de la provincia): es el <strong>telón de fondo regional</strong> de la tendencia, no el dato exacto de la ciudad. Ambas son de ciudad/provincia, no por barrio.</span>
 
-      <p style="margin-top:26px"><strong>Turismo: preocupa el stock, no el goteo de licencias.</strong> El turismo entra al podio justo cuando las <strong>altas de nuevas licencias</strong> de piso turístico están en mínimos: de <strong>300 al año en 2017 a 18 en 2025</strong>. Lo que pesa no es el flujo de nuevas licencias, sino el <strong>stock acumulado</strong> (1.329 licencias y 5.706 plazas, en máximos) y el <strong>volumen</strong>: las pernoctaciones marcan récord (2,2 millones en 2025). Y ese volumen se reparte cada vez más por el calendario: el peso del verano cae del 36&nbsp;% al 32&nbsp;% y los meses de temporada baja crecen un 44&nbsp;% más rápido que agosto (el heatmap de este mismo apéndice); el MICE (récord de 259.000 congresistas en 2024) encaja como una de las causas de ese relleno, aunque sin calendario mensual de eventos no se puede aislar.</p>
+      <p style="margin-top:26px"><strong>Turismo: preocupa el stock, no el goteo de licencias.</strong> El turismo entra al podio justo cuando las <strong>altas de nuevas licencias</strong> de piso turístico están en mínimos: de <strong>300 al año en 2017 a 18 en 2025</strong>. Lo que pesa no es el flujo de nuevas licencias, sino el <strong>stock acumulado</strong> (1.329 licencias y 5.706 plazas, en máximos) y el <strong>volumen</strong>: las pernoctaciones marcan récord (2,2 millones en 2025). Y ese volumen se reparte cada vez más por el calendario, como enseñan las dos figuras que siguen: el peso del verano cae del 36&nbsp;% al 32&nbsp;% y los meses de temporada baja crecen un 44&nbsp;% más rápido que agosto (el heatmap); el turismo de congresos (récord de 259.000 congresistas en 2024) encaja como una de las causas de ese relleno, aunque sin calendario mensual de eventos no se puede aislar.</p>
+    </div>
 
-      <p><strong>Ruido: es el tráfico, no el turismo.</strong> La encuesta del ruido señala como más ruidosos la Parte Vieja, Amara Berri, Egia, Gros y Añorga. Cruzados con los datos del proyecto, esos barrios coinciden con la <strong>isla de calor</strong> y con el <strong>ruido medido</strong> (correlaciones ≈&nbsp;0,7, la misma geografía del este denso), pero <strong>no</strong> con la densidad de pisos turísticos (≈&nbsp;0,47, y solo porque el centro turístico es además el más denso). Amara Berri, Egia o Añorga son ruidosos sin apenas turismo. Coincide con lo que el proyecto ya sabía (el ruido es de tráfico, no de turismo) y con lo que pide la propia encuesta: <strong>menos tráfico</strong>.</p>
+    <div class="fig">
+      <h3>Estacionalidad turística: pernoctaciones por mes y año</h3>
+      <p class="cap">Cada fila es un año (2005–2026), cada columna un mes. Verano intenso, franja pálida en 2020 (COVID) y meses de hombro calentándose con los años: la desestacionalización que percibe el vecino, medida.</p>
+      <div class="mapwrap"><svg class="map" id="season"></svg></div>
+      <div class="legend" id="leg_season"></div>
+      <p class="src">INE EOH (tabla 2078): pernoctaciones España + extranjero. Solo establecimientos hoteleros: pensiones y apartamentos turísticos no incluidos.</p>
+    </div>
+
+    <div class="fig">
+      <h3>Turismo de congresos (MICE): el relleno de la temporada baja</h3>
+      <p class="cap">Congresos internacionales ICCA por año, y el récord de actividad de 2024: el candidato más claro a explicar por qué los meses de hombro del heatmap se van llenando.</p>
+      <div class="grid2">
+        <div><div class="mapwrap"><svg class="map" id="icca" style="max-width:520px;margin:0 auto"></svg></div></div>
+        <div>
+          <div class="kn" style="margin-top:6px"><div class="big">188</div><div class="lbl">Eventos profesionales en 2024 (récord), con <b>259.000</b> participantes y un 50 % internacionales.</div></div>
+        </div>
+      </div>
+      <p class="src">DSS Convention Bureau / ICCA Statistics Report.</p>
+    </div>
+
+    <div class="narrow">
+      <span class="conf"><span class="dot observed"></span><b>Observado / curado.</b>&nbsp;Pernoctaciones y congresos son indicadores de ciudad (no por barrio); los datos MICE están curados de notas de prensa citadas.</span>
+
+      <p style="margin-top:26px"><strong>Ruido: es el tráfico, no el turismo.</strong> La encuesta del ruido señala como más ruidosos la Parte Vieja, Amara Berri, Egia, Gros y Añorga. Cruzados con los datos del proyecto, esos barrios coinciden con la <strong>isla de calor</strong> y con el <strong>ruido medido</strong> (correlaciones ≈&nbsp;0,7, la misma geografía del este denso), pero <strong>no</strong> con la densidad de pisos turísticos (≈&nbsp;0,47, y solo porque el centro turístico es además el más denso). Amara Berri, Egia o Añorga son ruidosos sin apenas turismo. Coincide con lo que el proyecto ya sabía (el ruido es de tráfico, no de turismo: es la absolución del mapa calle a calle del <a href="#s5">capítulo 6</a>) y con lo que pide la propia encuesta: <strong>menos tráfico</strong>.</p>
 
       <p><strong>Vivienda: la presión no es uniforme, y ni siquiera se puede medir entera.</strong> El alquiler no sube igual en todas partes: entre los barrios con serie, el <strong>este obrero más barato sube más rápido</strong> (Loiola +48&nbsp;%, Intxaurrondo +44&nbsp;% de 2016 a 2024) que los barrios de alquiler ya caro (Erdialdea +29&nbsp;%, Egia +28&nbsp;%): converge en porcentaje, aunque la brecha en euros por metro persiste (véase el <a href="#s1">capítulo 1</a>). Y hay un punto ciego: <strong>seis de los diecinueve barrios no tienen ningún dato</strong> de alquiler (Zubieta, Igeldo, Añorga, Miramón-Zorroaga y los dos exclaves rurales), porque su mercado de alquiler es demasiado pequeño para registrar contratos. Sobre ellos, sencillamente, no se puede afirmar nada: un registro parcial no es el universo.</p>
 
@@ -1777,6 +1780,11 @@
         a un «ahora» lo que en seguridad es, en parte, una comparación con un pasado que ya había mejorado
         mucho. Es la misma disciplina que ha guiado las siete historias anteriores, aplicada esta vez a la
         vecindad en vez de al dato: contrastar antes de concluir.</p>
+
+      <p class="src" style="margin-top:22px">Otros indicadores de ciudad que enmarcan estas historias sin
+        entrar en ellas (recogida selectiva de residuos, fiscalidad municipal, gasto del turista...) no se
+        cuentan aquí: están catalogados en la <a href="datos.html">página de datos</a> y se pueden explorar
+        en el <a href="app/">panel interactivo</a>.</p>
     </div>
   </div>
 </section>
@@ -1853,8 +1861,8 @@
     <div class="cols">
       <div>
         <h3>Sobre estas historias</h3>
-        <p>Siete historias construidas sobre datos abiertos de Donostia y sus barrios, más un apéndice de
-          contexto y percepción vecinal y un epílogo de límites. Todos los números son
+        <p>Siete historias construidas sobre datos abiertos de Donostia y sus barrios, más un apéndice que
+          contrasta la percepción vecinal con los datos y un epílogo de límites. Todos los números son
           reproducibles desde el pipeline del proyecto y los scripts de análisis; cada métrica lleva su nivel
           de confianza (observado / derivado / proxy).</p>
         <p><b>Cómo leer los avisos:</b> <span class="dot observed"></span> observado · <span class="dot derived"></span> derivado · <span class="dot proxy"></span> proxy.</p>
@@ -1883,7 +1891,7 @@
       <div>
         <h3>Fuentes</h3>
         <ul>
-          <li>Donostia Open Data (padrón, VUT, residuos, fiscalidad)</li>
+          <li>Donostia Open Data (padrón, VUT, equipamientos, ruido)</li>
           <li>Eustat (renta por barrio)</li>
           <li>Gobierno Vasco: EMA (alquiler €/m²)</li>
           <li>INE EOH (pernoctaciones)</li>
@@ -1899,7 +1907,7 @@
       <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">LinkedIn</a>
     </div>
     <p class="fine">Donostia Dataviz · documento narrativo generado a partir de las tablas del proyecto.
-      Siete historias completas más un apéndice de contexto y percepción de ciudad. Correlación ≠ causalidad.</p>
+      Siete historias completas más un apéndice de percepción y datos. Correlación ≠ causalidad.</p>
   </div>
 </footer>
 
@@ -2542,13 +2550,8 @@ function heatmapG(svgId,monthly,stops,unit,dec,legId){
   });
 })();
 
-/* ============ SECCIÓN 5: contexto ============ */
+/* ============ APÉNDICE: percepción y datos ============ */
 heatmapG('season',D.climate.overnight_monthly,['#f7fcf5','#c7e9c0','#74c476','#31a354','#006d2c'],'pernoctaciones',0,'leg_season');
-lineChart('recycling',D.indicators.recycling_rate.series,{color:'#2a9d6f',unit:'%',dec:1,lo:25,hi:45,yticks:4});
-multiLineChart('fiscal',[
-  {data:D.indicators.tax_revenue.series,color:'#1f6f8b',label:'Impuestos (M€)'},
-  {data:D.indicators.fee_revenue.series,color:'#e0902f',label:'Tasas (M€)'}
-],{lo:0,hi:120,dec:0,unit:'M€',yticks:4});
 multiLineChart('icca',[
   {data:D.indicators.mice_icca_congresses.series,color:'#8e7cc3',label:'Congresos ICCA'}
 ],{lo:0,hi:20,dec:0,unit:'congresos',yticks:4,legend:false});
@@ -3151,7 +3154,7 @@ if(typeof IntersectionObserver!=='undefined'){
     map_streets:'calles_vut.csv',
     stripes:'series_long.csv',trend:'series_long.csv',hotdays:'series_long.csv',cycles:'series_long.csv',
     season:'series_long.csv',airbnb_season:'series_long.csv',tourindex:'series_long.csv',
-    recycling:'indicators_long.csv',fiscal:'indicators_long.csv',icca:'indicators_long.csv',
+    icca:'indicators_long.csv',
     randd:'indicators_long.csv',perc_chart:'indicators_long.csv',crime_chart:'indicators_long.csv'
   };
   // los gráficos de análisis puro (sin tabla canónica) generan su CSV en el
