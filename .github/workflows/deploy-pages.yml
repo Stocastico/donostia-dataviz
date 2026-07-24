@@ -5,11 +5,9 @@
 # interactivo (web/) bajo app/. Los enlaces relativos entre páginas funcionan
 # porque todas viven en la raíz salvo la app, que enlaza hacia arriba.
 #
-# Despliegue SOLO MANUAL (decisión del usuario, jul-2026): se lanza desde la
-# pestaña Actions → "Deploy site (GitHub Pages)" → Run workflow, sobre main.
-# Ni el merge ni ningún push publican nada: el usuario revisa los textos y
-# decide cuándo salir. (Si algún día se quiere autodeploy al merge, basta
-# añadir aquí un trigger `push: branches: [main]`.)
+# Despliegue automático en cada push/merge a main (decisión del usuario,
+# jul-2026; antes era solo manual). El lanzamiento manual sigue disponible
+# desde la pestaña Actions → "Deploy site (GitHub Pages)" → Run workflow.
 #
 # Requisito de una sola vez: Settings → Pages → Source = "GitHub Actions"
 # (configure-pages intenta activarlo solo con `enablement: true`).
@@ -17,6 +15,8 @@ name: Deploy site (GitHub Pages)
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
