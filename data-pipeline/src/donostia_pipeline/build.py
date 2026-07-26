@@ -12,6 +12,7 @@ import json
 import os
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -477,6 +478,12 @@ def _write_json(path: Path, payload: object) -> None:
     )
 
 
+def _write_manifest(path: Path) -> None:
+    """Stamp the date this build produced output (drives "datos descargados
+    el ..." on the site — see docs/PLAN-CIERRE.md / FUENTES.md "Vigencia")."""
+    _write_json(path, {"generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d")})
+
+
 def run(offline: bool = False) -> dict:
     ensure_raw(offline)
     out_dir = config.WEB_DATA_DIR
@@ -633,6 +640,9 @@ def run(offline: bool = False) -> dict:
         export_tables.indicator_long_rows(indicators),
     )
     print(f"  ✓ CSV tables → {tables.name}/ (barrios, metrics_long, series_long, indicators_long)")
+
+    _write_manifest(config.MANIFEST_PATH)
+    print("  ✓ manifest.json (generated_at stamped)")
 
     return {
         "barrios": len(valid_ids),

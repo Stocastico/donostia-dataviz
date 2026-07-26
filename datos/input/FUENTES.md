@@ -7,6 +7,13 @@
 > cambios aguas arriba eran mínimos (AEMET añade jun-2026; censo VUT −2
 > unidades; padrón ±1 hab.) — no se refrescó el repo para no desincronizar las
 > cifras citadas en los relatos (ver BACKLOG §Datos crudos).
+>
+> Esta fecha se estampa sola: cada build completo (`python -m
+> donostia_pipeline.build`) escribe `datos/procesado/manifest.json` con la
+> fecha del día, y el deploy del sitio la lee de ahí para el aviso "datos
+> descargados el ..." en cabecera. Refrescos parciales de una sola fuente
+> (como el de Inside Airbnb más abajo) siguen documentándose a mano aquí,
+> porque no mueven la fecha del build completo.
 
 Registro de **todos los datos de entrada** del proyecto: de dónde salen, qué
 alimentan y cómo obtenerlos. Los ficheros crudos grandes/binarios y los que

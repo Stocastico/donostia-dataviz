@@ -50,6 +50,41 @@ jobs:
         run: |
           pip install "markdown>=3.5"
           python scripts/build_working_paper.py --out _site/working-paper.html
+      - name: Estampar fechas de vigencia (build + datos)
+        run: |
+          python3 - <<'PY'
+          import json
+          import pathlib
+          import subprocess
+
+          MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+                    "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+
+          def formato_es(iso: str) -> str:
+              anio, mes, dia = (int(p) for p in iso.split("-"))
+              return f"{dia} de {MESES[mes - 1]} de {anio}"
+
+          # Fecha de página: la del commit que se está desplegando (determinista
+          # ante reintentos del workflow sobre el mismo commit).
+          commit_date = subprocess.check_output(
+              ["git", "log", "-1", "--format=%cd", "--date=format:%Y-%m-%d"], text=True
+          ).strip()
+          build_date = formato_es(commit_date)
+
+          # Fecha de datos: la estampa el pipeline en datos/procesado/manifest.json
+          # (donostia_pipeline.build) cada vez que alguien corre un build completo.
+          manifest_path = pathlib.Path("datos/procesado/manifest.json")
+          if manifest_path.exists():
+              data_date = formato_es(json.loads(manifest_path.read_text())["generated_at"])
+          else:
+              data_date = "sin registrar"
+
+          for name in ("historias.html", "metodologia.html", "datos.html"):
+              page = pathlib.Path("output") / name
+              text = page.read_text(encoding="utf-8")
+              text = text.replace("{{BUILD_DATE}}", build_date).replace("{{DATA_DATE}}", data_date)
+              page.write_text(text, encoding="utf-8")
+          PY
       - name: Assemble site (historias como portada + app bajo app/)
         run: |
           mkdir -p _site/app
