@@ -53,6 +53,7 @@
   .hero .eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;font-weight:700;color:#e7b57e;margin:0 0 12px}
   .hero h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:0 0 14px;color:#fff}
   .hero p.lede{font-size:1.08rem;max-width:62ch;color:#dcf0f6;margin:0}
+  .hero .freshness{margin-top:14px;font-size:.78rem;color:#8fc0cf}
   nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
   nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
   nav.toc .brand{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}
@@ -92,6 +93,7 @@
     <p class="lede">Catálogo completo de las métricas, series e indicadores que alimentan
       <a href="historias.html" style="color:#bfe3ef">las historias</a>, con su cobertura, su nivel de
       confianza y su fuente original — incluidas las fuentes que se cayeron o se descartaron.</p>
+    <p class="freshness">Datos descargados por última vez: {{DATA_DATE}} · Página actualizada: {{BUILD_DATE}}</p>
   </div>
 </header>
 

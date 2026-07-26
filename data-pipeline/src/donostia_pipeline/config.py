@@ -22,6 +22,10 @@ CURATED_DIR = PIPELINE_ROOT.parent / "datos" / "input"
 WEB_DATA_DIR = PIPELINE_ROOT.parent / "web" / "src" / "data"
 # …and language-agnostic tidy CSV tables here, for reuse outside the app.
 TABLES_DIR = PIPELINE_ROOT.parent / "datos" / "procesado" / "tablas"
+# Stamped with today's date on every ``build.run()`` — the single source of
+# truth the site deploy reads to show "datos descargados el ..." without
+# anyone having to edit HTML by hand.
+MANIFEST_PATH = PIPELINE_ROOT.parent / "datos" / "procesado" / "manifest.json"
 
 # ---------------------------------------------------------------------------
 # Source URLs (see docs/SOURCES.md for access status)

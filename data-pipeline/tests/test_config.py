@@ -34,6 +34,10 @@ def test_tables_dir_points_at_datos_procesado():
     assert config.TABLES_DIR == config.PIPELINE_ROOT.parent / "datos" / "procesado" / "tablas"
 
 
+def test_manifest_path_points_at_datos_procesado():
+    assert config.MANIFEST_PATH == config.PIPELINE_ROOT.parent / "datos" / "procesado" / "manifest.json"
+
+
 def test_web_data_dir_is_unchanged():
     # Vite's import.meta.glob in web/src/lib/data.ts expects these JSON files
     # inside web/src/, so this one stays put (unlike TABLES_DIR/CURATED_DIR).
