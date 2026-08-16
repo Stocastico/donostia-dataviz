@@ -166,18 +166,28 @@ Todas las cifras citadas en la documentación y en `output/historias.html` son
 El proyecto se publica como un único sitio estático:
 
 - **El relato** (las siete historias) es la **portada**:
-  `https://stocastico.github.io/donostia-dataviz/` (también `…/historias.html`)
+  `https://stefanomasneri.com/donostia-dataviz/` (también `…/historias.html`).
+  GitHub Pages sirve el sitio bajo el dominio propio del autor: la URL
+  `stocastico.github.io/donostia-dataviz/` **redirige (301)** hasta ahí, así que
+  el dominio canónico —y el que usan `og:url`, la tarjeta social y los botones
+  de compartir— es siempre `stefanomasneri.com`
 - **Metodología**: `…/metodologia.html` · **datos y fuentes**: `…/datos.html`
 - **Working paper** (DOC-6): `…/working-paper.html`, generado en cada deploy
   desde `docs/WORKING-PAPER.md` por `scripts/build_working_paper.py`
 - **Panel interactivo** (la app React): `…/app/`
 
-El despliegue lo hace `.github/workflows/deploy-pages.yml` y es **solo manual**:
-pestaña *Actions → Deploy site (GitHub Pages) → Run workflow* (sobre `main`).
-Construye `web/` con `VITE_BASE=/donostia-dataviz/app/`, copia los HTML
-autocontenidos de `output/` a la raíz (historias también como `index.html`) y
-convierte el working paper de markdown a HTML. **Ningún merge ni push
-publica nada por sí solo**: se revisan los textos y se lanza cuando se decide.
+El despliegue lo hace `.github/workflows/deploy-pages.yml` en **cada push a
+`main`**; el lanzamiento manual sigue disponible en *Actions → Deploy site
+(GitHub Pages) → Run workflow*. Construye `web/` con
+`VITE_BASE=/donostia-dataviz/app/`, copia los HTML autocontenidos de `output/` a
+la raíz (historias también como `index.html`) y convierte el working paper de
+markdown a HTML.
+
+Las cuatro páginas y el panel llevan un enlace de vuelta a
+`stefanomasneri.com` (barra de navegación) y la firma de autoría en el pie: el
+proyecto es una pieza de ese sitio, no una isla. Los tests que atan ambas cosas
+—dominio canónico y enlace de autoría— son `web/tests/social-meta.test.ts`,
+`web/tests/authorship.test.ts` y `analysis/tests/test_working_paper_html.py`.
 
 > **Activación (una sola vez):** en *Settings → Pages*, poner **Source =
 > "GitHub Actions"**. El workflow intenta activarlo solo (`enablement: true`);

@@ -30,6 +30,10 @@ TEMPLATE = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Donostia en datos · Working paper</title>
+<!-- El sitio se publica bajo stefanomasneri.com/donostia-dataviz/; la URL de
+     GitHub Pages solo redirige (301) hasta aquí, así que el canonical apunta
+     al dominio propio para no repartir la señal de indexación. -->
+<link rel="canonical" href="https://stefanomasneri.com/donostia-dataviz/working-paper.html">
 <style>
   :root{{
     --ink:#14233a; --ink2:#3a4a63; --muted:#5f6e84; --line:#e2e7ef;
@@ -52,6 +56,7 @@ TEMPLATE = """<!DOCTYPE html>
   nav.toc{{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}}
   nav.toc .wrap{{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}}
   nav.toc .brand{{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}}
+  nav.toc a.home{{color:var(--sea-d);font-weight:700}}
   nav.toc a{{color:var(--ink2);text-decoration:none;font-size:.85rem;font-weight:600;padding:7px 12px;border-radius:999px}}
   nav.toc a:hover{{background:#eef4f8;color:var(--sea-d)}}
   main{{padding:40px 0 60px}}
@@ -70,6 +75,8 @@ TEMPLATE = """<!DOCTYPE html>
   th,td{{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top;color:var(--ink2)}}
   th{{background:#eef4f8;color:var(--sea-d);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}}
   .fine{{font-size:.8rem;color:#7d93a8;margin-top:36px;border-top:1px solid var(--line);padding-top:16px}}
+  .author{{font-size:.9rem;color:var(--ink2);margin:14px 0 0}}
+  .author a{{color:var(--sea-d);font-weight:700}}
 </style>
 </head>
 <body>
@@ -83,8 +90,9 @@ TEMPLATE = """<!DOCTYPE html>
 
 <nav class="toc">
   <div class="wrap">
+    <a class="home" href="https://stefanomasneri.com/">← stefanomasneri.com</a>
     <span class="brand">Donostia en datos</span>
-    <a href="historias.html">← Historias</a>
+    <a href="historias.html">Historias</a>
     <a href="metodologia.html">Metodología</a>
     <a href="datos.html">Datos y fuentes</a>
     <a href="app/">Panel interactivo</a>
@@ -97,6 +105,8 @@ TEMPLATE = """<!DOCTYPE html>
   <p class="fine">Generado automáticamente a partir de <code>docs/WORKING-PAPER.md</code> en cada
     despliegue del sitio · Proyecto Donostia Dataviz ·
     <a href="https://github.com/Stocastico/donostia-dataviz">código y pipeline en GitHub</a>.</p>
+  <p class="author">Un proyecto de <a href="https://stefanomasneri.com/">Stefano Masneri ·
+    stefanomasneri.com</a>, donde vive el resto de su trabajo.</p>
 </div>
 </main>
 

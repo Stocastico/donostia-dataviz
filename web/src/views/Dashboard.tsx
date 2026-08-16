@@ -93,6 +93,9 @@ export function Dashboard() {
   return (
     <div className="dashboard">
       <header className="app-header">
+        <a className="home-link" href="https://stefanomasneri.com/">
+          ← stefanomasneri.com
+        </a>
         <h1>Donostia Dataviz</h1>
         <p>La evolución de Donostia / San Sebastián por barrio.</p>
       </header>
@@ -212,6 +215,11 @@ export function Dashboard() {
           <a href={`${import.meta.env.BASE_URL}../working-paper.html`}>working paper</a>. Código y
           pipeline reproducible:{" "}
           <a href="https://github.com/Stocastico/donostia-dataviz">GitHub</a>.
+        </p>
+        <p className="author">
+          Un proyecto de{" "}
+          <a href="https://stefanomasneri.com/">Stefano Masneri · stefanomasneri.com</a>, donde vive
+          el resto de su trabajo.
         </p>
       </footer>
     </div>

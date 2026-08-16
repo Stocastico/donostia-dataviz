@@ -130,4 +130,17 @@ describe("Dashboard (smoke, real data)", () => {
     // defecto vía import.meta.glob; bajo la suite completa en paralelo la
     // contención de CPU lo empujaba por encima de 5s de forma intermitente.
   }, 15000);
+
+  it("ofrece la vuelta a la web del autor desde la cabecera y firma el pie", async () => {
+    // El panel es la página más profunda del sitio (…/donostia-dataviz/app/) y
+    // la que más se enlaza suelta: también tiene que decir de quién es.
+    const { Dashboard } = await import("../src/views/Dashboard");
+    render(<Dashboard />);
+    const enlaces = screen
+      .getAllByRole("link")
+      .filter((a) => a.getAttribute("href") === "https://stefanomasneri.com/");
+    expect(enlaces.length, "falta el enlace a stefanomasneri.com").toBeGreaterThanOrEqual(2);
+    expect(enlaces.some((a) => a.textContent?.includes("stefanomasneri.com"))).toBe(true);
+    expect(enlaces.some((a) => a.textContent?.includes("Stefano Masneri"))).toBe(true);
+  }, 15000);
 });
