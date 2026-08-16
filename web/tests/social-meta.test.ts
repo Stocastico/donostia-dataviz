@@ -2,6 +2,12 @@
 // published pages. A page shared on X/Bluesky/LinkedIn/Slack must render a card
 // (Open Graph + Twitter tags, absolute image URL) and offer a discreet way to
 // share it. These are static tags, so we assert on the raw HTML.
+//
+// El dominio importa tanto como las etiquetas: el sitio se publica bajo
+// stefanomasneri.com y stocastico.github.io solo redirige (301) hacia allí. Si
+// el canonical, og:url o los botones de compartir apuntan a github.io, Google
+// puede indexar la copia equivocada y cada vez que alguien comparte la página
+// promociona un dominio que no es el del autor.
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -10,7 +16,7 @@ import { dirname, resolve } from "node:path";
 const here = dirname(fileURLToPath(import.meta.url));
 const out = (f: string) => readFileSync(resolve(here, "../../output", f), "utf-8");
 
-const SITE = "https://stocastico.github.io/donostia-dataviz";
+const SITE = "https://stefanomasneri.com/donostia-dataviz";
 const OG_IMAGE = `${SITE}/og-cover.png`;
 
 const PAGES: { file: string; url: string }[] = [
@@ -73,5 +79,18 @@ describe.each(PAGES)("botones de compartir — $file", ({ file, url }) => {
   it("los enlaces de compartir abren en pestaña nueva de forma segura", () => {
     // Al menos un rel con noopener en la zona de compartir.
     expect(html).toMatch(/rel=["'][^"']*noopener[^"']*["']/i);
+  });
+});
+
+describe.each(PAGES)("dominio publicado — $file", ({ file }) => {
+  const html = out(file);
+
+  it("no menciona stocastico.github.io en ninguna URL", () => {
+    // github.io solo redirige al dominio propio: dejar esas URLs en el HTML
+    // reparte señal de SEO y enlaces sociales al sitio equivocado. (github.com,
+    // el enlace al repositorio, sí es legítimo y no lo toca esta comprobación.)
+    // Cubre también los intents de compartir: al percent-encodificar la URL
+    // (…?url=https%3A%2F%2F…) el host viaja literal, sin escapar.
+    expect(html).not.toContain("github.io");
   });
 });

@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Siete historias, con datos abiertos y reproducibles, de cómo se transforma Donostia / San Sebastián: vivienda, barrios, personas, clima y las dos ciudades, la turística y la vivida.">
 <title>Donostia en datos · Siete historias de una ciudad que cambia</title>
-<link rel="canonical" href="https://stocastico.github.io/donostia-dataviz/">
+<!-- Canonical, og:url y botones de compartir viven en el dominio propio: el sitio
+     se publica en stefanomasneri.com/donostia-dataviz/ y la URL de GitHub Pages
+     solo redirige (301) hasta aquí. Apuntar a esa otra URL repartiría la señal
+     de indexación y haría que cada vez que alguien comparte la página se
+     promocione un dominio que no es el del proyecto. -->
+<link rel="canonical" href="https://stefanomasneri.com/donostia-dataviz/">
 <!-- Tarjeta social (Open Graph + Twitter). La imagen og-cover.png se copia a la
      raíz del sitio en el deploy; la URL es absoluta porque los scrapers no
      resuelven rutas relativas ni data-URIs. -->
@@ -13,8 +18,8 @@
 <meta property="og:site_name" content="Donostia en datos">
 <meta property="og:title" content="Siete historias de una ciudad que cambia">
 <meta property="og:description" content="Cómo se transforma Donostia / San Sebastián, contado con datos abiertos y reproducibles: vivienda, barrios, personas, clima y las dos ciudades, la turística y la vivida.">
-<meta property="og:url" content="https://stocastico.github.io/donostia-dataviz/">
-<meta property="og:image" content="https://stocastico.github.io/donostia-dataviz/og-cover.png">
+<meta property="og:url" content="https://stefanomasneri.com/donostia-dataviz/">
+<meta property="og:image" content="https://stefanomasneri.com/donostia-dataviz/og-cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Bahía de La Concha con el título «Siete historias de una ciudad que cambia».">
@@ -22,7 +27,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Siete historias de una ciudad que cambia">
 <meta name="twitter:description" content="Cómo se transforma Donostia / San Sebastián, con datos abiertos y reproducibles: vivienda, barrios, personas, clima y turismo.">
-<meta name="twitter:image" content="https://stocastico.github.io/donostia-dataviz/og-cover.png">
+<meta name="twitter:image" content="https://stefanomasneri.com/donostia-dataviz/og-cover.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Fuentes cargadas de forma no bloqueante: la página se pinta al instante con la
@@ -102,6 +107,9 @@
     backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
   nav.toc .wrap{display:flex;gap:2px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
   nav.toc .brand{font-weight:800;color:var(--sea-d);margin-right:auto;font-size:.95rem}
+  /* Vuelta al sitio del autor: este relato es una pieza de stefanomasneri.com,
+     así que la salida hacia allí acompaña siempre a la marca. */
+  nav.toc a.home{color:var(--sea-d);font-weight:700}
   nav.toc a{color:var(--ink2);text-decoration:none;font-size:.82rem;font-weight:600;
     padding:7px 10px;border-radius:999px;white-space:nowrap}
   nav.toc a:hover{background:#eef4f8;color:var(--sea-d)}
@@ -349,6 +357,9 @@
   footer.foot p,footer.foot li{font-size:.86rem;color:#a9bccd}
   footer.foot ul{margin:.4em 0;padding-left:1.1em}
   .fine{font-size:.78rem;color:#7d93a8;margin-top:30px;border-top:1px solid #21384a;padding-top:18px}
+  footer.foot .author{font-size:.92rem;color:#dbe7f1;margin:18px 0 0}
+  footer.foot .author a{color:#fff;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+  footer.foot .author a:hover{border-bottom-color:#fff}
 </style>
 </head>
 <body>
@@ -378,6 +389,7 @@
 
 <nav class="toc" aria-label="Secciones del relato">
   <div class="wrap">
+    <a class="home" href="https://stefanomasneri.com/">← stefanomasneri.com</a>
     <span class="brand">Donostia en datos</span>
     <a href="#intro">0 · Intro</a>
     <a href="#s1">1 · Vivienda</a>
@@ -1904,12 +1916,14 @@
     </div>
     <div class="share" aria-label="Compartir estas historias">
       <span class="share-lab">Compartir</span>
-      <a class="share-btn" href="https://twitter.com/intent/tweet?text=Siete%20historias%20de%20una%20ciudad%20que%20cambia%2C%20Donostia%20%2F%20San%20Sebasti%C3%A1n%20en%20datos%20abiertos&url=https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X (Twitter)">X</a>
-      <a class="share-btn" href="https://bsky.app/intent/compose?text=Siete%20historias%20de%20una%20ciudad%20que%20cambia%2C%20Donostia%20%2F%20San%20Sebasti%C3%A1n%20en%20datos%20abiertos%20https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Bluesky">Bluesky</a>
-      <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fstocastico.github.io%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">LinkedIn</a>
+      <a class="share-btn" href="https://twitter.com/intent/tweet?text=Siete%20historias%20de%20una%20ciudad%20que%20cambia%2C%20Donostia%20%2F%20San%20Sebasti%C3%A1n%20en%20datos%20abiertos&url=https%3A%2F%2Fstefanomasneri.com%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X (Twitter)">X</a>
+      <a class="share-btn" href="https://bsky.app/intent/compose?text=Siete%20historias%20de%20una%20ciudad%20que%20cambia%2C%20Donostia%20%2F%20San%20Sebasti%C3%A1n%20en%20datos%20abiertos%20https%3A%2F%2Fstefanomasneri.com%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Bluesky">Bluesky</a>
+      <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fstefanomasneri.com%2Fdonostia-dataviz%2F" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">LinkedIn</a>
     </div>
     <p class="fine">Donostia Dataviz · documento narrativo generado a partir de las tablas del proyecto.
       Siete historias completas más un apéndice de percepción y datos. Correlación ≠ causalidad.</p>
+    <p class="author">Un proyecto de <a href="https://stefanomasneri.com/">Stefano Masneri ·
+      stefanomasneri.com</a>, donde vive el resto de su trabajo.</p>
   </div>
 </footer>
 

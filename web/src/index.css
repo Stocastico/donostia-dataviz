@@ -48,6 +48,21 @@ p {
   padding: 1.5rem 1.25rem 3rem;
 }
 
+/* Vuelta al sitio del autor: el panel es la página más profunda del sitio
+   (…/donostia-dataviz/app/) y la que más se enlaza suelta, así que la salida
+   hacia stefanomasneri.com encabeza la cabecera. */
+.app-header .home-link {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+.app-header .home-link:hover {
+  text-decoration: underline;
+}
+
 .app-header h1 {
   margin: 0;
   font-size: 1.6rem;
@@ -66,6 +81,14 @@ p {
 }
 .app-footer a {
   color: var(--accent);
+}
+.app-footer .author {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--fg);
+}
+.app-footer .author a {
+  font-weight: 700;
 }
 
 .controls {

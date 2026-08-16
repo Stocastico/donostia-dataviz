@@ -42,6 +42,28 @@ def test_nav_enlaza_a_las_paginas_hermanas(html):
         assert href in html, f"falta el enlace a {href} en la nav"
 
 
+def test_declara_el_canonical_del_dominio_propio(html):
+    # El sitio se sirve en stefanomasneri.com; stocastico.github.io solo
+    # redirige (301) hacia allí. Sin canonical propio, el buscador puede
+    # quedarse con la copia equivocada.
+    assert (
+        '<link rel="canonical" '
+        'href="https://stefanomasneri.com/donostia-dataviz/working-paper.html">' in html
+    )
+    assert "github.io" not in html
+
+
+def test_enlaza_a_la_web_del_autor(html):
+    # Nav (visible con cualquier scroll) y firma en el pie: el paper también es
+    # una puerta de entrada al sitio y no puede ser una isla.
+    nav = html[html.index('<nav class="toc">') : html.index("</nav>")]
+    assert 'href="https://stefanomasneri.com/"' in nav, "falta el enlace en la nav"
+    assert "stefanomasneri.com" in nav
+    pie = html[html.rindex('<p class="fine">') :]
+    assert 'href="https://stefanomasneri.com/"' in pie, "falta la firma en el pie"
+    assert "Stefano Masneri" in pie
+
+
 def test_sin_restos_de_markdown(html):
     # Si la conversión se rompe, el síntoma típico son marcas crudas.
     assert "\n## " not in html
